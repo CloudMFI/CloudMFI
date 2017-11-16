@@ -1,0 +1,3 @@
+Approve Date,Reference,Brand code,Group name,Customer ID,Customer Name,Product Code,Product Type,Currency,Amount,Disburse,Paid,By Co,Status,Frequency,Principle Frequency,Rate Type,Interest Rate,Term,Installment Date,EmployeeID,GuarantorID,Join Lease ID,Join Guarantor ID,Note,Product Detail
+31/10/2017,LID-00000012,BR001,,22,Som Borin,GL-0001,,C001,1000000,1000000,,1,activated,7,1,6,2%,10,31/10/2017,,,,,,
+31/10/2017,LID-00000013,BR001,,23,Som Borin,GL-0001,,C001,1000000,1000000,,1,activated,7,1,6,2%,10,31/10/2017,,,,,,
