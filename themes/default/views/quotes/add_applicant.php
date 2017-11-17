@@ -147,8 +147,8 @@
 																<?= lang("gender", "cus_gender"); ?>
 																<?php
 																$cus_gender[(isset($_POST['cus_gender']) ? $_POST['cus_gender'] : '')] = (isset($_POST['cus_gender']) ? $_POST['cus_gender'] : '');
-																$cus_gender['ប្រុស'] = "ប្រុស";
-																$cus_gender['ស្រី'] = "ស្រី";
+																$cus_gender['male'] = "Male";
+																$cus_gender['female'] = "Female";
 																echo form_dropdown('cus_gender', $cus_gender, isset($customer->gender)?$customer->gender:'', 'class="form-control select" id="cus_gender" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" data-bv-notempty="true"')
 																?>
 															</div>
@@ -242,8 +242,8 @@
 																<?= lang("spouse_gender", "sp_gender"); ?>
 																<?php
 																$sp_gender[(isset($_POST['sp_gender']) ? $_POST['sp_gender'] : '')] = (isset($_POST['sp_gender']) ? $_POST['sp_gender'] : '');
-																$sp_gender['ប្រុស'] = "ប្រុស";
-																$sp_gender['ស្រី'] = "ស្រី";
+																$sp_gender['male'] = "Male";
+																$sp_gender['female'] = "Female";
 																echo form_dropdown('sp_gender', $sp_gender, isset($customer->spouse_gender)?$customer->spouse_gender:'', 'class="form-control select" id="sp_gender" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" ')
 																?>
 															</div>
@@ -986,8 +986,8 @@
 																<?= lang("gender", "jl_gender"); ?>
 																<?php
 																$jl_gender[(isset($_POST['jl_gender']) ? $_POST['jl_gender'] : '')] = (isset($_POST['jl_gender']) ? $_POST['jl_gender'] : '');
-																$jl_gender['ប្រុស'] = "ប្រុស";
-																$jl_gender['ស្រី'] = "ស្រី";
+																$jl_gender['male'] = "male";
+																$jl_gender['female'] = "Female";
 																echo form_dropdown('jl_gender', $jl_gender, isset($_POST['jl_gender'])?$_POST['jl_gender']:'', 'class="form-control select" id="jl_gender" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" data-bv-notempty="true"')
 																?>
 															</div>
@@ -1273,8 +1273,8 @@
 																			<?= lang("gender", "gender"); ?>
 																			<?php
 																			$gender[ (isset($_POST['gender']) ? $_POST['gender'] : '')] =  (isset($_POST['gender']) ? $_POST['gender'] : '');
-																			$gender['ប្រុស'] = "ប្រុស";
-																			$gender['ស្រី'] = "ស្រី";
+																			$gender['male'] = "Male";
+																			$gender['female'] = "Female";
 																			echo form_dropdown('gender', $gender, isset($customer->gender)?$customer->gender:'', 'class="form-control select" id="gender" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" ')
 																			?>
 																		</div>
@@ -1368,8 +1368,8 @@
 																			<?= lang("gender", "gender2"); ?>
 																			<?php
 																			$gender[ (isset($_POST['gender2']) ? $_POST['gender2'] : '')] =  (isset($_POST['gender2']) ? $_POST['gender2'] : '');
-																			$gender['ប្រុស'] = "ប្រុស";
-																			$gender['ស្រី'] = "ស្រី";
+																			$gender['male'] = "Male";
+																			$gender['female'] = "Female";
 																			echo form_dropdown('gender2', $gender, isset($customer->gender)?$customer->gender:'', 'class="form-control select" id="gender2" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" ')
 																			?>
 																		</div>
