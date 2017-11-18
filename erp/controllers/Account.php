@@ -4126,8 +4126,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 				$payment_status	= "partial";		
 			}else{
 				$payment_status	= "received";
-			}
-			
+			}			
 			////////////////
 			$owed_paid = 0;
 			if($paid_amount > $owed_paids_amount){

@@ -153,7 +153,7 @@ class Quotes_model extends CI_Model
 		return false;
     }
 	public function getContractByID($id)
-    {
+    { 
 		$this->db
                 ->select($this->db->dbprefix('sales').".id,".
 						$this->db->dbprefix('sales').".reference_no,
@@ -183,8 +183,8 @@ class Quotes_model extends CI_Model
 				->join('companies as myBranch', 'sales.branch_id= myBranch.id')
 				->join('products', 'sale_items.product_id = products.id', 'INNER')
 				->where($this->db->dbprefix('sales').'.id', $id)
-				->where($this->db->dbprefix('sales').'.sale_status', 'activated')
-				->or_where($this->db->dbprefix('sales').'.sale_status', 'registered')
+				//->where($this->db->dbprefix('sales').'.sale_status', 'activated')
+				//->or_where($this->db->dbprefix('sales').'.sale_status', 'registered')
 				->group_by('sales.id');
 				$q = $this->db->get();
 				if ($q->num_rows() > 0) {
