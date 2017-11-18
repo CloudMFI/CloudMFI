@@ -655,6 +655,7 @@ class Quotes extends MY_Controller
 							'name_other'             => $this->input->post('cus_first_name_other'),
 							'family_name'            => $this->input->post('cus_family_name'),
 							'family_name_other'      => $this->input->post('cus_family_name_other'),
+							'father_name'            => $this->input->post('father_name'),
 							'nickname'               => $this->input->post('cus_nick_name'),
                             'spouse_name'            => $this->input->post('cus_sp_fname'),
  							'spouse_family_name'     => $this->input->post('cus_sp_fam_name'),
@@ -1230,6 +1231,7 @@ class Quotes extends MY_Controller
 
             $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
 			$quote = $this->quotes_model->getQuoteByID($id); 
+			//$this->erp->print_arrays($quote);
             $this->data['inv'] = $quote;
             $inv_items = $this->quotes_model->getAllQuoteItems($id);
             $c = rand(100000, 9999999);
@@ -1664,6 +1666,7 @@ class Quotes extends MY_Controller
                             'name_other'             => $this->input->post('cus_first_name_other'),
                             'family_name'            => $this->input->post('cus_family_name'),
                             'family_name_other'      => $this->input->post('cus_family_name_other'),
+							'father_name'            => $this->input->post('father_name'),
                             'nickname'               => $this->input->post('cus_nick_name'),
                             'spouse_name'            => $this->input->post('cus_sp_fname'),
                             'spouse_family_name'     => $this->input->post('cus_sp_fam_name'),
@@ -2807,12 +2810,13 @@ class Quotes extends MY_Controller
 		$applicant = $this->site->getCompanyCOName($quote->customer_id);
 		$this->data['applicant'] = $applicant;
 
-		$this->data['users'] = $this->quotes_model->getQuoteByID($id);
+		$this->data['users'] = $this->quotes_model->getUserQuoteByID($id);
 		$this->data['pts'] = $this->erp->getPaymentSchedule('1', $lease_amount, $rate_type, $interest_rate, $term, $frequency, $cdate ,$app_date, $currency, $principle_fq);
 		$this->data['all'] = $this->erp->getAllTotal($lease_amount, $rate_type, $interest_rate, $term, $frequency, $principle_fq);		
 		$this->data['modal_js'] = $this->site->modal_js();
         $this->load->view($this->theme.'installment_payment/cash_payment_schedule_applicant',$this->data);
 	}
+	
 	
 	function add_collateral($id = NULL)
     {	$this->load->model('quotes_model');
@@ -3071,6 +3075,7 @@ class Quotes extends MY_Controller
 							'name_other'             => $this->input->post('cus_first_name_other'),
 							'family_name'            => $this->input->post('cus_family_name'),
 							'family_name_other'      => $this->input->post('cus_family_name_other'),
+							'father_name'            => $this->input->post('father_name'),
 							'nickname'               => $this->input->post('cus_nick_name'),
                             'spouse_name'            => $this->input->post('cus_sp_fname'),
  							'spouse_family_name'     => $this->input->post('cus_sp_fam_name'),

@@ -207,8 +207,7 @@
 													
 												<!---->
 													<div class="col-lg-12">
-														<div class="col-md-6">
-															
+														<div class="col-md-6">															
 															<!--<div class="form-group">
 																<?= lang("civility", "cus_civility"); ?>
 																<?php
@@ -217,8 +216,7 @@
 																$cus_civility['female'] = "Mrs.";
 																echo form_dropdown('cus_civility', $cus_civility, isset($customer->civility)?$customer->civility:'', 'class="form-control select" id="cus_civility" placeholder="' . lang("select") . ' ' . lang("civility") . '" style="width:100%" data-bv-notempty="true"')
 																?>
-															</div>-->
-															
+															</div>-->															
 															<div class="form-group">
 																<?= lang("issue_by", "cus_issue_by"); ?>
 																<?php echo form_input('cus_issue_by', (isset($_POST['cus_issue_by']) ? $_POST['cus_issue_by'] : $applicant->issue_by), 'class="form-control" id="cus_issue_by"'); ?>
@@ -280,7 +278,7 @@
 																	foreach ($users as $user) {
 																		$us[$user->id] = $user->first_name . " " . $user->last_name;
 																	}}
-																	echo form_dropdown('cus_by_co', isset($us) ?$us  : (''), (isset($_POST['cus_by_co']) ? $_POST['cus_by_co'] : $applicant->created_by), 'class="form-control" id="cus_by_co" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("C.O") . '"');
+																	echo form_dropdown('cus_by_co', isset($us) ?$us  : (''), (isset($_POST['cus_by_co']) ? $_POST['cus_by_co'] : $applicant->created_by), 'class="form-control" id="cus_by_co" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("C.O") . '" data-bv-notempty="true"');
 																?>
 															</div>
 														</div>														
@@ -296,6 +294,10 @@
 															<div class="form-group">
 																<?= lang("first_name_(kh)", "cus_first_name_other"); ?>
 																<?php echo form_input('cus_first_name_other', (isset($_POST['cus_first_name_other']) ? $_POST['cus_first_name_other'] : $applicant->name_other), 'class="form-control" id="cus_first_name_other" data-bv-notempty="true"'); ?>
+															</div>
+															<div class="form-group">
+																<?= lang("father_name", "father_name"); ?>
+																<?php echo form_input('father_name', (isset($_POST['father_name']) ? $_POST['father_name'] : $applicant->father_name), 'class="form-control" id="father_name"'); ?>
 															</div>
 															<div class="form-group">
 																<?= lang("place_of_birth", "cus_pob"); ?>
@@ -343,8 +345,8 @@
 																<?= lang("spouse_status", "sp_status"); ?>
 																<?php
 																$sp_status[(isset($_POST['sp_status']) ? $_POST['sp_status'] : '')] = (isset($_POST['sp_status']) ? $_POST['sp_status'] : '');
-																$sp_status['ប្ដី'] = "ប្ដី";
-																$sp_status['ប្រពន្ធ'] = "ប្រពន្ធ";
+																$sp_status['husband'] = "Husband";
+																$sp_status['wife'] = "Wife";
 																echo form_dropdown('sp_status', $sp_status, isset($customer->spouse_status)?$customer->spouse_status:$applicant->spouse_status, 'class="form-control select" id="sp_status" placeholder="' . lang("select") . ' ' . lang("status") . '" style="width:100%"')
 																?>
 															</div>
@@ -622,7 +624,9 @@
 														</div>
 													</div>
 												</div>
-												
+												<?php 													
+													if( $services ){
+												?>
 												<div class="col-sm-12">
 													<div class="panel panel-primary">
 														<div class="panel-heading"><?= lang('services_fee') ?></div>
@@ -717,6 +721,7 @@
 														</div>
 													</div>
 												</div>
+												<?php } ?>
 												<div class="col-sm-12 hide_cash">
 													<div class="panel panel-primary">
 														<div class="panel-heading"><?= lang('financial_products') ?></div>
@@ -867,8 +872,6 @@
 																	$frequency_cash[7] = "Weekly";
 																	$frequency_cash[14] = "Two Week";
 																	$frequency_cash[30] = "Monthly";
-																	//$frequency_cash[90] = "Quarterly";
-																	//$frequency_cash[180] = "Haft Year";
 																	$frequency_cash[360] = "Yearly";
 																	echo form_dropdown('frequency_cash', $frequency_cash, (isset($_POST['frequency_cash']) ? $_POST['frequency_cash'] : ''), 'id="frequency_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("frequency") . '"  class="form-control input-tip select" style="width:100%;" data-bv-notempty="true"');
 																	?>

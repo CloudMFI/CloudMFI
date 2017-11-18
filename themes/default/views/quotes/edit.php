@@ -428,7 +428,7 @@
 																	foreach ($users as $user) {
 																		$us[$user->id] = $user->first_name . " " . $user->last_name;
 																	}}
-																	echo form_dropdown('cus_by_co', $us, $applicant->created_by, 'class="form-control" id="cus_by_co" placeholder="' . lang("Select_C.O_load") . '" ');																		
+																	echo form_dropdown('cus_by_co', $us, $applicant->created_by, 'class="form-control" id="cus_by_co" placeholder="' . lang("Select_C.O_load") . '" data-bv-notempty="true"');																		
 																?>
 															</div>
 														</div>
@@ -463,6 +463,10 @@
 															<div class="form-group">
 																<?= lang("first_name_(kh)", "cus_first_name_other"); ?>
 																<?php echo form_input('cus_first_name_other', $applicant->name_other, 'class="form-control" id="cus_first_name_other"'); ?>
+															</div>
+															<div class="form-group">
+																<?= lang("father_name", "father_name"); ?>
+																<?php echo form_input('father_name', $applicant->father_name, 'class="form-control" id="father_name"'); ?>
 															</div>
 															<div class="form-group">
 																<?= lang("place_of_birth", "cus_pob"); ?>
@@ -510,8 +514,8 @@
 																<?= lang("spouse_status", "sp_status"); ?>
 																<?php
 																$sp_status[""] = "";
-																$sp_status['ប្ដី'] = "ប្ដី";
-																$sp_status['ប្រពន្ធ'] = "ប្រពន្ធ";
+																$sp_status['husband'] = "Husband";
+																$sp_status['wife'] = "Wife";
 																echo form_dropdown('sp_status', $sp_status, isset($applicant->spouse_status)?$applicant->spouse_status:'', 'class="form-control select" id="sp_status" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" ')
 																?>
 															</div>															
@@ -766,7 +770,9 @@
 														</div>
 													</div>
 												</div>
-												
+												<?php 													
+													if( $services ){
+												?>
 												<div class="col-sm-12">
 													<div class="panel panel-primary">
 														<div class="panel-heading"><?= lang('services_fee') ?></div>
@@ -861,7 +867,7 @@
 														</div>
 													</div>
 												</div>
-												
+												<?php } ?>
 												<div class="col-sm-12 hide_cash">
 													<div class="panel panel-primary">
 														<div class="panel-heading"><?= lang('financial_product') ?></div>

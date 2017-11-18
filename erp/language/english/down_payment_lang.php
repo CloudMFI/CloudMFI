@@ -18,7 +18,7 @@
 
 //
 
-$lang["customer_kh"]					= "Customer Kh";
+$lang["customer_kh"]					= "Customer (Other)";
 $lang["model"]							= "Model";
 $lang["color"]							= "Color";
 $lang["advance_payment_percentage"]		= "Advance payment percentage";
@@ -158,7 +158,7 @@ $lang["term"]							= "Term";
 $lang["c.o_name"]						= "C.O Name";
 $lang["service_fee"]					= "Service Fee";
 $lang["customer_en"]					= "Customer (En)";
-$lang["customer_kh"]						= "Customer (Kh)";
+$lang["customer_kh"]						= "Customer (Other)";
 $lang["collateral_contract_identification"]	= "Collateral Contract Identification";
 $lang["collateral_contract_land"]			= "Collateral Lontract Land";
 $lang["import_applicants"]					= "Import Applicants";

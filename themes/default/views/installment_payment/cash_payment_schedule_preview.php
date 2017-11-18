@@ -89,10 +89,7 @@
 					<td class="b_top b_left b_right"></td>
 					<td class="b_top b_right"></td>
 				</tr>
-				<!--<tr>
-					<td>លេខគណនីកម្ចី</td><td class="color_blue">: N/A </td><td>លេខគណនីសន្សំ</td><td class="color_blue">: N/A </td>
-					<td class="b_left b_right"></td><td class="b_right"></td>
-				</tr>-->
+				 
 				<tr>
 					<td><?= lang("phone1") ?></td>
 					<td class="color_blue">: <span id="phone"></span></td>
@@ -102,10 +99,7 @@
 					<td class="b_left b_right" style="width:90px;"></td>
 					<td class=" b_right" style="width:90px;"></td>
 				</tr>
-				<!--<tr>
-					<td>ថ្ងៃបើកប្រាក់</td><td class="color_blue">: <?= $this->erp->hrsd(date('Y-m-d')); ?></td><td>ថ្ងៃសងចុងក្រោយ</td><td class="color_blue">: <?= $this->erp->hrsd($this->erp->getLastPaymentDate($term, $frequency, date('Y-m-d'))); ?></td>
-					<td class="b_left b_right" style="width:90px;"></td><td class=" b_right" style="width:90px;"></td>
-				</tr>-->
+				 
 				<tr>
 					<td><?= lang("term_loan") ?></td>
 					<td class="color_blue">: <?= number_format($term,0); ?> <?=lang("day") ?></td>
@@ -114,15 +108,7 @@
 					<td class="b_left b_right b_bottom t_c"><b>  </b></td>
 					<td class="b_right b_bottom"></td>
 				</tr>
-				<!--<tr>
-					<td>ឈ្មោះជាអក្សរឡាតាំង</td><td class="color_blue">: N/A</td><td>លើកទី</td><td class="color_blue">: 1</td>
-					<td class="b_left b_right b_bottom t_c"><b>  </b></td><td class="b_right b_bottom"></td>
-					
-					<td>លេខគណនីកម្ចី</td><td class="color_blue">: N/A </td>
-					<td>រយៈពេលខ្ចូ</td><td class="color_blue">: <?= number_format($term,0); ?>ថ្ងៃ</td>
-					<td>ឈ្មោះមន្ត្រីឥណទាន</td><td class="color_blue">: <?= $this->session->username; ?></td>
-					
-				</tr>-->
+				 
 				<tr>
 					<td><?= lang("total_balance_schedule") ?></td>
 					<td class="color_blue">: <?= $this->erp->formatMoney($amount).' '.($currency? $currency->name_other : ''); ?></td>
@@ -136,16 +122,9 @@
 					<td><?= lang("purpose_loan") ?></td>
 					<td class="color_blue">:<span id="purpose_loan"></span></td>
 					<td><?= lang("penalty") ?></td>
-					<td colspan="3" class="color_blue">: <?=(($setting->penalty_types == 'Percentage')? ($setting->penalty_amount*100).'%' : $this->erp->formatMoney($setting->penalty_amount)) ?> <?=lang("riel")?></td>
+					<td colspan="3" class="color_blue">: <?=(($setting->penalty_types == 'Percentage')? ($setting->penalty_amount*100).'%' : $this->erp->formatMoney($setting->penalty_amount)) ?> <?= $stcurrency->name ?></td>
 				</tr>
-				<!--
-				<tr>
-					<td>កំរៃសេវាឥណទាន(២)</td><td class="color_blue">: 100.00 ដុល្លារ</td><td>មំរៃសេវាឆៃក CBC(៣)</td><td colspan="3" class="color_blue">: 2.86 ដុល្លារ</td>
-				</tr>
-				-->
-				<!--<tr>
-					<td width="215px">សរុបការប្រាក់​ នឹងកម្រៃសេវា(១+២+៣) </td><td class="color_blue">: 3.822.33 ដុល្លារ</td><td>វត្ថុដាក់បញ្ចាំ</td><td colspan="3" class="color_blue">: N/A </td>
-				</tr>-->
+				 
 				
 				<?php
 				//$this->erp->print_arrays($currency, '<br>' ,$stcurrency);

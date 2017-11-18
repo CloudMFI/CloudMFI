@@ -188,7 +188,7 @@
 																	foreach ($users as $user) {
 																		$us[$user->id] = $user->first_name . " " . $user->last_name;
 																	}}
-																	echo form_dropdown('by_co', isset($us) ?$us  : (''), (isset($_POST['by_co']) ? $_POST['by_co'] : ""), 'class="form-control" id="by_co" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("C.O") . '"');
+																	echo form_dropdown('by_co', isset($us) ?$us  : (''), (isset($_POST['by_co']) ? $_POST['by_co'] : ""), 'class="form-control" id="by_co" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("C.O") . '" data-bv-notempty="true"');
 																?>
 															</div>
 														</div>														
@@ -204,6 +204,10 @@
 															<div class="form-group">
 																<?= lang("first_name_(kh)", "cus_first_name_other"); ?>
 																<?php echo form_input('cus_first_name_other', (isset($_POST['cus_first_name_other']) ? $_POST['cus_first_name_other'] : ''), 'class="form-control" id="cus_first_name_other"'); ?>
+															</div>
+															<div class="form-group">
+																<?= lang("father_name", "father_name"); ?>
+																<?php echo form_input('father_name', (isset($_POST['father_name']) ? $_POST['father_name'] : $applicant->father_name), 'class="form-control" id="father_name"'); ?>
 															</div>
 															<div class="form-group">
 																<?= lang("place_of_birth", "cus_pob"); ?>
@@ -251,8 +255,8 @@
 																<?= lang("spouse_status", "sp_status"); ?>
 																<?php
 																$sp_status[(isset($_POST['sp_status']) ? $_POST['sp_status'] : '')] = (isset($_POST['sp_status']) ? $_POST['sp_status'] : '');
-																$sp_status['ប្ដី'] = "ប្ដី";
-																$sp_status['ប្រពន្ធ'] = "ប្រពន្ធ";
+																$sp_status['husband'] = "Husband";
+																$sp_status['wife'] = "Wife";
 																echo form_dropdown('sp_status', $sp_status, isset($customer->spouse_status)?$customer->spouse_status:'', 'class="form-control select" id="sp_status" placeholder="' . lang("select") . ' ' . lang("status") . '" style="width:100%"')
 																?>
 															</div>

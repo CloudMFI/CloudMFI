@@ -131,7 +131,7 @@
 							<tr>
 								<td><?= lang("interest_rate_") ?></td>
 								<td class="color_blue">: <?= ($sale->rate_text ? $sale->rate_text : "")?></td>
-								<td><?= lang("penalty") ?></td><td colspan="3" class="color_blue">: <?=(($setting->penalty_types == 'Percentage')? ($setting->penalty_amount*100).'%' : $this->erp->formatMoney($setting->penalty_amount).'R') ?>​​​​​​​​</td>
+								<td><?= lang("penalty") ?></td><td colspan="3" class="color_blue">: <?=(($setting->penalty_types == 'Percentage')? ($setting->penalty_amount*100).'%' : $this->erp->formatMoney($setting->penalty_amount)) ?>​​​​​​​​ <?= $stcurrency->name ?></td>
 							</tr>
 							<tr>
 								<td><?= lang("purpose_loan") ?></td>
