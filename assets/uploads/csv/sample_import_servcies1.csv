@@ -1,4 +1,0 @@
-Loan Reference,Service_code,Amount,type
-LID-00000003,SV-001,2000,Fixed_Amount
-LID-00000003,SV-002,2500,Fixed_Amount
-LID-00000003,IN-001,0.1,Percentage
