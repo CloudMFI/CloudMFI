@@ -2143,7 +2143,7 @@ class Accounts_model extends CI_Model
 				}
 				
 				//$this->db->update('companies', array('amount' => $new_branchamount), array('id' => $branch->id));
-				$this->db->update('sales',array('sale_status' => 'activated', 'grand_total'=> $amount_payment, 'payment_status'=>$payment_status ),array('id'=> $data['sale_id']));	
+				$this->db->update('sales',array('sale_status' => 'activated', 'paid'=> $data['service_amount'], 'grand_total'=> $amount_payment, 'payment_status'=>$payment_status ),array('id'=> $data['sale_id']));	
 				$this->db->update('quotes', array('status' => 'activated'), array('id' => $sales->quote_id));
 					
 				//if ($this->site->getReference('pp') == $data['reference_no']) {

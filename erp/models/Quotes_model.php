@@ -129,7 +129,7 @@ class Quotes_model extends CI_Model
     }	
 	public function getQuoteByID($id)
     {
-        $this->db->select('quotes.*,users.*');
+        $this->db->select('quotes.*,users.first_name,users.last_name');
 		$this->db->where('quotes.id',$id);
 		$this->db->join('users','quotes.by_co = users.id');
 		$this->db->from('quotes');		
@@ -138,9 +138,22 @@ class Quotes_model extends CI_Model
 			return $q->row();
 		}
 		return false;
-    }	
-	public function getContractByID($id)
+    }
+	
+	public function getUserQuoteByID($id)
     {
+        $this->db->select('users.*');
+		$this->db->where('quotes.id',$id);
+		$this->db->join('users','quotes.by_co = users.id');
+		$this->db->from('quotes');		
+		$q = $this->db->get();
+		if($q->num_rows()>0){
+			return $q->row();
+		}
+		return false;
+    }
+	public function getContractByID($id)
+    { 
 		$this->db
                 ->select($this->db->dbprefix('sales').".id,".
 						$this->db->dbprefix('sales').".reference_no,
@@ -170,8 +183,8 @@ class Quotes_model extends CI_Model
 				->join('companies as myBranch', 'sales.branch_id= myBranch.id')
 				->join('products', 'sale_items.product_id = products.id', 'INNER')
 				->where($this->db->dbprefix('sales').'.id', $id)
-				->where($this->db->dbprefix('sales').'.sale_status', 'activated')
-				->or_where($this->db->dbprefix('sales').'.sale_status', 'registered')
+				//->where($this->db->dbprefix('sales').'.sale_status', 'activated')
+				//->or_where($this->db->dbprefix('sales').'.sale_status', 'registered')
 				->group_by('sales.id');
 				$q = $this->db->get();
 				if ($q->num_rows() > 0) {
@@ -1399,6 +1412,7 @@ class Quotes_model extends CI_Model
 	
 	public function getco($branch_id){
 		$this->db->select('id,first_name,last_name');
+		$this->db->where('active', 1);
 		$this->db->where(array('branch_id' => $branch_id));
 		$q = $this->db->get('users');
         if ($q->num_rows() > 0) {
