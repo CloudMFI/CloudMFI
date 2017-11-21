@@ -4659,13 +4659,13 @@ class Installment_Payment extends MY_Controller
 			$bl_from_owedPaid = $payments - $owed_paid;	
 			
 			/////interest_paid			
-			if($owed_from_owedPaid > $interest_amount){
+			if($bl_from_owedPaid > $interest_amount){
 				$interest_paid = $interest_amount;
 			}else{
-				$interest_paid = $owed_from_owedPaid;
+				$interest_paid = $bl_from_owedPaid;
 			}
 			$owed_interest = $interest_amount - $interest_paid;
-			$bl_from_interestPaid = $owed_from_owedPaid - $interest_paid;
+			$bl_from_interestPaid = $bl_from_owedPaid - $interest_paid;
 			/////total_services_paid						
 			if($bl_from_interestPaid > $total_service_charge){
 				$total_services_paid = $total_service_charge;
@@ -4750,7 +4750,7 @@ class Installment_Payment extends MY_Controller
 								$file = $this->upload->file_name;
 								$payment['document'] = $file;
 							}
-			//$this->erp->print_arrays($payment);
+			$this->erp->print_arrays($payment);
 			//$paid = $total_services_paid ;
 			$paid = str_replace(',', '', $this->erp->roundUpMoney($total_services_paid, $df_currency));
 			$arr_services = array();			
@@ -9224,7 +9224,7 @@ class Installment_Payment extends MY_Controller
 		
 	}
 	//group_agreement
-	public function group_agreement($sale_id, $group) {		
+	public function group_agreement($sale_id, $group) {
 		$this->load->model('Installment_payment_model');
 		$this->data['setting'] = $this->settings_model->getSettings();
 		$this->data['contract_info'] = $this->Installment_payment_model->group_agreement_ByID($group);

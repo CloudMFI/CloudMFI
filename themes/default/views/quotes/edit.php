@@ -382,8 +382,8 @@
 																<?= lang("gender", "cus_gender"); ?>
 																<?php
 																$cus_gender[""] = "";
-																$cus_gender['ប្រុស'] = "ប្រុស";
-																$cus_gender['ស្រី'] = "ស្រី";
+																$cus_gender['male'] = "Male";
+																$cus_gender['female'] = "Female";
 																echo form_dropdown('cus_gender', $cus_gender, isset($applicant->gender)?$applicant->gender:'', 'class="form-control select" id="cus_gender" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" data-bv-notempty="true"')
 																?>
 															</div>
@@ -428,7 +428,7 @@
 																	foreach ($users as $user) {
 																		$us[$user->id] = $user->first_name . " " . $user->last_name;
 																	}}
-																	echo form_dropdown('cus_by_co', $us, $applicant->created_by, 'class="form-control" id="cus_by_co" placeholder="' . lang("Select_C.O_load") . '" ');																		
+																	echo form_dropdown('cus_by_co', $us, $applicant->created_by, 'class="form-control" id="cus_by_co" placeholder="' . lang("Select_C.O_load") . '" data-bv-notempty="true"');																		
 																?>
 															</div>
 														</div>
@@ -463,6 +463,10 @@
 															<div class="form-group">
 																<?= lang("first_name_(kh)", "cus_first_name_other"); ?>
 																<?php echo form_input('cus_first_name_other', $applicant->name_other, 'class="form-control" id="cus_first_name_other"'); ?>
+															</div>
+															<div class="form-group">
+																<?= lang("father_name", "father_name"); ?>
+																<?php echo form_input('father_name', $applicant->father_name, 'class="form-control" id="father_name"'); ?>
 															</div>
 															<div class="form-group">
 																<?= lang("place_of_birth", "cus_pob"); ?>
@@ -501,8 +505,8 @@
 																<?= lang("spouse_gender", "sp_gender"); ?>
 																<?php
 																$sp_gender[""] = "";
-																$sp_gender['ប្រុស'] = "ប្រុស";
-																$sp_gender['ស្រី'] = "ស្រី";
+																$sp_gender['male'] = "Male";
+																$sp_gender['female'] = "Female";
 																echo form_dropdown('sp_gender', $sp_gender, isset($applicant->spouse_gender)?$applicant->spouse_gender:'', 'class="form-control select" id="sp_gender" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" ')
 																?>
 															</div>
@@ -510,8 +514,8 @@
 																<?= lang("spouse_status", "sp_status"); ?>
 																<?php
 																$sp_status[""] = "";
-																$sp_status['ប្ដី'] = "ប្ដី";
-																$sp_status['ប្រពន្ធ'] = "ប្រពន្ធ";
+																$sp_status['husband'] = "Husband";
+																$sp_status['wife'] = "Wife";
 																echo form_dropdown('sp_status', $sp_status, isset($applicant->spouse_status)?$applicant->spouse_status:'', 'class="form-control select" id="sp_status" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" ')
 																?>
 															</div>															
@@ -766,7 +770,9 @@
 														</div>
 													</div>
 												</div>
-												
+												<?php 													
+													if( $services ){
+												?>
 												<div class="col-sm-12">
 													<div class="panel panel-primary">
 														<div class="panel-heading"><?= lang('services_fee') ?></div>
@@ -861,7 +867,7 @@
 														</div>
 													</div>
 												</div>
-												
+												<?php } ?>
 												<div class="col-sm-12 hide_cash">
 													<div class="panel panel-primary">
 														<div class="panel-heading"><?= lang('financial_product') ?></div>
@@ -924,10 +930,10 @@
 																	<?= lang("rate_type", "rate_type"); ?>
 																	<?php
 																	$rate_type[""] = "";
-																	$rate_type["1"] = "Normal";
-																	$rate_type["2"] = "Fixed";
-																	$rate_type["3"] = "Normal_Fixed";
-																	$rate_type["4"] = "Seasons";
+																	//$rate_type["1"] = "Normal";
+																	//$rate_type["2"] = "Fixed";
+																	//$rate_type["3"] = "Normal_Fixed";
+																	//$rate_type["4"] = "Seasons";
 																	//$rate_type["5"] = "Custom";
 																	echo form_dropdown('rate_type', $rate_type, $inv->rate_type, 'id="rate_type" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("rate_type") . '"  class="form-control input-tip select" style="width:100%;"');
 																	?>
@@ -1052,14 +1058,14 @@
 																	$rate_type[""] = "";
 																	$rate_type["1"] = "Normal";
 																	$rate_type["2"] = "Fixed";
-																	$rate_type["3"] = "Normal_Fixed";
-																	$rate_type["4"] = "All_Fixed";
+																	$rate_type["3"] = "Normal_Fixed"; 
 																	$rate_type["5"] = "Seasons";
 																	$rate_type["6"] = "Loan Amounts";
 																	echo form_dropdown('rate_type_cash', $rate_type, (isset($inv->rate_type) ? $inv->rate_type : ''), 'id="rate_type_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("rate_type") . '"  class="form-control input-tip select" style="width:100%;" required="required"');
 																	?>
 																</div>
 															</div>
+															
 															<div class="col-lg-6" id="payment_time">
 																<div class="form-group">
 																	<?= lang("principle_frequency", "principle_frequency"); ?>
@@ -1138,8 +1144,8 @@
 																<?= lang("gender", "jl_gender"); ?>
 																<?php
 																$jl_gender[(isset($_POST['jl_gender']) ? $_POST['jl_gender'] : '')] = (isset($_POST['jl_gender']) ? $_POST['jl_gender'] : '');
-																$jl_gender['ប្រុស'] = "ប្រុស";
-																$jl_gender['ស្រី'] = "ស្រី";
+																$jl_gender['male'] = "Male";
+																$jl_gender['female'] = "Female";
 																echo form_dropdown('jl_gender', $jl_gender, isset($join_lease) ? $join_lease->gender : '' , 'class="form-control select" id="jl_gender" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" data-bv-notempty="true"')
 																?>
 															</div>
@@ -1423,8 +1429,8 @@
 																			<?= lang("gender", "gender"); ?>
 																			<?php
 																			$gender[ (isset($_POST['gender']) ? $_POST['gender'] : '')] =  (isset($_POST['gender']) ? $_POST['gender'] : '');
-																			$gender['ប្រុស'] = "ប្រុស";
-																			$gender['ស្រី'] = "ស្រី";
+																			$gender['male'] = "Male";
+																			$gender['female'] = "Female";
 																			echo form_dropdown('gender', $gender, ($guarantor ? $guarantor->gender : ''), 'class="form-control select" id="gender" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" ')
 																			?>
 																		</div>
@@ -1512,8 +1518,8 @@
 																			<?= lang("gender", "gender2"); ?>
 																			<?php
 																			$gender[ (isset($_POST['gender2']) ? $_POST['gender2'] : '')] =  (isset($_POST['gender2']) ? $_POST['gender2'] : '');
-																			$gender['ប្រុស'] = "ប្រុស";
-																			$gender['ស្រី'] = "ស្រី";
+																			$gender['male'] = "Male";
+																			$gender['female'] = "Female";
 																			echo form_dropdown('gender2', $gender, ($join_guarantor ? $join_guarantor->gender : ''), 'class="form-control select" id="gender2" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" ')
 																			?>
 																		</div>

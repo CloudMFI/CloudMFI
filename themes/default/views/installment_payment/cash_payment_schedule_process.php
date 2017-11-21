@@ -124,7 +124,7 @@
 											<td><?= lang("term_loan") ?></td>
 											<td class="color_blue">: <?= number_format($sale->term,0); ?> <?= lang("days") ?></td>
 											<td><?= lang("penalty") ?></td>
-											<td class="color_blue">: <?=(($setting->penalty_types == 'Percentage')? ($setting->penalty_amount*100).'%' : $this->erp->formatMoney($setting->penalty_amount).'R') ?>​​​​​​​​ </td>
+											<td class="color_blue">: <?=(($setting->penalty_types == 'Percentage')? ($setting->penalty_amount*100).'%' : $this->erp->formatMoney($setting->penalty_amount)) ?>​​​​​​​​ <?= $stcurrency->name ?></td>
 											
 										  </tr>
 										  <tr>

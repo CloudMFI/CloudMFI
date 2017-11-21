@@ -286,11 +286,12 @@ class Down_Payment extends MY_Controller
 
                     foreach ($_POST['val'] as $id) {
                         $qu = $this->quotes_model->getContractByID($id);
+						//$this->erp->print_arrays($qu);
 						$setting = $this->quotes_model->get_setting();
 						$total = $this->erp->convertCurrency($qu->currency_code, $setting->default_currency, $qu->total);
 						$grand_total = $this->erp->convertCurrency($qu->currency_code, $setting->default_currency, $qu->grand_total);
 						$approved_date = date('d/m/Y', strtotime( $qu->approved_date ));
-						//$this->erp->print_arrays($approved_date);
+						 
                         $this->excel->getActiveSheet()->SetCellValue('A' . $row, $qu->reference_no);
                         $this->excel->getActiveSheet()->SetCellValue('B' . $row, $qu->customer_name);
 						$this->excel->getActiveSheet()->SetCellValue('C' . $row, $qu->customer_name_other);
@@ -307,7 +308,6 @@ class Down_Payment extends MY_Controller
                         $row++;
                     }
 
-                   
 					$this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
 					$this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
 					$this->excel->getActiveSheet()->getColumnDimension('C')->setWidth(15);
@@ -321,9 +321,6 @@ class Down_Payment extends MY_Controller
 					$this->excel->getActiveSheet()->getColumnDimension('K')->setWidth(15);
 					$this->excel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
 					$this->excel->getActiveSheet()->getColumnDimension('M')->setWidth(10);
-					
-					
-					
 					
                     $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
                     $filename = 'quotations_' . date('Y_m_d_H_i_s');

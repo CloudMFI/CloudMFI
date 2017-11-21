@@ -1,5 +1,5 @@
 <?php 
-	//$this->erp->print_arrays($inv->id);
+	 //$this->erp->print_arrays($inv);
 	  ///$this->erp->print_arrays($user_id);
 ?>
 
@@ -540,10 +540,14 @@
 																		<td><b> : <?php	echo $this->erp->hrsd($applicant->issue_date)?$this->erp->hrsd($applicant->issue_date):'';	?> </b></td>
 																	</tr>
 																	<tr>
+																		<td><?= lang("father_name"); ?></td>
+																		<td><b> : <?php echo (isset($applicant->father_name)? $applicant->father_name : ''); ?> </b></td>
+																	</tr>
+																	<tr>
 																		<td><?= lang("marital_status"); ?></td>
 																		<td><b><span class="uppercase">: <?php
 																			$cus_marital_status[""] = "";
-																			$cus_marital_status['Married '] = "Married ";
+																			$cus_marital_status['Married'] = "Married ";
 																			$cus_marital_status['Divorced'] = "Divorced";
 																			$cus_marital_status['Single'] = "Single";
 																			$cus_marital_status['Widow/Widower'] = "Widow/Widower";

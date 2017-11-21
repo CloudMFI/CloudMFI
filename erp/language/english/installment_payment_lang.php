@@ -17,7 +17,7 @@
  */
 
 //documents
-$lang["customer_kh"]			= "Customer Kh";
+$lang["customer_kh"]			= "Customer (Other)";
 $lang["installment_date"]		= "Installment Date";
 $lang["due_date"]				= "Due Date";
 $lang["penalty_days"]			= "Penalty days";
