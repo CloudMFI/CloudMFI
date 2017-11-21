@@ -930,10 +930,10 @@
 																	<?= lang("rate_type", "rate_type"); ?>
 																	<?php
 																	$rate_type[""] = "";
-																	$rate_type["1"] = "Normal";
-																	$rate_type["2"] = "Fixed";
-																	$rate_type["3"] = "Normal_Fixed";
-																	$rate_type["4"] = "Seasons";
+																	//$rate_type["1"] = "Normal";
+																	//$rate_type["2"] = "Fixed";
+																	//$rate_type["3"] = "Normal_Fixed";
+																	//$rate_type["4"] = "Seasons";
 																	//$rate_type["5"] = "Custom";
 																	echo form_dropdown('rate_type', $rate_type, $inv->rate_type, 'id="rate_type" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("rate_type") . '"  class="form-control input-tip select" style="width:100%;"');
 																	?>
@@ -1058,14 +1058,14 @@
 																	$rate_type[""] = "";
 																	$rate_type["1"] = "Normal";
 																	$rate_type["2"] = "Fixed";
-																	$rate_type["3"] = "Normal_Fixed";
-																	$rate_type["4"] = "All_Fixed";
+																	$rate_type["3"] = "Normal_Fixed"; 
 																	$rate_type["5"] = "Seasons";
 																	$rate_type["6"] = "Loan Amounts";
 																	echo form_dropdown('rate_type_cash', $rate_type, (isset($inv->rate_type) ? $inv->rate_type : ''), 'id="rate_type_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("rate_type") . '"  class="form-control input-tip select" style="width:100%;" required="required"');
 																	?>
 																</div>
 															</div>
+															
 															<div class="col-lg-6" id="payment_time">
 																<div class="form-group">
 																	<?= lang("principle_frequency", "principle_frequency"); ?>

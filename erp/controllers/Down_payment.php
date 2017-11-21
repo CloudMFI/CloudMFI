@@ -308,7 +308,6 @@ class Down_Payment extends MY_Controller
                         $row++;
                     }
 
-                   
 					$this->excel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
 					$this->excel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
 					$this->excel->getActiveSheet()->getColumnDimension('C')->setWidth(15);
@@ -322,9 +321,6 @@ class Down_Payment extends MY_Controller
 					$this->excel->getActiveSheet()->getColumnDimension('K')->setWidth(15);
 					$this->excel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
 					$this->excel->getActiveSheet()->getColumnDimension('M')->setWidth(10);
-					
-					
-					
 					
                     $this->excel->getDefaultStyle()->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
                     $filename = 'quotations_' . date('Y_m_d_H_i_s');

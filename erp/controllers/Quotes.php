@@ -1228,7 +1228,6 @@ class Quotes extends MY_Controller
             $this->session->set_flashdata('message', $this->lang->line("applicant") .''. $data['status']);
             redirect('quotes');
         } else {
-
             $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
 			$quote = $this->quotes_model->getQuoteByID($id); 
 			//$this->erp->print_arrays($quote);
@@ -1236,65 +1235,65 @@ class Quotes extends MY_Controller
             $inv_items = $this->quotes_model->getAllQuoteItems($id);
             $c = rand(100000, 9999999);
 			if(is_array($inv_items)){
-            foreach ($inv_items as $item) {
-                $row = $this->site->getProductByID($item->product_id);
-                if (!$row) {
-                    $row = json_decode('{}');
-                    $row->tax_method = 0;
-                } else {
-                    unset($row->details, $row->product_details, $row->cost, $row->supplier1price, $row->supplier2price, $row->supplier3price, $row->supplier4price, $row->supplier5price);
-                }
-                $row->quantity = 0;
-                $pis = $this->quotes_model->getPurchasedItems($item->product_id, $item->warehouse_id, $item->option_id);
-                if ($pis) {
-                    foreach ($pis as $pi) {
-                        $row->quantity += $pi->quantity_balance;
-                    }
-                }
-                $row->id = $item->product_id;
-                $row->code = $item->product_code;
-                $row->name = $item->product_name;
-                $row->type = $item->product_type;
-                $row->qty = $item->quantity;
-                $row->discount = $item->discount ? $item->discount : '0';
-                $row->price = $this->erp->formatDecimal($item->net_unit_price + $this->erp->formatDecimal($item->item_discount / $item->quantity));
-                $row->unit_price = $row->tax_method ? $item->unit_price + $this->erp->formatDecimal($item->item_discount / $item->quantity) + $this->erp->formatDecimal($item->item_tax / $item->quantity) : $item->unit_price + ($item->item_discount / $item->quantity);
-                $row->real_unit_price = $item->real_unit_price;
-                $row->tax_rate = $item->tax_rate_id;
-                $row->option = $item->option_id;
-                $options = $this->quotes_model->getProductOptions($row->id, $item->warehouse_id);
+				foreach ($inv_items as $item) {
+					$row = $this->site->getProductByID($item->product_id);
+					if (!$row) {
+						$row = json_decode('{}');
+						$row->tax_method = 0;
+					} else {
+						unset($row->details, $row->product_details, $row->cost, $row->supplier1price, $row->supplier2price, $row->supplier3price, $row->supplier4price, $row->supplier5price);
+					}
+					$row->quantity = 0;
+					$pis = $this->quotes_model->getPurchasedItems($item->product_id, $item->warehouse_id, $item->option_id);
+					if ($pis) {
+						foreach ($pis as $pi) {
+							$row->quantity += $pi->quantity_balance;
+						}
+					}
+					$row->id = $item->product_id;
+					$row->code = $item->product_code;
+					$row->name = $item->product_name;
+					$row->type = $item->product_type;
+					$row->qty = $item->quantity;
+					$row->discount = $item->discount ? $item->discount : '0';
+					$row->price = $this->erp->formatDecimal($item->net_unit_price + $this->erp->formatDecimal($item->item_discount / $item->quantity));
+					$row->unit_price = $row->tax_method ? $item->unit_price + $this->erp->formatDecimal($item->item_discount / $item->quantity) + $this->erp->formatDecimal($item->item_tax / $item->quantity) : $item->unit_price + ($item->item_discount / $item->quantity);
+					$row->real_unit_price = $item->real_unit_price;
+					$row->tax_rate = $item->tax_rate_id;
+					$row->option = $item->option_id;
+					$options = $this->quotes_model->getProductOptions($row->id, $item->warehouse_id);
 
-                if ($options) {
-                    $option_quantity = 0;
-                    foreach ($options as $option) {
-                        $pis = $this->quotes_model->getPurchasedItems($row->id, $item->warehouse_id, $item->option_id);
-                        if ($pis) {
-                            foreach ($pis as $pi) {
-                                $option_quantity += $pi->quantity_balance;
-                            }
-                        }
-                        if ($option->quantity > $option_quantity) {
-                            $option->quantity = $option_quantity;
-                        }
-                    }
-                }
-                $combo_items = false;
-                if ($row->type == 'combo') {
-                    $combo_items = $this->quotes_model->getProductComboItems($row->id, $item->warehouse_id);
-                    $te = $combo_items;
-                    foreach ($combo_items as $combo_item) {
-                        $combo_item->quantity = $combo_item->qty * $item->quantity;
-                    }
-                }
-                $ri = $this->Settings->item_addition ? $row->id : $c;
-                if ($row->tax_rate) {
-                    $tax_rate = $this->site->getTaxRateByID($row->tax_rate);
-                    $pr[$ri] = array('id' => $c, 'item_id' => $row->id, 'label' => $row->name . " (" . $row->code . ")", 'row' => $row, 'combo_items' => $combo_items, 'tax_rate' => $tax_rate, 'options' => $options);
-                } else {
-                    $pr[$ri] = array('id' => $c, 'item_id' => $row->id, 'label' => $row->name . " (" . $row->code . ")", 'row' => $row, 'combo_items' => $combo_items, 'tax_rate' => false, 'options' => $options);
-                }
-                $c++;
-            }
+					if ($options) {
+						$option_quantity = 0;
+						foreach ($options as $option) {
+							$pis = $this->quotes_model->getPurchasedItems($row->id, $item->warehouse_id, $item->option_id);
+							if ($pis) {
+								foreach ($pis as $pi) {
+									$option_quantity += $pi->quantity_balance;
+								}
+							}
+							if ($option->quantity > $option_quantity) {
+								$option->quantity = $option_quantity;
+							}
+						}
+					}
+					$combo_items = false;
+					if ($row->type == 'combo') {
+						$combo_items = $this->quotes_model->getProductComboItems($row->id, $item->warehouse_id);
+						$te = $combo_items;
+						foreach ($combo_items as $combo_item) {
+							$combo_item->quantity = $combo_item->qty * $item->quantity;
+						}
+					}
+					$ri = $this->Settings->item_addition ? $row->id : $c;
+					if ($row->tax_rate) {
+						$tax_rate = $this->site->getTaxRateByID($row->tax_rate);
+						$pr[$ri] = array('id' => $c, 'item_id' => $row->id, 'label' => $row->name . " (" . $row->code . ")", 'row' => $row, 'combo_items' => $combo_items, 'tax_rate' => $tax_rate, 'options' => $options);
+					} else {
+						$pr[$ri] = array('id' => $c, 'item_id' => $row->id, 'label' => $row->name . " (" . $row->code . ")", 'row' => $row, 'combo_items' => $combo_items, 'tax_rate' => false, 'options' => $options);
+					}
+					$c++;
+				}
 			}
 			$product = $this->quotes_model->getProductByQuoteID($id);
 			if($product){
@@ -1303,8 +1302,7 @@ class Quotes extends MY_Controller
             $this->data['inv_items'] = json_encode(isset($pr) ?$pr  : (''));
             $this->data['id'] = $id;
 			$applicant = $this->site->getCompanyByID($quote->customer_id);
-			$this->data['applicants'] = $this->site->getCompanyByID($quote->customer_id);
-			
+			$this->data['applicants'] = $this->site->getCompanyByID($quote->customer_id);			
             //$this->data['currencies'] = $this->site->getAllCurrencies();
             $this->data['billers'] = ($this->Owner || $this->Admin || !$this->session->userdata('biller_id')) ? $this->site->getAllCompanies('supplier') : null;
             $this->data['tax_rates'] = $this->site->getAllTaxRates();
@@ -1339,16 +1337,6 @@ class Quotes extends MY_Controller
 				$service->tax_name =$tax_name;
 			}
 			
-			/*foreach($services as $service) {
-				$tax_id = 0;
-				foreach($quote_services as $qs) {
-					if($service->tax_id == $qs->tax_id) {
-						$tax_id = $qs->tax_id;
-					}
-				}
-				$service->tax_id = $tax_id;
-			}*/
-			////////////////////////////////////
 			
 			$this->data['services'] = $quote_services;
 			$this->data['sale'] = $this->quotes_model->getSaleByQuoteID($id);
@@ -1375,7 +1363,6 @@ class Quotes extends MY_Controller
 			//$this->data['state_taxes'] = $this->site->getStateTaxes();
 			$this->data['reject_rs'] = $this->site->getRejectByStatus('1');
 			$this->data['quote_reject'] = $this->site->getQuoteRejectByQuoteID($id);
-			//$this->erp->print_arrays($this->site->getRejectByStatus('1'));
 			
 			$this->data['product'] = $product;
 			if($product){

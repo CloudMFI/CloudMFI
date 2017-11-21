@@ -4431,7 +4431,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 			$ovamount = $this->erp->roundUpMoney($ovamounts ,$getLoan->code);
 			$sumOwed = $this->erp->roundUpMoney($sumOweds ,$getLoan->code);
 			$loan_balances = $this->erp->roundUpMoney($rows->principle + $rows->balance ,$getLoan->code);
-			//$payment = str_replace(',', '', $total_service_charges) + str_replace(',', '', $principles) + str_replace(',', '', $interests) + str_replace(',', '', $ovamount) + str_replace(',', '', $sumOwed) ;
+			//$payment = str_replace(',', '', $total_service_charges) + str_replace(',', '', $principles) + str_replace(',', '', $interests) + str_replace(',', '', $ovamount) + str_replace(',', '', $sumOwed);
 			$payment =  str_replace(',', '', $principles) + str_replace(',', '', $interests) + str_replace(',', '', $ovamount) + str_replace(',', '', $sumOwed) ;
 			$new_date = date('d/m/Y'); // show
 			$old_date = $this->erp->hrsd($rows->dateline);  // show
@@ -4492,7 +4492,6 @@ function getBillReciept($pdf = NULL, $xls = NULL)
         } else {
             echo json_encode(false);
         }
-        
 	}
 	
 	/*public function ajaxGetSaleBysaleID($sale_id = NULL){

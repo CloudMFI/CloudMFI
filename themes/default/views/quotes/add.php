@@ -915,10 +915,9 @@
 																	$rate_type["1"] = "Normal";
 																	$rate_type["2"] = "Fixed";
 																	$rate_type["3"] = "Normal_Fixed";
-																	$rate_type["4"] = "All_Fixed";
+																	//$rate_type["4"] = "All_Fixed";
 																	$rate_type["5"] = "Seasons";
-																	$rate_type["6"] = "Loan Amounts";
-																	
+																	$rate_type["6"] = "Loan Amounts";																	
 																	echo form_dropdown('rate_type_cash', $rate_type, (isset($_POST['rate_type_cash']) ? $_POST['rate_type_cash'] : 1), 'id="rate_type_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("rate_type") . '"  class="form-control input-tip select" style="width:100%;" data-bv-notempty="true"');
 																	?>
 																</div>

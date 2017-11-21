@@ -4750,7 +4750,7 @@ class Installment_Payment extends MY_Controller
 								$file = $this->upload->file_name;
 								$payment['document'] = $file;
 							}
-			 //$this->erp->print_arrays($payment);
+			$this->erp->print_arrays($payment);
 			//$paid = $total_services_paid ;
 			$paid = str_replace(',', '', $this->erp->roundUpMoney($total_services_paid, $df_currency));
 			$arr_services = array();			
