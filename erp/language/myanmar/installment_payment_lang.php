@@ -17,7 +17,7 @@
  */
 
 //documents
-$lang["customer_kh"]			= "ေငြေခ်းယူသူအမည္(ျမန္မာ)";//MSM finished
+$lang["customer_kh"]			= "ေငြေခ်းယူသူအမည္(MM)";//MSM finished
 $lang["installment_date"]		= "အရစ္က်ေပးသြင္းသည့္ ေန႔စြဲ";//MSM finished
 $lang["due_date"]				= "ေနာက္ဆံုးရက္";//MSM finished
 $lang["penalty_days"]			= "ျပစ္ဒဏ္ရက္ေပါင္း";//MSM finished
