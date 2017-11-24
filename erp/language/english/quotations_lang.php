@@ -217,7 +217,7 @@ $lang["add_collateral"]							="Add Collateral";
 $lang["collateral_added"]						="Collateral Added";
 $lang["approved_date"]							="Approved Date";
 $lang["family_name_(en)"]						="Family Name (Eng)";
-$lang["first_name_(en)"]						="First Name (Eng)";
+$lang["first_name_(en)"]						="First Name (Eng)";//
 $lang["family_name_(kh)"]						="Family Name (Other)";
 $lang["first_name_(kh)"]						="First Name (Other)";
 $lang["current_address"]						="Current Address";
@@ -305,7 +305,7 @@ $lang["other_ducument"]							= "Other Document";
 $lang["information_below"]						= "Please fill in the information below. The field labels marked with * are required input fields.";
 $lang["guarantors_4x6_photo"]					= "Guarantors 4x6 Photo";
 $lang["spouse_4x6_photo"]						= "Spouse 4x6 Photo";
-$lang["birth_registeration_letter"]			    = "Birth Registration Letter";
+$lang["birth_registeration_letter"]			    = "Birth Registration Letter";//
 //////////
 $lang["branch_company_name"]					="ការិយាល័យសាខា";//"Branch Name";
 $lang["installments"]							="កាលវិភាគសងប្រាក់";//="Installment Schedule";
@@ -347,7 +347,7 @@ $lang["purpose_loan"]							="គោលបំណង";//="Purpose";
 $lang["purpose"]								="Purpose";
 
 $lang["select_province_to_load"]				= "Select province to load";
-$lang["select_communce_to_load"]				= "Select province to load";
+$lang["select_communce_to_load"]				= "Select Communce to load";
 $lang["select_province"]						= "Select province";
 $lang["select_district_to_load"]				= "Select district to load";
 $lang["select_identify_to_load"]				= "Select Identify to load";
