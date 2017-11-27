@@ -13,7 +13,7 @@
             width: 100%;
         }
 		.contain-wrapper {
-		width: 21cm;
+		width: 100%;
 		min-height: 29.7cm;
 		padding: 2cm;
 		margin: 1cm auto;
@@ -155,7 +155,7 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 				</div>
 				<br>
 				<div>
-					<table border="solid" style="text-align:center;">
+					<table width="100%" border="solid" style="text-align:center;padding: 5%;">
 						<thead>
 							<tr style="border-width: 5px;">
 								<th rowspan="2">No</th>
