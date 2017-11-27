@@ -306,66 +306,66 @@ $lang["guarantors_4x6_photo"]					= "အာမခံသူ၏ 4 x 6 ဓာတ္
 $lang["spouse_4x6_photo"]						= "လက္တြဲေဖာ္၏ 4 x 6 ဓာတ္ပံု";//amm
 $lang["birth_registeration_letter"]			    = "ေမြးစာရင္း";//amm
 //////////
-$lang["branch_company_name"]					="ဘဏ်ခွဲအမည်";
-$lang["installments"]							="အရစ်ကျ";
-$lang["agree_to_pay_by_schedule"]				= "အချိန်ဇယားအားဖြင့်ပေးချေရန်သဘောတူ";
-$lang["right_thumbprints"]						="ညာဘက် လက်မပုံနှိပ်";
-$lang["date"]									="နေ့စွဲ";
-$lang["customer_name"]							="လျှောက်ထားသူနာမည";//="ဖုန်းဆက်သူအမည်";
-$lang["customer_latin_name"]					="နာမည်ကို အင်္ဂလိပ်စာဖြင့်ဖော်ပြရန်";//="ဖုန်းဆက်သူလက်တင်အမည်";
-$lang["account_number"]	       					="အကောင့်နံပါတ်";
-$lang["c_o_name"]								="ချေးငွေအရာရှိနာမည်";//="CO အမည်";
-$lang["phone1"]									="ဆက်သွယ်ရန်ဖုန်း";//="ဖုန်းနံပါတ်";
-$lang["phone2"]									="ဆက်သွယ်ရန်ဖုန်း 2";
-$lang["c_o_phone"]								="CO ဆက်သွယ်ရန်ဖုန်း ";
-$lang["term_loan"]								="ကန့်သတ်ချက်";
-$lang["penalty"]								="ရက်နောက်ကျကြေး (တစ်ရက်နှုန်း)";//="တစ်နေ့လျှင်နှောင်းပိုင်းပင်နယ်တီ";
-$lang["total_balance_schedule"]					="ချေးငွေပမာဏ";//="ဂရန်းစုစုပေါင်း";
-$lang["collateral_schedule"]					="အာမခံပစ္စည်း";//="အတိုးနှုန်း";					
-$lang["interest_rate_schedule"]					="အတိုးနှုန်း";//="လိပ်စာ";
-$lang["address_approved"]						="နေရပ်လိပ်စာ";
+$lang["branch_company_name"]					="ရံုးခြဲ အမည္";//amm
+$lang["installments"]							="အရစ္က်ေပးသြင္းရမည့္ အခ်ိန္ဇယား";//amm
+$lang["agree_to_pay_by_schedule"]				= "သတ္မွတ္ခ်က္အတိုင္း ေပးသြင္းရန္ သေဘာတူပါသည္။";//amm
+$lang["right_thumbprints"]						="ညာဘက္ လက္မ လက္ေဗြရာ";//amm
+$lang["date"]									="ေန႔စြဲ";//amm
+$lang["customer_name"]							="ေလွ်ာက္ထားသူ အမည္(mm)";//amm
+$lang["customer_latin_name"]					="ေလွ်ာက္ထားသူ အမည္(en)";//amm
+$lang["account_number"]	       					="ေငြစာရင္း အမည္";//amm
+$lang["c_o_name"]								="်C.O အမည္";//amm
+$lang["phone1"]									="ဖုန္းနံပါတ္";//amm
+$lang["phone2"]									="အျခား ဖုန္းနံပါတ္";//amm
+$lang["c_o_phone"]								="C.O ဖုန္းနံပါတ္";//amm
+$lang["term_loan"]								="ေခ်းေငြ ကာလ";//amm
+$lang["penalty"]								="တစ္ရက္ေနာက္က်လွ်င္ ေပးေဆာင္ရမည့္ ဒဏ္ေၾကး";//amm
+$lang["total_balance_schedule"]					="စုစုေပါင္း ေခ်းေငြ ပမာဏ";//amm
+$lang["collateral_schedule"]					="အာမခံ ပစၥည္း";//amm					
+$lang["interest_rate_schedule"]					="အတိုးႏႈန္း";//amm
+$lang["address_approved"]						="ေနရပ္လိပ္စာ";//amm
 //////////////
-$lang["no"]										="စဉ် </br>(No)";
-$lang["intallment_date"]						="တပ်ဆင်ခြင်း နေ့စွဲ</br>(Intallment Date)";
-$lang["principle_paid"]							="အရင်းငေငွ </br>(Principle)";
-$lang["interest_paid"]							="အတိုးနှုန်း</br>(Interest)";
-$lang["principle_balance"]						="လက်ကျန်အရင်းငေငွ</br>(Balance)";
-$lang["total_intallment"]						="လစဉ်သ င်းရေရမ်အရစ်ကျငငွ   </br>(Principle Installment)";
-$lang["note"]									="မှတ်ချက်";
-$lang["total_schedule"]							="စုစုပေါင်း";
+$lang["no"]										="No";//amm
+$lang["intallment_date"]						="အရစ္က်ေပးေဆာင္ရမည့္ေန႔</br>Principle Paid";//amm
+$lang["principle_paid"]							="အရင္းေငြ ပမာဏ</br>(Principle)";//amm
+$lang["interest_paid"]							="အတိုးေငြ ပမာဏ</br>(Interest)";//amm
+$lang["principle_balance"]						="လက္က်န္အရင္းေငြ ပမာဏ</br>(Balance)";//amm
+$lang["total_intallment"]						="စုစုေပါင္း သြင္းရမည့္ ေငြပမာဏ</br>(Principle Installment)";//amm
+$lang["note"]									="မွတ္ခ်က္";//amm
+$lang["total_schedule"]							="စုစုေပါင္း";//amm
 
-$lang["part"]									="အပိုင်း";
-$lang["disburse_date"]							="ချေးငွေထုတ်ယူသည့်ရက်စွဲ";//="ထုတ်ချေးနေ့စွဲ";
-$lang["total_balance"]							="စုစုပေါင်းလက်ကျန်ငွေ";
-$lang["payment_note"]							="- &nbsp;ဖောက်သည်အချိန်ဇယားအောက်ပါပြန်ဆပ်လုပ်ဆောင်ရပါမည်.<br/> - &nbsp;အားလပ်ရက်ပေါ်တွင်ငွေပေးချေမှုကဆြုံးခဲ့လျှင်ဖောက်သည်ကြိုတင်မဲအတွက်တနေ့ပြန်ဆပ်ဖို့လာရမည်ဖြစ်သည်. ";
-$lang["the_contract_does_not_comply"] 			="စာချုပ်လိုက်လျောပါဘူး"; //="ការមិនគោរពតាមកិច្ចសន្យា";
-$lang["company_will_take_legal_action"]			= " ဖောက်သည်ကဒီသဘောတူညီချက်အတိုင်းလိုက်နာလျှင်ဥပဒေရေးရာအရေးယူတော်မူမည်";
-$lang["day"]									="နေ့";
+$lang["part"]									="အပိုင္း";//amm
+$lang["disburse_date"]							="ေခ်းေငြထုတ္ယူသည့္ေန႔စြဲ";//amm
+$lang["total_balance"]							="စုစုေပါင္း ေငြပမာဏ";//amm
+$lang["payment_note"]							="ေခ်းေငြထုတ္ယူသူသည္ ေပးေဆာင္ရမည့္ ဇယားအတိုင္း ေပးေဆာင္ရမည္။ေငြေပးေဆာင္ရမည့္ေန႔သည္ ပိတ္ရက္ေန႔က်ေရာက္လွ်င္ ေခ်းေငြထုတ္ယူသူသည္ ပိတ္ရက္၏ေနာက္တစ္ရက္တြင္ ေငြေပးေဆာင္ရမည္။";//amm
+$lang["the_contract_does_not_comply"] 			="စာခ်ဳပ္မခ်ဳပ္ဆိုပါ။"; //amm
+$lang["company_will_take_legal_action"]			= "သေဘာတူညီခ်က္ကို မလိုက္နာလွ်င္ ဥပေဒအရ အေရးယူျခင္းခံရမည္။";//amm
+$lang["day"]									="နေ့";//amm
 $lang["riel"]									="Riel";
-$lang["purpose"]								="ရည်ရွယ်ချက်";
+$lang["purpose"]								="ရည္ရြယ္ခ်က္";//amm
 
-$lang["select_province_to_load"]				= "တင်ဆောင်ရန် ကို ရွေးချယ် လုပ်ပါပြည်နယ်";
-$lang["select_communce_to_load"]				= "တင်ဆောင်ရန် ကို ရွေးချယ် လုပ်ပါပြည်နယ်";
-$lang["select_province"]						= "ရွေးချယ် လုပ်ပါပြည်နယ်";
-$lang["select_district_to_load"]				= "တင်ဆောင်ရန် ကို ရွေးချယ် လုပ်ပါခရိုင်";
-$lang["select_identify_to_load"]				= "တင်ဆောင်ရန် လုပ်ဖို့ခွဲခြားသတ်မှတ်ရန် ရွေးချယ်";
-$lang["select_currency"]						= "ငွေကြေးစနစ်ကို ရွေးချယ် လုပ်ပါ";
+$lang["select_province_to_load"]				= "ျမိဳ႕နယ္ ေရြးပါ။";//amm
+$lang["select_communce_to_load"]				= "ျပည္နယ္ ေရြးပါ။";//amm
+$lang["select_province"]						= "ရွေးချယ် လုပ်ပါပြည်နယ်";//amm
+$lang["select_district_to_load"]				= "ခရိုင္ ေရြးပါ။";//amm
+$lang["select_identify_to_load"]				= "သက္ေသခံ အမ်ိဳးအစား ေရြးပါ။";//amm
+$lang["select_currency"]						= "ေငြေၾကး သေကၤတ ေရြးပါ။";//amm
 $lang["principle_frequency"]					= "မူအရကြိမ်နှုန်း";
-$lang["payment_times"]							= "ငွေပေးချေမှုရမည့် Times သတင်းစာ";
-$lang["select_district"]						= "ခရိုင်ကိုရှေးခယျြ";
-$lang["select_communce"]						= "ကွန်မြူရှေးခယျြခဲ့";
-$lang["select_village"]							= "ရှေးခယျြရွာ";
-$lang["select_village_to_load"]					= "ဝန်မှရွာကို ရွေးချယ်.";
-$lang["select_subcategory"]						= "အမျိုးအစားခွဲများကိုရှေးခယျြ";
-$lang["select_product"]							= "ထုတ်ကုန်ကိုရှေးခယျြ";
-$lang["product_type"]							= "ထုတ်ကုန်အမျိုးအစားe";
-$lang["checked"]								= "check လုပ်ထား";
-$lang["descriptions"]							= "ဖော်ပြချက်";
-$lang["accept"]									= "လက်ခံ";
-$lang["reject"]									= "ပယ်ချ";
-$lang["from_co"]								= "မှ C.O";
-$lang["to_co"]									= "သို့ C.O";
-$lang["approve_by"]								= "အားဖြင့်အတည်ပြု";
-$lang["commission"]								= "ကော်မရှင်";
+$lang["payment_times"]							= "ေပးေခ်ရမည့္ အခ်ိန္";//amm
+$lang["select_district"]						= "ခရိုင္ ေရြးပါ။";//amm
+$lang["select_communce"]						= "ျပည္နယ္ေရြးပါ။";//amm
+$lang["select_village"]							= "ေက်းရြာ ေရြးပါ။";//amm
+$lang["select_village_to_load"]					= "ေက်းရြာအမည္ ေရြးပါ။";//amm
+$lang["select_subcategory"]						= "အမ်ိဳးအစား ေရြးပါ။";//amm
+$lang["select_product"]							= "ထုတ္ကုန္ ေရြးပါ။";//amm
+$lang["product_type"]							= "ထုတ္ကုန္ အမ်ိဳးအစား";//amm
+$lang["checked"]								= "ေရြးပါ။";//amm
+$lang["descriptions"]							= "ေဖာ္ျပခ်က္";//amm
+$lang["accept"]									= "လက္ခံသည္။";//amm
+$lang["reject"]									= " ျငင္းပယ္သည္။";//amm
+$lang["from_co"]								= "C.O မွ";//amm
+$lang["to_co"]									= "C.O သို႔";//amm
+$lang["approve_by"]								= "အတည္ျပဳျခင္း";//amm
+$lang["commission"]								= "Commission";//amm
 $lang["term_loan"]								="ချေးငွေပေးချေမည့်ကာလ";//="သက်တမ်း";
-$lang["purpose_loan"]							="ချေးငွေလျှောက်ထားရသည့်ရည်ရွယ်ချက်";//="ရည်ရွယ်ချက်ချေးငွေ";
+$lang["purpose_loan"]							="ေခ်းေငြထုတ္ယူရသည့္ ရည္ရြယ္ခ်က္";//amm
