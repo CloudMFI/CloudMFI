@@ -16,19 +16,17 @@
 		.contain-wrapper {
 		width: 95%;
 		min-height: 29.7cm;
-		margin-left: 30px;
-		margin-top: 10px;
-		border: 1px #D3D3D3 solid;
-		border-radius: 5px;
+		
+		
 		background: white;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		
 		font-family: 'Zawgyi-One', Times New Roman;
 		}
 		
 		
 		
 		th{
-			padding: 10px !important;
+			padding: 3px !important;
 			text-align: center !important;
 		}
 		
@@ -117,13 +115,13 @@
 								<?php echo $district->district?$district->district:'NA';?>
 								<?php echo $state->state?$state->state:'NA';?>	
 						<br><br>
-						<strong style="font-size: 12px;">
+						<strong style="font-size: 9px;">
 							ရံုးလိပ္စာ Office Addressအမွတ္ ၁၈/၅၆၊ ဥသာျမိဳ႕သစ္(၆)ရပ္ကြက္၊ရန္ကုန္ မႏၱေလးလမ္းမၾကီး သာမေဏေက်ာ္ စာသင္တိုက္အနီး ၊ပဲခူးျမိဳ႕ ၊Ph
 						</strong><br><br>
-						<span style="font-size:12px;">
+						<span style="font-size:9px;">
 							 ထုတ္ေခ်းေငြ၏ ၅,၀၀၀ က်ပ္ကိုစီမံခန္႔ခြဲရန္ ၀န္ေဆာင္ခ အေနျဖင့္လည္းေကာင္း၊ ၁% ကို လူမွဳေထာက္ပ့ံေရး ရန္ပံုေငြ အျဖစ္လည္းေကာင္း ၊ ၅% ကို မျဖစ္မေန စုေဆာင္းေငြ အျဖစ္ လည္းေကာင္း ေကာက္ခံမည္ျဖစ္ပါသည္။ စုေငြအရင္းမ်ားကို လူၾကီးမင္းကုမၸဏီမွ ဆက္လက္ထုတ္ေခ်းရန္ စိတ္ဆႏၵမရွိေတာ့သည့္ အခ်ိန္တြင္ ျပန္လည္ထုတ္ေပးသြားမည္ျဖစ္သည္။
 						</span><br><br>
-						<span style="font-size:12px;text-align: justify-all;">
+						<span style="font-size:9px;text-align: justify-all;">
 							Morakot Microfinance Myanmar Limited will charge you a one-time adminstration fee of 5,000ks of the amount of the loan initially provided to you this fee upfont from the loan disbursed to you at the time of disbursement and may safe keep 5% the disbursement amount perloan as a compulsory
 							 saving to you at the time of disbursement.You may withdraw all (but not part) of a compulsory saving if you have no loans outstanding at Morakot Microfinance Myanmar Limited at the time withdrawal and cease to be a member of Morakot Microfinance Myanmar Limited.At any time if you have loans due to Morakot Microfinance 
 Myanmar Limited you may not withdraw any compulsory saving and pays interest on each compulsory saving at rate of 1.25% per month,calculate
