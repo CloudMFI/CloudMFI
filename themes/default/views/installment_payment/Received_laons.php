@@ -37,6 +37,10 @@
 		.chat table tr td{
 			border:1px solid black;
 		}
+		th{
+			padding: 15px !important;
+			text-align: center !important;
+		}
 		.chat tr td {
 			padding:10px;
 		}
@@ -155,7 +159,7 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 				</div>
 				<br>
 				<div>
-					<table width="100%" border="solid" style="text-align:center;padding: 5%;">
+					<table width="100%" border="solid" style="text-align:center;">
 						<thead>
 							<tr style="border-width: 5px;">
 								<th rowspan="2">No</th>
@@ -176,7 +180,18 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 
 						</thead>
 						<tbody>
-							
+							<tr>
+								<td>1.</td>
+								<td>Ma Myat Noe Linn</td>
+								<td>12/bbb(N)123456</td>
+								<td>1</td>
+								<td>500,000</td>
+								<td>5,000</td>
+								<td>5,000</td>
+								<td>15,000</td>
+								<td>475,000</td>
+								<td></td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
