@@ -23,13 +23,13 @@
 		border-radius: 5px;
 		background: white;
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-		font-family: 'Battambang', Times New Roman;
+		font-family: Zawgyi-One,'Battambang', Times New Roman;
 		}
 		.ch-box{
 			width:15px;height:15px;border:1px solid black;display:inline-block;
 		}
 		.small-letter{
-			font-family:khmer os muol;font-weight:bold;font-size:12px;
+			font-family:Zawgyi-One,khmer os muol;font-weight:bold;font-size:12px;
 		}
 		.chat table{
 			border-collapse:collapse;
@@ -48,6 +48,11 @@
 		#logo img{
 			width:150px;
 		}
+		th{
+			padding: 10px;
+			vertical-align:center;
+		}
+
 	</style>
 	</head>
 	<body>
@@ -71,43 +76,45 @@
 			</div>
 			<div>
 				<p style="text-align:center;" class="small-letter"> <b>လိုင်စင်ရဘဏ္ဍာရေးစက်မှုလုပ်ငန်း</b></p>
-				<p style="text-align:center;" class="small-letter"> <b>အုပ္စ ချေးငွေစာချုပ်</b></p>
+				<p style="text-align:center;" class="small-letter"> <b>အုပ္စု ေခ်းေငြစာခ်ုပ္</b></p>
 			</div>
 			
 			<div style=" height:100px; padding-left:15px;">
 				<table width="100%">
 					<tr>
-						<td style="width:15%">ရက္စြ</td>
+						<td style="width:20%">ရက္စဲြ<br>(Date)</td>
 						<td>:</td>
-						<td style="width:15%">ချေးငွေကာလ</td>
+						<td style="width:15%">ေခ်းေငြကာလ<br>(Loan Period)</td>
 						<td>:</td>
-						<td style="width:15%">စတင္ပးခ်မည္န႕ရက္</td>
-						<td>:</td>
-					</tr>
-					<tr>
-						<td style="width:15%">င်အရေအတွက်တိုင်းတာဝန်</td>
-						<td>:</td>
-						<td style="width:15%">ဘယ်လိုဆပ်ဖို့</td>
-						<td>:</td>
-						<td style="width:15%">စာခ်ဳပ္အမ်ိဳးအစား</td>
+						<td style="width:20%">စတင္ေပးေခ်ရမည္ေန႕ရက္<br>(First Payment Date)</td>
 						<td>:</td>
 					</tr>
 					<tr>
-						<td style="width:15%">လိပ္စာ </td>
+						<td style="width:20%">အဖြဲ႕၀င္အေရအတြက္<br>(Number of member)</td>
 						<td>:</td>
-						<td style="width:15%">အတိုးနှုန်း</td>
+						<td style="width:15%">ဆပ္မည့္ပံုစံ<br>(Term)</td>
+						<td>:</td>
+						<td style="width:15%">စာခ်ဳပ္အမ်ိဳးအစား<br>(Contract Type)</td>
+						<td>:</td>
+					</tr>
+					<tr>
+						<td style="width:20%">လိပ္စာ<br>(address )</td>
+						<td>:</td>
+						<td style="width:15%">အတိုးနႈန္း<br>(Interest rate)</td>
 						<td>:</td>
 						<td style="width:15%">Credit Officer ID</td>
 						<td>:</td>
 					</tr>
 				</table>				 
 			</div>
+			<br>
 			<div style=" width:100%;min-height:100px; padding-top:15px; padding-left:10px;">				 
 				<p>
-					ရံုးလိပ္စာ Office Address အမွတ္ ၁၈/၅၆ ၊ဥသာျမိဳ႕သစ္(၆)ရပ္ကြက္ ၊ရန္ကုန္ မႏၲေလးလမ္းမၾကီးသာမေဏေက်ာ စာသင္တိုက္အနီး၊ ပဲခူးျမိဳ႕Ph.-
+					ရံုးလိပ္စာ(Office Address ) :အမွတ္ ၁၈/၅၆ ၊ဥသာျမိဳ႕သစ္(၆)ရပ္ကြက္ ၊ရန္ကုန္ မႏၲေလးလမ္းမၾကီးသာမေဏေက်ာ စာသင္တိုက္အနီး၊ ပဲခူးျမိဳ႕။ Ph - ၀၉၁၁၂၃၄၅၆၇၈
 				</p>
+				<br>
 				<p>
-					ေခ်းေင ြ မေပးသငြ ္းနိုင္ပါက ၀ိုင္းၾကီးခ်ဳပ္စနစ္ျဖင ့္ အဖ႕ဲြ အမွတ…္ ………………… ၏ အဖ႕ဲြ ၀င္မ်ား ႏွင ့္ ပူးတဲြ ေငြေခ်းသ ူ တ႕ို က အညီအမွ် တာ၀န္ယ ူ ေျဖရငွ ္းေပးမည ္ ျဖစ္ေၾကာင္းတ္မွတ္ေရးထိုး ပါသည္။
+					ေခ်းေငြ မေပးသြင္းနိုင္ပါက ၀ိုင္းၾကီးခ်ဳပ္စနစ္ျဖင့္  အဖြဲ႕ အမွတ္ ………………… ၏ အဖြဲ႕၀င္မ်ားႏွင့္ပူးတဲြ ေငြေခ်းသူတို႔က အညီအမွ် တာ၀န္ယူေျဖရွင္းေပးမည္ ျဖစ္ေၾကာင္းလက္မွတ္ေရးထိုး ပါသည္။
 				</p>	
 			</div>
 			

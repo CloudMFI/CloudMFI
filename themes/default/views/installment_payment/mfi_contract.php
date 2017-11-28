@@ -50,7 +50,7 @@
 				<div class="brand-name" style="width:20%; float:left;margin-top:20px;">
 				</div>
 				<div class="nationality-identifier" style="width:50%; float:left;margin-top:20px;position:relative;">
-					<p style="font-family:Khmer OS Muol;text-align:center;font-size:12px;"​>ព្រះរាជាណាចក្រកម្ពុជា</p>
+					<p style="font-family:Zawgyi-One,Khmer OS Muol;text-align:center;font-size:12px;"​>ព្រះរាជាណាចក្រកម្ពុជា</p>
 					<p style="font-family:Khmer OS Muol;text-align:center;font-size:12px;">ជាតិ​​​ សាសនា​ ព្រះមហាក្សត្រ</p>
 					
 					<p style=" text-align:center;text-decoration:underline;font-size:12px; text-align:center;"><b>កិច្ចសន្យាចងការប្រាក់</b></p>
