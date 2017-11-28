@@ -76,11 +76,11 @@
 				<div>
 					<table width="100%" style="font-size:12px; ">
 						<tr>
-							<td style="width: 10%;padding-bottom: 8px;" class="thb">
+							<td style="width: 15%;padding-bottom: 8px;" class="thb">
 								ေခ်းေငြ အမ်ိဳးအစား<br>
 								(Loan Type)
 							</td>
-							<td style="width: 30%;padding-bottom: 8px; ">:
+							<td style="width: 25%;padding-bottom: 8px; ">:
 							</td>
 							<td style="width: 5%;padding-bottom: 8px; "></td>
 							<td style="width: 10%;padding-bottom: 8px; " class="thb">
@@ -92,11 +92,11 @@
 						</tr>
 
 						<tr>
-							<td style="width: 10%;padding-bottom: 8px; " class="thb">
+							<td style="width: 15%;padding-bottom: 8px; " class="thb">
 								ေခ်းေငြ အရာရွိ ID <br>
 								(Credit Officer ID)
 							</td>
-							<td style="width: 30%;padding-bottom: 8px; ">:
+							<td style="width: 25%;padding-bottom: 8px; ">:
 								......
 							</td>
 							<td style="width: 5%;padding-bottom: 8px; "></td>
@@ -108,10 +108,10 @@
 							</td>
 						</tr>
 						<tr>
-							<td style="width: 10%;padding-bottom: 8px; " class="thb">
+							<td style="width: 15%;padding-bottom: 8px; " class="thb">
 								လိပ္စာ <br>(Clients Address)
 							</td>
-							<td style="width: 30%;padding-bottom: 8px; ">:
+							<td style="width: 25%;padding-bottom: 8px; ">:
 								<?php echo $village->village?$village->village:'NA';?>
 								<?php echo $sangkat->sangkat?$sangkat->sangkat:'NA';?>
 								<?php echo $district->district?$district->district:'NA';?>
