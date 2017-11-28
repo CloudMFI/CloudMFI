@@ -76,47 +76,50 @@
 				<div>
 					<table width="100%" style="font-size:12px; ">
 						<tr>
-							<td style="width: 25%;padding-bottom: 10px; " class="thb">
-								Type of Content
+							<td style="width: 10%;padding-bottom: 8px;" class="thb">
+								ေခ်းေငြ အမ်ိဳးအစား<br>
+								(Loan Type)
 							</td>
-							<td style="width: 20%;padding-bottom: 10px; "></td>
-							<td style="width: 5%;padding-bottom: 10px; "></td>
-							<td style="width: 30%;padding-bottom: 10px; " class="thb">
-								၀ိုင္းၾကီးခ်ဳပ္နံပါတ္(Group No.)
+							<td style="width: 30%;padding-bottom: 8px; ">:
 							</td>
-							<td style="width: 20%;padding-bottom: 10px; ">
+							<td style="width: 5%;padding-bottom: 8px; "></td>
+							<td style="width: 10%;padding-bottom: 8px; " class="thb">
+								၀ိုင္းၾကီးခ်ဳပ္နံပါတ္<br>(Group No.)
+							</td>
+							<td style="width: 45%;padding-bottom: 8px; ">:
 								...........
 							</td>
 						</tr>
 
 						<tr>
-							<td style="width: 25%;padding-bottom: 10px; " class="thb">
-								Client Officer ID
+							<td style="width: 10%;padding-bottom: 8px; " class="thb">
+								ေခ်းေငြ အရာရွိ ID <br>
+								(Credit Officer ID)
 							</td>
-							<td style="width: 20%;padding-bottom: 10px; ">
+							<td style="width: 30%;padding-bottom: 8px; ">:
 								......
 							</td>
-							<td style="width: 5%;padding-bottom: 10px; "></td>
-							<td style="width: 30%;padding-bottom: 10px; " class="thb">
-								ေခ်းေငြကာလ(loan term)
+							<td style="width: 5%;padding-bottom: 8px; "></td>
+							<td style="width: 10%;padding-bottom: 8px; " class="thb">
+								ေခ်းေငြကာလ<br>(Loan term)
 							</td>
-							<td style="width: 20%;padding-bottom: 10px; ">
+							<td style="width: 45%;padding-bottom: 8px; ">:
 								......
 							</td>
 						</tr>
 						<tr>
-							<td style="width: 25%;padding-bottom: 10px; " class="thb">
-								လိပ္စာ (Clients Address)
+							<td style="width: 10%;padding-bottom: 8px; " class="thb">
+								လိပ္စာ <br>(Clients Address)
 							</td>
-							<td style="width: 20%;padding-bottom: 10px; ">
+							<td style="width: 30%;padding-bottom: 8px; ">:
 								<?php echo $village->village?$village->village:'NA';?>
 								<?php echo $sangkat->sangkat?$sangkat->sangkat:'NA';?>
 								<?php echo $district->district?$district->district:'NA';?>
 								<?php echo $state->state?$state->state:'NA';?>	
 							</td>
-							<td style="width: 5%;padding-bottom: 10px; "></td>
-							<td style="width: 20%;padding-bottom: 10px; "></td>
-							<td style="width: 20%;padding-bottom: 10px; "></td>
+							<td style="width: 5%;padding-bottom: 8px; "></td>
+							<td style="width: 10%;padding-bottom: 8px; "></td>
+							<td style="width: 45%;padding-bottom: 8px; "></td>
 						</tr>
 						
 					</table>
@@ -182,7 +185,7 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 				<div style="width:100%;text-align:center;">
 					
 					<div style="margin-left: 80%; float:left;font-weight: bold;font-size:12px; padding-top: 20px;">
-						<p>Cashier (Payer/Receiver) ...............</p>
+						<p>Cashier (Payer/Receiver) :...............</p>
 						
 					</div>				
 				</div>
