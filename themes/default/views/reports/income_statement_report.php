@@ -385,7 +385,7 @@ Old Version
 		height:auto;
 		margin:0 auto;
 		font-size:13px;
-		font-family:'Zawgyi-One' Time New Roman';
+		font-family:'Zawgyi-One','Time New Roman';
 	}
 	.header_report{
 		height:100px;
@@ -423,19 +423,18 @@ Old Version
 		<div class="header_report">
 			<div class="title">
 				<span id="logo">
-					<?php if ($Settings->logo2) {echo '<img src="' . site_url() . 'assets/uploads/logos/' . $Settings->logo2 . '" />';} ?><br><br><br>
+					<?php if ($Settings->logo2) {echo '<img src="' . site_url() . 'assets/uploads/logos/' . $Settings->logo2 . '" />';} ?><br>
 				</span>
-				လအတြင္း လုပ္ငန္းေဆာင္ရြက္မႈ စာရင္း<br>
-				Monthly Progress Report
+				<h2 style="text-align: center;line-height: 20px;">လအတြင္း လုပ္ငန္းေဆာင္ရြက္မႈ စာရင္း<br>Monthly Progress Report</h2>
 			</div>
 			
 		</div>
-		
+		<br><br><br>
 		<table style="font-family:'Zawgyi-One'";>
 		  <tr>
-			<td style="border:none; text-align:right; width:60%;padding-bottom: 50px; ">
-				ေငြပမာဏ (က်ပ္သန္းေပါင္း )<br>
-				Amounts ( Kyats ) 
+			<td style="border:none; text-align:center; width:60%; ">
+				ေငြပမာဏ (က်ပ္သန္းေပါင္း )<br>Amounts ( Kyats )
+
 			</td>
 			<td style="border:none; width:10%; "></td>
 			<td style="border:none; width:15%; "></td>
@@ -443,14 +442,13 @@ Old Version
 		  </tr>
 		  
 		  <tr>
-		  	<td style="width: 55%;border:none;"></td>
-		  	<td style="width: 45%;border:none; ">
+		  	<td style="width: 100%;text-align: right;padding-left: 20px;border:none; ">
 		  		ရက္စဲြ (:dd-mmm-yyyy: )  ..……………………………………
 		  	</td>
 		  </tr>
 		  <tr>
-		  	<td style="width: 55%;border:none;"></td>
-		  	<td style="width: 45%;border:none; ">
+		  	
+		  	<td style="width: 100%;border:none; text-align: right;padding-left: 20px;">
 		  		စာရင္းေပးပို ့သည့္ကာလ (month )………………………………
 		  	</td>
 		  </tr>
