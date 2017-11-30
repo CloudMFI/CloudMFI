@@ -201,7 +201,7 @@
         <table class="tableone">
           <thead>
             <tr>
-                <td width="3%" style="text-align: center;">စဥ္<br>No</td>
+                <td width="6%" style="text-align: center;">စဥ္<br>No</td>
                 <td width="16%" style="text-align: center;">ေငြအပ္သူအမည္<br>Name of Depositors</td>
                 <td width="16%" style="text-align: center;">ေငြအပ္သူ၏ စုစုေပါင္းအပ္ေငြ<br>Amount of combined saving for voluntary and Compulsory Saving</td>
                 <td width="16%" style="text-align: center;">ဆႏၵအေလ်ာက္ စုေဆာင္းေငြမ်ား<br>Voluntary Saving</td>

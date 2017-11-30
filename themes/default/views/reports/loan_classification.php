@@ -254,7 +254,7 @@
         <table class="tableone">
           <thead>
             <tr>
-                <td width="3%" style="text-align: center;">စဥ္<br>No</td>
+                <td width="6%" style="text-align: center;">စဥ္<br>No</td>
                 <td width="16%" style="text-align: center;">ေငြေခ်းသူအမည္<br>Borrow’s Name</td>
                 <td width="16%" style="text-align: center;">မူလေခ်းေငြပမာဏ<br>Original Loan Amount</td>
                 <td width="16%" style="text-align: center;">ေခ်းေငြလက္က်န<br>Amount Outstanding</td>
