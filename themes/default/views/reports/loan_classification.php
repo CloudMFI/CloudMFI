@@ -231,6 +231,7 @@
     }
     td{
         padding:5px;
+        background-color: white !important;
     }
     
 </style>
