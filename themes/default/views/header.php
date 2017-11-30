@@ -753,7 +753,7 @@
 											<ul>
 												<!-- new version -->
 												<li id="reports_balance_sheet_reports">
-													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+													<a href="<?= site_url('reports/profit_loss') ?>">
 														<i class="fa fa-list"></i><span class="text">Profit and Loss Report </span>
 													</a>
 												</li>
