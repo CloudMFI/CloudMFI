@@ -751,7 +751,49 @@
 												<span class="chevron closed"></span>
 											</a>
 											<ul>
-												<!---Start new report--->
+												<!-- new version -->
+												<li id="reports_balance_sheet_reports">
+													<a href="<?= site_url('reports/profit_loss') ?>">
+														<i class="fa fa-list"></i><span class="text">Profit and Loss Report </span>
+													</a>
+												</li>
+												<li id="reports_balance_sheet_reports">
+													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+														<i class="fa fa-list"></i><span class="text">Balance Sheet Report</span>
+													</a>
+												</li>
+												<li id="reports_balance_sheet_reports">
+													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+														<i class="fa fa-list"></i><span class="text">PAR Report</span>
+													</a>
+												</li>
+												<li id="reports_balance_sheet_reports">
+													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+														<i class="fa fa-list"></i><span class="text">Ten Largest Loans Report</span>
+													</a>
+												</li>
+												<li id="reports_balance_sheet_reports">
+													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+														<i class="fa fa-list"></i><span class="text">Ten Largest Depositors Report</span>
+													</a>
+												</li>
+												<li id="reports_balance_sheet_reports">
+													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+														<i class="fa fa-list"></i><span class="text">Market Product Report</span>
+													</a>
+												</li>
+												<li id="reports_balance_sheet_reports">
+													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+														<i class="fa fa-list"></i><span class="text">Prudential Deposit-Taking Report</span>
+													</a>
+												</li>
+												<li id="reports_balance_sheet_reports">
+													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+														<i class="fa fa-list"></i><span class="text">Monthly Progress Report</span>
+													</a>
+												</li>
+
+												<!-- Old Version
 												<li id="reports_balance_sheet_reports">
 													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
 														<i class="fa fa-list"></i><span class="text"> <?= lang('balance_sheet_reports'); ?></span>
@@ -807,9 +849,13 @@
 														<i class="fa fa-list"></i><span class="text"> <?= lang('network_informations'); ?></span>
 													</a>
 												</li>
+												Old Version -->
 											</ul>
 										</li>
-										
+
+
+
+										<!---Start new Account--->
 										<li class="mm_accounting_reports">
 											<a class="dropmenu" href="#">
 												<i class="fa fa-money"></i>

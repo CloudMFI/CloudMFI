@@ -74,66 +74,67 @@
 
 
 				<div>
-					<table width="100%" style="font-size:10px; ">
+					<table width="100%" style="font-size:12px; ">
 						<tr>
-							<td style="width: 25%; " class="thb">
-								Type of Content
+							<td style="width: 15%;padding-bottom: 8px;" class="thb">
+								ေခ်းေငြ အမ်ိဳးအစား<br>
+								(Loan Type)
 							</td>
-							<td style="width: 20%; "></td>
-							<td style="width: 5%; "></td>
-							<td style="width: 30%; " class="thb">
-								၀ိုင္းၾကီးခ်ဳပ္နံပါတ္(Group No.)
+							<td style="width: 25%;padding-bottom: 8px; ">:
 							</td>
-							<td style="width: 20%; ">
+							<td style="width: 5%;padding-bottom: 8px; "></td>
+							<td style="width: 10%;padding-bottom: 8px; " class="thb">
+								၀ိုင္းၾကီးခ်ဳပ္နံပါတ္<br>(Group No.)
+							</td>
+							<td style="width: 45%;padding-bottom: 8px; ">:
 								...........
 							</td>
 						</tr>
+
 						<tr>
-							<td style="width: 25%; " class="thb">
-								Client Officer ID
+							<td style="width: 15%;padding-bottom: 8px; " class="thb">
+								ေခ်းေငြ အရာရွိ ID <br>
+								(Credit Officer ID)
 							</td>
-							<td style="width: 20%; ">
+							<td style="width: 25%;padding-bottom: 8px; ">:
 								......
 							</td>
-							<td style="width: 5%; "></td>
-							<td style="width: 30%; " class="thb">
-								ေခ်းေငြကာလ(loan term)
+							<td style="width: 5%;padding-bottom: 8px; "></td>
+							<td style="width: 10%;padding-bottom: 8px; " class="thb">
+								ေခ်းေငြကာလ<br>(Loan term)
 							</td>
-							<td style="width: 20%; ">
+							<td style="width: 45%;padding-bottom: 8px; ">:
 								......
 							</td>
 						</tr>
 						<tr>
-							<td style="width: 25%; " class="thb">
-								လိပ္စာ (Clients Address)
+							<td style="width: 15%;padding-bottom: 8px; " class="thb">
+								လိပ္စာ <br>(Clients Address)
 							</td>
-							<td style="width: 20%; ">
+							<td style="width: 25%;padding-bottom: 8px; ">:
 								<?php echo $village->village?$village->village:'NA';?>
 								<?php echo $sangkat->sangkat?$sangkat->sangkat:'NA';?>
 								<?php echo $district->district?$district->district:'NA';?>
 								<?php echo $state->state?$state->state:'NA';?>	
 							</td>
-							<td style="width: 5%; "></td>
-							<td style="width: 20%; "></td>
-							<td style="width: 20%; "></td>
+							<td style="width: 5%;padding-bottom: 8px; "></td>
+							<td style="width: 10%;padding-bottom: 8px; "></td>
+							<td style="width: 45%;padding-bottom: 8px; "></td>
 						</tr>
 						
 					</table>
 				</div>
 
-
-
-
-
-				
-				
-				<div style="overflow:hidden;width:100%;min-height:100px;clear:both;padding-top:0px;font-size: ">
+				<br>			
+				<div style="overflow:hidden;width:100%;min-height:100px;clear:both;padding-top:10px;font-size:9px; ">
 					<div >
 						
-						<span style="font-size:11px;line-height: 8px;">
+						<span style="font-size:13px;">
 							 ထုတ္ေခ်းေငြ၏ ၅,၀၀၀ က်ပ္ကိုစီမံခန္႔ခြဲရန္ ၀န္ေဆာင္ခ အေနျဖင့္လည္းေကာင္း၊ ၁% ကို လူမွဳေထာက္ပ့ံေရး ရန္ပံုေငြ အျဖစ္လည္းေကာင္း ၊ ၅% ကို မျဖစ္မေန စုေဆာင္းေငြ အျဖစ္ လည္းေကာင္း ေကာက္ခံမည္ျဖစ္ပါသည္။ စုေငြအရင္းမ်ားကို လူၾကီးမင္းကုမၸဏီမွ ဆက္လက္ထုတ္ေခ်းရန္ စိတ္ဆႏၵမရွိေတာ့သည့္ အခ်ိန္တြင္ ျပန္လည္ထုတ္ေပးသြားမည္ျဖစ္သည္။
 						</span>
-						<span style="font-size:11px;text-align: justify-all;line-height: 3px;">
+						<br>
+						<br>
+						<span style="font-size:13px;text-align: justify-all;">
 							Morakot Microfinance Myanmar Limited will charge you a one-time adminstration fee of 5,000ks of the amount of the loan initially provided to you this fee upfont from the loan disbursed to you at the time of disbursement and may safe keep 5% the disbursement amount perloan as a compulsory
 							 saving to you at the time of disbursement.You may withdraw all (but not part) of a compulsory saving if you have no loans outstanding at Morakot Microfinance Myanmar Limited at the time withdrawal and cease to be a member of Morakot Microfinance Myanmar Limited.At any time if you have loans due to Morakot Microfinance 
 Myanmar Limited you may not withdraw any compulsory saving and pays interest on each compulsory saving at rate of 1.25% per month,calculate
@@ -143,8 +144,9 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 					
 				</div>
 				<br>
+				<br>
 				<div>
-					<table width="100%" border="solid" style="text-align:center;font-size:10px; ">
+					<table width="100%" border="solid" style="text-align:center;font-size:12px; ">
 						<thead>
 							<tr style="border-width: 5px;">
 								<th rowspan="2">No</th>
@@ -182,8 +184,8 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 				</div>
 				<div style="width:100%;text-align:center;">
 					
-					<div style="margin-left: 80%; float:left;font-weight: bold;font-size:10px; padding-top: 20px;">
-						<p>Cashier (Payer/Receiver) ...............</p>
+					<div style="margin-left: 80%; float:left;font-weight: bold;font-size:12px; padding-top: 20px;">
+						<p>Cashier (Payer/Receiver) :...............</p>
 						
 					</div>				
 				</div>
