@@ -1,3 +1,6 @@
+<!-- 
+Aye Myat Minn commit and change the file :-)
+Old Version
 <link href="https://fonts.googleapis.com/css?family=Moul|Battambang" rel="stylesheet"> 
 <style type="text/css">
 	.a_four_page,.header_report{
@@ -364,9 +367,218 @@
 			<td style="text-align:right;">0</td>
 		  </tr>
 		</table>
-		<br/>
-		
-		
+		<br/>		
 		<br/><br/>
 	</div>
+</div> 
+Old Version
+-->
+
+
+
+
+<link href="https://fonts.googleapis.com/css?family=Moul|Battambang" rel="stylesheet"> 
+<style type="text/css">
+	.a_four_page,.header_report{
+		width:21cm;
+		min-height:height:29.7cm;
+		height:auto;
+		margin:0 auto;
+		font-size:13px;
+		font-family:'Zawgyi-One' Time New Roman';
+	}
+	.header_report{
+		height:100px;
+		//border:1px solid red;
+	}
+	.title{
+		text-align: center;
+		font-size:16px;
+		font-family: 'Zawgyi-One', cursive;
+	}
+	#logo{
+		width: 150px;
+		opacity: 0.8;
+	}
+	.tableone thead{
+		width: 100%;
+		font-family: 'Zawgyi-One','Time New Roman';
+		font-size: 12px;
+		
+		font-weight:bold;
+
+	}
+	table tr td{
+		border:1px solid black;
+		
+	}
+	
+
+	
+</style>
+
+<div class="body-overflow">
+	<div class="a_four_page" >
+		<div class="header_report">
+			<div class="title">
+				<span id="logo">
+					<?php if ($Settings->logo2) {echo '<img src="' . site_url() . 'assets/uploads/logos/' . $Settings->logo2 . '" />';} ?><br><br><br>
+				</span>
+				လအတြင္း လုပ္ငန္းေဆာင္ရြက္မႈ စာရင္း<br>
+				Monthly Progress Report
+			</div>
+			
+		</div>
+		
+		<table style="font-family:'Zawgyi-One'";>
+		  <tr>
+			<td style="border:none; text-align:right; width:60%;padding-bottom: 50px; ">
+				ေငြပမာဏ (က်ပ္သန္းေပါင္း )<br>
+				Amounts ( Kyats ) 
+			</td>
+			<td style="border:none; width:10%; "></td>
+			<td style="border:none; width:15%; "></td>
+			<td style="border:none; width:10%; "></td>
+		  </tr>
+		  
+		  <tr>
+		  	<td style="width: 55%;border:none;"></td>
+		  	<td style="width: 45%;border:none; ">
+		  		ရက္စဲြ (:dd-mmm-yyyy: )  ..……………………………………
+		  	</td>
+		  </tr>
+		  <tr>
+		  	<td style="width: 55%;border:none;"></td>
+		  	<td style="width: 45%;border:none; ">
+		  		စာရင္းေပးပို ့သည့္ကာလ (month )………………………………
+		  	</td>
+		  </tr>
+		</table><br>
+	
+		
+		<table>
+		  <thead>
+		  	<tr>
+			  	<td style="text-align:center;width: 3%;padding: 20px;">စဥ္<br>No</td>
+				<td style="text-align:center;font-family: 'Zawgyi-One'; width:47%;">
+					အေၾကာင္းအရာ<br>Description
+				</td>
+				<td width="25%" style="text-align:center;">လက္ရွိလ<br>Current Month</td>
+				<td width="25%" style="text-align:center;">
+					လုပ္ငန္းစတင္သည္မွ ယခုလအထိ<br>Year to Curremt Month
+				</td>			
+		  	</tr>
+		  </thead>
+		  <tbody>
+		  	<tr>
+		  		<td>၁<br>1</td>
+		  		<td>ထည့္ဝင္ျပီးမတည္ေငြရင္း<br>Capital</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>၂<br>2</td>
+		  		<td>အသင္းသားစုစုေပါင္း<br>Number of Clients</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>၃<br>3</td>
+		  		<td>ေငြေခ်းထားသူစုစုေပါင္း<br>Number of Active Borrowers</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>၄<br>4</td>
+		  		<td>ေငြအပ္သူစုစုေပါင္း<br>Number of Depositors</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>၅<br>5</td>
+		  		<td>ထုတ္ေခ်းေငြ<br>Loan Disbursed</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>၆<br>6</td>
+		  		<td>ျပန္ဆပ္ေငြ<br>Loan Collected</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>၇<br>7</td>
+		  		<td>အတိုးဝင္ေငြ<br>Interest Income</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>၈<br>8</td>
+		  		<td>စုေဆာင္းေငြ<br>Saving Collected</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>၉<br>9</td>
+		  		<td>စုေငြျပန္ထုတ္ေငြ<br>Saving Disbursed</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>၁၀<br>10</td>
+		  		<td>စုေဆာင္းေငြေပၚ အတိုးေပးရေငြ<br>Interest on Customers’ Deposist</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>၁၁<br>11</td>
+		  		<td>အျခားဝင္ေငြ<br>Other Income</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>၁၂<br>12</td>
+		  		<td>ဝင္ေငြစုစုေပါင္း<br>Total Income</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>၁၃<br>13</td>
+		  		<td>အသံုးစရိတ္စုစုေပါင္း<br>Total Expense</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>၁၄<br>14</td>
+		  		<td>အျမတ္/အရွုံး<br>Profit/Loss</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+
+		  </tbody>
+		</table>
+		<br><br><br>
+
+		
+		<table style="width: 100%">
+			<thead >
+				<tr>
+					<td style="border:none; width:33%;">ျပဳစုသူ (Prepared by)</td>
+					<td style="border:none; width:33%;">စစ္ေဆးသူ ( Checked by )</td>
+					<td style="border:none; width:34%;">အတည္ျပဳသူ (Approved by ) </td>
+				</tr>
+				
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border:none;">အမည္ (Name )…………………</td>
+					<td style="border:none;">အမည္(Name)……………….</td>
+					<td style="border:none;">အမည္(Name)……………….</td>
+				</tr>
+			</tbody>
+			
+		</table>
+			
+		<br/><br/>
+</div>
 </div>

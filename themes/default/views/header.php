@@ -761,7 +761,7 @@
 													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
 														<i class="fa fa-list"></i><span class="text">Balance Sheet Report</span>
 													</a>
-												</li>
+												</li><!-- Amm change -->												
 												<li id="reports_balance_sheet_reports">
 													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
 														<i class="fa fa-list"></i><span class="text">PAR Report</span>
@@ -787,11 +787,11 @@
 														<i class="fa fa-list"></i><span class="text">Prudential Deposit-Taking Report</span>
 													</a>
 												</li>
-												<li id="reports_balance_sheet_reports">
-													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+												<li id="reports_income_statement_reports">
+													<a href="<?= site_url('reports/income_statement_report') ?>">
 														<i class="fa fa-list"></i><span class="text">Monthly Progress Report</span>
 													</a>
-												</li>
+												</li><!-- Amm change -->
 
 												<!-- Old Version
 												<li id="reports_balance_sheet_reports">
