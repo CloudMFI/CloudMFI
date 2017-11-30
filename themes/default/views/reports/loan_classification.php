@@ -1,4 +1,4 @@
-<link href="https://fonts.googleapis.com/css?family=Moul|Battambang" rel="stylesheet"> 
+<!-- <link href="https://fonts.googleapis.com/css?family=Moul|Battambang" rel="stylesheet"> 
 <style type="text/css">
 	.a_four_page,.header_report{
 		width:29.7cm;
@@ -187,4 +187,190 @@
 			<br/><br/>
 		</div>
 	</div>
+</div>  -->
+
+                                                     <!-- Myat su moe edit start   -->
+<link href="https://fonts.googleapis.com/css?family=Moul|Battambang" rel="stylesheet"> 
+<style type="text/css">
+    .a_four_page,.header_report{
+        width:21cm;
+        min-height:height:29.7cm;
+        height:auto;
+        margin:0 auto;
+        font-size:13px;
+        font-family:'Zawgyi-One' ,'Time New Roman';
+    }
+    .header_report{
+        height:100px;
+        //border:1px solid red;
+    }
+    .title{
+        text-align: center;
+        font-size:16px;
+        font-family: 'Zawgyi-One', cursive;
+    }
+    #logo{
+        width: 150px;
+        opacity: 0.8;
+    }
+    .tableone thead{
+        width: 100%;
+        font-family: 'Zawgyi-One','Time New Roman';
+        font-size: 12px;
+        background:#92CDDC;
+        font-weight:bold;
+
+    }
+    table tr td{
+        border:1px solid black;
+        
+    }
+    h4{
+        text-align: center;
+        line-height:20px !important;
+    }
+    td{
+        padding:5px;
+    }
+    
+</style>
+
+<div class="body-overflow">
+    <div class="a_four_page" >
+        <div class="header_report">
+            <div class="title">
+                <span id="logo">
+                    <?php if ($Settings->logo2) {echo '<img src="' . site_url() . 'assets/uploads/logos/' . $Settings->logo2 . '" />';} ?><br><br><br>
+                </span>
+           </div>
+        </div>
+          <h4> <b>အၾကီးဆံုးေခ်းေငြ (၁၀) ခု<br>10 Largest Loans</b></h4>
+         <h4> ေငြပမာဏ (က်ပ္သန္းေပါင္း )<br>Amounts in millions of Kyats </h4>
+       <br>
+    </div>
 </div>
+         <p style="text-align: right;"> ရက္စဲြ (:dd-mmm-yyyy: )  ..…………………………………… <br>
+              စာရင္းေပးပို ့သည့္ကာလ (month )………………………………<p>
+        <table class="tableone">
+          <thead>
+            <tr>
+                <td width="3%" style="text-align: center;">စဥ္<br>No</td>
+                <td width="16%" style="text-align: center;">ေငြေခ်းသူအမည္<br>Borrow’s Name</td>
+                <td width="16%" style="text-align: center;">မူလေခ်းေငြပမာဏ<br>Original Loan Amount</td>
+                <td width="16%" style="text-align: center;">ေခ်းေငြလက္က်န<br>Amount Outstanding</td>
+                <td width="16%" style="text-align: center;">ေခ်းေငြစာခ်ဳပ္ပါစည္းကမ္းလိုက္နာမႈရွိ/မရွိ<br>Performing per Aggrement? Yes/No</td>
+                <td width="16%" style="text-align: center;">ေရႊ ့ဆိုင္းအၾကိမ္အေရအတြက္<br>Number of times Rescheduled</td>
+                <td width="16%" style="text-align: center;">ေခ်းေငြလက္က်န္နွင့္ စုစုေပါင္းေခ်းေငြ အခ်ိဳး (%)<br>% Outstanding Vs Total Loans </td>
+                
+            </tr>
+          </thead>
+           <tbody>
+            <tr>
+                    <td>၁<br>1</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၂<br>2</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၃ <br>3  </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+            </tr>
+             <tr>
+                    <td>၄ <br>4</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၅<br>5</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၆ <br>6</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၇ <br>7 </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၈ <br>8</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၉<br>9 </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၁၀<br>10</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>စုစုေပါင္း <br>Total</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+            </tr>
+          </tbody>
+         
+        </table>
+        <table border="0 " style="width:100% ;margin:50px 0px 20px 0px;">
+            <tr>
+                 <td style="border:none; width:33%;">ျပဳစုသူ (Prepared by) <br><br>အမည္ (Name )…………………</td>
+                 <td style="border:none; width:33%;">စစ္ေဆးသူ ( Checked by )<br><br>အမည္ (Name )…………………</td>
+                <td style="border:none; width:33%;">အတည္ျပဳသူ (Approved by ) <br><br>အမည္ (Name )…………………</td>
+            </tr>
+        </table>
