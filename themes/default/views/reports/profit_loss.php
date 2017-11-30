@@ -285,7 +285,7 @@
         });	
 	
     });
-</script> -->
+</script>    -->
                                                         <!-- Myat su moe edit start   -->
 <link href="https://fonts.googleapis.com/css?family=Moul|Battambang" rel="stylesheet"> 
 <style type="text/css">
@@ -435,9 +435,8 @@
             </tr>
             <tr>
                     <td>၂.၂ <br>2.2</td>
-                    <td>ဘဏ္မ်ားနွင့္အျခားေငြေၾကးအဖဲြ ့အစည္းမ်ားမွအပ္နွံ ထားေသာေငြမ်ားအေပၚ အတိုးေပးရေငြ         <br>Interest on Deposists from Banks and Other 
-Financial Institutions 
-</td>
+                    <td>ဘဏ္မ်ားနွင့္အျခားေငြေၾကးအဖဲြ ့အစည္းမ်ားမွအပ္နွံ ထားေသာေငြမ်ားအေပၚ အတိုးေပးရေငြ <br>Interest on Deposists from Banks and Other 
+Financial Institutions </td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -452,7 +451,7 @@ Financial Institutions
                     <td></td>
             </tr>
             <tr>
-                <<td>၂.၄<br>2.4</td>
+                <td>၂.၄<br>2.4</td>
                     <td>အျခား<br>Others</td>
                 <td></td>
                 <td></td>

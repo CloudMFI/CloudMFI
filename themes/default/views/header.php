@@ -768,12 +768,12 @@
 													</a>
 												</li>
 												<li id="reports_balance_sheet_reports">
-													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+													<a href="<?= site_url('reports/loan_classification') ?>">
 														<i class="fa fa-list"></i><span class="text">Ten Largest Loans Report</span>
 													</a>
 												</li>
 												<li id="reports_balance_sheet_reports">
-													<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+													<a href="<?= site_url('reports/large_exposure_report') ?>">
 														<i class="fa fa-list"></i><span class="text">Ten Largest Depositors Report</span>
 													</a>
 												</li>
