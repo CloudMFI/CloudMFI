@@ -594,27 +594,27 @@
                                 </li>
 								
 								<!--- Report-->
-                                <li class="mm_reports mm_documents">
-                                    <a class="dropmenu" href="#">
-                                        <i class="fa fa-file-text-o"></i>
-                                        <span class="text"> <?= lang('reports'); ?> </span>
-                                        <span class="chevron closed"></span>
-                                    </a>
-                                    <ul>
+                    <li class="mm_reports mm_documents">
+                            	<a class="dropmenu" href="#">
+	                               <i class="fa fa-file-text-o"></i>
+	                               <span class="text"> <?= lang('reports'); ?> </span>
+	                               <span class="chevron closed"></span>
+                           	</a>
+                              <ul>
 
                                     	<li class="mm_nbc_reports"><!--- operation Report-->
-						<a class="dropmenu" href="#">
-							<i class="fa fa-money"></i>
-							<span class="text">Operation Report</span>
-							<span class="chevron closed"></span>
-						</a>
-						<ul>
-							<li id="reports_summary_report"><!--- summery Report-->
-								<a href="<?= site_url('reports/summary_report') ?>">
-									<i class="fa fa-building"></i><span class="text"><?= lang('summary_report_chart'); ?></span>
-								</a>
-							</li>
-							<li class="mm_laons_reports"><!--- loan Report-->
+					<a class="dropmenu" href="#">
+						<i class="fa fa-money"></i>
+						<span class="text">Operation Report</span>
+						<span class="chevron closed"></span>
+					</a>
+					<ul>
+						<li id="reports_summary_report"><!--- summery Report-->
+							<a href="<?= site_url('reports/summary_report') ?>">
+								<i class="fa fa-building"></i><span class="text"><?= lang('summary_report_chart'); ?></span>
+							</a>
+						</li>
+						<li class="mm_laons_reports"><!--- loan Report-->
 							<a class="dropmenu" href="#">
 								<i class="fa fa-money"></i>
 								<span class="text"> <?= lang('loans_reports'); ?> </span>
@@ -622,147 +622,148 @@
 							</a>
 							<ul>												
 							
-							<li id="reports_loan_report">
-								<a href="<?= site_url('reports/loan_report') ?>">
-									<i class="fa fa-money"></i><span class="text"> <?= lang('loan_report'); ?></span>
-								</a>
-							</li>												
-							<li id="reports_daily_sales">
-								<a href="<?= site_url('reports/daily_sales') ?>">
-									<i class="fa fa-list"></i><span class="text"> <?= lang('loan_daily'); ?></span>
-								</a>
-							</li>
-							<li id="reports_loan_monthly">
-								<a href="<?= site_url('reports/monthly_sales') ?>">
-									<i class="fa fa-list"></i><span class="text"> <?= lang('loan_monthly'); ?></span>
-								</a>
-							</li>
-							<li id="reports_daily_applicant_list" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/daily_applicant_list'); ?>">
-									<i class="fa fa-list"></i>
-									<span class="text"><?= lang('daily_applicant_list'); ?></span>
-								</a>
-							</li>
-							<li id="reports_underwriter_performance" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/underwriter_performance'); ?>">
-									<i class="fa fa-barcode"></i>
-									<span class="text"> <?= lang('underwriter_performance'); ?></span>
-								</a>
-							</li>
-							<li id="reports_contract" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/contract'); ?>">
-									<i class="fa fa-barcode"></i>
-									<span class="text"> <?= lang('contract_report'); ?></span>
-								</a>
-							</li>
-							<!--<li id="reports_list_end_contract" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/loans_completed'); ?>">
-									<i class="fa fa-list"></i>
-									<span class="text"> <?= lang('loans_completed'); ?></span>
-								</a>
-							</li>-->
-							<li id="reports_outstanding_reports" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/outstanding_reports'); ?>">
-									<i class="fa fa-barcode"></i>
-									<span class="text"> <?= lang('outstanding_reports'); ?></span>
-								</a>
-							</li>
-						</ul>
+								<li id="reports_loan_report">
+									<a href="<?= site_url('reports/loan_report') ?>">
+										<i class="fa fa-money"></i><span class="text"> <?= lang('loan_report'); ?></span>
+									</a>
+								</li>												
+								<li id="reports_daily_sales">
+									<a href="<?= site_url('reports/daily_sales') ?>">
+										<i class="fa fa-list"></i><span class="text"> <?= lang('loan_daily'); ?></span>
+									</a>
+								</li>
+								<li id="reports_loan_monthly">
+									<a href="<?= site_url('reports/monthly_sales') ?>">
+										<i class="fa fa-list"></i><span class="text"> <?= lang('loan_monthly'); ?></span>
+									</a>
+								</li>
+								<li id="reports_daily_applicant_list" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/daily_applicant_list'); ?>">
+										<i class="fa fa-list"></i>
+										<span class="text"><?= lang('daily_applicant_list'); ?></span>
+									</a>
+								</li>
+								<li id="reports_underwriter_performance" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/underwriter_performance'); ?>">
+										<i class="fa fa-barcode"></i>
+										<span class="text"> <?= lang('underwriter_performance'); ?></span>
+									</a>
+								</li>
+								<li id="reports_contract" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/contract'); ?>">
+										<i class="fa fa-barcode"></i>
+										<span class="text"> <?= lang('contract_report'); ?></span>
+									</a>
+								</li>
+								<!--<li id="reports_list_end_contract" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/loans_completed'); ?>">
+										<i class="fa fa-list"></i>
+										<span class="text"> <?= lang('loans_completed'); ?></span>
+									</a>
+								</li>-->
+								<li id="reports_outstanding_reports" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/outstanding_reports'); ?>">
+										<i class="fa fa-barcode"></i>
+										<span class="text"> <?= lang('outstanding_reports'); ?></span>
+									</a>
+								</li>
+							</ul>
 
-					</li>
+						</li> <!--- end loan Report-->
 									
-					<li class="mm_payments_reports"><!--- payment Report-->
-						<a class="dropmenu" href="#">
-							<i class="fa fa-money"></i>
-							<span class="text"> <?= lang('payments_reports'); ?> </span>
-							<span class="chevron closed"></span>
-						</a>
-						<ul>
-							
-							<li id="reports_print_installment" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/print_installment'); ?>">
-									<i class="fa fa-barcode"></i>
-									<span class="text"> <?= lang('daily_repayments'); ?></span>
-								</a>
-							</li>
-							<li id="reports_print_late_installment" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/print_late_installment'); ?>">
-									<i class="fa fa-barcode"></i>
-									<span class="text"> <?= lang('bad_loan_repayments'); ?></span>
-								</a>
-							</li>
-							<li id="reports_payments" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/payments'); ?>">
-									<i class="fa fa-money"></i>
-									<span class="text"> <?= lang('payments_report'); ?></span>
-								</a>
-							</li>
-							<li id="reports_loan_daily_collection" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/loan_daily_collection'); ?>">
-									<i class="fa fa-money"></i>
-									<span class="text"> <?= lang('loan_daily_collection'); ?></span>
-								</a>
-							</li>
-							<li id="reports_loan_daily_collection_details" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/loan_daily_collection_details'); ?>">
-									<i class="fa fa-money"></i>
-									<span class="text"> <?= lang('daily_loan_collection_details'); ?></span>
-								</a>
-							</li>
-							<li id="reports_repayment_reports" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/repayment_reports'); ?>">
-									<i class="fa fa-money"></i>
-									<span class="text"> <?= lang('repayment_reports'); ?></span>
-								</a>
-							</li>
-						</ul>
-					</li>
-										
-					<li class="mm_co_reports"><!--- CO Report-->
-						<a class="dropmenu" href="#">
-							<i class="fa fa-money"></i>
-							<span class="text"> <?= lang('c_o_reports'); ?> </span>
-							<span class="chevron closed"></span>
-						</a>
-						<ul>
-							<li id="reports_co_reports" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/co_reports'); ?>">
-									<i class="fa fa-barcode"></i>
-									<span class="text"> <?= lang('co_reports'); ?></span>
-								</a>
-							</li>
-							<li id="reports_co_collection" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/co_collection'); ?>">
-									<i class="fa fa-barcode"></i>
-									<span class="text"> <?= lang('co_collection_reports'); ?></span>
-								</a>
-							</li>
-							<li id="reports_branch_report">
-								<a href="<?= site_url('reports/branch_report') ?>">
-									<i class="fa fa-money"></i><span class="text"> <?= lang('branch_report'); ?></span>
-								</a>
-							</li>
-							<li id="reports_staff_performance" class="sub_navigation">
-								<a class="submenu" href="<?= site_url('reports/staff_performance'); ?>">
-									<i class="fa fa-barcode"></i>
-									<span class="text"> <?= lang('staff_performance'); ?></span>
-								</a>
-							</li>
-							
-						</ul>
-					</li>
-					<li id="reports_daily_transaction_report"> <!-- daily_transaction_report' -->
-							<a href="<?= site_url('reports/daily_transaction_report') ?>">
-								<i class="fa fa-money"></i><span class="text"> <?= lang('daily_transaction_report'); ?></span>
+						<li class="mm_payments_reports"><!--- payment Report-->
+							<a class="dropmenu" href="#">
+								<i class="fa fa-money"></i>
+								<span class="text"> <?= lang('payments_reports'); ?> </span>
+								<span class="chevron closed"></span>
 							</a>
-					</li>
-					<li id="reports_daily_cash_transaction_report"> <!-- daily_cash' -->
-						<a href="<?= site_url('reports/daily_cash_transaction_report') ?>">
-							<i class="fa fa-money"></i><span class="text"> <?= lang('daily_cash_transaction_report'); ?></span>
-						</a>
-					</li>
+							<ul>
+								
+								<li id="reports_print_installment" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/print_installment'); ?>">
+										<i class="fa fa-barcode"></i>
+										<span class="text"> <?= lang('daily_repayments'); ?></span>
+									</a>
+								</li>
+								<li id="reports_print_late_installment" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/print_late_installment'); ?>">
+										<i class="fa fa-barcode"></i>
+										<span class="text"> <?= lang('bad_loan_repayments'); ?></span>
+									</a>
+								</li>
+								<li id="reports_payments" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/payments'); ?>">
+										<i class="fa fa-money"></i>
+										<span class="text"> <?= lang('payments_report'); ?></span>
+									</a>
+								</li>
+								<li id="reports_loan_daily_collection" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/loan_daily_collection'); ?>">
+										<i class="fa fa-money"></i>
+										<span class="text"> <?= lang('loan_daily_collection'); ?></span>
+									</a>
+								</li>
+								<li id="reports_loan_daily_collection_details" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/loan_daily_collection_details'); ?>">
+										<i class="fa fa-money"></i>
+										<span class="text"> <?= lang('daily_loan_collection_details'); ?></span>
+									</a>
+								</li>
+								<li id="reports_repayment_reports" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/repayment_reports'); ?>">
+										<i class="fa fa-money"></i>
+										<span class="text"> <?= lang('repayment_reports'); ?></span>
+									</a>
+								</li>
+							</ul>
+						</li> <!---  end payment Report-->
+										
+						<li class="mm_co_reports"><!--- CO Report-->
+							<a class="dropmenu" href="#">
+								<i class="fa fa-money"></i>
+								<span class="text"> <?= lang('c_o_reports'); ?> </span>
+								<span class="chevron closed"></span>
+							</a>
+							<ul>
+								<li id="reports_co_reports" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/co_reports'); ?>">
+										<i class="fa fa-barcode"></i>
+										<span class="text"> <?= lang('co_reports'); ?></span>
+									</a>
+								</li>
+								<li id="reports_co_collection" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/co_collection'); ?>">
+										<i class="fa fa-barcode"></i>
+										<span class="text"> <?= lang('co_collection_reports'); ?></span>
+									</a>
+								</li>
+								<li id="reports_branch_report">
+									<a href="<?= site_url('reports/branch_report') ?>">
+										<i class="fa fa-money"></i><span class="text"> <?= lang('branch_report'); ?></span>
+									</a>
+								</li>
+								<li id="reports_staff_performance" class="sub_navigation">
+									<a class="submenu" href="<?= site_url('reports/staff_performance'); ?>">
+										<i class="fa fa-barcode"></i>
+										<span class="text"> <?= lang('staff_performance'); ?></span>
+									</a>
+								</li>
+								
+							</ul>
+						</li> <!--- end CO Report-->
+						<li id="reports_daily_transaction_report"> <!-- daily_transaction_report' -->
+								<a href="<?= site_url('reports/daily_transaction_report') ?>">
+									<i class="fa fa-money"></i><span class="text"> <?= lang('daily_transaction_report'); ?></span>
+								</a>
+						</li>
+						<li id="reports_daily_cash_transaction_report"> <!-- daily_cash' -->
+							<a href="<?= site_url('reports/daily_cash_transaction_report') ?>">
+								<i class="fa fa-money"></i><span class="text"> <?= lang('daily_cash_transaction_report'); ?></span>
+							</a>
+						</li>
 
-				</ul>								
+					</ul>	
+				</li>								
 				<li class="mm_nbc_reports"><!--- FRC Report-->
 					<a class="dropmenu" href="#">
 						<i class="fa fa-money"></i>
@@ -811,16 +812,8 @@
 								<i class="fa fa-list"></i><span class="text">Monthly Progress Report</span>
 							</a>
 						</li><!-- Amm change -->
-
-															
-										
-
-
-
-
-
-										
-										
+					</ul>
+				</li>
 
 												<!-- Old Version
 												<li id="reports_balance_sheet_reports">
@@ -878,78 +871,74 @@
 														<i class="fa fa-list"></i><span class="text"> <?= lang('network_informations'); ?></span>
 													</a>
 												</li>
-												Old Version -->
+												
 											</ul>
-										</li>
+										</li> Old Version -->
 
 
 
-										<!---  Start new Account -->
-										<li class="mm_accounting_reports">
-											<a class="dropmenu" href="#">
-												<i class="fa fa-money"></i>
-												<span class="text"> <?= lang('accounting_reports'); ?> </span>
-												<span class="chevron closed"></span>
-											</a>
-											<ul>
-												<li id="reports_ledger">
-													<a href="<?= site_url('reports/ledger') ?>">
-														<i class="fa fa-book"></i><span class="text"> <?= lang('ledger'); ?></span>
-													</a>
-												</li>
-												<li id="reports_trial_balance">
-													<a href="<?= site_url('reports/trial_balance') ?>">
-														<i class="fa fa-bars"></i><span class="text"> <?= lang('trial_balance'); ?></span>
-													</a>
-												</li>
-												<li id="reports_balance_sheet">
-													<a href="<?= site_url('reports/balance_sheet') ?>">
-														<i class="fa fa-balance-scale"></i><span class="text"> <?= lang('balance_sheet'); ?></span>
-													</a>
-												</li>
-												<li id="reports_balance_sheet_details">
-													<a href="<?= site_url('reports/balance_sheet_details') ?>">
-														<i class="fa fa-balance-scale"></i><span class="text"> <?= lang('balance_sheet_details'); ?></span>
-													</a>
-												</li>																
-												<li id="reports_income_statement">
-													<a href="<?= site_url('reports/income_statement') ?>">
-														<i class="fa fa-money"></i><span class="text"> <?= lang('income_statement'); ?></span>
-													</a>
-												</li>																
-												<li id="reports_income_statement_detail">
-													<a href="<?= site_url('reports/income_statement_detail') ?>">
-														<i class="fa fa-money"></i><span class="text"> <?= lang('income_statement_detail'); ?></span>
-													</a>
-												</li>
-												<li id="reports_cash_books">
-													<a href="<?= site_url('reports/cash_books') ?>">
-														<i class="fa fa-money"></i><span class="text"> <?= lang('cash_book'); ?></span>
-													</a>
-												</li>
-												<li id="reports_cash_book_details">
-													<a href="<?= site_url('reports/cash_book_details') ?>">
-														<i class="fa fa-money"></i><span class="text"> <?= lang('cash_book_details'); ?></span>
-													</a>
-												</li>
-												<li id="reports_capital_reports">
-													<a href="<?= site_url('reports/capital_reports') ?>">
-														<i class="fa fa-money"></i><span class="text"> <?= lang('capital_reports'); ?></span>
-													</a>
-												</li>
-												<li id="reports_shareholder_reports">
-													<a href="<?= site_url('reports/shareholder_reports') ?>">
-														<i class="fa fa-money"></i><span class="text"> <?= lang('shareholder_reports'); ?></span>
-													</a>
-												</li>
-											</ul>
-										</li>
-										
-										
-										
-										
-                                    </ul>
-                                </li>
+				<!---  Start new Account -->
+				<li class="mm_accounting_reports">
+					<a class="dropmenu" href="#">
+						<i class="fa fa-money"></i>
+						<span class="text"> <?= lang('accounting_reports'); ?> </span>
+						<span class="chevron closed"></span>
+					</a>
+					<ul>
+						<li id="reports_ledger">
+							<a href="<?= site_url('reports/ledger') ?>">
+								<i class="fa fa-book"></i><span class="text"> <?= lang('ledger'); ?></span>
+							</a>
+						</li>
+						<li id="reports_trial_balance">
+							<a href="<?= site_url('reports/trial_balance') ?>">
+								<i class="fa fa-bars"></i><span class="text"> <?= lang('trial_balance'); ?></span>
+							</a>
+						</li>
+						<li id="reports_balance_sheet">
+							<a href="<?= site_url('reports/balance_sheet') ?>">
+								<i class="fa fa-balance-scale"></i><span class="text"> <?= lang('balance_sheet'); ?></span>
+							</a>
+						</li>
+						<li id="reports_balance_sheet_details">
+							<a href="<?= site_url('reports/balance_sheet_details') ?>">
+								<i class="fa fa-balance-scale"></i><span class="text"> <?= lang('balance_sheet_details'); ?></span>
+							</a>
+						</li>																
+						<li id="reports_income_statement">
+							<a href="<?= site_url('reports/income_statement') ?>">
+								<i class="fa fa-money"></i><span class="text"> <?= lang('income_statement'); ?></span>
+							</a>
+						</li>																
+						<li id="reports_income_statement_detail">
+							<a href="<?= site_url('reports/income_statement_detail') ?>">
+								<i class="fa fa-money"></i><span class="text"> <?= lang('income_statement_detail'); ?></span>
+							</a>
+						</li>
+						<li id="reports_cash_books">
+							<a href="<?= site_url('reports/cash_books') ?>">
+								<i class="fa fa-money"></i><span class="text"> <?= lang('cash_book'); ?></span>
+							</a>
+						</li>
+						<li id="reports_cash_book_details">
+							<a href="<?= site_url('reports/cash_book_details') ?>">
+								<i class="fa fa-money"></i><span class="text"> <?= lang('cash_book_details'); ?></span>
+							</a>
+						</li>
+						<li id="reports_capital_reports">
+							<a href="<?= site_url('reports/capital_reports') ?>">
+								<i class="fa fa-money"></i><span class="text"> <?= lang('capital_reports'); ?></span>
+							</a>
+						</li>
+						<li id="reports_shareholder_reports">
+							<a href="<?= site_url('reports/shareholder_reports') ?>">
+								<i class="fa fa-money"></i><span class="text"> <?= lang('shareholder_reports'); ?></span>
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+                    </li>  
 								
 								<!--- Setting-->
                                 <li class="mm_system_settings mm_products">
