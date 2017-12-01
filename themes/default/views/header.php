@@ -783,7 +783,7 @@
 							</a>
 						</li><!-- Amm change -->												
 						<li id="reports_balance_sheet_reports">
-							<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+							<a href="<?= site_url('reports/weigth_interest_rate_report') ?>">
 								<i class="fa fa-list"></i><span class="text">PAR Report</span>
 							</a>
 						</li>
