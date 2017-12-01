@@ -1,4 +1,4 @@
-<link href="https://fonts.googleapis.com/css?family=Moul|Battambang" rel="stylesheet"> 
+<!-- <link href="https://fonts.googleapis.com/css?family=Moul|Battambang" rel="stylesheet"> 
 <style type="text/css">
 	.a_four_page,.header_report{
 		width:29.7cm;
@@ -135,4 +135,200 @@
 			<br/><br/>
 		</div>
 	</div>
+</div> -->
+
+
+
+
+<link href="https://fonts.googleapis.com/css?family=Moul|Battambang" rel="stylesheet"> 
+<style type="text/css">
+	.a_four_page,.header_report{
+		width:21cm;
+		min-height:height:29.7cm;
+		height:auto;
+		margin:0 auto;
+		font-size:13px;
+		font-family:'Zawgyi-One','Time New Roman';
+	}
+	.header_report{
+		height:100px;
+		//border:1px solid red;
+	}
+	.title{
+		text-align: center;
+		font-size:16px;
+		font-family: 'Zawgyi-One', cursive;
+	}
+	#logo{
+		width: 150px;
+		opacity: 0.8;
+	}
+	.tableone thead{
+		width: 100%;
+		font-family: 'Zawgyi-One','Time New Roman';
+		font-size: 12px;
+		
+		font-weight:bold;
+
+	}
+	table tr td{
+		border:1px solid black;
+		padding: 5px;
+		
+	}
+	
+
+	
+</style>
+
+<div class="body-overflow">
+	<div class="a_four_page" >
+		<div class="header_report">
+			<div class="title">
+				<span id="logo">
+					<?php if ($Settings->logo2) {echo '<img src="' . site_url() . 'assets/uploads/logos/' . $Settings->logo2 . '" />';} ?><br>
+				</span>
+				<h2 style="text-align: center;line-height: 20px;">
+					ေစ်းကြက္ စီမံခန္ ့ခဲြပံု<br>Market Conduct</h2>
+			</div>
+			
+		</div>
+		<br><br><br>
+		<table style="font-family:'Zawgyi-One'";>
+		  <tr>
+			<td style="border:none; text-align:center; width:60%; ">
+				
+
+			</td>
+			<td style="border:none; width:10%; "></td>
+			<td style="border:none; width:15%; "></td>
+			<td style="border:none; width:10%; "></td>
+		  </tr>
+		  
+		  <tr>
+		  	<td style="width: 100%;text-align: right;padding-left: 20px;border:none; ">
+		  		ရက္စဲြ (:dd-mmm-yyyy: )  ..……………………………………
+		  	</td>
+		  </tr>
+		  <tr>
+		  	
+		  	<td style="width: 100%;border:none; text-align: right;padding-left: 20px;">
+		  		စာရင္းေပးပို ့သည့္ကာလ (month )………………………………
+		  	</td>
+		  </tr>
+		</table><br>
+	</div>
 </div>
+	
+		
+		<table style="width: 100%;">
+		  <thead>
+		  	<tr>
+			  	<td style="text-align:center;width: 20%;padding: 20px;">က႑<br>Area</td>
+				<td style="text-align:center;font-family: 'Zawgyi-One'; width:40%;">
+					ညႊန္းကိန္း<br>Indicator
+				</td>
+				<td width="20%" style="text-align:center;">လအတြင္း<br>Month</td>
+				<td width="20%" style="text-align:center;">
+					ပ်မ္းမွ်<br>Peer Average
+				</td>			
+		  	</tr>
+		  </thead>
+		  <tbody>
+		  	<tr>
+		  		<td rowspan="3">အျငင္းပြားမႈ<br>Complaints</td>
+		  		<td>အဖဲြ ့အစည္းအတြင္း ေျဖရွင္းမႈအၾကိမ္အေရအတြက္<br>Number of Complaints Handled Internally
+		  		</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>ၾကီးၾကပ္မႈေကာ္မဏီသ္ို ့တိုင္ၾကားမႈအေရအတြက္<br>Number of Complaints Referred to the Microfinance Supervisory Commitee
+				</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>တရားရံုးသို ့ေရာက္ရွိေသာ အျငင္းပြားမႈအေရအတြက္<br>Number of Complaints Brought to Court
+		  		</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td rowspan="2">ေခ်းေငြအရာရွိတစ္ဦးတာဝန္ယူ ရေသာ ေခ်းေငြအေရအတြက္နွင့္ အသင္းသားအေရအတြက္<br>Case Load for Reviewing Over-Indebtedness</td>
+		  		<td>စုစုေပါင္းေခ်းေငြအေရအတြက္ / ေခ်းေငြအရာရွိအေရအတြက္<br>Number of Loans / Number of Loan Officers</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>အသင္းသားအေရအတြက္ / ေခ်းေငြအရာရွိအေရအတြက္<br>Number of Clients / Number of Loan Officers</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td rowspan="2">သင့္ေလ်ာ္ေသာေစ်းႏႈန္း သတ္မွတ္မႈ<br>Appropriate Pricing</td>
+		  		<td>
+		  			အျမင့္ဆံုး ေခ်းေငြ အတိုးႏႈန္ူး (%)<br>Maximum Loan Interest Rate (%)
+		  		</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>ေကာ္မရွင္ ႏွင့္ အျခားအခေၾကးဝင္ေငြ /ေခ်းေငြမွ အတိုးရေငြ<br>Commission and Fees Income / Interest Income from Loans
+		  		</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td rowspan="5">နယ္ေျမခ်ဲ ့ထြင္ရန္ေဒသ<br>Area Expansion</td>
+		  		<td>စုစုေပါင္း ရံုးခဲြ အေရအတြက္<br>Number of Branches</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>ျမိဳ ့နယ္<br>Township</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>ျမိဳ ့<br>Town</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+		  	<tr>
+		  		<td>ရက္ကြက္ / အုပ္စု<br>Block / Ward</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>	  	
+		  	<tr>
+		  		<td>ေက်းရြာ<br>Village</td>
+		  		<td></td>
+		  		<td></td>
+		  	</tr>
+
+		  </tbody>
+		</table>
+		<br><br><br>
+
+		
+		<table style="width: 100%">
+			<thead >
+				<tr>
+					<td style="border:none; width:33%;">ျပဳစုသူ (Prepared by)</td>
+					<td style="border:none; width:33%;">စစ္ေဆးသူ ( Checked by )</td>
+					<td style="border:none; width:34%;">အတည္ျပဳသူ (Approved by ) </td>
+				</tr>
+				
+			</thead>
+			<tbody>
+				<tr>
+					<td style="border:none;">အမည္ (Name )…………………</td>
+					<td style="border:none;">အမည္(Name)……………….</td>
+					<td style="border:none;">အမည္(Name)……………….</td>
+				</tr>
+			</tbody>
+			
+		</table>
+			
+		<br/><br/>
+

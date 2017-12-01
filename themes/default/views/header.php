@@ -798,7 +798,7 @@
 							</a>
 						</li>
 						<li id="reports_balance_sheet_reports">
-							<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+							<a href="<?= site_url('reports/credit_by_currencies_report') ?>">
 								<i class="fa fa-list"></i><span class="text">Market Product Report</span>
 							</a>
 						</li>
