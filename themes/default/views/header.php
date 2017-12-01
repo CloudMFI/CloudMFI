@@ -803,7 +803,7 @@
 							</a>
 						</li>
 						<li id="reports_balance_sheet_reports">
-							<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+							<a href="<?= site_url('reports/credit_by_types_report') ?>">
 								<i class="fa fa-list"></i><span class="text">Prudential Deposit-Taking Report</span>
 							</a>
 						</li>
