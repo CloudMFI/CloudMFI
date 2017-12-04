@@ -65,10 +65,10 @@ $lang["customer_name"]			="ေလွ်ာက္ထားသူအမည္";//=
 $lang["customer_latin_name"]	="ေလွ်ာက္ထားသူအမည္(အဂၤလိပ္)";//="ဖုန်းဆက်သူလက်တင်အမည်";//MSM finished
 $lang["loan_account_number"]	="ေလွ်ာက္ထားသူစာရင္းနံပါတ္";//MSM finished
 $lang["account_number"]	        ="အေကာင့္နံပါတ္";//MSM finished
-$lang["c_o_name"]				="ေခ်းေငြအရာရွိနာမည္";//="C.O အမည်";//MSM finished
+$lang["c_o_name"]				="C.Oအမည္";//="C.O အမည်";//MSM finished
 $lang["phone1"]					="ဆက္သြယ္ရန္ဖုန္း ၁";//="ဖုန်း";//MSM finished
 $lang["phone2"]					="ဆက္သြယ္ရန္ဖုန္း ၂";//="ဖုန်း 2";//MSM finished
-$lang["c_o_phone"]				="ေခ်းေငြအရာရွိဆက္သြယ္ရန္ဖုန္း ";//="C.O ဖုန်း ";//MSM finished
+$lang["c_o_phone"]				="C.Oဆက္သြယ္ရန္ဖုန္း";//="C.O ဖုန်း ";//MSM finished
 $lang["term_loan"]				="ေငြေခ်းသက္တမ္း"; //MSM finished
 $lang["penalty"]				="ရက္ေနာက္က်ေျကး (တစ္ရက္နႈန္း)";//="ပြစ်ဒဏ်";//MSM finished
 $lang["total_balance_schedule"]	="စုစုေပါင္းလက္က်န္ေငြဇယား";//="စုစုပေါင်းလက်ကျန်ငွေ";//MSM finished
