@@ -150,7 +150,7 @@ class Quotes extends MY_Controller
 					$this->db->dbprefix('quote_items').".product_name AS asset,".
 					"((SELECT erp_companies.name FROM erp_companies WHERE erp_quotes.biller_id = erp_companies.id)) AS dealer_name, ".
 					
-					$this->db->dbprefix('quotes').".status as status, 
+					$this->db->dbprefix('quotes').".quote_status as status, 
 					DATE_FORMAT(".$this->db->dbprefix('quotes').".date,'%d-%m-%Y %h:%i:%s'),
 					DATE_FORMAT(".$this->db->dbprefix('quotes').".approved_date,'%d-%m-%Y %h:%i:%s'),
 					CONCAT(".$this->db->dbprefix('users').".first_name, ' ', ".$this->db->dbprefix('users').".last_name) AS coname,
@@ -159,19 +159,20 @@ class Quotes extends MY_Controller
 					$this->db->dbprefix('currencies').".name as crname ")
 			->from('quotes')
 			->join('users','quotes.by_co=users.id','INNER')
-			->join('sales', 'sales.quote_id = quotes.id', 'left')
+			//->join('sales', 'sales.quote_id = quotes.id', 'left')
 			->join('companies','quotes.customer_id=companies.id','INNER')
 			->join('companies as myBranch', 'quotes.branch_id = myBranch.id', 'left')
 			->join('quote_items', 'quotes.id = quote_items.quote_id', 'left')
 			->join('currencies','currencies.code = quote_items.currency_code','left')
 			->join('loan_groups','loan_groups.id = quotes.loan_group_id','left')
+			->where('erp_quotes.status', 'loans')
 			->order_by('quotes.id','DESC');
 		
 		if($this->GP && !($this->Owner || $this->Admin) && $this->session->view_right == 0) {
 			$this->datatables->where('quotes.branch_id', $this->session->branch_id);
 		}
 		if(!$view_draft && !($this->Owner || $this->Admin)) {
-			$this->datatables->where('erp_quotes.status <>', 'draft');
+			$this->datatables->where('erp_quotes.quote_status <>', 'draft');
 		}
 		if ($product_id) {
 			$this->datatables->join('quote_items as qi', 'qi.quote_id = quotes.id', 'left');
@@ -452,8 +453,8 @@ class Quotes extends MY_Controller
             $tax_rate = "tax_rate";
 			$pr_item_tax = 0;
 			
-			$dealer_code = $this->input->post('biller');			
-            $reference = $this->site->getReference('qu');
+			$dealer_code = $this->input->post('biller');		
+            
             if ($this->Owner || $this->Admin) {
                 $date = date('Y-m-d H:i:s');
             } else {
@@ -723,6 +724,7 @@ class Quotes extends MY_Controller
 			$user = $this->quotes_model->getUser($user_id);
 			
 			//$rate_types = $this->input->post('rate_type');
+			$reference = $this->site->getReference('qu');
 			$term_days = $frequency * $term;
             $data = array('date'        => $date,
                 'reference_no'          => $reference,
@@ -742,10 +744,10 @@ class Quotes extends MY_Controller
                 'total_tax'             => $total_tax,
                 'shipping'              => $shipping,
                 'grand_total'           => $grand_totals,
-				'status'                => $this->input->post('status'),
-				'created_by'			=> $user_id,
+				'quote_status'          => $this->input->post('status'),
+				'status'          		=> 'loans',
+				'created_by'			=> $this->session->userdata('user_id'),
 				'by_co'			 		=> $user_id,
-                //'created_by'           => $this->session->userdata('user_id'),
 				'installment_date'   	=> $this->erp->fld(trim($this->input->post('st_inst_date'))),
 				'advance_percentage_payment' => $advance_percentage_payment,
 				'advance_payment'       => str_replace(',', '', $advance_payment),
@@ -759,6 +761,48 @@ class Quotes extends MY_Controller
 				'mfi'					=> $mfi,
 				
             );
+			
+			$saving_ = $this->input->post('saving_rate');
+			
+			$saving_rate = str_replace(',', '', $this->input->post('saving_rate'));				
+			$saving_rate = str_replace('%', '', $saving_rate);
+			$saving_rate_ = ($saving_rate/100);
+			
+			$saving_interest_rate = str_replace(',', '', $this->input->post('saving_interest_rate'));				
+			$saving_interest = str_replace('%', '', $saving_interest_rate);
+			$saving_interest_ = ($saving_interest/100);
+			
+			$saving_amt = str_replace(',', '', $this->input->post('saving_amount'));
+			$saving_amount = $this->erp->convertCurrency($default_currency->default_currency, $currency, $saving_amt);
+			
+				
+			if($saving_){
+				$saving = array(
+					'date'        				=> $date,
+					'saving_rate'               => $saving_rate_ ,
+					'saving_amount'             => $saving_amount,
+					'saving_type'               => $this->input->post('saving_type'),
+					'saving_interest_rate'      => $saving_interest_ ,
+					'reference_no'          	=> $reference,
+					'customer'              	=> $this->input->post('cus_family_name') .' '. $this->input->post('cus_first_name'),
+					'status'          			=> 'saving',
+					'quote_status'          	=> $this->input->post('status'),
+					'created_by'				=> $this->session->userdata('user_id'),
+					'by_co'			 			=> $user_id,
+					'branch_id'					=> $user->branch_id,
+				);
+				
+				$saving_item = array(
+                        
+						'currency_code' 	=> $this->input->post('currency'),
+                        'subtotal' 			=> str_replace(',', '', $this->input->post('saving_amount')),
+						'unit_price' 		=> str_replace(',', '', $this->input->post('saving_amount')),
+						'net_unit_price' 	=> str_replace(',', '', $this->input->post('saving_amount')),
+						'real_unit_price' 	=> str_replace(',', '', $this->input->post('saving_amount')),
+                );
+					
+			}
+			//$this->erp->print_arrays($saving);
 			//$this->erp->print_arrays($data);
             #data of employee
 			$employee_ = '';
@@ -983,7 +1027,7 @@ class Quotes extends MY_Controller
 			//$this->erp->print_arrays($join_lease, $join_guarantor, $collateral);
         }
 
-        if ($this->form_validation->run() == true && $q_id=$this->quotes_model->addQuote($data, isset($products) ?$products  : (''), isset($QouteServices) ?$QouteServices  : (''), $guarantor_, $employee_, $documentsArray, $customers, $field_check, $collateral, $group_loan , $join_lease, $join_guarantor)) {
+        if ($this->form_validation->run() == true && $q_id=$this->quotes_model->addQuote($data, isset($products) ?$products  : (''), isset($QouteServices) ?$QouteServices  : (''), $guarantor_, $employee_, $documentsArray, $customers, $field_check, $collateral, $group_loan , $join_lease, $join_guarantor, $saving, $saving_item)) {
             $this->session->set_userdata('remove_quls', 1);
             $this->session->set_flashdata('message', $this->lang->line("quote_added"));
 			
@@ -1021,7 +1065,7 @@ class Quotes extends MY_Controller
 			$this->data['identify_type'] = $this->quotes_model->getIdentifyType();
 			$this->data['identify_name'] = $this->quotes_model->getIdentifyTypeName(companies_id);
 			$this->data['category'] = $this->quotes_model->getCategory();
-			
+			$this->data['setting'] = $this->quotes_model->get_setting();
 			$quote = $this->quotes_model->getQuoteByID($id);
 			$this->data['applicant'] = $this->site->getCompanyByID($id);
 			
@@ -1171,8 +1215,8 @@ class Quotes extends MY_Controller
 			*/
 			$quotes = $this->quotes_model->getQuoteByID($id);
 			$default_currency = $this->site->get_setting();
-			$user_id = ($this->input->post('user') ? $this->input->post('user') : $this->session->userdata('user_id'));
-			$user = $this->quotes_model->getUser($user_id);
+			$approve_by = ($this->input->post('approve_by') ? $this->input->post('approve_by') : $this->session->userdata('user_id'));
+			$user = $this->quotes_model->getUser($approve_by);
 			//$total = $this->erp->convertCurrency($default_currency->default_currency, $quote_item->currency_code, $quotes->total);
 			//$grand_totals = $this->erp->convertCurrency($default_currency->default_currency, $quote_item->currency_code, $quotes->grand_total);
 			//$this->erp->print_arrays($grand_totals);
@@ -1196,9 +1240,9 @@ class Quotes extends MY_Controller
 							'shipping'                  => $quotes->shipping,
 							'grand_total'               => '0',
 							'created_by'				=> $this->session->userdata('user_id'),
-							'approved_by'				=> $user_id,
+							'approved_by'				=> $approve_by,
 							'by_co'						=> $quotes->by_co,
-							'status'                    => $this->input->post('status'),
+							'status'              		=> $this->input->post('status'),
 							'advance_percentage_payment'=> $quotes->advance_percentage_payment,
 							'advance_payment'           => str_replace(',', '', $quotes->advance_payment),
 							'frequency'                 => $quotes->frequency,
@@ -1217,13 +1261,45 @@ class Quotes extends MY_Controller
 							'branch_id'					=> $quotes->branch_id,
 							'commission'				=> $this->input->post('commission'),
 						);
-						
+			
+
+			$quotesSaving = $this->quotes_model->getQuoteSavingQuoteID($id);
+			$SaveItems = $this->quotes_model->getSaveItemBySaveID($quotesSaving->id);
+			
+			if($quotesSaving){
+				$saving = array(
+					'date'        				=> $date,
+					'approved_date'				=> $this->erp->fld($this->input->post('app_date')),
+					'customer_id'               => $quotesSaving->customer_id,
+					'saving_rate'               => $quotesSaving->saving_rate ,
+					'saving_amount'             => $quotesSaving->saving_amount,
+					'saving_type'               => $quotesSaving->saving_type,
+					'saving_interest_rate'      => $quotesSaving->saving_interest_rate, 
+					'reference_no'          	=> $reference,
+					'customer'              	=> $quotesSaving->customer,
+					'status'          			=> 'saving',
+					'sale_status'              	=> $this->input->post('status'),
+					'created_by'				=> $this->session->userdata('user_id'),
+					'by_co'						=> $quotesSaving->by_co,
+					'approved_by'				=> $approve_by,
+					'branch_id'					=> $quotesSaving->branch_id,
+				);
+				
+				$saving_item = array(
+						'currency_code' 	=> $SaveItems->currency_code,
+						'unit_price'		=> $SaveItems->unit_price,						
+						'subtotal' 			=> $SaveItems->subtotal,
+						'net_unit_price'	=> $SaveItems->net_unit_price,
+						'real_unit_price' 	=> $SaveItems->real_unit_price,
+                );				
+			}
+			
 			$agency = array(
 				'commission_amount'	=> $this->input->post('commission'),	
 			);				
 			//$this->erp->print_arrays($companies);exit();
         }
-        if ($this->form_validation->run() == true && $this->quotes_model->getApprovedApplicant($id, $data, $products,$quote_rejects, $agency)) {
+        if ($this->form_validation->run() == true && $this->quotes_model->getApprovedApplicant($id, $data, $products,$quote_rejects, $agency, $saving, $saving_item)) {
             $this->session->set_userdata('remove_quls', 1);
             $this->session->set_flashdata('message', $this->lang->line("applicant") .''. $data['status']);
             redirect('quotes');
@@ -1405,6 +1481,7 @@ class Quotes extends MY_Controller
 					$this->data['address_join_lease'] ='';
 				}
 			}
+			$this->data['qu_saving'] = $this->quotes_model->getQuoteSavingQuoteID($id);
 			$this->data['setting'] = $this->site->get_setting();
 			$this->data['users'] = $this->quotes_model->getOwnerUsers();
 			$this->data['user_id'] = $this->session->userdata('user_id');
@@ -1746,8 +1823,9 @@ class Quotes extends MY_Controller
                 'total_tax'                 => $total_tax,
                 'shipping'                  => $shipping,
                 'grand_total'               => $grand_totals,
-				'status'                    => $status,
-				'created_by'				=> $user_id,
+				'status'                    => 'loans',
+				'quote_status'              => $status,
+				'updated_by'				=> $this->session->userdata('user_id'),
 				'by_co'						=> $user_id,
 				'advance_percentage_payment' => $advance_percentage_payment,
 				'advance_payment'           => str_replace(',', '',$advance_payment),
@@ -1763,7 +1841,50 @@ class Quotes extends MY_Controller
 				'loan_group_id'    			=> $this->input->post('groupid'),
             );
 			
-			//$this->erp->print_arrays($data);
+			 //$this->erp->print_arrays($data);
+			
+			
+			$saving_ = $this->input->post('saving_rate');
+			
+			$saving_rate = str_replace(',', '', $this->input->post('saving_rate'));				
+			$saving_rate = str_replace('%', '', $saving_rate);
+			$saving_rate_ = ($saving_rate/100);
+			
+			$saving_interest_rate = str_replace(',', '', $this->input->post('saving_interest_rate'));				
+			$saving_interest = str_replace('%', '', $saving_interest_rate);
+			$saving_interest_ = ($saving_interest/100);
+				
+			$saving_amt = str_replace(',', '', $this->input->post('saving_amount'));
+			$saving_amount = $this->erp->convertCurrency($default_currency->default_currency, $currency, $saving_amt);
+			
+			if($saving_){
+				$saving = array(
+					'date'        				=> $date,
+					'saving_rate'               => $saving_rate_ ,
+					'saving_amount'             => $saving_amount,
+					'saving_type'               => $this->input->post('saving_type'),
+					'saving_interest_rate'      => $saving_interest_ ,
+					'reference_no'          	=> $reference,
+					'customer'              	=> $this->input->post('cus_family_name') .' '. $this->input->post('cus_first_name'),
+					'status'          			=> 'saving',
+					'quote_status'              => $status,
+					'updated_by'				=> $this->session->userdata('user_id'),
+					'by_co'			 			=> $user_id,
+					'branch_id'					=> $user->branch_id,
+				);
+				
+				$saving_item = array(
+                        
+						'currency_code' 	=> $this->input->post('currency'),
+                        'subtotal' 			=> str_replace(',', '', $this->input->post('saving_amount')),
+						'unit_price' 		=> str_replace(',', '', $this->input->post('saving_amount')),
+						'net_unit_price' 	=> str_replace(',', '', $this->input->post('saving_amount')),
+						'real_unit_price' 	=> str_replace(',', '', $this->input->post('saving_amount')),
+                );
+				
+			}
+			//$this->erp->print_arrays($saving);
+			
 			#data of employee
 			$employee_ = '';
 			if($this->input->post('position') || $this->input->post('work_place_name') || $this->input->post('basic_salary') || $this->input->post('emp_province')) {
@@ -1969,7 +2090,7 @@ class Quotes extends MY_Controller
 			//$this->erp->print_arrays($join_lease, $guarantor_, $join_guarantor, $collateral);
         }
 				
-        if ($this->form_validation->run() == true && $this->quotes_model->updateQuotationDetails($id, $data, $QouteServices, isset($products)? $products  : (''), $employee_, $guarantor_, $documentsArray, $customers, $field_check, $collateral, $group_loan , $join_lease, $join_guarantor)) {
+        if ($this->form_validation->run() == true && $this->quotes_model->updateQuotationDetails($id, $data, $QouteServices, isset($products)? $products  : (''), $employee_, $guarantor_, $documentsArray, $customers, $field_check, $collateral, $group_loan , $join_lease, $join_guarantor, $saving, $saving_item)) {
 			
 		 $this->session->set_userdata('remove_quls', 1);
          $this->session->set_flashdata('message', $this->lang->line("quote_saved"));
@@ -2100,6 +2221,8 @@ class Quotes extends MY_Controller
 			$this->data['terms'] = $this->site->getAllTerm();
 						
 			$this->data['category'] = $this->quotes_model->getCategory();
+			$this->data['setting'] = $this->quotes_model->get_setting();
+			$this->data['qu_saving'] = $this->quotes_model->getQuoteSavingQuoteID($id);
 			
 			//$this->data['collateral'] = $this->quotes_model->getCollateralQuoteID($id);
 			$this->data['collaterals'] = $this->quotes_model->get_CollateralQuoteID($id);
@@ -2516,7 +2639,7 @@ class Quotes extends MY_Controller
 						CONCAT(".$this->db->dbprefix('companies').".family_name_other, ' ', ".$this->db->dbprefix('companies').".name_other) as customer_name_kh, ".
 						$this->db->dbprefix('quote_items').".product_name AS asset, ".
 						$this->db->dbprefix('quotes').".biller,".
-						$this->db->dbprefix('quotes').".status,".
+						$this->db->dbprefix('quotes').".quote_status,".
 						$this->db->dbprefix('quotes').".date,".
 						"(SELECT u.username FROM erp_users u WHERE quotes.updated_by = u.id) AS underwriter,".
 						$this->db->dbprefix('sales').".issue_date,".
@@ -2528,7 +2651,8 @@ class Quotes extends MY_Controller
 				->join('sales', 'sales.quote_id = quotes.id', 'left')
 				->join('companies','quotes.customer_id=companies.id','INNER')
 				->join('quote_items', 'quotes.id = quote_items.quote_id', 'left')
-                ->where('warehouse_id', $warehouse_id);
+				
+				->where('erp_quotes.status', 'loans');
 				$this->datatables->order_by('quotes.date', 'DESC');
 				
         } else {
@@ -2540,7 +2664,7 @@ class Quotes extends MY_Controller
 						$this->db->dbprefix('quote_items').".product_name AS asset,".
 						$this->db->dbprefix('quotes').".biller,".
 						
-						$this->db->dbprefix('quotes').".status,".
+						$this->db->dbprefix('quotes').".quote_status,".
 						$this->db->dbprefix('quotes').".date,".
 						"COALESCE((SELECT u.username FROM erp_users u WHERE erp_quotes.updated_by = u.id), '') AS underwriter,".
 						$this->db->dbprefix('sales').".issue_date,".
@@ -2719,15 +2843,16 @@ class Quotes extends MY_Controller
             $this->data['modal_js'] = $this->site->modal_js();
             $this->load->view($this->theme . 'quotes/gov_id_report', $this->data); 
 	}*/
-	public function cash_payment_schedule_preview($lease_amount=NULL,$rate_type=NULL,$interest_rate=NULL,$term=NULL, $frequency = NULL, $currency = NULL, $cdate = NULL, $principle_fq = NULL, $services = NULL){
+	public function cash_payment_schedule_preview($lease_amount=NULL,$rate_type=NULL,$interest_rate=NULL,$term=NULL, $frequency = NULL, $currency = NULL, $cdate = NULL, $principle_fq = NULL, $services = NULL, $saving_amount = NULL, $saving_interest_rate = NULL, $saving_type = NULL){
+		//$this->erp->print_arrays($saving_rate, $saving_amount, $saving_interest_rate, $saving_type);
 		$this->erp->checkPermissions('index',true,'quotes');
 		$this->load->model('quotes_model');
 		
 		$arr_services = explode('___', $services);
 		$arr_service = array();
 		$str_ids = '';
-		//$this->erp->print_arrays($arr_services);
-		foreach($arr_services as $service) { //$this->erp->print_arrays($service);
+		 
+		foreach($arr_services as $service) {  
 			$sv = explode('__', $service);
 			if($str_ids == '') {
 				$str_ids = $sv[0];
@@ -2759,18 +2884,16 @@ class Quotes extends MY_Controller
 		$this->data['currency_id'] = $currency;
 		$this->data['principle_fq'] = $principle_fq;
 		$date = str_replace('___', '/', $cdate);
-		$new_date = $this->erp->fld($date);
-		//$this->erp->print_arrays($app_date);
+		$new_date = $this->erp->fld($date); 
 		//$this->data['collateraltype'] = $this->quotes_model->get_CollateralType($id);	
 		$this->data['setting'] = $this->site->get_setting();		
-		$this->data['pts'] = $this->erp->getPaymentSchedule('1', $lease_amount, $rate_type, $interest_rate, $term, $frequency, $new_date ,$app_date, $currency, $principle_fq);
+		$this->data['pts'] = $this->erp->getPaymentSchedule('1', $lease_amount, $rate_type, $interest_rate, $term, $frequency, $new_date ,$app_date, $currency, $principle_fq, $saving_amount, $saving_interest_rate, $saving_type);
 		$this->data['all'] = $this->erp->getAllTotal($lease_amount, $rate_type, $interest_rate, $term, $frequency, $principle_fq);	
-	//$this->erp->print_arrays($this->data['pts']);
 		$this->data['modal_js'] = $this->site->modal_js();
         $this->load->view($this->theme.'installment_payment/cash_payment_schedule_preview',$this->data);
 	}	
 	
-	public function cash_payment_schedule_applicant($lease_amount=NULL,$rate_type=NULL,$interest_rate=NULL,$term=NULL, $frequency = NULL, $currency = NULL,$id = NULL, $cdate = NULL,$app_date = NULL, $principle_fq = NULL, $services = NULL ){
+	public function cash_payment_schedule_applicant($lease_amount=NULL,$rate_type=NULL,$interest_rate=NULL,$term=NULL, $frequency = NULL, $currency = NULL,$id = NULL, $cdate = NULL,$app_date = NULL, $principle_fq = NULL, $services = NULL, $saving_amount = NULL, $saving_interest_rate = NULL, $saving_type = NULL){
 		$this->erp->checkPermissions('index',true,'quotes');
 		$this->load->model('quotes_model');
 		
@@ -2798,7 +2921,7 @@ class Quotes extends MY_Controller
 		$this->data['applicant'] = $applicant;
 
 		$this->data['users'] = $this->quotes_model->getUserQuoteByID($id);
-		$this->data['pts'] = $this->erp->getPaymentSchedule('1', $lease_amount, $rate_type, $interest_rate, $term, $frequency, $cdate ,$app_date, $currency, $principle_fq);
+		$this->data['pts'] = $this->erp->getPaymentSchedule('1', $lease_amount, $rate_type, $interest_rate, $term, $frequency, $cdate ,$app_date, $currency, $principle_fq, $saving_amount, $saving_interest_rate, $saving_type);
 		$this->data['all'] = $this->erp->getAllTotal($lease_amount, $rate_type, $interest_rate, $term, $frequency, $principle_fq);		
 		$this->data['modal_js'] = $this->site->modal_js();
         $this->load->view($this->theme.'installment_payment/cash_payment_schedule_applicant',$this->data);
@@ -3152,10 +3275,10 @@ class Quotes extends MY_Controller
                 'total_tax'             => $total_tax,
                 'shipping'              => $shipping,
                 'grand_total'           => $grand_totals,
-				'status'                => $this->input->post('status'),
-				'created_by'			=> $user_id ,
+				'quote_status'          => $this->input->post('status'),
+				'status'          		=> 'loans',
+				'created_by'			=> $this->session->userdata('user_id') ,
 				'by_co'					=> $user_id,
-                //'created_by'            => $this->session->userdata('user_id'),
 				'installment_date'   	=> $this->erp->fld(trim($this->input->post('st_inst_date'))),
 				'advance_percentage_payment' => $advance_percentage_payment,
 				'advance_payment'       => str_replace(',', '', $advance_payment),
@@ -3170,6 +3293,46 @@ class Quotes extends MY_Controller
 				'loan_group_id'    		=> $this->input->post('groupid'),
             );
 			//$this->erp->print_arrays($data);
+			
+			$saving_ = $this->input->post('saving_rate');			
+			$saving_rate = str_replace(',', '', $this->input->post('saving_rate'));				
+			$saving_rate = str_replace('%', '', $saving_rate);
+			$saving_rate_ = ($saving_rate/100);
+			
+			$saving_interest_rate = str_replace(',', '', $this->input->post('saving_interest_rate'));				
+			$saving_interest = str_replace('%', '', $saving_interest_rate);
+			$saving_interest_ = ($saving_interest/100);
+				
+			$saving_amt = str_replace(',', '', $this->input->post('saving_amount'));
+			$saving_amount = $this->erp->convertCurrency($default_currency->default_currency, $currency, $saving_amt);
+			if($saving_){
+				$saving = array(
+					'date'        				=> $date,
+					'saving_rate'               => $saving_rate_ ,
+					'saving_amount'             => $saving_amount,
+					'saving_type'               => $this->input->post('saving_type'),
+					'saving_interest_rate'      => $saving_interest_ ,
+					'reference_no'          	=> $reference,
+					'customer'              	=> $this->input->post('cus_family_name') .' '. $this->input->post('cus_first_name'),
+					'status'          			=> 'saving',
+					'quote_status'          	=> $this->input->post('status'),
+					'created_by'				=> $this->session->userdata('user_id'),
+					'by_co'			 			=> $user_id,
+					'branch_id'					=> $user->branch_id,
+				);
+				
+				$saving_item = array(
+                        
+						'currency_code' 	=> $this->input->post('currency'),
+                        'subtotal' 			=> str_replace(',', '', $this->input->post('saving_amount')),
+						'unit_price' 		=> str_replace(',', '', $this->input->post('saving_amount')),
+						'net_unit_price' 	=> str_replace(',', '', $this->input->post('saving_amount')),
+						'real_unit_price' 	=> str_replace(',', '', $this->input->post('saving_amount')),
+                );
+				
+			}
+			//$this->erp->print_arrays($saving);
+			
             #data of employee
 			$employee_ = '';
 			if($this->input->post('position') || $this->input->post('work_place_name') || $this->input->post('basic_salary') || $this->input->post('emp_province')) {
@@ -3374,7 +3537,7 @@ class Quotes extends MY_Controller
 			//$this->erp->print_arrays($join_lease, $join_guarantor, $collateral);
         }
 
-        if ($this->form_validation->run() == true && $q_id=$this->quotes_model->addApplicant($data, isset($products) ?$products  : (''), isset($QouteServices) ?$QouteServices  : (''), $guarantor_, $employee_, $documentsArray, $customers, $field_check, $collateral, $join_lease, $join_guarantor)) {
+        if ($this->form_validation->run() == true && $q_id=$this->quotes_model->addApplicant($data, isset($products) ?$products  : (''), isset($QouteServices) ?$QouteServices  : (''), $guarantor_, $employee_, $documentsArray, $customers, $field_check, $collateral, $join_lease, $join_guarantor, $saving, $saving_item)) {
             $this->session->set_userdata('remove_quls', 1);
             $this->session->set_flashdata('message', $this->lang->line("quote_added"));
 			redirect('quotes/edit/'.$q_id);
@@ -3423,6 +3586,8 @@ class Quotes extends MY_Controller
 			$this->data['customer_groups'] = $this->companies_model->getAllCustomerGroups();
 			$this->data['countries'] = $this->site->getCountries();
 			$this->data['applicant'] = $this->site->getCompanyByID($id);
+			$this->data['setting']	= $this->quotes_model->get_setting();
+			$this->data['qu_saving'] = $this->quotes_model->getQuoteSavingQuoteID($id);
 			//$this->data['gov_id'] = $this->quotes_model->GetGovID();
 			$this->data['customers'] = $this->quotes_model->getGovID();
 			$this->data['products'] = $this->quotes_model->getProducts();
@@ -3562,7 +3727,7 @@ class Quotes extends MY_Controller
 						CONCAT(".$this->db->dbprefix('companies').".family_name_other, ' ', ".$this->db->dbprefix('companies').".name_other) as customer_name_kh, ".	
 						$this->db->dbprefix('quote_items').".product_name AS asset,".
 						"((SELECT erp_companies.name FROM erp_companies WHERE erp_quotes.biller_id = erp_companies.id)) AS dealer_name, ".
-						$this->db->dbprefix('quotes').".status as status,
+						$this->db->dbprefix('quotes').".quote_status as status,
 						
 						DATE_FORMAT(".$this->db->dbprefix('quotes').".date,'%d-%m-%Y %h:%i:%s'),
 						DATE_FORMAT(".$this->db->dbprefix('quotes').".approved_date,'%d-%m-%Y %h:%i:%s'), 
@@ -3578,7 +3743,8 @@ class Quotes extends MY_Controller
 				->join('companies as myBranch', 'users.branch_id = myBranch.id')
 				->join('quote_items', 'quotes.id = quote_items.quote_id', 'left')
 				->join('currencies','currencies.code = quote_items.currency_code','left')
-				->where('quotes.status','rejected')
+				->where('quotes.quote_status','rejected')
+				->where('erp_quotes.status ', 'loans')
 				->order_by('quotes.id','DESC');
         
 		if($this->GP && !($this->Owner || $this->Admin) && $this->session->view_right == 0) {

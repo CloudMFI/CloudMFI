@@ -343,6 +343,7 @@ class Installment_Payment extends MY_Controller
 				->join('users','sales.by_co=users.id','INNER')
 				->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 				->join('currencies','currencies.code = quote_items.currency_code','left')
+				->where($this->db->dbprefix('sales').'.status =', 'loans')
 				->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 				//->where('loans.dateline =', date('Y-m-d'))
 				->where('sales.frequency =', 1)
@@ -488,6 +489,7 @@ class Installment_Payment extends MY_Controller
 			->join('users','sales.by_co=users.id','INNER')
 			->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 			->join('currencies','currencies.code = quote_items.currency_code','left')
+			->where($this->db->dbprefix('sales').'.status =', 'loans')
 			->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 			//->where('loans.dateline =', date('Y-m-d'))
 			->where('sales.frequency =', 7)
@@ -634,6 +636,7 @@ class Installment_Payment extends MY_Controller
 			->join('users','sales.by_co=users.id','INNER')
 			->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 			->join('currencies','currencies.code = quote_items.currency_code','left')
+			->where($this->db->dbprefix('sales').'.status =', 'loans')
 			->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 			//->where('loans.dateline =', date('Y-m-d'))
 			->where('sales.frequency =', 14)
@@ -779,6 +782,7 @@ class Installment_Payment extends MY_Controller
 			->join('users','sales.by_co=users.id','INNER')
 			->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 			->join('currencies','currencies.code = quote_items.currency_code','left')
+			->where($this->db->dbprefix('sales').'.status =', 'loans')
 			->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 			//->where('loans.dateline =', date('Y-m-d'))
 			->where('sales.frequency =', 30)
@@ -924,6 +928,7 @@ class Installment_Payment extends MY_Controller
 			->join('users','sales.by_co=users.id','INNER')
 			->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 			->join('currencies','currencies.code = quote_items.currency_code','left')
+			->where($this->db->dbprefix('sales').'.status =', 'loans')
 			->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 			//->where('loans.dateline =', date('Y-m-d'))
 			->where('sales.frequency =', 360)
@@ -1070,6 +1075,7 @@ class Installment_Payment extends MY_Controller
 				->join('users','sales.by_co=users.id','INNER')
 				->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 				->join('currencies','currencies.code = quote_items.currency_code','left')
+				->where($this->db->dbprefix('sales').'.status =', 'loans')
 				->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 				->where('loans.dateline =', date('Y-m-d'))
 				->where('loans.paid_amount', 0)
@@ -1217,6 +1223,7 @@ class Installment_Payment extends MY_Controller
 				->join('quote_items','quote_items.quote_id = quotes.id','left')
 				->join('users','sales.by_co=users.id','INNER')
 				->join('currencies','currencies.code = quote_items.currency_code','left')
+				->where($this->db->dbprefix('sales').'.status =', 'loans')
 				->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 				->where('loans.dateline <', date('Y-m-d'))
 				->where('loans.paid_amount', 0)
@@ -1365,6 +1372,7 @@ class Installment_Payment extends MY_Controller
 				->join('quote_items','quote_items.quote_id = quotes.id','left')
 				->join('users','sales.by_co=users.id','INNER')
 				->join('currencies','currencies.code = quote_items.currency_code','left')
+				->where($this->db->dbprefix('sales').'.status =', 'loans')
 				->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 				->where('erp_sales.status','loans')
 				->where('loans.paid_amount', 0)
@@ -4701,6 +4709,8 @@ class Installment_Payment extends MY_Controller
 			}
 			$owed_principle = $principle - $priciple_paid;
 			
+			$saving_interest = str_replace(',', '', $this->input->post('saving_interest'));
+			$saving_interest_amt = $this->erp->convertCurrency($df_currency, $loan_currency, $saving_interest);
 			$payment = array(
 								'date' 					=> $pay_date,
 								'biller_id'				=> $sale->branch_id,
@@ -4731,6 +4741,7 @@ class Installment_Payment extends MY_Controller
 								'owed_penalty'			=> $owed_penalty,
 								'owed_other_paid'		=> $owed_other_paid,
 								'owed_principle'		=> $owed_principle,
+								'saving_balance'		=> $saving_interest_amt,
 								
 							);
 							
@@ -4750,7 +4761,7 @@ class Installment_Payment extends MY_Controller
 								$file = $this->upload->file_name;
 								$payment['document'] = $file;
 							}
-			$this->erp->print_arrays($payment);
+			//$this->erp->print_arrays($payment);
 			//$paid = $total_services_paid ;
 			$paid = str_replace(',', '', $this->erp->roundUpMoney($total_services_paid, $df_currency));
 			$arr_services = array();			

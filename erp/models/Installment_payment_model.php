@@ -2405,6 +2405,15 @@ class Installment_Payment_model extends CI_Model
         return FALSE;
     }
 	
+	public function getSaleSavingSaleID($id = NULL)
+	{
+		$q = $this->db->get_where('sales' , array('sales_id' => $id));
+		if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+	}
+	
 	public function getPaymentByID($id)    {
         $q = $this->db->get_where('payments', array('id' => $id), 1);
         if ($q->num_rows() > 0) {
@@ -2495,6 +2504,14 @@ class Installment_Payment_model extends CI_Model
 				$sales = $this->getSaleById($sale_id);
 				$new_paid = $sales->paid + $data['amount'];
 				$this->db->update('sales',array('paid'=> $new_paid),array('id'=> $sale_id));
+				
+				$saving = $this->getSaleSavingSaleID($sale_id);
+				if($saving){
+					$new_interest = $saving->saving_interest_amount + $data['saving_balance'];
+					$saving_amount = $saving->saving_balance + $data['saving_balance'] ;
+					$this->db->update('sales',array('saving_interest_amount'=> $new_interest, 'saving_balance'=> $saving_amount),array('id'=> $saving->id));
+				}
+				
 				if($old_payments){
 					$this->db->update('payments',$old_payments, array('id' => $last_payment->id));
 				}				
@@ -2518,7 +2535,7 @@ class Installment_Payment_model extends CI_Model
 				if($last_loan_id == $MaxLoan->id){
 					if($data['owed'] == 0){
 						$this->db->update('sales', array('sale_status' => "completed"), array('id' => $sale_id));
-						$this->db->update('quotes', array('status' => "completed"), array('id' => $sales->quote_id));
+						$this->db->update('quotes', array('quote_status' => "completed"), array('id' => $sales->quote_id));
 					}
 				}
             ///$this->site->syncSalePayments($sale_id);
@@ -2576,10 +2593,10 @@ class Installment_Payment_model extends CI_Model
 				if($lastLoan->id == $MaxLoan->id){
 					if($data['owed'] == 0){
 						$this->db->update('sales', array('sale_status' => "completed"), array('id' => $sale_id));
-						$this->db->update('quotes', array('status' => "completed"), array('id' => $sales->quote_id));
+						$this->db->update('quotes', array('quote_status' => "completed"), array('id' => $sales->quote_id));
 					}else if($data['owed'] > 0){
 						$this->db->update('sales', array('sale_status' => "activated"), array('id' => $sale_id));
-						$this->db->update('quotes', array('status' => "activated"), array('id' => $sales->quote_id));
+						$this->db->update('quotes', array('quote_status' => "activated"), array('id' => $sales->quote_id));
 					}
 				}
 				
@@ -2618,7 +2635,7 @@ class Installment_Payment_model extends CI_Model
 				if($lastLoan->id == $MaxLoan->id){
 					if($data['owed'] == 0){
 						$this->db->update('sales', array('sale_status' => "completed"), array('id' => $sale_id));
-						$this->db->update('quotes', array('status' => "completed"), array('id' => $sales->quote_id));
+						$this->db->update('quotes', array('quote_status' => "completed"), array('id' => $sales->quote_id));
 					}
 				}
 				

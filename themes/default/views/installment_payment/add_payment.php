@@ -109,6 +109,7 @@
 		}
 		//$this->erp->print_arrays($service_amount);
 		//$this->erp->print_arrays($service->total_charge)
+		$saving_interest += str_replace(',', '', $this->erp->roundUpMoney($loan->saving_interest,$sale_item->currency_code)); //$saving_interest;
 		$installment_amount += str_replace(',', '', $this->erp->roundUpMoney($loan->payment,$sale_item->currency_code)); //$loan->payment;
 		$interest_amount += str_replace(',', '', $this->erp->roundUpMoney($loan->interest,$sale_item->currency_code)); //$loan->interest;
 		$principle_amount += $loan->principle;
@@ -314,6 +315,7 @@
 											<?php echo form_input('total_payments','', 'class="form-control" id="total_payments" style="pointer-events: none;" '); ?>
 											<input type="hidden" name="total_service_charge" id="total_service_charge" value="<?= $total_services_amount ?>" />
 											<input type="hidden" name="h_total_amount" id="h_total_amount" />
+											<input type="hidden" name="saving_interest" id="saving_interest" value="<?= $saving_interest ?>" />
 											
 										</div>
 									</div>	

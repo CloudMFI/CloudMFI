@@ -906,10 +906,10 @@ ORDER BY
 		$this->db->select("quotes.id,quotes.date,quotes.approved_date, sales.reference_no,quotes.reference_no as reference,
 						   CONCAT(erp_companies.family_name,' ',erp_companies.name) AS name_en,
 						   CONCAT(erp_companies.family_name_other,' ',erp_companies.name_other) AS name_kh,
-						   quotes.status,CONCAT(erp_users.first_name,' ',erp_users.last_name) AS coname,
+						   quotes.quote_status status,CONCAT(erp_users.first_name,' ',erp_users.last_name) AS coname,
 						   myBranch.name as branches,(erp_quotes.total*erp_currencies.rate/".$settings->rate .") as total,
 						   (erp_sales.grand_total*erp_currencies.rate/".$settings->rate .") as grand_total,currencies.name as crname")
-			->join('users','users.id=quotes.created_by','INNER')
+			->join('users','users.id=quotes.by_co','INNER')
 			->join('sales','quotes.id=sales.quote_id','LEFT')
 			->join('companies','companies.id=quotes.customer_id','INNER')
 			->join('companies AS myBranch','myBranch.id=quotes.branch_id','LEFT')
@@ -918,7 +918,8 @@ ORDER BY
 			
 			->where("quotes.date >=", $date.' 00:00:00')
 			->where("quotes.date <=", $date.' 23:55:00')
-			->where("quotes.status","applicant")
+			->where("quotes.quote_status","applicant")
+			->where("quotes.status","loans")
 			->or_where("quotes.approved_date >=", $date.' 00:00:00')
 			->where("quotes.approved_date <=", $date.' 23:55:00');
         $q = $this->db->get('quotes');
@@ -929,7 +930,8 @@ ORDER BY
 	}
 	public function getApplicantionQuotes($date){
 		$this->db->select('date,SUM(COALESCE(total,0)) as t_applicantion',FALSE)
-				 ->where("status",'applicant')
+				 ->where("quote_status",'applicant')
+				 ->where("status",'loans')
 				 ->where("date >=", $date.' 00:00:00')
 				 ->where("date <=", $date.' 23:55:00');
 				$q = $this->db->get('quotes');
@@ -940,7 +942,8 @@ ORDER BY
 	}
 	function getDailyRejected($date){
 		$this->db->select('approved_date,SUM(COALESCE(total,0)) as t_rejected',FALSE)
-				 ->where("status",'rejected')
+				 ->where("quote_status",'rejected')
+				 ->where("status",'loans')
 				 ->where("approved_date >=", $date.' 00:00:00')
 				 ->where("approved_date <=", $date.' 23:55:00');
 				$q = $this->db->get('quotes');
@@ -952,6 +955,7 @@ ORDER BY
 	function getDailyApproved($date){
 		$this->db->select('approved_date,SUM(COALESCE(total,0)) as t_contract',FALSE)
 				 ->where("sale_status",'approved')
+				  ->where("status",'loans')
 				 ->where("approved_date >=", $date.' 00:00:00')
 				 ->where("approved_date <=", $date.' 23:55:00');
 				$q = $this->db->get('sales');
@@ -964,6 +968,7 @@ ORDER BY
 	function getDailyDisburse($date){
 		$this->db->select('approved_date,SUM(COALESCE(grand_total,0)) as t_disburse',FALSE)
 				 ->where("sale_status",'activated')
+				  ->where("status",'loans')
 				 ->where("approved_date >=", $date.' 00:00:00')
 				 ->where("approved_date <=", $date.' 23:55:00');
 				$q = $this->db->get('sales');
@@ -977,6 +982,7 @@ ORDER BY
 		$settings = $this->getSettingCurrncy();
 		$this->db->select('date,SUM(COALESCE(total,0)) as app_amount',FALSE);
 		$this->db->where('DATE(date)',$date);
+		$this->db->where("status",'loans');
 		//$this->db->or_where(date('Y-m-d'),$date);
 		$q = $this->db->get('quotes');
 		if($q->num_rows() > 0) {
@@ -1049,10 +1055,10 @@ ORDER BY
         $this->db->select("quotes.id,quotes.date,quotes.approved_date, sales.reference_no,quotes.reference_no as reference,
 						   CONCAT(erp_companies.family_name,' ',erp_companies.name) AS name_en,
 						   CONCAT(erp_companies.family_name_other,' ',erp_companies.name_other) AS name_kh,
-						   quotes.status,CONCAT(erp_users.first_name,' ',erp_users.last_name) AS coname,
+						   quotes.quote_status as status,CONCAT(erp_users.first_name,' ',erp_users.last_name) AS coname,
 						   myBranch.name as branches,(erp_quotes.total*erp_currencies.rate/".$settings->rate .") as total,
 						   (erp_sales.grand_total*erp_currencies.rate/".$settings->rate .") as grand_total,currencies.name as crname");
-		$this->db->join('users','users.id=quotes.created_by','INNER');
+		$this->db->join('users','users.id=quotes.by_co','INNER');
 		$this->db->join('sales','quotes.id=sales.quote_id','LEFT');
 		$this->db->join('companies','companies.id=quotes.customer_id','INNER');
 		$this->db->join('companies AS myBranch','myBranch.id=quotes.branch_id','LEFT');
@@ -1060,11 +1066,13 @@ ORDER BY
 		$this->db->join('currencies','currencies.code=quote_items.currency_code');
 		if($date) {
             $this->db->where('quotes.date', $date);
+			$this->db->where('quotes.status', 'loans');
         }elseif ($month) {
             $this->load->helper('date');
             $last_day = days_in_month($month, $year);
             $this->db->where('quotes.date >=', $year.'-'.$month.'-01 00:00:00');
             $this->db->where('quotes.date <=', $year.'-'.$month.'-'.$last_day.' 23:59:59');
+			$this->db->where('quotes.status', 'loans');
         }
         $q = $this->db->get('quotes');
         if ($q->num_rows() > 0) {

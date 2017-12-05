@@ -132,6 +132,66 @@ class Saving_model extends CI_Model
 		return false;
     }
 	
+	public function getSavingCustomer($bid){
+		$this->db->select('id, reference_no, saving_balance');
+		$this->db->where(array('sales.branch_id' => $bid));
+		$this->db->where('status','saving');
+		$this->db->where('saving_balance > 0');
+		$q = $this->db->get('sales');
+		if ($q->num_rows() > 0) {
+			foreach (($q->result()) as $row) {
+				$data[] = $row;
+			}
+			return $data;
+		}
+        return FALSE;
+	}
+	public function get_setting() {
+        $q = $this->db->get('settings');
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+	public function getSettingCurrncy(){
+		$this->db->select('currencies.rate, currencies.code, currencies.name');
+		$this->db->from('settings');
+		$this->db->join('currencies', 'settings.default_currency = currencies.code');		
+		$q = $this->db->get();       
+		 if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+	}
+	
+	
+	
+	public function getAjaxSavingById($ids){
+		$this->db->select('sales.saving_balance, sale_items.currency_code, sales.id,CONCAT(erp_companies.family_name," ",erp_companies.name) AS customer_name,currencies.name as curr_name, ');
+		$this->db->where('sales.id', $ids);
+		$this->db->from('sales');
+		$this->db->join('sale_items', 'sale_items.sale_id = sales.id','left');
+		$this->db->join('currencies','currencies.code = sale_items.currency_code','left');
+		$this->db->join('companies as branch','branch.id = sales.branch_id','left');
+		$this->db->join('companies','sales.customer_id = companies.id','left');
+		$q = $this->db->get();       
+		 if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+	}
+	
+	public function addCashWithdrawal($payment = array(), $update_saving = array() ){
+		$sale_id = $payment['sale_id'];
+        if($payment) {
+			if($this->db->insert('payments',$payment)){
+				$this->db->update('sales', $update_saving, array('id' => $sale_id));
+				$this->site->updateReference('pp');
+			}
+			return true;
+		}
+		return false;
+    }
 }
 
 	

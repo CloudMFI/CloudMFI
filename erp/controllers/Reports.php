@@ -14559,7 +14559,7 @@ class Reports extends MY_Controller
 						CONCAT(".$this->db->dbprefix('companies').".family_name_other, ' ', ".$this->db->dbprefix('companies').".name_other) as customer_name_kh, ".
 						$this->db->dbprefix('quote_items').".product_name AS asset, ".
 						"(SELECT u.name FROM erp_companies u WHERE erp_quotes.biller_id = u.id) AS dealer_name,".
-						$this->db->dbprefix('quotes').".status,".
+						$this->db->dbprefix('quotes').".quote_status,".
 						$this->db->dbprefix('quotes').".date,".
 						"(SELECT u.username FROM erp_users u WHERE quotes.updated_by = u.id) AS underwriter,".
 						$this->db->dbprefix('sales').".issue_date,".
@@ -14570,6 +14570,7 @@ class Reports extends MY_Controller
 				->join('sales', 'sales.quote_id = quotes.id', 'left')
 				->join('companies','quotes.customer_id=companies.id','INNER')
 				->join('quote_items', 'quotes.id = quote_items.quote_id', 'left')
+				->where('quotes.status', 'loans')
                 ->where('warehouse_id', $warehouse_id);
         } else {
         $this->load->library('datatables');
@@ -14582,7 +14583,7 @@ class Reports extends MY_Controller
 					$this->db->dbprefix('quote_items').".product_name AS asset,".
 					"((SELECT erp_companies.name FROM erp_companies WHERE erp_quotes.biller_id = erp_companies.id)) AS dealer_name, ".
 					
-					$this->db->dbprefix('quotes').".status as status, 
+					$this->db->dbprefix('quotes').".quote_status as status, 
 					DATE_FORMAT(".$this->db->dbprefix('quotes').".date,'%d-%m-%Y %h:%i:%s'),
 					DATE_FORMAT(".$this->db->dbprefix('quotes').".approved_date,'%d-%m-%Y %h:%i:%s'),
 					CONCAT(".$this->db->dbprefix('users').".first_name, ' ', ".$this->db->dbprefix('users').".last_name) AS coname,
@@ -14590,7 +14591,7 @@ class Reports extends MY_Controller
 					$this->db->dbprefix('quotes').".grand_total * (".$this->db->dbprefix('currencies').".rate / ".$setting->rate ."),".
 					$this->db->dbprefix('currencies').".name as crname ")
                 ->from('quotes')
-				->join('users','quotes.created_by=users.id','INNER')
+				->join('users','quotes.by_co=users.id','INNER')
 				->join('sales', 'sales.quote_id = quotes.id', 'left')
 				->join('companies','quotes.customer_id=companies.id','INNER')
 				//->join('companies AS C','quotes.biller_id=C.id','left')
@@ -14598,6 +14599,7 @@ class Reports extends MY_Controller
 				->join('quote_items', 'quotes.id = quote_items.quote_id', 'left')
 				->join('currencies','currencies.code = quote_items.currency_code','left')
 				->join('loan_groups','loan_groups.id = quotes.loan_group_id','left')
+				->where('quotes.status', 'loans')
 				->order_by('quotes.id','DESC');
 
 				//"(SELECT u.name FROM erp_companies u WHERE erp_quotes.biller_id = u.id) AS dealer_name,". == C.name AS dealer_name,".
@@ -14620,7 +14622,7 @@ class Reports extends MY_Controller
 		}
 		
 		if ($user_query) {
-			$this->datatables->where('quotes.created_by', $user_query);
+			$this->datatables->where('quotes.by_co', $user_query);
 		}
 
 		if ($reference_no) {
@@ -15654,30 +15656,7 @@ class Reports extends MY_Controller
 	
         $this->load->library('datatables');
 		$setting = $this->down_payment_model->getSettingCurrncy();
-         if ($warehouse_id) {
-            $this->datatables
-                ->select($this->db->dbprefix('quotes').".id,".
-						$this->db->dbprefix('quotes').".reference_no,
-						CONCAT(".$this->db->dbprefix('companies').".family_name, ' ', ".$this->db->dbprefix('companies').".name) as customer_name_en,
-						CONCAT(".$this->db->dbprefix('companies').".family_name_other, ' ', ".$this->db->dbprefix('companies').".name_other) as customer_name_kh, ".
-						$this->db->dbprefix('quote_items').".product_name AS asset, ".
-						"(SELECT u.name FROM erp_companies u WHERE erp_quotes.biller_id = u.id) AS dealer_name,
-						
-						IF(".$this->db->dbprefix('sales').".sale_status = 'activated', ".$this->db->dbprefix('sales').".sale_status, ".$this->db->dbprefix('quotes').".status) as status,".
-						$this->db->dbprefix('quotes').".date,".
-						$this->db->dbprefix('quotes').".approved_date,".
-						$this->db->dbprefix('sales').".approved_date as acception_date,".
-						"TIMEDIFF(".$this->db->dbprefix('quotes').".approved_date,".$this->db->dbprefix('quotes').".date) as duration, ".
-						"(SELECT u.username FROM erp_users u WHERE quotes.updated_by = u.id) AS underwriter,".
-						$this->db->dbprefix('users').".username,".
-						$this->db->dbprefix('quotes').".grand_total")
-                ->from('quotes')
-				->join('users','quotes.created_by=users.id','INNER')
-				->join('sales', 'sales.quote_id = quotes.id', 'left')
-				->join('companies','quotes.customer_id=companies.id','INNER')
-				->join('quote_items', 'quotes.id = quote_items.quote_id', 'left')
-                ->where('warehouse_id', $warehouse_id);
-        } else {
+         
             $this->datatables
                 ->select($this->db->dbprefix('quotes').".id,".
 						$this->db->dbprefix('quotes').".reference_no,
@@ -15686,7 +15665,7 @@ class Reports extends MY_Controller
 						$this->db->dbprefix('quote_items').".product_name AS asset,
 						C.name AS dealer_name,
 						
-						IF(".$this->db->dbprefix('sales').".sale_status = 'activated', ".$this->db->dbprefix('sales').".sale_status, ".$this->db->dbprefix('quotes').".status) as status,".
+						IF(".$this->db->dbprefix('sales').".sale_status = 'activated', ".$this->db->dbprefix('sales').".sale_status, ".$this->db->dbprefix('quotes').".quote_status) as status,".
 						$this->db->dbprefix('quotes').".date,".
 						$this->db->dbprefix('quotes').".approved_date,".
 						$this->db->dbprefix('sales').".approved_date as acception_date,".
@@ -15696,13 +15675,15 @@ class Reports extends MY_Controller
 						
 						$this->db->dbprefix('quotes').".total*(".$this->db->dbprefix('currencies').".rate / ".$setting->rate .") ")
                 ->from('quotes')
-				->join('users','quotes.created_by=users.id','INNER')
+				->join('users','quotes.by_co=users.id','INNER')
 				->join('sales', 'sales.quote_id = quotes.id', 'left')
 				->join('companies','quotes.customer_id=companies.id','INNER')
 				->join('companies AS C','quotes.biller_id=C.id','left')
 				->join('quote_items', 'quotes.id = quote_items.quote_id', 'left')
-				->join('currencies','currencies.code = quote_items.currency_code','left');
-        }
+				->join('currencies','currencies.code = quote_items.currency_code','left')
+				->where('quotes.status','loans')
+				->where('sales.status','loans');
+        
 		
 		if ($product_id) {
 			$this->datatables->join('quote_items', 'quote_items.quote_id = quotes.id', 'left');
@@ -15720,7 +15701,7 @@ class Reports extends MY_Controller
 		}
 		
 		if ($user_query) {
-			$this->datatables->where('quotes.created_by', $user_query);
+			$this->datatables->where('quotes.by_co', $user_query);
 		}
 
 		if ($reference_no) {

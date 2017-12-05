@@ -789,6 +789,51 @@ class Accounts_model extends CI_Model
         return FALSE;
     }
 	
+	public function getdefault_saving_deposit()
+    {
+		$this->db->select('accountname');
+		$this->db->from('account_settings');
+		$this->db->join('gl_charts', 'account_settings.default_saving_deposit=gl_charts.accountcode');
+        $q = $this->db->get();
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+	
+	public function getdefault_saving_interest()
+    {
+		$this->db->select('accountname');
+		$this->db->from('account_settings');
+		$this->db->join('gl_charts', 'account_settings.default_saving_interest=gl_charts.accountcode');
+        $q = $this->db->get();
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+	
+	public function getdefault_cash_withdrawal()
+    {
+		$this->db->select('accountname');
+		$this->db->from('account_settings');
+		$this->db->join('gl_charts', 'account_settings.default_cash_withdrawal=gl_charts.accountcode');
+        $q = $this->db->get();
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
+	
 	public function getAllChartAccountBank(){
 		$this->db->select('gl_charts.accountcode,gl_charts.accountname,gl_charts.parent_acc,gl_charts.sectionid');
 		$this->db->from('gl_charts');
@@ -2057,6 +2102,7 @@ class Accounts_model extends CI_Model
 	public function getContract(){
 		$this->db->select('id, reference_no, total');
 		$this->db->where('sale_status','activated');
+		$this->db->where('status','loans');
 		$q = $this->db->get('sales');
 		if ($q->num_rows() > 0) {
 			foreach (($q->result()) as $row) {
@@ -2070,6 +2116,7 @@ class Accounts_model extends CI_Model
 		$this->db->select('id, reference_no, total');
 		$this->db->where(array('sales.branch_id' => $bid));
 		$this->db->where('grand_total < total');
+		//$this->db->where('status','loans');
 		$q = $this->db->get('sales');
 		if ($q->num_rows() > 0) {
 			foreach (($q->result()) as $row) {
@@ -2118,8 +2165,26 @@ class Accounts_model extends CI_Model
         return FALSE;
 	}
 	
+	public function getQuoteSavingQuoteID($id = NULL)
+	{
+		$q = $this->db->get_where('quotes' , array('quotes_id' => $id));
+		if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+	}
+	public function getSaleSavingSaleID($id = NULL)
+	{
+		$q = $this->db->get_where('sales' , array('sales_id' => $id));
+		if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+	}
+	
 	public function addDisbursement($data = array() , $services= array() ){
-        if($data) {
+        $sale_id = $data['sale_id'];
+		if($data) {
 			if($this->db->insert('payments',$data)){
 				$payment_id = $this->db->insert_id();
 				$default_crrency = $this->getSettingCurrncy();
@@ -2144,17 +2209,25 @@ class Accounts_model extends CI_Model
 				
 				//$this->db->update('companies', array('amount' => $new_branchamount), array('id' => $branch->id));
 				$this->db->update('sales',array('sale_status' => 'activated', 'paid'=> $data['service_amount'], 'grand_total'=> $amount_payment, 'payment_status'=>$payment_status ),array('id'=> $data['sale_id']));	
-				$this->db->update('quotes', array('status' => 'activated'), array('id' => $sales->quote_id));
-					
-				//if ($this->site->getReference('pp') == $data['reference_no']) {
-					$this->site->updateReference('pp');
-				//}				
+				$this->db->update('quotes', array('quote_status' => 'activated'), array('id' => $sales->quote_id));
+				
+				$saving = $this->getSaleSavingSaleID($sale_id);
+				$quote_saving = $this->getQuoteSavingQuoteID($sales->quote_id);
+				if($saving){ 
+					$saving_balance =  $data['saving_balance'] ;
+					$this->db->update('sales',array('saving_balance' => $saving_balance, 'sale_status' => 'activated'),array('id'=> $saving->id));
+					$this->db->update('quotes',array('quote_status' => 'activated'), array('id'=> $quote_saving->id));
+				}
+				
+				$this->site->updateReference('pp');
+				 			
 				if($services) {
 					foreach($services as $service) {
 						$service['payment_id'] = $payment_id;
 						$this->db->insert('service_payments', $service);
 					}
-				}			
+				}
+ 
 			}
 			return true;
 		}
@@ -2171,7 +2244,7 @@ class Accounts_model extends CI_Model
 	}
 	
 	public function getloanBySaleID($sale_id){
-		$this->db->select('id,payment,dateline,principle,interest,balance');
+		$this->db->select('id,payment,dateline,principle,interest,balance,saving_interest');
 		$this->db->where('sale_id', $sale_id);
 		$this->db->where('paid_amount', 0);
 		$q = $this->db->get('loans');
@@ -2254,9 +2327,9 @@ class Accounts_model extends CI_Model
 				$setting = $this->get_setting();
 				$sale_items = $this->getSaleItemBysaleID($data['sale_id']);	
 				$sales = $this->getSaleById($data['sale_id']);
-				//$branch = $this->getContractBySaleId($data['sale_id']);				
+				//$branch = $this->getContractBySaleId($data['sale_id']);
 				//$new_branchamount = $branch->amount + $data['amount'];
-				$new_paid = $sales->paid + $data['amount'];				
+				$new_paid = $sales->paid + $data['amount'];	
 				$paid_amount = $this->erp->convertCurrency($sale_items->currency_code, $setting->default_currency, $data['amount']);
 				$balance = $this->erp->convertCurrency($sale_items->currency_code, $setting->default_currency, $data['owed']);
 				$total_sv = $this->erp->convertCurrency($sale_items->currency_code, $setting->default_currency, $data['service_amount']);
@@ -2268,7 +2341,14 @@ class Accounts_model extends CI_Model
 				//$this->db->update('companies', array('amount' => $new_branchamount), array('id' => $branch->id));
 				$this->db->update('loans',array('paid_amount' => $paid_amount , 'owed' => $balance, 'total_service_charge' => $total_sv, 'paid_date' => $data['date'], 'reference_no' => $data['reference_no'], 'created_by'=>$data['created_by'], 'biller_id'=>$data['biller_id'], 'overdue_amount'=>$penalty, 'other_amount'=>$other ),array('id'=> $data['loan_id']));
 				$this->db->update('loans',array('paid_amount' => $paid_amount , 'owed' => 0),array('id'=> $last_loan_payment->id));
-					
+				
+				$saving = $this->getSaleSavingSaleID($sale_id);
+				if($saving){
+					$new_interest = $saving->saving_interest_amount + $data['saving_balance'];
+					$saving_amount = $saving->saving_balance + $data['saving_balance'] ;
+					$this->db->update('sales',array('saving_interest_amount'=> $new_interest, 'saving_balance'=> $saving_amount),array('id'=> $saving->id));
+				}
+
 				if(is_array($oldservices)){
 					if($this->db->delete('service_payments', array('payment_id' => $last_payment->id))) {
 						foreach ($oldservices as $old_sv) {
@@ -2285,7 +2365,7 @@ class Accounts_model extends CI_Model
 				if($loan_id == $MaxLoan->id){
 					if($data['owed'] == 0){
 						$this->db->update('sales', array('sale_status' => "completed"), array('id' => $sale_id));
-						$this->db->update('quotes', array('status' => "completed"), array('id' => $sales->quote_id));
+						$this->db->update('quotes', array('quote_status' => "completed"), array('id' => $sales->quote_id));
 					}
 				}
 			}
@@ -2293,7 +2373,7 @@ class Accounts_model extends CI_Model
 		}
 		return false;
     }
-	
+
 	public function getServicesBySaleID($id = NULL){
 		$this->db->select('services.id, services.description,sale_services.amount, sale_services.service_paid ,sale_services.type, sale_services.tax_rate, sale_services.charge_by');
         $this->db->join('services', 'services.id=sale_services.services_id', 'INNER');
@@ -2306,7 +2386,7 @@ class Accounts_model extends CI_Model
         }
 		return FALSE;
 	}
-	
+
 	public function getServicesBidursSaleID($id = NULL){
 		$this->db->select('services.id, services.description,sale_services.amount, sale_services.service_paid, sale_services.type, sale_services.tax_rate, sale_services.charge_by');
         $this->db->join('services', 'services.id=sale_services.services_id', 'INNER');
@@ -2321,7 +2401,7 @@ class Accounts_model extends CI_Model
         }
 		return FALSE;
 	}
-	
+
 	public function getOneServicesBySaleID($id = NULL){
 		$this->db->select('services.id, services.description,sale_services.amount, sale_services.service_paid, sale_services.type, sale_services.tax_rate, sale_services.charge_by');
         $this->db->join('services', 'services.id=sale_services.services_id', 'INNER');
@@ -2337,7 +2417,7 @@ class Accounts_model extends CI_Model
         }
 		return FALSE;
 	}
-	
+
 	public function getServicesPaymentBySaleID($id = NULL){
 		$this->db->select('services.id, services.description,sale_services.amount, sale_services.service_paid, sale_services.type, sale_services.tax_rate, sale_services.charge_by');
         $this->db->join('services', 'services.id=sale_services.services_id', 'INNER');
@@ -2351,7 +2431,7 @@ class Accounts_model extends CI_Model
         }
 		return FALSE;
 	}
-	
+
 	public function getLoanperiodBySaleId($id = NULL) {
 		$this->db->select('COUNT(period)');
 		$q = $this->db->get_where('loans', array('sale_id' => $id));
@@ -2363,7 +2443,7 @@ class Accounts_model extends CI_Model
 		}
 		return FALSE;
 	} 
-	
+
 	public function deleteGltranByAccount($ids = false){
 		if($ids){
 			$result = $this->db->where_in("tran_id",$ids)->delete("gl_trans");
@@ -2374,7 +2454,7 @@ class Accounts_model extends CI_Model
 		}
 		return false;
 	}
-	
+
 	public function getDelJournalByTranNo($tran_no, $arr_tran_id = array()) {
 		$this->db->select('tran_id');
 		if($arr_tran_id) {

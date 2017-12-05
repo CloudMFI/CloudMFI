@@ -179,6 +179,7 @@ $lang["days"]						="ថ្ងៃ";
 $lang["interest_discount_rate"]		="Interest Discount Rate";
 $lang["interest_payment"]			="Interest Payment";
 $lang["total_interest"]				="Total Interest";
+$lang["saving_interest"]			="Saving Interest";
 $lang[""]				="";
 $lang[""]				="";
 $lang[""]				="";

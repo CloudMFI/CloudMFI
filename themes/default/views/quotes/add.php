@@ -256,7 +256,7 @@
 															</div>
 															<div class="form-group" id="spphone">
 																<?= lang("spouse_mobile_phone", "cus_sp_phone"); ?>
-																<input type="tel" name="cus_sp_phone" maxlength="10" class="form-control number_only" id="cus_sp_phone" value="<?=$applicant->spouse_phone?>"/>
+																<input type="tel" name="cus_sp_phone" maxlength="11" class="form-control number_only" id="cus_sp_phone" value="<?=$applicant->spouse_phone?>"/>
 															</div>
 															<div class="form-group" id="spchild">
 																<?= lang("number_of_children", "cus_num_of_child"); ?>
@@ -264,11 +264,11 @@
 															</div>
 															<div class="form-group">
 																<?= lang("phone_1", "cus_phone_1"); ?>
-																<input type="tel"  name="cus_phone_1" maxlength="10" class="form-control number_only"  id="cus_phone_1"  value="<?= (isset($_POST['cus_phone_1']) ? $_POST['cus_phone_1'] : $applicant->phone1) ?>" required="required"/>
+																<input type="tel"  name="cus_phone_1" maxlength="11" class="form-control number_only"  id="cus_phone_1"  value="<?= (isset($_POST['cus_phone_1']) ? $_POST['cus_phone_1'] : $applicant->phone1) ?>" required="required"/>
 															</div>
 															<div class="form-group">
 																<?= lang("phone_2", "cus_phone_2"); ?>
-																<input type="tel" name="cus_phone_2" maxlength="10" class="form-control number_only"  id="cus_phone_2"  value="<?= (isset($_POST['cus_phone_2']) ? $_POST['cus_phone_2'] : $applicant->phone2) ?>"/>
+																<input type="tel" name="cus_phone_2" maxlength="11" class="form-control number_only"  id="cus_phone_2"  value="<?= (isset($_POST['cus_phone_2']) ? $_POST['cus_phone_2'] : $applicant->phone2) ?>"/>
 															</div>
 															<div class="form-group">
 																<?= lang("by_c.o", "cus_by_co"); ?>
@@ -539,7 +539,7 @@
 																<div class="col-md-4">
 																	<div class="form-group all">
 																		<?= lang("amount", "total_amount") ?>
-																		<?= form_input('price', (isset($_POST['price']) ? $_POST['price'] : ''), ' class="form-control" id="total_amount" style="font-size:20px;" data-bv-notempty="true"') ?>
+																		<?= form_input('price', (isset($_POST['price']) ? $_POST['price'] : ''), ' class="form-control total_loans" id="total_amount" style="font-size:20px;" data-bv-notempty="true"') ?>
 																		<!--<input type="hidden" name="price" id="price" class="price">-->
 																	</div>
 																</div>
@@ -623,7 +623,53 @@
 															</div>
 														</div>
 													</div>
+											</div>
+											
+												<!--compulsory_saving--->
+												
+												<?php 													
+													if( $setting->compulsory_saving =="enable" ){														
+												?>
+												<div class="col-sm-12">
+													<div class="panel panel-primary">
+														<div class="panel-heading"><?= lang('compulsory_saving') ?></div>
+														<div class="panel-body" style="padding: 5px;">
+															<div class="col-lg-6">
+																<div class="form-group">
+																	<?= lang("saving_rate_%", "saving_rate"); ?>
+																	<?php echo form_input('saving_rate', (isset($_POST['saving_rate']) ? $_POST['saving_rate'] : 0), 'class="form-control" id="saving_rate" '); ?>
+																</div>
+															</div>
+															<div class="col-lg-6">
+																<div class="form-group">
+																	<?= lang("saving_amount", "saving_amount"); ?>
+																	<?php echo form_input('saving_amount', (isset($_POST['saving_amount']) ? $_POST['saving_amount'] : 0), 'class="form-control number_only" id="saving_amount" style="pointer-events: none;" readonly'); ?>
+																</div>
+															</div>
+															<div class="col-lg-6">
+																<div class="form-group">
+																	<?= lang("saving_interest_rate_%", "saving_interest_rate"); ?>
+																	<?php echo form_input('saving_interest_rate', (isset($_POST['saving_interest_rate']) ? $_POST['saving_interest_rate'] : 0), 'class="form-control" id="saving_interest_rate" '); ?>
+																</div>
+															</div>
+															<div class="col-lg-6">
+																<div class="form-group">
+																	<?= lang("saving_type", "saving_type"); ?>
+																	<?php
+																	$saving_type[""] = "";
+																	$saving_type[1] = "Normal";
+																	echo form_dropdown('saving_type', $saving_type, (isset($_POST['saving_type']) ? $_POST['saving_type'] : 1), 'id="saving_type" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("saving_type") . '"  class="form-control input-tip select" style="width:100%;"');
+																	?>
+																</div>
+															</div>
+														</div>
+													</div>
 												</div>
+												<?php } ?>
+												
+												<!------>
+												
+												
 												<?php 													
 													if( $services ){
 												?>
@@ -722,6 +768,7 @@
 													</div>
 												</div>
 												<?php } ?>
+												
 												<div class="col-sm-12 hide_cash">
 													<div class="panel panel-primary">
 														<div class="panel-heading"><?= lang('financial_products') ?></div>
@@ -1019,7 +1066,7 @@
 															</div>
 															<div class="form-group">
 																<?= lang("phone", "jl_phone_1"); ?>
-																<input type="tel" name="jl_phone_1" class="form-control number_only" maxlength="10" id="jl_phone_1" value="<?php (isset($_POST['jl_phone_1']) ? $_POST['jl_phone_1'] : '') ?>"/>
+																<input type="tel" name="jl_phone_1" class="form-control number_only" maxlength="11" id="jl_phone_1" value="<?php (isset($_POST['jl_phone_1']) ? $_POST['jl_phone_1'] : '') ?>"/>
 															</div>
 															<div class="form-group">
 																<?= lang("status", "jl_status"); ?>																
@@ -1097,7 +1144,7 @@
 																<div class="col-md-6">
 																	<div class="form-group">
 																		<?= lang("work_phone", "work_phone"); ?>
-																		<?php echo form_input('work_phone', (isset($_POST['work_phone']) ? $_POST['work_phone'] : ''), 'class="form-control input-tip number_only" maxlength="10" id="work_phone" '); ?>
+																		<?php echo form_input('work_phone', (isset($_POST['work_phone']) ? $_POST['work_phone'] : ''), 'class="form-control input-tip number_only" maxlength="11" id="work_phone" '); ?>
 																	</div>
 																</div>
 																
@@ -1264,7 +1311,7 @@
 																		</div>
 																		<div class="form-group">
 																			<?= lang("phone", "phone_1"); ?>
-																			<input type="tel" name="phone_1" class="form-control number_only" maxlength="10" id="phone_1" />
+																			<input type="tel" name="phone_1" class="form-control number_only" maxlength="11" id="phone_1" />
 																		</div>
 																		<div class="form-group">
 																			<?= lang("job", "j_job_1"); ?>
@@ -1359,7 +1406,7 @@
 																		</div>
 																		<div class="form-group">
 																			<?= lang("phone", "phone_2"); ?>
-																			<input type="tel" name="phone_2" class="form-control number_only" maxlength="10" id="phone_2"/>
+																			<input type="tel" name="phone_2" class="form-control number_only" maxlength="11" id="phone_2"/>
 																		</div>
 																		<div class="form-group">
 																			<?= lang("job", "j_job_2"); ?>
@@ -2067,7 +2114,9 @@
 				var service_paid = $(this).attr('service_paid');
 				var charge_by = $(this).attr('charge_by');
 				var tax = $(this).attr('tax_rate');
-				//var title = $(this).attr('title');
+				
+				
+				
 				if(services == '') {
 					services = s_id +"__" + amount + "__" + type +"__" + service_paid +"__" + charge_by +"__"+tax;
 				}else {
@@ -2075,10 +2124,24 @@
 				}
 			});
 			
+			////////////Saving
+			var saving_rate = $('#saving_rate').val()? ($('#saving_rate').val()) : 0;
+			var saving_rate_amt = saving_rate.replace('%', '');
+			var saving_rate_amount = (saving_rate_amt/100);
+			
+			var saving_amt = $('#saving_amount').val()? ($('#saving_amount').val()) : 0;
+			var saving_amount = formatDecimal(saving_amt.split(',').join(''));
+			
+			var saving_interest_rate = $('#saving_interest_rate').val()? ($('#saving_interest_rate').val()) : 0;
+			var saving_interest_amt = saving_interest_rate.replace('%', '');
+			var saving_interest_amount = (saving_interest_amt/100);
+			
+			var saving_type = $('#saving_type').val()? ($('#saving_type').val()) : 0;
+			//alert(saving_interest_amount);
 			if(services == '') {
-				var link1= $('<a href="Quotes/cash_payment_schedule_preview/'+lease_amount+'/'+rate_type+'/'+interest_rate+'/'+term_cash+'/'+frequency_cash+'/'+currency+'/'+new_date+'/'+principle_fq+'" rel="lightbox" id="print_payment'+count_link1+'" data-toggle="modal" data-target="#myModal"></a>');
+				var link1= $('<a href="Quotes/cash_payment_schedule_preview/'+lease_amount+'/'+rate_type+'/'+interest_rate+'/'+term_cash+'/'+frequency_cash+'/'+currency+'/'+new_date+'/'+principle_fq+'/'+null+'/'+saving_amount+'/'+saving_interest_amount+'/'+saving_type+'" rel="lightbox" id="print_payment'+count_link1+'" data-toggle="modal" data-target="#myModal"></a>');
 			}else {
-				var link1= $('<a href="Quotes/cash_payment_schedule_preview/'+lease_amount+'/'+rate_type+'/'+interest_rate+'/'+term_cash+'/'+frequency_cash+'/'+currency+'/'+new_date+'/'+principle_fq+'/'+services+'" rel="lightbox" id="print_payment'+count_link1+'" data-toggle="modal" data-target="#myModal"></a>');
+				var link1= $('<a href="Quotes/cash_payment_schedule_preview/'+lease_amount+'/'+rate_type+'/'+interest_rate+'/'+term_cash+'/'+frequency_cash+'/'+currency+'/'+new_date+'/'+principle_fq+'/'+services+'/'+saving_amount+'/'+saving_interest_amount+'/'+saving_type+'" rel="lightbox" id="print_payment'+count_link1+'" data-toggle="modal" data-target="#myModal"></a>');
 			}	
 				$("body").append(link1);
 				$('#print_payment'+count_link1).click();
@@ -2639,6 +2702,18 @@
 			$('.ch_services').trigger('ifChanged');
 			$('#interest_rate_cash').trigger('change');
 		});
+		
+		$('#saving_rate, #total_amount').on('keyup , change', function() {
+			var saving_rate = $(this).val();
+			var total_amount = $('#total_amount').val();
+			var saving_rates = saving_rate.replace('%', '');
+			if(saving_rate.search('%') > 0) { 
+				var saving = (saving_rates/100);
+				var saving_amt = total_amount * saving ;
+				$('#saving_amount').val(formatMoney(saving_amt));
+			}
+		});
+		
 		
 		function readURL(input) {
 			if (input.files && input.files[0]) {

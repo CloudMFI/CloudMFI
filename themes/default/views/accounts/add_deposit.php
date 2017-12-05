@@ -37,6 +37,7 @@
 									<input type="hidden" name="grand_total" id="grand_total"/>
 									<input type="hidden" name="sale_id" id="sale_id" />
 									<input type="hidden" name="loan_id" id="loan_id" />
+									<input type="hidden" name="saving_interest" id="saving_interest" />
 									
 								</div>
 								
@@ -207,12 +208,14 @@
 					dataType: 'json',
 					success: function(scdata){
 						//$('#amount').val(formatMoney(scdata.principle + scdata.interest + scdata.overdue_amount + scdata.total_service_charge + scdata.sumOweds));
+						//alert(scdata.saving_interest);
 						$('#balance').val(formatMoney(scdata.payment));
 						$('#amount').val(formatMoney(scdata.payment));
 						$('#principle').val(formatMoney(scdata.principle));
 						$('#interest').val(formatMoney(scdata.interest));
 						$('#penalty').val(formatMoney(scdata.overdue_amount));
 						$('#owed_balance').val(formatMoney(scdata.sumOweds));
+						$('#saving_interest').val(scdata.saving_interest);
 						$('#loan_id').val(scdata.id);
 						$('#date').val(scdata.dateline);
 						$('#name').val(scdata.customer);
@@ -235,8 +238,7 @@
 						var svamount = 0;
 						var service_amount = 0;
 						var total_service_amount = 0;
-						$.each(scdata.service_payment, function(index) {
-							
+						$.each(scdata.service_payment, function(index) {							
 							var amount =  scdata.service_payment[index].amount ;
 							var service_paid = scdata.service_payment[index].service_paid;
 							var type  = scdata.service_payment[index].type;
@@ -298,7 +300,7 @@
 						$('#services').html(box);
 						//total_sv += totalsv;
 						total_sv += total_service_amount;
-						total_sv = roundUpMoney(total_sv, currency_type);
+						total_sv = formatDecimal(roundUpMoney(total_sv, currency_type));
 						$('#total_services').val(total_sv);
 						$('#balance').val(formatMoney(scdata.payment + total_sv));
 						$('#amount').val(formatMoney(scdata.payment + total_sv));

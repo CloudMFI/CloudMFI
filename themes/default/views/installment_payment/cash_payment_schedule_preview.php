@@ -185,6 +185,7 @@
 					?>
 					<td  class="t_c" style="width: 20%;"><?= lang("principle_balance") ?></td>	
 					<td  class="t_c" style="width: 20%;"><?= lang("total_intallment") ?></td>
+					<td  class="t_c" style="width: 20%;"><?= lang("saving_interest") ?></td>
 				</tr>
 			<?php
 				//$this->erp->print_arrays($pts);
@@ -197,11 +198,13 @@
 					$balance = (($pt['balance'] > 0)? $pt['balance'] : 0);
 					$principles = $this->erp->roundUpMoney($pt['principle'], $currency->code);
 					$interests = $this->erp->roundUpMoney($pt['interest'], $currency->code);
+					$saving_interest = $this->erp->roundUpMoney($pt['saving_interest'], $currency->code);
+					
 					echo '<tr class="b_top">
 						<td class="t_c" style="padding-left: 5px; padding-right: 5px; height: 25px;">'. $pt['period'] .'</td>
 						<td class="t_c" style="padding-left:5px;padding-right:5px;">'. $this->erp->hrsd($pt['dateline']) .'</td>
 						<td class="t_c" style="padding-left:5px;padding-right:5px;">'. $principles .'</td>													
-						<td class="t_c" style="padding-left:5px;padding-right:5px;">'. $interests .'</td>';						
+						<td class="t_c" style="padding-left:5px;padding-right:5px;">'. $interests .'</td>';	
 						
 						$balances = (($pt['balance'] > 0)? $pt['balance'] : 0) ;
 						$balances = str_replace(',', '', $this->erp->roundUpMoney($balances, $product->currency_code));
@@ -273,7 +276,7 @@
 					echo'
 						<td class="t_c" style="padding-left:5px;padding-right:5px;">'. $this->erp->roundUpMoney((($pt['balance'] > 0)? $pt['balance'] : 0), $currency->code) .'</td>
 						<td class="t_c" style="padding-left:5px;padding-right:5px;">'. $this->erp->roundUpMoney($payment, $currency->code) .'</td>
-						
+						<td class="t_r" style="padding-left:5px;padding-right:5px;">'. $saving_interest .'</td>
 					</tr>';
 					$total_principle += str_replace(',', '', $principles);
 					$total_interest += str_replace(',', '', $interests);
@@ -281,6 +284,7 @@
 					$total_alls += str_replace(',', '', $all_service_paid);
 					$total_haft += str_replace(',', '', $haft_service_paid)/2 ;
 					$total_insurence += str_replace(',', '', $insurence_paid) /2 ;
+					$total_saving += str_replace(',', '', $saving_interest);
 					}
 				}
 			?>	
@@ -303,7 +307,7 @@
 					?>
 					<td class="t_c" style="padding-left:5px;padding-right:5px;"></td>
 					<td class="t_c" style="padding-left:5px;padding-right:5px;"><?= $this->erp->roundUpMoney($total_payment,$currency->code); ?></td>
-					
+					<td class="t_c" style="padding-left:5px;padding-right:5px;"><?= $this->erp->roundUpMoney($total_saving,$currency->code); ?></td>
 					
 				</tr>
 				

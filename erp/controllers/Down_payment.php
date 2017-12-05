@@ -364,8 +364,7 @@ class Down_Payment extends MY_Controller
             redirect($_SERVER["HTTP_REFERER"]);
         }
     }
-	
-	
+		
 	function add_payment($id=NULL) {
 		
 		$this->erp->checkPermissions('payments', true);
@@ -795,6 +794,7 @@ class Down_Payment extends MY_Controller
 				->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 				->join('currencies','currencies.code = sale_items.currency_code','left')
 				->join('loan_groups','loan_groups.id = sales.loan_group_id','left')
+				->where($this->db->dbprefix('sales').'.status =', 'loans')
 				->where($this->db->dbprefix('sales').'.sale_status =', 'approved')			
 				->group_by('sales.id')
 				->order_by('sales.id','DESC');
@@ -1013,6 +1013,7 @@ class Down_Payment extends MY_Controller
 				->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 				->join('currencies','currencies.code = sale_items.currency_code','left')
 				->join('loan_groups','loan_groups.id = sales.loan_group_id','left')
+				->where($this->db->dbprefix('sales').'.status =', 'loans')
 				->where($this->db->dbprefix('sales').'.sale_status =', 'activated')
 				//->where('loans.paid_amount', 0)
 				->group_by('sales.id')
@@ -1220,6 +1221,7 @@ class Down_Payment extends MY_Controller
 				->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 				->join('currencies','currencies.code = sale_items.currency_code','left')
 				->join('loan_groups','loan_groups.id = sales.loan_group_id','left')
+				->where($this->db->dbprefix('sales').'.status =', 'loans')
 				->where($this->db->dbprefix('sales').'.sale_status =', 'completed')
 				->group_by('sales.id')
 				->order_by('sales.id','DESC');
@@ -2369,7 +2371,7 @@ class Down_Payment extends MY_Controller
 									);	
 				}
 						
-				$this->erp->print_arrays($customers);
+				//$this->erp->print_arrays($customers);
 				if ($this->form_validation->run() == true && $q_id=$this->down_payment_model->ImportCustomers($customers)) {
 					$this->session->set_userdata('remove_quls', 1);
 					$this->session->set_flashdata('message', $this->lang->line("applicant_added"));
@@ -3049,7 +3051,7 @@ class Down_Payment extends MY_Controller
 					$this->db->dbprefix('sales').".advance_payment,
 					".$this->db->dbprefix('currencies').".name as crname,
 					".$this->db->dbprefix('sales').".second_payment,".
-					$this->db->dbprefix('quotes').".status")
+					$this->db->dbprefix('quotes').".quote_status")
 			->from('quotes')
 			->join('users','quotes.by_co=users.id','INNER')
 			->join('sales', 'sales.quote_id = quotes.id', 'left')
@@ -3058,6 +3060,7 @@ class Down_Payment extends MY_Controller
 			->join('quote_items', 'quotes.id = quote_items.quote_id', 'left')
 			->join('currencies','currencies.code = quote_items.currency_code','left')
 			->join('loan_groups','loan_groups.id = quotes.loan_group_id','left')
+			->where($this->db->dbprefix('quotes').'.status =', 'loans')
 			->order_by('quotes.id','DESC');
 		
 		if($this->GP && !($this->Owner || $this->Admin) && $this->session->view_right == 0) {

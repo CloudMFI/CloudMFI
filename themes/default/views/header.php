@@ -308,28 +308,6 @@
                                         <i class="fa fa-calculator"></i><span class="text"> <?= lang('simulation'); ?></span>
                                     </a>
                                 </li> 
-								<!----- Manage Saving-->
-                                <!--<li class="mm_saving">
-                                    <a class="dropmenu" href="#">
-                                        <i class="fa fa-cc-mastercard"></i>
-                                        <span class="text"> <?= lang('manage_saving'); ?> </span>
-                                        <span class="chevron closed"></span>
-                                    </a>
-                                    <ul>
-										<li id="saving_open_account" class="sub_navigation">
-                                            <a class="submenu" href="<?= site_url('saving/open_account'); ?>">
-                                                <i class="fa fa-plus"></i>
-                                                <span class="text"> <?= lang('open_account'); ?></span>
-                                            </a>
-                                        </li>
-										<li id="saving_index" class="sub_navigation">
-                                            <a class="submenu" href="<?= site_url('saving'); ?>">
-                                                <i class="fa fa-list"></i>
-                                                <span class="text"> <?= lang('list_saving'); ?></span>
-                                            </a>
-                                        </li>										
-                                    </ul>
-                                </li>-->
 								
 								<!----- Manage Applicant-->
                                 <li class="mm_quotes mm_down_payment">
@@ -390,6 +368,7 @@
 										
                                     </ul>
                                 </li>
+								
 								<!-- Installment_Payment -->
                                 <li class="mm_installment_payment">
                                     <a class="dropmenu" href="#">
@@ -434,6 +413,33 @@
                                     </ul>
                                 </li>
 								
+								<!----- Manage Saving-->
+                                <li class="mm_saving">
+                                    <a class="dropmenu" href="#">
+                                        <i class="fa fa-cc-mastercard"></i>
+                                        <span class="text"> <?= lang('manage_saving'); ?> </span>
+                                        <span class="chevron closed"></span>
+                                    </a>
+                                    <ul>
+										<!--<li id="saving_open_account" class="sub_navigation">
+                                            <a class="submenu" href="<?= site_url('saving/open_account'); ?>">
+                                                <i class="fa fa-plus"></i>
+                                                <span class="text"> <?= lang('open_account'); ?></span>
+                                            </a>
+                                        </li> -->
+										<li id="saving_compulsory_saving" class="sub_navigation">
+                                            <a class="submenu" href="<?= site_url('saving/compulsory_saving'); ?>">
+                                                <i class="fa fa-list"></i>
+                                                <span class="text"> <?= lang('compulsory_saving'); ?></span>
+                                            </a>
+                                        </li>
+										<li id="saving_cash_withdrawal">
+                                            <a class="submenu" href="<?= site_url('saving/cash_withdrawal'); ?>" data-toggle="modal" data-target="#myModal">
+                                                <i class="fa fa-money"></i><span class="text"> <?= lang('cash_withdrawal'); ?></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
 								<!----- Manage Account -->
                                 <li class="mm_account">
                                     <a class="dropmenu" href="#">
@@ -1050,34 +1056,7 @@
 										</a>
 									</li> 
 								<?php } ?>
-								<?php if($GP['money_saving-index'] || $GP['money_saving-add'] || $GP['money_saving-edit'] || $GP['money_saving-delete']) { ?>
-									<!----- Manage Saving-->
-									<!--<li class="mm_saving">
-										<a class="dropmenu" href="#">
-											<i class="fa fa-cc-mastercard"></i>
-											<span class="text"> <?= lang('manage_saving'); ?> </span>
-											<span class="chevron closed"></span>
-										</a>
-										<ul>
-										<?php if($GP['money_saving-add']) { ?>
-											<li id="saving_register" class="sub_navigation">
-												<a class="submenu" href="<?= site_url('saving/register'); ?>">
-													<i class="fa fa-plus"></i>
-													<span class="text"> <?= lang('register'); ?></span>
-												</a>
-											</li>
-										<?php } ?>
-										<?php if($GP['money_saving-index']){ ?>
-											<li id="saving_index" class="sub_navigation">
-												<a class="submenu" href="<?= site_url('saving'); ?>">
-													<i class="fa fa-list"></i>
-													<span class="text"> <?= lang('list_saving'); ?></span>
-												</a>
-											</li>
-									    <?php } ?>	
-										</ul>
-									</li>-->
-								<?php } ?>
+								
 								
 								<!----- Manage Applicant-->
 								<?php if($GP['quotes-index'] || $GP['quotes-add'] || $GP['field_check-add'] || $GP['reject-index']) { ?>
@@ -1198,6 +1177,49 @@
 										</li>
 								<?php } ?>
 								
+								<?php if($GP['money_saving-index'] || $GP['money_saving-add'] || $GP['money_saving-edit'] || $GP['money_saving-delete']) { ?>
+									<!----- Manage Saving-->
+									<li class="mm_saving">
+										<a class="dropmenu" href="#">
+											<i class="fa fa-cc-mastercard"></i>
+											<span class="text"> <?= lang('manage_saving'); ?> </span>
+											<span class="chevron closed"></span>
+										</a>
+										<ul>
+										<?php if($GP['money_saving-add']) { ?>
+											<!--<li id="saving_register" class="sub_navigation">
+												<a class="submenu" href="<?= site_url('saving/register'); ?>">
+													<i class="fa fa-plus"></i>
+													<span class="text"> <?= lang('register'); ?></span>
+												</a>
+											</li>-->
+										<?php } ?>
+										<?php if($GP['money_saving-index']){ ?>
+											<!--<li id="saving_index" class="sub_navigation">
+												<a class="submenu" href="<?= site_url('saving'); ?>">
+													<i class="fa fa-list"></i>
+													<span class="text"> <?= lang('list_saving'); ?></span>
+												</a>
+											</li>-->
+									    <?php } ?>
+										<?php if($GP['money_saving-compulsory']){ ?>
+											<li id="saving_compulsory_saving" class="sub_navigation">
+												<a class="submenu" href="<?= site_url('saving/compulsory_saving'); ?>">
+													<i class="fa fa-list"></i>
+													<span class="text"> <?= lang('compulsory_saving'); ?></span>
+												</a>
+											</li>
+										<?php } ?>
+										<?php if($GP['money_saving-withdrawal']){ ?>
+											<li id="saving_cash_withdrawal">
+												<a class="submenu" href="<?= site_url('saving/cash_withdrawal'); ?>" data-toggle="modal" data-target="#myModal">
+													<i class="fa fa-money"></i><span class="text"> <?= lang('cash_withdrawal'); ?></span>
+												</a>
+											</li>
+										</ul>
+										<?php } ?>
+									</li> 
+								<?php } ?>
 								
 								<!----- Manage Account -->
 								<?php if($GP['accounts-index'] || $GP['accounts-add'] || $GP['disbursement-add'] || $GP['account-list_receivable'] || $GP['account-list_ar_aging'] || $GP['account-bill_receipt'] || $GP['account-list_ac_payable'] || $GP['account-list_ap_aging'] || $GP['account-settings'] || $GP['account-add_ac_head']) { ?>

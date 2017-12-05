@@ -61,7 +61,7 @@
             "aLengthMenu": [[10, 50, 100, 250, 500], [10,50, 100, 250, 500]],
             "iDisplayLength": <?= $Settings->rows_per_page ?>,
             'bProcessing': true, 'bServerSide': true,
-            'sAjaxSource': '<?= site_url('down_payment/getContracts'. ($warehouse_id ? '/' . $warehouse_id : '')).'/?v=1'.$v?>',
+            'sAjaxSource': '<?= site_url('saving/getCompulsorySaving'. ($warehouse_id ? '/' . $warehouse_id : '')).'/?v=1'.$v?>',
             'fnServerData': function (sSource, aoData, fnCallback) {
                 aoData.push({
                     "name": "<?= $this->security->get_csrf_token_name() ?>",
@@ -71,95 +71,56 @@
             },
             'fnRowCallback': function (nRow, aData, iDisplayIndex) {
                 var oSettings = oTable.fnSettings();
-				nRow.id = aData[0];
-				//nRow.className = "contract_link";
-				$(nRow).attr("status", aData[17]);
-				$(nRow).attr("mfi", aData[18]);
-				$(nRow).attr("loan_groups", aData[3]);
-				var action = $('td:eq(18)', nRow);
-				//nRow.className = "contract_link";
-				if(aData[3] == null) {
-					action.find('.group_a').remove();
-				}
-				if(aData[17] == 'approved'){
-					action.find('.de').remove();
-				}
-				///17 feild action
-				//// feild mfi		
-				if(aData[18] == 1) {
-					action.find('.cl').remove();
-					action.find('.ga').remove();
-					action.find('.gf').remove();
-					action.find('.lc').remove();
-					action.find('.el').remove();
-				}
+				nRow.id = aData[0]; 
+				$(nRow).attr("status", aData[12]);  
+				  
+				 
 				return nRow;
             },
 			"fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay) {
-                var request_loan = 0, disburse = 0, remaining = 0;
-                for (var i = 0; i < aaData.length; i++) {
-					if(isNaN(parseFloat(aaData[aiDisplay[i]][13]))){
-						request_loan += parseFloat(0);
+                var request_loan = 0, withdrawal = 0, balance = 0;
+                 for (var i = 0; i < aaData.length; i++) {
+					 
+					if(isNaN(parseFloat(aaData[aiDisplay[i]][10]))){
+						balance += parseFloat(0);
 					}else{
-						request_loan += parseFloat(aaData[aiDisplay[i]][13]);
+						balance += parseFloat(aaData[aiDisplay[i]][10]);
 					}
-					
-					if(isNaN(parseFloat(aaData[aiDisplay[i]][14]))){
-						disburse += parseFloat(0);
+					if(isNaN(parseFloat(aaData[aiDisplay[i]][11]))){
+						withdrawal += parseFloat(0);
 					}else{
-						disburse += parseFloat(aaData[aiDisplay[i]][14]);
-					}
-					if(isNaN(parseFloat(aaData[aiDisplay[i]][15]))){
-						remaining += parseFloat(0);
-					}else{
-						remaining += parseFloat(aaData[aiDisplay[i]][15]);
+						withdrawal += parseFloat(aaData[aiDisplay[i]][11]);
 					}
                 }
                 var nCells = nRow.getElementsByTagName('th');
-                nCells[13].innerHTML = currencyFormat(parseFloat(request_loan));
-                nCells[14].innerHTML = currencyFormat(parseFloat(disburse));
-				nCells[15].innerHTML = currencyFormat(parseFloat(remaining));
+                nCells[10].innerHTML = currencyFormat(parseFloat(balance)); 
+				nCells[11].innerHTML = currencyFormat(parseFloat(withdrawal)); 
             },
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            },null, null, null, null, null,{"mRender": fld}, null, null, null, null, null, null, {"mRender": currencyFormat}, {"mRender": currencyFormat},{"mRender": currencyFormat}, null, {"mRender": row_status_down}, {"bVisible": false}, {"bSortable": false}]
-        }).fnSetFilteringDelay().dtFilter([
-			{column_number: 1, filter_default_label: "[<?=lang('customer_id');?>]", filter_type: "text", data: []},
-            {column_number: 2, filter_default_label: "[<?=lang('reference_no');?>]", filter_type: "text", data: []},
-            {column_number: 3, filter_default_label: "[<?=lang('group_loans');?>]", filter_type: "text", data: []},
-            {column_number: 4, filter_default_label: "[<?=lang('customer');?>]", filter_type: "text", data: []},
-            {column_number: 5, filter_default_label: "[<?=lang('customer_kh');?>]", filter_type: "text", data: []},
-            {column_number: 6, filter_default_label: "[<?=lang('approved_date');?>]", filter_type: "text", data: []},
-			{column_number: 7, filter_default_label: "[<?=lang('created_by');?>]", filter_type: "text", data: []},
-            {column_number: 8, filter_default_label: "[<?=lang('branch');?>]", filter_type: "text", data: []},            
-			{column_number: 9, filter_default_label: "[<?=lang('model');?>]", filter_type: "text", data: []},
-            {column_number: 10, filter_default_label: "[<?=lang('rate');?>]", filter_type: "text", data: []},
-			{column_number: 11, filter_default_label: "[<?=lang('term');?>]", filter_type: "text", data: []},
-            {column_number: 12, filter_default_label: "[<?=lang('pay_term');?>]", filter_type: "text", data: []},			
-            {column_number: 16, filter_default_label: "[<?=lang('currency');?>]", filter_type: "text", data: []},
-            {column_number: 17, filter_default_label: "[<?=lang('status');?>]", filter_type: "text", data: []},
-            {column_number: 18, filter_default_label: "[<?=lang('mfi');?>]", filter_type: "text", data: []},
+            },null, null, null, null, {"mRender": fld}, {"bVisible": false},{"bVisible": false}, {"mRender": currencyFormat},null, {"mRender": currencyFormat},{"bVisible": false}, null,{"mRender": row_status_down},{"bSortable": false}]
+        }).fnSetFilteringDelay().dtFilter([ 
+            {column_number: 1, filter_default_label: "[<?=lang('reference_no');?>]", filter_type: "text", data: []}, 
+            {column_number: 2, filter_default_label: "[<?=lang('customer');?>]", filter_type: "text", data: []},
+            {column_number: 3, filter_default_label: "[<?=lang('customer_other');?>]", filter_type: "text", data: []},  
+            {column_number: 4, filter_default_label: "[<?=lang('branch');?>]", filter_type: "text", data: []},
+			{column_number: 5, filter_default_label: "[<?=lang('register_date');?>]", filter_type: "text", data: []},
+			{column_number: 6, filter_default_label: "[<?=lang('loan_amount');?>]", filter_type: "text", data: []}, 
+            {column_number: 7, filter_default_label: "[<?=lang('saving_rate');?>]", filter_type: "text", data: []}, 
+			{column_number: 8, filter_default_label: "[<?=lang('saving_amount');?>]", filter_type: "text", data: []},
+			{column_number: 9, filter_default_label: "[<?=lang('interest_rate');?>]", filter_type: "text", data: []},    			
+            {column_number: 10, filter_default_label: "[<?=lang('available_balance');?>]", filter_type: "text", data: []},
+            {column_number: 11, filter_default_label: "[<?=lang('cash_withdrawal');?>]", filter_type: "text", data: []},
+			{column_number: 12, filter_default_label: "[<?=lang('currency');?>]", filter_type: "text", data: []}, 
+			{column_number: 13, filter_default_label: "[<?=lang('status');?>]", filter_type: "text", data: []}, 
         ], "footer");
         <?php if($this->session->userdata('remove_quls')) { ?>
-        if (localStorage.getItem('quitems')) {
-            localStorage.removeItem('quitems');
-        }
-        if (localStorage.getItem('qudiscount')) {
-            localStorage.removeItem('qudiscount');
-        }
-        if (localStorage.getItem('qutax2')) {
-            localStorage.removeItem('qutax2');
-        }
-        if (localStorage.getItem('qushipping')) {
-            localStorage.removeItem('qushipping');
-        }
+        
         if (localStorage.getItem('quref')) {
             localStorage.removeItem('quref');
         }
-        if (localStorage.getItem('quwarehouse')) {
-            localStorage.removeItem('quwarehouse');
-        }
+        
         if (localStorage.getItem('qunote')) {
             localStorage.removeItem('qunote');
         }
@@ -175,9 +136,7 @@
         if (localStorage.getItem('qudate')) {
             localStorage.removeItem('qudate');
         }
-        if (localStorage.getItem('qustatus')) {
-            localStorage.removeItem('qustatus');
-        }
+        
         <?php $this->erp->unset_data('remove_quls'); } ?>
     });
 
@@ -215,7 +174,7 @@
 		<?php if (isset($this->permission['reports-back_office']) ?$this->permission['reports-back_office']  : ('')){ ?>
 			<i class="fa-fw fa fa-heart-o"></i><?= lang('contracts') . ' (' . ($warehouse_id ? $warehouse->name : lang('all_warehouses')) . ')'; ?>
 		<?php }else{ ?>
-			<i class="fa-fw fa fa-heart-o"></i><?= lang('loan_approved'); ?>
+			<i class="fa-fw fa fa-heart-o"></i><?= lang('compulsory_saving'); ?>
 		<?php } ?>
         </h2>
 		
@@ -248,32 +207,7 @@
                             </a>
 							<?php } ?>
                         </li>
-						
-						<li>
-							<a href="<?= site_url('down_payment/impApplicants') ?>"><i class="fa fa-plus-circle"></i> 
-								<?= lang('import_applicants') ?>
-                            </a>
-                        </li>
-						<li>
-							<a href="<?= site_url('down_payment/impContracts') ?>"><i class="fa fa-plus-circle"></i> 
-								<?= lang('import_contracts') ?>
-                            </a>
-                        </li>
-						<li>
-							<a href="<?= site_url('down_payment/impContractsDetail') ?>"><i class="fa fa-plus-circle"></i> 
-								<?= lang('import_contract_detail') ?>
-                            </a>
-                        </li>
-						<li>
-							<a href="<?= site_url('down_payment/impContractsDetail') ?>"><i class="fa fa-plus-circle"></i> 
-								<?= lang('sample_import_servcies') ?>
-                            </a>
-                        </li>
-						<li>
-							<a href="<?= site_url('down_payment/impSchedule') ?>"><i class="fa fa-plus-circle"></i> 
-								<?= lang('import_schedule') ?>
-                            </a>
-                        </li>
+						 
 						<?php if ($Owner || $Admin) {?>
 							<li>
 								<a href="#" id="excel" data-action="export_excel"><i class="fa fa-file-excel-o"></i> <?= lang('export_to_excel') ?>
@@ -296,11 +230,8 @@
 							<?php }?>
 						<?php }?>	
 						
-                        <li>
-                            <a href="#" id="combine" data-action="combine">
-                                <i class="fa fa-file-pdf-o"></i> <?=lang('combine_to_pdf')?>
-                            </a>
-                        </li>
+                        
+						
                         <li class="divider"></li>
                         <li>
 							<?php if (isset($this->permission['reports-back_office']) ?$this->permission['reports-back_office']  : ('')){ ?>
@@ -377,24 +308,11 @@
 
                             </div>
                         </div>-->
-						
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="user"><?= lang("created_by"); ?></label>
-                                <?php
-                                $us[""] = "";
-								if(is_array(isset($users) ?$users  : (''))){
-                                foreach ($users as $user) {
-                                    $us[$user->id] = $user->first_name . " " . $user->last_name;
-                                }}
-                                echo form_dropdown('user', isset($us) ?$us  : (''), (isset($_POST['user']) ? $_POST['user'] : ""), 'class="form-control" id="user" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("user") . '"');
-                                ?>
-                            </div>
-                        </div>
+						 
                         
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label class="control-label" for="biller"><?= lang("dealer"); ?></label>
+                                <label class="control-label" for="biller"><?= lang("branch"); ?></label>
                                 <?php
                                 $bl[""] = "";
 								if(is_array(isset($dealer) ?$dealer  : (''))){
@@ -405,20 +323,7 @@
                                 ?>
                             </div>
                         </div>
-						
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="group_loans"><?= lang("group_loans"); ?></label>
-                                <?php
-                                $gl[""] = "";
-								if(is_array(isset($group_Loan) ?$group_Loan  : (''))){
-                                foreach ($group_Loan as $gr_loan) {
-                                    $gl[$gr_loan->id] = $gr_loan->name;
-                                }}
-                                echo form_dropdown('gr_loan', isset($gl) ?$gl  : (''), (isset($_POST['gr_loan']) ? $_POST['gr_loan'] : ""), 'class="form-control" id="gr_loan" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("group_loans") . '"');
-                                ?>
-                            </div>
-                        </div>
+						 
 						<div class="col-sm-4">
 							<div class="form-group">
 								<?= lang("start_date", "start_date"); ?>
@@ -455,25 +360,20 @@
                         <tr class="active">
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkft" type="checkbox" name="check"/>
-                            </th>
-							<th><?php echo $this->lang->line("customer_id"); ?></th>
-                            <th><?php echo $this->lang->line("reference_no"); ?></th>
-							<th><?php echo $this->lang->line("group_loans"); ?></th>
+                            </th> 
+                            <th><?php echo $this->lang->line("reference_no"); ?></th> 
                             <th><?php echo $this->lang->line("customer_en"); ?></th>
-                            <th><?php echo $this->lang->line("customer_kh"); ?></th>
-                            <th><?php echo $this->lang->line("approved_date"); ?></th>
-                            <th><?php echo $this->lang->line("c.o_name"); ?></th>
-                            <th><?php echo $this->lang->line("branch"); ?></th>
-							<th><?php echo $this->lang->line("loan_type"); ?></th>
-							<th><?php echo $this->lang->line("rate"); ?></th>
-							<th><?php echo $this->lang->line("term"); ?></th>
-							<th><?php echo $this->lang->line("pay_term"); ?></th>
-                            <th><?php echo $this->lang->line("loan_request"); ?></th>                           
-							<th><?php echo $this->lang->line("disburse"); ?></th>
-							<th><?php echo $this->lang->line("remaining"); ?></th>
+                            <th><?php echo $this->lang->line("customer_other"); ?></th>  
+                            <th><?php echo $this->lang->line("branch"); ?></th> 
+							<th><?php echo $this->lang->line("register_date"); ?></th> 
+							<th><?php echo $this->lang->line("loan_amount"); ?></th> 
+                            <th><?php echo $this->lang->line("saving_rate"); ?></th>                           
+							<th><?php echo $this->lang->line("saving_amount"); ?></th>
+							<th><?php echo $this->lang->line("interest_rate"); ?></th>
+							<th><?php echo $this->lang->line("available_balance"); ?></th>
+							<th><?php echo $this->lang->line("cash_withdrawal"); ?></th>
 							<th><?php echo $this->lang->line("currency"); ?></th>
-                            <th><?php echo $this->lang->line("status"); ?></th>
-                            <th><?php echo $this->lang->line("mfi"); ?></th>
+                            <th><?php echo $this->lang->line("status"); ?></th> 
                             <th style="width:115px; text-align:center;"><?php echo $this->lang->line("actions"); ?></th>
                         </tr>
                         </thead>
@@ -491,11 +391,6 @@
                             </th>
 							<th></th>
 							<th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
 							<th></th>
                             <th></th>
                             <th></th>

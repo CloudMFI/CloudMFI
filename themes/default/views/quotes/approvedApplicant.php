@@ -320,7 +320,7 @@
 																	foreach ($users as $user) {
 																		$us[$user->id] = $user->first_name . " " . $user->last_name;
 																	}}
-																	echo form_dropdown('user', $us,  $sale->approved_by ? $sale->approved_by : $user_id, 'class="form-control" id="user" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("user") . '"');
+																	echo form_dropdown('approve_by', $us,  $sale->approved_by ? $sale->approved_by : $user_id, 'class="form-control" id="user" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("user") . '"');
 																	?>
 																</div>
 															</div>
@@ -966,8 +966,56 @@
 															</div>
 														</div>
 													</div>
-												</div>
+											</div>
 												
+												<?php
+												if($qu_saving) {
+												?>
+												<div class="col-sm-12">
+													<div class="panel panel-primary">
+														<div class="panel-heading"><?= lang('compulsory_saving') ?></div>
+														<div class="panel-body" style="padding: 5px;">
+															<div class="col-sm-12">
+																<div class="col-md-6">
+																	<div class="form-group">
+																		<?= lang('saving_rate_%'); ?> <span style="margin-left:100px;">:</span>
+																		<b> <?php echo $qu_saving->saving_rate * 100 .'%' ; ?> </b>
+																	</div>
+																</div>
+																<div class="col-md-6">
+																	<div class="form-group">
+																		<?= lang('saving_amount'); ?> <span style="margin-left:80px;">:</span>
+																		<?php $saving_amount = $this->erp->convertCurrency($product->currency_code, $setting->default_currency, $qu_saving->saving_amount) ; ?>
+																		<b> <?php echo $this->erp->formatMoney($saving_amount) ; ?> </b>
+																	</div>
+																</div>
+																
+															</div>
+															
+															<div class="col-sm-12">
+																<div class="col-md-6">
+																	<div class="form-group">
+																		<?= lang('saving_interest_rate_%'); ?> <span style="margin-left:45px;">:</span>
+																		<b> <?php echo $qu_saving->saving_interest_rate * 100 .'%' ; ?> </b>
+																	</div>
+																</div>
+																<div class="col-md-6">
+																	<div class="form-group">
+																		<?= lang('saving_type'); ?> <span style="margin-left:100px;">:</span>
+																		<b> <?php 	$saving_type[1] = "Normal";
+																				echo  $saving_type[$qu_saving->saving_type]; ?> </b>
+																	</div>
+																</div>																
+															</div>															
+														</div>
+													</div>
+												</div>
+												<?php } ?>
+												
+												
+												<?php
+												if($services) {
+												?>
 												<div class="col-sm-12">
 													<div class="panel panel-primary">
 														<div class="panel-heading"><?= lang('services') ?></div>
@@ -976,23 +1024,15 @@
 																<div class="col-md-3">
 																	<div class="form-group">
 																		<?= lang('descriptions'); ?>
+																		<?php echo $this->erp->formatDecimal($inv->advance_payment); ?>
 																	</div>
 																</div>
 																<div class="col-md-3">
 																	<div class="form-group">
-																		<?= lang('amount'); ?>
+																		<?= lang('descriptions'); ?>
+																		<?php echo $this->erp->formatDecimal($inv->advance_payment); ?>
 																	</div>
-																</div>
-																<div class="col-md-3">
-																	<div class="form-group">
-																		<?= lang('checked'); ?>
-																	</div>
-																</div>
-																<div class="col-md-3">
-																	<div class="form-group">
-																		<?= lang('tax'); ?>
-																	</div>
-																</div>
+																</div>																
 															</div>
 															<?php
 															$k = 0;
@@ -1044,7 +1084,7 @@
 														</div>
 													</div>
 												</div>
-												
+												<?php } ?>
 												<div class="col-sm-12" <?= ($inv->mfi? 'style="display:none;"' : ''); ?> >
 													<div class="panel panel-primary">
 														<div class="panel-heading"><?= lang('financial_products') ?></div>
@@ -1236,6 +1276,7 @@
 																	?> </b>
 																</div>
 															</div>
+															
 															<?php
 																if($inv->rate_type == 5) {
 															?>
@@ -1272,10 +1313,9 @@
 															<div class="col-lg-6 btn_print_payment_schedule_cash">
 																<?php
 																	if($cash && $inv) {
-																		echo '<a href="quotes/cash_payment_schedule_applicant/'.$cash.'/'.$inv->rate_type.'/'.$inv->interest_rate.'/'.$inv->term.'/'.$inv->frequency.'/'.$product->currency_code.'/'.$inv->id.'/'.$cdate.'/'.$app_date.'/' .$inv->principle_frequency.'" class="btn btn-primary" rel="lightbox" data-toggle="modal" data-target="#myModal">'.lang('print_payment_schedule').'</a>';
-																	} 
+																		echo '<a href="quotes/cash_payment_schedule_applicant/'.$cash.'/'.$inv->rate_type.'/'.$inv->interest_rate.'/'.$inv->term.'/'.$inv->frequency.'/'.$product->currency_code.'/'.$inv->id.'/'.$cdate.'/'.$app_date.'/' .$inv->principle_frequency.'/' . 0 .'/' .$saving_amount.'/' .$qu_saving->saving_interest_rate.'/' .$qu_saving->saving_type.'" class="btn btn-primary" rel="lightbox" data-toggle="modal" data-target="#myModal">'.lang('print_payment_schedule').'</a>';
+																	}
 																?>
-																
 															</div>
 														</div>
 													</div>
