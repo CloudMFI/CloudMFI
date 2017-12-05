@@ -1,4 +1,4 @@
-<link href="https://fonts.googleapis.com/css?family=Moul|Battambang" rel="stylesheet"> 
+<!-- <link href="https://fonts.googleapis.com/css?family=Moul|Battambang" rel="stylesheet"> 
 <style type="text/css">
 	.a_four_page,.header_report{
 		width:21cm;
@@ -288,4 +288,287 @@
 			<br/><br/>
 		</div>
 	</div>
+</div>  -->
+
+                                                      <!-- Myat su moe edit start   -->
+<link href="https://fonts.googleapis.com/css?family=Moul|Battambang" rel="stylesheet"> 
+<style type="text/css">
+    .a_four_page,.header_report{
+        width:21cm;
+        min-height:height:29.7cm;
+        height:auto;
+        margin:0 auto;
+        font-size:13px;
+        font-family:'Zawgyi-One' ,'Time New Roman';
+    }
+    .header_report{
+        height:100px;
+        //border:1px solid red;
+    }
+    .title{
+        text-align: center;
+        font-size:16px;
+        font-family: 'Zawgyi-One', cursive;
+    }
+    #logo{
+        width: 150px;
+        opacity: 0.8;
+    }
+    .tableone thead{
+        width: 100%;
+        font-family: 'Zawgyi-One','Time New Roman';
+        font-size: 12px;
+        background:#92CDDC;
+        font-weight:bold;
+
+    }
+    table tr td{
+        border:1px solid black;
+        
+    }
+    h4{
+        text-align: center;
+        line-height:20px !important;
+    }
+    td{
+        padding:3px;
+        background-color: white !important;
+    }
+    
+</style>
+
+<div class="body-overflow">
+    <div class="a_four_page" >
+        <div class="header_report">
+            <div class="title">
+                <span id="logo">
+                    <?php if ($Settings->logo2) {echo '<img src="' . site_url() . 'assets/uploads/logos/' . $Settings->logo2 . '" />';} ?><br><br><br>
+                </span>
+           </div>
+        </div>
+          <h4> <b>ဆံုးရႈံးနိုင္ေခ်ရွိေသာေခ်းေငြ<br>PAR</b></h4>
+         <h4> ေငြပမာဏ (က်ပ္သန္းေပါင္း )<br>Amounts in millions of Kyats </h4>
+       <br>
+    </div>
 </div>
+         <p style="text-align: right;"> ရက္စဲြ (:dd-mmm-yyyy: )  ..…………………………………… <br>
+              စာရင္းေပးပို ့သည့္ကာလ (month )………………………………<p>
+        <table class="tableone">
+          <thead>
+            <tr>
+                <td width="3%" style="text-align: center;">စဥ္<br>No</td>
+                <td width="6.9%" style="text-align: center;">တိုင္းေဒသၾကီး/ျပည္နယ္<br>region</td>
+                <td width="6.9%" style="text-align: center;">ေခ်းေငြလက္က်န္<br>Loan Outstanding</td>
+                <td width="6.9%" style="text-align: center;">သာမန္ ေခ်းေငြ<br>Normal</td>
+                <td width="6.9%" style="text-align: center;">၃၀ရက္ထက္ေနာက္က်ေခ်းေငြ<br>(30) Days *NPL</td>
+                <td width="6.9%" style="text-align: center;">(၃၁-၆၀) ရက္ထက္ေနာက္က်ေခ်းေငြ<br>(31 -60) Days *NPL</td>
+                <td width="6.9%" style="text-align: center;">(၆၁-၉၀) ရက္ထက္ေနာက္က်ေခ်းေငြ <br>(61 -90) Days *NPL</td>
+                <td width="6.9%" style="text-align: center;">၉၁ရက္ထက္ေနာက္က်ေခ်းေငြ<br>Over 91 Days *NPL</td>
+                <td width="6.9%" style="text-align: center;">ေခ်းေငြဆံုးရႈံးမႈအတြက္အရံေငြ<br>Loan Loss Reserve</td>
+                <td width="6.9%" style="text-align: center;">ေနာက္က်ေခ်းေငြစုစုေပါင္း<br>Total *NPL</td>
+                <td width="6.9%" style="text-align: center;">ေနာက္က်ေခ်းေငြစုစုေပါင္း /ေခ်းေငြလက္က်န္<br>Total *NPL / Loan Outstanding</td>
+                <td width="6.9%" style="text-align: center;">အသင္ းသားဦးေရ(ေနာက္က်ေခ်းေငြ)<br>Number of Clients *NPL</td>
+                <td width="6.9%" style="text-align: center;">ဆႏၵအေလ်ာက္စုေငြ<br>Voluntary Saving</td>
+                <td width="6.9%" style="text-align: center;">မျဖစ္မေနစုေငြ<br>Compulsory Saving</td>
+                <td width="6.9%" style="text-align: center;">စုေဆာင္းေငြမ်ား (ဆႏၵအေလ်ာက္စုေငြ +  မျဖစ္မေနစုေငြ )<br>Saving Deposits (  Voluntary Saving +  Compulsory Saving )</td>
+      	 </tr>
+          </thead>
+           <tbody>
+            <tr>
+                    <td>၁<br>1</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                     <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၂<br>2</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                     <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၃ <br>3  </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                     <td></td>
+                    <td></td>
+            </tr>
+             <tr>
+                    <td>၄ <br>4</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                     <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၅<br>5</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                     <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၆ <br>6</td>
+                   <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                     <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၇ <br>7 </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                     <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၈ <br>8</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                     <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၉<br>9 </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                     <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td>၁၀<br>10</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                     <td></td>
+                    <td></td>
+            </tr>
+            <tr>
+                    <td></td>
+                    <td>စုစုေပါင္း <br>Total</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                     <td></td>
+                    <td></td>
+            </tr>
+          </tbody>
+        </table>
+       	<h4> စာရင္းမွပယ္ဖ်က္ေသာေခ်းေငြ </br> Loan Written Off </h4>
+       	<p>LLR – Loan Loss Reserve (ေခ်းေငြဆံုးရႈံးမႈအတြက္အရံေငြ)</p>
+        <table border="0 " style="width:100% ;margin:50px 0px 20px 0px;">
+            <tr>
+                 <td style="border:none; width:33%;">ျပဳစုသူ (Prepared by) <br><br>အမည္ (Name )…………………</td>
+                 <td style="border:none; width:33%;">စစ္ေဆးသူ ( Checked by )<br><br>အမည္ (Name )…………………</td>
+                <td style="border:none; width:33%;">အတည္ျပဳသူ (Approved by ) <br><br>အမည္ (Name )…………………</td>
+            </tr>
+        </table>

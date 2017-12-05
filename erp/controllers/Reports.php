@@ -18092,5 +18092,50 @@ class Reports extends MY_Controller
         $rows['results'] = $this->reports_model->getCustomerSuggestions($term, $limit);
         echo json_encode($rows);
     }
+	
+	public function daily_monitor_report($reference = NULL,$user = NULL, $branch=null){
+		//$this->erp->print_arrays($this->input->post('reference_no'));
+		$this->erp->checkPermissions();
+		if ($this->input->post('start_date')) {
+			$start_date =  $this->input->post('start_date');
+		}else{
+			$start_date = NULL;
+		}
+		if ($this->input->post('end_date')) {
+			$end_date = $this->input->post('end_date');
+		}else{
+			$end_date=NULL;
+		}
+		if ($this->input->post('customer')) {
+            $customer = $this->input->post('customer');
+        } else {
+            $customer = NULL;
+        }
+		if ($this->input->post('reference_no')) {
+            $reference = $this->input->post('reference_no');
+        } else {
+            $reference = NULL;
+        }
+		if ($this->input->post('user')) {
+			$user = $this->input->post('user');
+		}else{
+			$user=NULL;
+		}
+		if ($this->input->post('branch')) {
+			$branch = $this->input->post('branch');
+		}else{
+			$branch =NULL;
+		} 
+		$this->data['customer']		 = $customer;
+		$this->data['ref_no']  = $this->reports_model->getReference($reference);
+		$this->data['co'] = $this->reports_model->getStaff($user);
+		$this->data['dfCurrncy']   = $this->reports_model->getSettingCurrncy();
+		$this->data['branch_name']   = $this->site->getAllBranch_Name($branch);
+		$outstanding_amt = $this->reports_model->getOutstanding($customer,$reference,$user,$branch);
+		$this->data['outstanding']= $outstanding_amt;
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('reports')));
+        $meta = array('page_title' => lang('reports'), 'bc' => $bc);
+        $this->page_construct('reports/daily_monitor_report', $meta, $this->data);
+	}
 }
     

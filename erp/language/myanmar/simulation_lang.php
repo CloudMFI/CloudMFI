@@ -17,7 +17,7 @@
  */
 
 //documents
-$lang["simulation"]					= "တူသယောင်ရှိအောင် လုပ်သော";
+$lang["simulation"]					= "ေခ်းေငြေပးဆပ္မွဳနမူနာပံုစံ";//MSM finished
 $lang["financial_product"]			= "ဘဏ္ဍာရေးကုန်ပစ္စည်း";
 $lang["asset_price"]				= "ပိုင်ဆိုင်မှုစျေး";
 $lang["%_advance_payment"]			= "% ကြိုတင်ငွေပေးချေ";

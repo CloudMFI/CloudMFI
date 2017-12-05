@@ -17,144 +17,144 @@
  */
 
 //documents
-$lang["customer_kh"]			= "ဖောက်သည် KH";
-$lang["installment_date"]		= "အရစ်ကျပေးသွင်း နေ့စွဲ";
-$lang["due_date"]				= "ကြောင့်နေ့စွဲ";
-$lang["penalty_days"]			= "ပြစ်ဒဏ်ရက်ပေါင်း";
-$lang["over_due_days"]			= "မှုနေ့ရက်များကျော်";
-$lang["installment_amount"]		= "အရစ်ကျပေးသွင်း ငွေပမာဏ";
-$lang["services_fee"]			= "န်ဆောင်မှုများကြေး";
-$lang["penalty_amount"]			= "ပြစ်ဒဏ်ငွေပမာဏ";
-$lang['add_payment']			= "ငွေပေးချေမှုရမည့် ဖြည့်စွက်";
-$lang['by_c.o']					= "C.O အားဖြင့်";
-$lang['by_branch']				= "ဌာနခွဲအားဖြင့်";
-$lang['applicant']				= "လျှောက်ထားသူ";
-$lang['start_date']				= "စတင် နေ့စွဲ";
-$lang['end_date']				= "ပြီးဆုံးရက်စွဲ";
-$lang['combine_to_pdf']			="PDF ဖိုင်မှပေါင်းစပ်";
-$lang['delete_sales']			="အရောင်းဖျက်ပစ်ပါ";
-$lang['delete_sale']			="ရောင်းရန်ဖျက်ပစ်ပါ";
-$lang['view_payments']			="ကြည့်ရန်ငွေချေမှု";
-$lang['certify_letter']			="သက်သေခံလက်မှတ် ပေးစာ";
-$lang['intallment_payment']		="အရစ်ကျပေးသွင်း-သည့် ငွေ ငွေပေးချေမှုရမည့်";
-$lang["group_loans"]			="အဖွဲ့ မှချေးငွေ";
-$lang["group_loan"]				="အဖွဲ့ မှချေးငွေ";
-$lang["total_services"]			="စုစုပေါင်းန်ဆောင်မှုများ";
-$lang["other_paid"]   			="အခြား ပေးသွင်း";
-$lang["total_servives"]			="စုစုပေါင်းန်ဆောင်မှုများ";
-$lang["interest"]				="အကျိုးစီးပွား";
-$lang["principle"]				="နိယာမ";
-$lang["change_date"]			="ပြောင်းလဲခြင်းနေ့စွဲ";
-$lang["change_payment_date"]	="ပြောင်းလဲခြင်းငွေပေးချေမှုရမည့်နေ့စွဲ";
-$lang["pmt_no"]					="PMT နံပါတ်တပ်သည်";
-$lang["payment_date"]			="ငွေပေးချေနေ့စွဲ";
-$lang["save"]					="ကယ်တင်";
-$lang["export_excel"]			="ပို့ Excel ကို";
-$lang["print"]					="ပုံနှိပ်ပါ";
+$lang["customer_kh"]			= "ေငြေခ်းယူသူအမည္(MM)";//MSM finished
+$lang["installment_date"]		= "အရစ္က်ေပးသြင္းသည့္ ေန႔စြဲ";//MSM finished
+$lang["due_date"]				= "ေနာက္ဆံုးရက္";//MSM finished
+$lang["penalty_days"]			= "ျပစ္ဒဏ္ရက္ေပါင္း";//MSM finished
+$lang["over_due_days"]			= "ေနာက္ဆံုးရက္ေက်ာ္လြန္ျခင္း";//MSM finished
+$lang["installment_amount"]		= "အရစ္က်ေပးသြင္းမည့္ ေငြပမာဏ";//MSM finished
+$lang["services_fee"]			= "၀န္ေဆာင္မႈစရိတ္";//MSM finished
+$lang["penalty_amount"]			= "ဒဏ္ေငြပမာဏ";//MSM finished
+$lang['add_payment']			= "ေငြေပးေခ်မႈ ျဖည့္စြက္ျခင္း";//MSM finished
+$lang['by_c.o']					= "စာရင္းစစ္အမည္";//MSM finished
+$lang['by_branch']				= "ဌာနခြဲ";//MSM finished
+$lang['applicant']				= "ေလွ်က္ထားသူ";//MSM finished
+$lang['start_date']				= "စတင္သည့္ ေန့စြဲ";//MSM finished
+$lang['end_date']				= "ျပီးဆံုးသည့္ ရက္စြဲ";//MSM finished
+$lang['combine_to_pdf']			="PDF ဖိုင္တြင္ေပါင္းရန္";//MSM finished
+$lang['delete_sales']			="အေရာင္းဖ်က္ရန္";//MSM finished
+$lang['delete_sale']			="အေရာင္းဖ်က္ရန္";//MSM finished
+$lang['view_payments']			="ေငြေခ်မႈျကည့္ရန္";//MSM finished
+$lang['certify_letter']			="သက္ေသခံလက္မွတ္ ေပးစာ";//MSM finished
+$lang['intallment_payment']		="အရစ္က်ေငြေပးသြင္းမႈ";//MSM finished
+$lang["group_loans"]			="အဖြဲ႔ ေခ်းေငြ";//MSM finished
+$lang["group_loan"]				="အဖြဲ႔ ေခ်းေငြ";//MSM finished
+$lang["total_services"]			="စုစုေပါင္း၀န္ေဆာင္မႈမ်ား";//MSM finished
+$lang["other_paid"]   			="အျခား ေပးသြင္းမႈ";//MSM finished
+$lang["total_servives"]			="စုစုေပါင္း၀န္ေဆာင္မႈမ်ား";//MSM finished
+$lang["interest"]				="အတိုး";//MSM finished
+$lang["principle"]				="စည္းမ်ဥ္းဥပေဒ";//MSM finished
+$lang["change_date"]			="ေျပာင္းလဲသည့္ေန႔စြဲ";//MSM finished
+$lang["change_payment_date"]	="ေငြေပးေခ်မႈေျပာင္းလဲသည့္ေန႔စြဲ";//MSM finished
+$lang["pmt_no"]					="PMT နံပါတ္";//MSM finished
+$lang["payment_date"]			="ေငြေပးေခ်မႈေန႔စြဲ";//MSM finished
+$lang["save"]					="သိမ္းမည္";//MSM finished
+$lang["export_excel"]			="Excel ဖိုင္ထုတ္ရန္";//MSM finished
+$lang["print"]					="ပံုနွိပ္္မည္";//MSM finished
 $lang["pdf"]					="PDF";
 $lang["excel"]					="Excel";
-$lang["renew_loans"]			="ချေးငွေထုတ်ပေးရန်သက်တမ်းတိုးရန်";
-$lang["payment_date_changed "]	="ငွေပေးချေမှုရမည့်နေ့စွဲ ပြောင်းလဲခဲ့ ";
+$lang["renew_loans"]			="ေခ်းေငြသက္တမ္းတိုးရန္";//MSM finished
+$lang["payment_date_changed "]	="ေငြေပးေခ်မႈရမည့္ေန့စြဲ ေျပာင္းလဲျခင္း ";//MSM finished
 ///////////////////
-$lang["branch_company_name"]	="ဘဏ်ခွဲအမည်";
-$lang["installments"]			="အရစ်ကျပေးသွင်း-သည့် ငွေ ဇယား";
-$lang["agree_to_pay_by_schedule"]= "အချိန်ဇယားအားဖြင့်ပေးချေရန်သဘောတူ";
-$lang["right_thumbprints"]		="ညာဘက် လက်မဖိနှိပ်သည်";
-$lang["date"]					="နေ့စွဲ";
-$lang["customer_name"]			="လျှောက်ထားသူနာမည";//="ဖုန်းဆက်သူအမည်";
-$lang["customer_latin_name"]	="နာမည်ကို အင်္ဂလိပ်စာဖြင့်ဖော်ပြရန်";//="ဖုန်းဆက်သူလက်တင်အမည်";
-$lang["loan_account_number"]	="လျှောက်ထားသူကိုယ်ပိုင်နံပါတ်";
-$lang["account_number"]	        ="အကောင့်နံပါတ်";
-$lang["c_o_name"]				="ချေးငွေအရာရှိနာမည်";//="C.O အမည်";
-$lang["phone1"]					="ဆက်သွယ်ရန်ဖုန်း";//="ဖုန်း";
-$lang["phone2"]					="ဆက်သွယ်ရန်ဖုန်း 2";//="ဖုန်း 2";
-$lang["c_o_phone"]				="CO ဆက်သွယ်ရန်ဖုန်း ";;//="C.O ဖုန်း ";
-$lang["term_loan"]				="ကန့်သတ်ချက်";
-$lang["penalty"]				="ရက်နောက်ကျကြေး (တစ်ရက်နှုန်း)";//="ပြစ်ဒဏ်";
-$lang["total_balance_schedule"]	="ချေးငွေပမာဏ";//="စုစုပေါင်းလက်ကျန်ငွေ";
-$lang["purpose_loan"]			="ချေးငွေလျှောက်ထားရသည့်ရည်ရွယ်ချက်";//="ရည်ရွယ်ချက်";
-$lang["collateral_schedule"]	="အာမခံပစ္စည်း";//="အာမခံ";	
-$lang["interest_rate_schedule"]	="အတိုးနှုန်း";//="အတိုးနှုန်း";
-$lang["part"]					="အပိုင်း";
-$lang["disburse_date"]			="ချေးငွေထုတ်ယူသည့်ရက်စွဲ";//="ထုတ်ချေးနေ့စွဲ";
-$lang["address_approved"]		="နေရပ်လိပ်စာ";//="လိပ်စာ";	
+$lang["branch_company_name"]	="ဘဏ္ခြဲအမည္";//MSM finished
+$lang["installments"]			="အရစ္က်ေပးသြင္းမႈ";//MSM finished
+$lang["agree_to_pay_by_schedule"]= "ေပးေခ်ရန္သေဘာတူမႈအခ်ိန္ဇယား";//MSM finished
+$lang["right_thumbprints"]		="ညာဘက္ လက္မလက္ေဗြရာ";//MSM finished
+$lang["date"]					="ေန႔စြဲ";//MSM finished
+$lang["customer_name"]			="ေလွ်ာက္ထားသူအမည္";//="ဖုန်းဆက်သူအမည်";//MSM finished
+$lang["customer_latin_name"]	="ေလွ်ာက္ထားသူအမည္(အဂၤလိပ္)";//="ဖုန်းဆက်သူလက်တင်အမည်";//MSM finished
+$lang["loan_account_number"]	="ေလွ်ာက္ထားသူစာရင္းနံပါတ္";//MSM finished
+$lang["account_number"]	        ="အေကာင့္နံပါတ္";//MSM finished
+$lang["c_o_name"]				="C.Oအမည္";//="C.O အမည်";//MSM finished
+$lang["phone1"]					="ဆက္သြယ္ရန္ဖုန္း ၁";//="ဖုန်း";//MSM finished
+$lang["phone2"]					="ဆက္သြယ္ရန္ဖုန္း ၂";//="ဖုန်း 2";//MSM finished
+$lang["c_o_phone"]				="C.Oဆက္သြယ္ရန္ဖုန္း";//="C.O ဖုန်း ";//MSM finished
+$lang["term_loan"]				="ေငြေခ်းသက္တမ္း"; //MSM finished
+$lang["penalty"]				="ရက္ေနာက္က်ေျကး (တစ္ရက္နႈန္း)";//="ပြစ်ဒဏ်";//MSM finished
+$lang["total_balance_schedule"]	="စုစုေပါင္းလက္က်န္ေငြဇယား";//="စုစုပေါင်းလက်ကျန်ငွေ";//MSM finished
+$lang["purpose_loan"]			="ေခ်းေငြေလွ်ာက္ထားရသည့္ရည္ရြယ္ခ်က္";//="ရည်ရွယ်ချက်";//MSM finished
+$lang["collateral_schedule"]	="အာမခံပစၥည္း";//="အာမခံ";//MSM finished	
+$lang["interest_rate_schedule"]	="အတိုးနႈန္း";//="အတိုးနှုန်း";//MSM finished	
+$lang["part"]					="အပိုင္း";//MSM finished
+$lang["disburse_date"]			="ေခ်းေငြထုတ္ယူသည့္ေန႔စြဲ";//="ထုတ်ချေးနေ့စွဲ";//MSM finished
+$lang["address_approved"]		="ေနရပ္လိပ္စာအတည္ျပဳျခင္း";//="လိပ်စာ";//MSM finished	
 ///////////
-$lang["no"]						="ဂဏန်း <br/>(No)";
+$lang["no"]						="နံပါတ္ <br/>(No)";//MSM finished	
 
-$lang["intallment_date"]		="အရစ်ကျပေးသွင်း နေ့စွဲ <br/> (Installment Date)";
-$lang["principle_paid"]			="အရင်းငေငွ </br>(Principle)";//="နိယာမ ပေးသွင်း";
-$lang["interest_paid"]			="အတိုးနှုန်း</br>(Interest)";
-$lang["principle_balance"]		="လက်ကျန်အရင်းငေငွ <br/> (Principle Balance)";
-$lang["total_intallment"]		="လစဉ်သ င်းရေရမ်အရစ်ကျငငွ<br/> (Principle Installment)";//="စုစုပေါင်း အရစ်ကျပေးသွင်း-သည့် ငွေ";
-$lang["note"]					="မှတ်ချက်";
-$lang["total_schedule"]			="စုစုပေါင်း";
-$lang["total_balance"]			="စုစုပေါင်း လက်ကျန်ရှင်းတမ်";
-$lang["payment_note"]			="- &nbsp;ဖောက်သည်အချိန်ဇယားအောက်ပါပြန်ဆပ်လုပ်ဆောင်ရမယ်.<br/> - &nbsp;အားလပ်ရက်ပေါ်တွင်ငွေပေးချေကျဆုံးခြင်းလျှင်ဖောက်သည်ကြိုတင်မဲအတွက်တနေ့ပြန်ဆပ်ဖို့လာရပေမည် ";
-$lang["the_contract_does_not_comply"] 	="စာချုပ်လိုက်လျောပါဘူး";//="The contract does not comply ";//="ការមិនគោរពតាមកិច្ចសន្យា";
-$lang["company_will_take_legal_action"]	="ဖောက်သည်ကဒီသဘောတူညီချက်အတိုင်းလိုက်နာလျှင်ဥပဒေရေးရာအရေးယူတော်မူမည်";//= " Will take legal action if customer not follow this agreement.";
+$lang["intallment_date"]		="အရစ္က်ေပးသြင္း ေန႔စြဲ <br/> (Installment Date)";//MSM finished	
+$lang["principle_paid"]			="အရင္းေငြ </br>(Principle)";//="နိယာမ ပေးသွင်း";//MSM finished
+$lang["interest_paid"]			="အတိုးနႈန္း</br>(Interest)";//MSM finished
+$lang["principle_balance"]		="လက္က်န္အရင္းေငြ <br/> (Principle Balance)";//MSM finished
+$lang["total_intallment"]		="စုစုေပါင္းအရစ္က်ေငြ<br/> (Total Installment)";//="စုစုပေါင်း အရစ်ကျပေးသွင်း-သည့် ငွေ";MSM finished
+$lang["note"]					="မွတ္ခ်က္";//MSM finished
+$lang["total_schedule"]			="စုစုပေါင်း ဇယား";//MSM finished
+$lang["total_balance"]			="စုစုေပါင္း လက္က်န္ရွင္းတမ္း";//MSM finished
+$lang["payment_note"]			="- &nbsp;ဖောက်သည်အချိန်ဇယားအောက်ပါပြန်ဆပ်လုပ်ဆောင်ရမယ်.<br/> - &nbsp;အားလပ်ရက်ပေါ်တွင်ငွေပေးချေကျဆုံးခြင်းလျှင်ဖောက်သည်ကြိုတင်မဲအတွက်တနေ့ပြန်ဆပ်ဖို့လာရပေမည် ";//MSM not_finished#######
+$lang["the_contract_does_not_comply"] 	="အဆိုပါစာခ်ဳပ္အားမလိုက္နာျခင္း";//="The contract does not comply ";//="ការមិនគោរពតាមកិច្ចសន្យា";//MSM finished
+$lang["company_will_take_legal_action"]	="ေငြေခ်းယူသူသည္ အဆိုပါသေဘာတူညီခ်က္အတိုင္း မလိုက္နာလွ်င္ ဥပေဒအရ အေရးယူျခင္းခံရမည္";//= " Will take legal action if customer not follow this agreement.";//MSM finished
 
-$lang["payment_invoice"]		= "ငွေပေးချေမှုငွေတောင်းခံလွှာ";
+$lang["payment_invoice"]		= "ေငြေပးေခ်မႈေတာင္းခံလႊာ";//MSM finished
 
-$lang["renew_schedule"]			="သက်တမ်းတိုးရန်ဇယား";
-$lang["reschedule"]				="ပြန်လည်သတ်မှတ်";
-$lang["principle_balnce"]		="နိယာမ လက်ကျန်ရှင်းတမ်";
-$lang["paid_amount"]			="ပေးသွင် ငွေပမာဏ";
-$lang["services_fee"]			="န်ဆောင်မှုများကြေး";
-$lang["amount"]					="ငွေပမာဏ";
-$lang["split_with_installment"]	="အရစ်ကျပေးသွင်း-သည့် ငွေ နှင့်အတူ ခွဲဖြာစေခြင်း";
-$lang["financial_products"]		="ဘဏ္ဍာရေးထုတ်ကုန်များ";
-$lang["customer_type"]			="ဖုန်းဆက်သူအမျိုးအစား";
-$lang["interest_rate"]			="အတိုးနှုန်း";
-$lang["interest_rate_"] 			="အတိုးနှုန်း";//="လိပ်စာ";
-$lang["payment_frequency"]		="ငွေပေးချေမှုရမည့်ကြိမ်နှုန်း";
-$lang["start_installment_date"]	="စတင် ကို အရစ်ကျပေးသွင်း-သည့် ငွေ နေ့စွဲ";
-$lang["term"]					="စည်းကမ်းချက်";
-$lang["rate_type"]				="နှုန်းအမျိုးအစား";
-$lang["total_interest_rate"]	="စုစုပေါင်းအတိုးနှုန်း";
-$lang["print_payment_schedule"]	="ပုံနှိပ်ပါငွေပေးချေမှုရမည့်ဇယား";
-$lang["submit"]					="တင်ပြ";
-$lang["phone_number"]			="ဖုန်း";
-$lang["payment_date_changed "]	="ငွေပေးချေမှုရမည့်ရက်စွဲကိုပြောင်းလဲသွားတယ်";
-$lang["partial_payment"]		="တစ်စိတ်တစ်ပိုင်းငွေပေးချေမှု";
-$lang["description"]			="ဖေါ်ပြချက်";
-$lang["services"]				="န်ဆောင်မှုများ";
-$lang["biller"]					="ပေးချေသူ၏";
-$lang["total_services"]			="စုစုပေါငျးန်ဆောင်မှုများ";
-$lang["fax"]					="ဖက်စ်";
-$lang["e_mail"]					="အီးမေးလ်က";
-$lang["receiver"]				="လက်ခံ";
-$lang["cashier"]				="ငှေကိုငျစာရေး";
-$lang["total_payments"]			="စုစုပေါင်းငွေပေးချေမှု";
-$lang["other_payment"]			="သည်အခြားပေးချေမှု";
-$lang["owed_paid"]				="Paid အကြွေး";
-$lang["edit_payment"]			="Edit ကိုငွေပေးချေမှုရမည့်";
-$lang["previous_months_owed"]	="ယခင် Method ကိုညှနျကွေား";
-$lang["photo"]					="ဓာတ်ပုံကို";
-$lang["invoce_no"]				="ငွေတောင်းခံလွှာအရေအတွက်";
-$lang['daily_payments']			="နေ့စဉ်ငွေချေမှု";
-$lang['late_payments']			="နှောင်းပိုင်းတွင်ငွေပေးချေမှု";
-$lang['all_payments']			="အားလုံးငွေပေးချေမှု";
-$lang['co_name']				="CO.နာမတျောကို";
-$lang["owed_balance"]			="အကြွေးလက်ကျန်ငွေ"; 
-$lang["branches"]				="အကိုင်းအခက်";
-$lang["by_co"]					="မှ CO";
-$lang["cash_in"]				="ငွေသား";
-$lang["re_payments"]			="ပြန်ဆပ်ဖို့တွေအတွက်";
-$lang["new_owed_balance"]		="နယူးညှနျကွေား Balance";
-$lang["re_payment_added"]		="ပြန်ဆပ် Added";
-$lang["payment_updated"]		="ငွေပေးချေမှုရမည့် Update ကို";
-$lang["penalty_"]				="ပြစ်ဒဏ်";
-$lang["paid_by"]				="အားဖြင့်ပေးဆောင်";
-$lang["payments_amounts"]		="ငွေပေးချေပမာဏ";
-$lang["owed_balances"]			="အကြွေး balance";
-$lang["payment_date"]			="ငွေပေးချေသည့်နေ့ရက်";
-$lang["payment_added"]			="ငွေပေးချေမှုကဆက်ပြောသည်";
-$lang["old_owed"]				="အဟောင်းကိုအကြွေး";
-$lang["term_loan"]				="ချေးငွေပေးချေမည့်ကာလ";//="သက်တမ်း";
-$lang["purpose_loan"]			="ချေးငွေလျှောက်ထားရသည့်ရည်ရွယ်ချက်";//="ရည်ရွယ်ချက်ချေးငွေ";
-$lang["pay_to"]					="မှပေးဆောင်";
-$lang["payment_method"]			="ငွေပေးချေစနစ်";
-$lang["action"]					="အရေးယူ";
+$lang["renew_schedule"]			="သက္တမ္းတိုးရန္ဇယား";//MSM finished
+$lang["reschedule"]				="ျပန္လည္သတ္မွတ္ျခင္း";//MSM finished
+$lang["principle_balnce"]		="လက္က်န္ရွင္းတမ္းစည္းမ်ဥ္း";//MSM finished
+$lang["paid_amount"]			="ေပးသြင္းေငြပမာဏ";//MSM finished
+$lang["services_fee"]			="၀န္ေဆာင္မႈစရိတ္";//MSM finished
+$lang["amount"]					="ေငြပမာဏ";//MSM finished
+$lang["split_with_installment"]	="အရစ္က်ခြဲဆပ္ျခင္း";//MSM finished
+$lang["financial_products"]		="ဘ႑ာေရးထုတ္ကုန္မ်ား";//MSM finished
+$lang["customer_type"]			="ေလွ်ာက္ထားသူအမ်ိဳးအစား";//MSM finished
+$lang["interest_rate"]			="အတိုးနႈန္း";//MSM finished
+$lang["interest_rate_"] 		="အတိုးနႈန္း";//="လိပ်စာ";//MSM finished
+$lang["payment_frequency"]		="ေငြေပးေခ်မႈရမည့္အၾကိမ္အေရအတြက္";//MSM finished
+$lang["start_installment_date"]	="စတင္အရစ္က်ေငြေပးသြင္းသည့္ ေန႔စြဲ";//MSM finished
+$lang["term"]					="စည္းကမ္းခ်က္";//MSM finished
+$lang["rate_type"]				="အတိုးနႈန္း အမ်ိဳးအစား";//MSM finished
+$lang["total_interest_rate"]	="စုစုေပါင္းအတိုးနႈန္း";//MSM finished
+$lang["print_payment_schedule"]	="ေငြေပးေခ်ရမည့္ဇယားကို ပရင့္ထုတ္မည္";//MSM finished
+$lang["submit"]					="တင္မည္";//MSM finished
+$lang["phone_number"]			="ဖုန္းနံပါတ္"; //MSM finisned
+$lang["payment_date_changed "]	="ေငြေပးေခ်ရမည့္ရက္စြဲေျပာင္းလဲျခင္း"; //MSM finished
+$lang["partial_payment"]		="တစ္စိတ္တစ္ပိုင္းေငြေပးေခ်မႈ";//MSM finished
+$lang["description"]			="ေဖၚျပခ်က္";//MSM finished
+$lang["services"]				="၀န္ေဆာင္မႈမ်ား";//MSM finished
+$lang["biller"]					="ေပးေခ်သူ";//MSM finished
+$lang["total_services"]			="စုစုေပါင္း၀န္ေဆာင္မႈမ်ား";//MSM finished
+$lang["fax"]					="fax";//MSM finished
+$lang["e_mail"]					="e_mail";//MSM finished
+$lang["receiver"]				="လက္ခံသူ";//MSM finished
+$lang["cashier"]				="ေငြကိုင္စာေရး";//MSM finished
+$lang["total_payments"]			="စုစုေပါင္းေငြေပးေခ်မႈ";//MSM finished
+$lang["other_payment"]			="အျခားေငြေပးေခ်မႈ";//MSM finished
+$lang["owed_paid"]				="ေပးေခ်ျပီးေသာ ေခ်းေငြ";//MSM finished
+$lang["edit_payment"]			="ေငြေပးေခ်မႈ ျပင္ဆင္ျခင္း";//MSM finished
+$lang["previous_months_owed"]	="လြန္ခဲ့ေသာလမွ ေခ်းေငြ";//MSM finished
+$lang["photo"]					="ဓာတ္ပံု";//MSM finished
+$lang["invoce_no"]				="ေငြေတာင္းခံလႊာနံပါတ္";//MSM finished
+$lang['daily_payments']			="ေန႔စဥ္ေငြေပးေခ်မႈ";//MSM finished
+$lang['late_payments']			="ေနာက္က်ေသာေငြေပးေခ်မႈ";//MSM finished
+$lang['all_payments']			="ေငြေပးေခ်မႈအားလံုး";//MSM finished
+$lang['co_name']				="ေခ်းေငြအရာရွိနာမည္";//MSM finished
+$lang["owed_balance"]			="အေျကြးလက္က်န္ေငြ"; //MSM finished
+$lang["branches"]				="ရံုးခြဲမ်ား";//MSM finished
+$lang["by_co"]					="ေခ်းေငြအရာရွိနာမည္";//MSM finished
+$lang["cash_in"]				="ေငြသား";//MSM finished
+$lang["re_payments"]			="့ျပန္ဆပ္ရန္အတြက္111";//MSM finished
+$lang["new_owed_balance"]		="အေၾကြးလက္က်န္ေငြအသစ္";//MSM finished
+$lang["re_payment_added"]		="့ျပန္ဆပ္ရန္ထပ္ထည့္ျခင္း";//MSM finished
+$lang["payment_updated"]		="ေငြေပးေခ်မႈျပင္ဆင္ျခင္း";//MSM finished
+$lang["penalty_"]				="ရက္ေနာက္က်ေျကး";//MSM finished
+$lang["paid_by"]				="ေပးေဆာင္ျခင္း";//MSM finished
+$lang["payments_amounts"]		="ေငြေပးေခ်မႈပမာဏ";//MSM finished
+$lang["owed_balances"]			="လက္က်န္ေငြပမာဏ";//MSM finished
+$lang["payment_date"]			="ေငြေပးေခ်သည့္ေန့ရက္";//MSM finished
+$lang["payment_added"]			="ေငြေပးေခ်မႈထပ္ေပါင္းထည့္ရန္";//MSM finished
+$lang["old_owed"]				="အေၾကြးအေဟာင္း";//MSM finished
+$lang["term_loan"]				="ေခ်းေငြေပးေခ်မည့္ကာလ";//="သက်တမ်း";//MSM finished
+$lang["purpose_loan"]			="ေခ်းေငြေလွ်ာက္ထားရသည့္ရည္ရြယ္ခ်က္";//="ရည်ရွယ်ချက်ချေးငွေ"; //MSM finished
+$lang["pay_to"]					="ွေပးေဆာင္မႈ";//MSM finished
+$lang["payment_method"]			="ေငြေပးေခ်မႈနည္းလမ္း";//MSM finished
+$lang["action"]					="လုပ္ေဆာင္ခ်က္";//MSM finished
 $lang["weekly_payments"]		="Weekly Payments";
 $lang["monthly_payments"]		="Monthly Payments";
 $lang["frequency_payments"]		="Frequency Payments";

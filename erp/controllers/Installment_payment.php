@@ -8763,8 +8763,8 @@ class Installment_Payment extends MY_Controller
 			$this->data['setting']= $this->site->get_setting();
 			$this->data['sale_id']= $recipt_voucher;
 			$this->data['modal_js'] = $this->site->modal_js();
-			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);			
-		
+			//$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);			
+			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view_mm',$this->data);
 		//}
     }
 	
@@ -8799,8 +8799,8 @@ class Installment_Payment extends MY_Controller
 			$this->data['address'] = $this->site->getAddressToString($customer->country, $customer->state, $customer->district, $customer->sangkat, $customer->village,'KH');
 			$this->data['setting']= $this->site->get_setting();
 			$this->data['modal_js'] = $this->site->modal_js();
-			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);			
-		
+			//$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);			
+			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view_mm',$this->data);
     }
 	public function certify_latter(){
 		$this->erp->checkPermissions();
