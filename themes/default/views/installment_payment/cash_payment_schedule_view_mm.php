@@ -75,14 +75,14 @@
 								<center><span style="line-height:140%; font-size:12px; font-weight:normal;"><?=lang("agree_to_pay_by_schedule")?> <br/><?=lang("date") ?>: <?= $this->erp->hrsd(date('Y-m-d')); ?></span></center>
 						</div> -->
 					</div>
-					<table style="width:100%;border-top: 1px solid black;border-bottom: 1px solid black;margin-top:5px;"> <!-- MSM add 1/12/2017-->
+					<table style="width:100%;border-top: 1px solid black;border-bottom: 1px solid black;margin-top:5px;font-size:11px;font-weight: normal;"> <!-- MSM add 1/12/2017-->
 						<tr>
 							<td width="32%">Group ID : </td>
-							<td width="32%">Account ID : <?=$sale->reference_no;?> </td>
+							<td width="32%">Account ID :<b> <?=$sale->reference_no;?> </b></td>
 							<td width="32%">Name : <b><?php echo $customer->family_name_other.' '.$customer->name_other; ?></b></td>
 						</tr>
 					</table>
-					<table style="width:90%;font-size:11px;margin-top:5px;line-height:20px !important;"> 
+					<table style="width:90%;font-size:11px;margin-top:5px;line-height:15px !important;font-weight: normal;"> 
 						<tr>
 							<td width="5%">ထုတ္ေခ်းသည့္ရက္စြဲ </td>
 							<td width="10%">: <?= $this->erp->hrsd(date('Y-m-d')); ?></td>
@@ -93,9 +93,9 @@
 						</tr>
 						<tr>
 							<td width="5%">အတိုးႏွဳန္း</td>
-							<td width="10%">: <?= ($sale->rate_text ? $sale->rate_text : "")?></td>
+							<td width="10%">: <b><?= ($sale->rate_text ? $sale->rate_text : "")?></b></td>
 							<td width="1%">ေခ်းေငြတာ၀န္ခံအမွတ္</td>
-							<td width="10%">: <?= $creator->first_name . ' ' . $creator->last_name ; ?></td>
+							<td width="10%">: <b><?= $creator->first_name . ' ' . $creator->last_name ; ?></b></td>
 							<td width="5%">စတင္ေပးေခ်းရမည့္ရက္စြဲ</b></td>
 							<td width="5%">:</td>
 						</tr>
@@ -110,13 +110,13 @@
 					<div>	
 						<table style="font-size:11px;width:100%;margin-top: 10px;"  border="1">
 							<tr class="p_l_r" style="background-color:#009900;color:white;width:100%; height:30px;">
-								<td style="text-align: center;" colspan="2">Due Date</td>
+								<td style="text-align: center;" colspan="2">(ေပးေခ်ရမည့္ေန႔)<br>Due Date</td>
 								
-								<td style="text-align: center;">Principle</td>
-								<td style="text-align: center;">Interest</td>
-								<td style="text-align: center;">Balance</td>
-								<td style="text-align: center;">Total Due</td>
-								<td style="text-align: center;">Signature</td>
+								<td style="text-align: center;">(အရင္းေငြ)<br>Principle</td>
+								<td style="text-align: center;">(အတိုးႏႈန္း)<br>Interest</td>
+								<td style="text-align: center;">(လက္က်န္ အရင္းေငြ)<br>Balance</td>
+								<td style="text-align: center;">(လစဥ္သြင္းရန္အရစ္က်ေငြ)<br>Total Due</td>
+								<td style="text-align: center;">(လက္မွတ္)<br>Signature</td>
 							</tr>
 							<?php
 								$total_principle = 0;
