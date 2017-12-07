@@ -4069,6 +4069,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 								'created_by'			=> $this->session->userdata('user_id'),
 								'biller_id'				=> $sale->branch_id,
 								'saving_balance'		=> $saving_amount,
+								'by_co'					=> $sale->by_co,
 							);
 			//$this->erp->print_arrays($data);			
 			
@@ -4234,6 +4235,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 								'bank_acc_code'		=> $this->input->post('bank_account'),
 								'invoce_no'			=> $this->input->post('invoce_no'),
 								'created_by'		=> $this->session->userdata('user_id'),
+								'by_co'				=> $sale->by_co,
 								'biller_id'			=> $sale->branch_id,
 								'owed_interest'		=> $owed_interest,
 								'owed_services'		=> $owed_services,
@@ -4241,6 +4243,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 								'owed_other_paid'	=> $owed_other_paid,
 								'owed_principle'	=> $owed_principle,
 								'saving_balance'	=> $saving_interest_amount,
+								
 							);
 			 //$this->erp->print_arrays($data);
 			$paid = str_replace(',', '', $this->erp->roundUpMoney($total_services_paid, $df_currency));

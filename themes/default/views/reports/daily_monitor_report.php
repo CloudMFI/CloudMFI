@@ -1,5 +1,5 @@
 <?php
-//$this->erp->print_arrays($setting);
+  //$this->erp->print_arrays($monitor_report);
 	 
 ?>
 <script type="text/javascript">
@@ -81,38 +81,34 @@
 				<div id="form">
 					<?php echo form_open('Reports/daily_monitor_report/', 'id="action-form"'); ?>
 					<div class="row" style="padding:10px;">
-						<!--<div class="col-sm-4">
+						 
+						<div class="col-sm-4">
 							<div class="form-group">
-								<?= lang("start_date", "start_date"); ?>
-								<?php echo form_input('start_date', (isset($_POST['start_date']) ? $_POST['start_date'] : $start_date), 'class="form-control date" id="start_date" '); ?>
+								<?= lang("loans_term", "loans_term"); ?>
+								<?php
+								$loans_term[""] = "";
+								$loans_term[1] = "Daily";
+								$loans_term[7] = "Weekly";
+								$loans_term[14] = "Two Week";
+								$loans_term[30] = "Monthly";
+								echo form_dropdown('loans_term', $loans_term, (isset($_POST['loans_term']) ? $_POST['loans_term'] : ''), 'id="loans_term" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("loans_term") . '"  class="form-control input-tip select"  ');
+								?>
 							</div>
 						</div>
 						<div class="col-sm-4">
 							<div class="form-group">
-								<?= lang("end_date", "end_date"); ?>
-								<?php echo form_input('end_date', (isset($_POST['end_date']) ? $_POST['end_date'] : $end_date), 'class="form-control date" id="end_date" ' ); ?>
+								<?= lang("late_days", "late_days"); ?>
+								<?php
+								$late_days[""] = ""; 
+								$late_days[7] = "A Week";
+								$late_days[14] = "Two Weeks";
+								$late_days[21] = "Three Weeks";
+								$late_days[30] = "A Month";
+								echo form_dropdown('late_days', $late_days, (isset($_POST['late_days']) ? $_POST['late_days'] : ''), 'id="late_days" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("late_days") . '"  class="form-control input-tip select"  ');
+								?>
 							</div>
 						</div>
-						<div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="reference_no"><?= lang("reference_no"); ?></label>
-                                <?php echo form_input('reference_no', (isset($_POST['reference_no']) ? $_POST['reference_no'] : ""), 'class="form-control tip" id="reference_no"'); ?>
-                            </div>
-                        </div>-->
-						
-						<div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="reference_no"><?= lang("reference_no"); ?></label>
-                                <?php echo form_input('reference_no', (isset($_POST['reference_no']) ? $_POST['reference_no'] : $reference), 'class="form-control tip" id="reference_no"'); ?>
-							</div>
-                        </div>
-						<div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="rapplication"><?= lang("customer"); ?></label>
-                                <?php echo form_input('customer', (isset($_POST['customer']) ? $_POST['customer'] : ""), 'class="form-control" id="rapplication" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("customer") . '"'); ?>
-                            </div>
-                        </div>
-						<div class="col-sm-4">
+						<!--<div class="col-sm-6">
 							<div class="form-group">
 								<label class="control-label" for="user"><?= lang("c.o_name"); ?></label>
 								<?php
@@ -124,21 +120,23 @@
 									echo form_dropdown('user', isset($us) ?$us  : (''), (isset($_POST['user']) ? $_POST['user'] : ""), 'class="form-control" id="user" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("co_name") . '"');
 								?>
 							</div>
-						</div>
+						</div>-->
+						
 						<div class="col-sm-4">
 							<div class="form-group">
 								<label class="control-label" for="customer"><?= lang("by_branch"); ?></label>
 								<?php
 								$bn[""] = "";
-								if(is_array(isset($branch_name) ?$branch_name  : (''))){
-									foreach ($branch_name as $branch) {
-										$bn[$branch->branch_id] = $branch->name;
+								if(is_array(isset($branches) ?$branches  : (''))){
+									foreach ($branches as $branch) {
+										$bn[$branch->id] = $branch->name;
 									}
 								}
 								echo form_dropdown('branch', isset($bn) ?$bn  : (''), (isset($_POST['branch']) ? $_POST['branch'] : ""), 'class="form-control" id="branch_name" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("branch") . '"');
 								?>
 							</div>
 						</div>
+						
 						<div class="col-sm-4">
 							<div class="form-group" style="margin-top:30px;">
 								<?php echo form_submit('submit_report', $this->lang->line("search"), 'class="btn btn-primary"'); ?>	
@@ -156,19 +154,19 @@
 					</p>
                     <table id="QUData" class="table table-bordered table-hover table-striped">
                         <thead>
-                        <tr class="active">
-							<th colspan="2">  </th>
-							 
-							<th colspan="3"><?= lang("outstanding"); ?> </th>
-							<th>  </th> 
-							
-							<th colspan="2"> <?= lang("disbursement"); ?> </th>
-							<th>  </th>
-							
-							<th colspan="5"> <?= lang("re_payment_bad_loan"); ?> </th>
-							 
-							<th colspan="5"> <?= lang("re_payment_good_loan"); ?>  </th> 
-						</tr>
+							<tr class="active">
+								<th colspan="2">  </th>
+								 
+								<th colspan="3"><?= lang("outstanding"); ?> </th>
+								<th>  </th> 
+								
+								<th colspan="2"> <?= lang("disbursement"); ?> </th>
+								<th>  </th>
+								
+								<th colspan="5"> <?= lang("re_payment_bad_loan"); ?> </th>
+								 
+								<th colspan="5"> <?= lang("re_payment_good_loan"); ?>  </th> 
+							</tr>
                         </thead>
 						
 						<tbody>
@@ -192,7 +190,41 @@
 							<th> <?= lang("saving"); ?> </th>
 							<th> <?= lang("penalty"); ?> </th> 
 						</tbody>
-                        
+						
+						<tbody>
+							<?php 
+							$i = 1; 
+								foreach($monitor_report as $co){ 
+							?>
+									<tr>
+										<td><?=$i?></td>
+										<td><?= $co->first_name; ?> <?= $co->last_name; ?></td>
+										<td><?= $this->erp->formatMoney($co->total_outstanding); ?> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+										<td> </td>
+									</tr>
+									<?php
+									$i++;
+									 
+								} 
+							?>
+							 
+						</tbody>
+						  
                     </table>
                 </div>
             </div>

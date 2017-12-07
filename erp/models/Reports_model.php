@@ -2590,6 +2590,20 @@ ORDER BY
 		}
 		return false;
 	}
+	
+	public function getCoReportByBranch($branch_id){
+        $this->db->select('id,first_name,last_name');
+		$this->db->where('branch_id',$branch_id);
+		//$this->db->where('id !=',1);
+		$q = $this->db->get('users');
+        if ($q->num_rows() > 0) {
+			foreach (($q->result()) as $row) {
+				$data[] = $row;
+			}
+			return $data;
+		}
+        return FALSE;
+	}
 
 	public function getSaleByUserID($user_id,$start_date,$end_date,$user,$branch_query){	
 		$this->db->select('sales.id, quotes.created_by as co_id,quotes.branch_id,CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) as cus_name,
@@ -2803,14 +2817,7 @@ ORDER BY
 				->where('loans.paid_amount','0')
 				->order_by('loans.id','DESC')
 				->group_by('loans.sale_id');
-				
-				/*if($this->GP && !($this->Owner || $this->Admin) && $this->session->view_right == 0) {
-					$this->db->where('sales.branch_id', $this->session->branch_id);
-				}
-				if ($from_date && $to_date) {
-					$this->db->where('loans.dateline BETWEEN "' . $this->erp->fld($from_date) . '" and "' . $this->erp->fld($to_date) . '"');
-					//$this->db->where_in('erp_loans.period',$arr_peroid);
-				}*/
+				 
 				if ($customer) {
 					$this->db->where('sales.customer_id', $customer);
 				}
@@ -2852,4 +2859,35 @@ ORDER BY
             return $data;
         }
     }
+	 
+	public function getOutstandingByCO($co_id, $loans_term) { 
+		$this->db->select('SUM(principle) as total_outstanding ');
+        $this->db->where('loans.by_co', $co_id);
+		$this->db->where('loans.paid_amount',0);
+		//$this->db->where('sales.frequency',$loans_term);
+		$this->db->join('sales','sales.id = loans.sale_id','left');
+		$q=$this->db->get('loans');
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+    }
+	
+	public function getNewDisburse($co_id){
+		//$this->db->select('SUM(service_amount) as service_amount');
+		$this->db->where('by_co', $co_id);
+		//$this->db->where('paid_type','Loans Received');
+		$this->db->where('date', date('Y-m-d'));		
+		$q = $this->db->get('payments');
+        if($q->num_rows() > 0 ) {
+			foreach($q->result() as $row){
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false;
+	}
+	
 }

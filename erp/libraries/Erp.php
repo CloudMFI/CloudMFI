@@ -1430,7 +1430,7 @@ class Erp
 					$dateline = $this->site->getNoneHoliday(date('Y-m-d', strtotime("+".$j." days", strtotime($start_date))));					
 				}
 				$day = date('l',strtotime($dateline));
-				$deadline = $this->site->SkipSunday($day, $dateline);
+				$deadline = $this->site->getWeekendPayments($day, $dateline);
 				$n = ((strtotime($deadline) - strtotime($st_dateline)) / (60 * 60 * 24));
 				$nameday = date('l',strtotime($deadline));
 				

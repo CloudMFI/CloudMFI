@@ -213,10 +213,12 @@ class Db_model extends CI_Model
 						$this->db->where('erp_quotes.quote_status <>', 'activated');
 						$this->db->where('erp_quotes.quote_status <>', 'approved');
 						$this->db->where('erp_quotes.quote_status <>', 'completed');
+						$this->db->where('erp_quotes.status', 'loans');
 					}
 					$this->db->where('erp_quotes.quote_status <>', 'activated');
 					$this->db->where('erp_quotes.quote_status <>', 'approved');
 					$this->db->where('erp_quotes.quote_status <>', 'completed');
+					$this->db->where('erp_quotes.status', 'loans');
 					$this->db->order_by('quotes.date DESC');
 					$this->db->limit(20);
 					$q = $this->db->get();
@@ -302,11 +304,13 @@ class Db_model extends CI_Model
 						$this->db->where('quotes.quote_status <>', 'activated');
 						$this->db->where('quotes.quote_status <>', 'approved');
 						$this->db->where('quotes.quote_status <>', 'completed');
+						$this->db->where('erp_quotes.status', 'loans');
 					}
 					$this->db->where('quotes.loan_group_id !=',null);
 					$this->db->where('quotes.quote_status <>', 'activated');
 					$this->db->where('quotes.quote_status <>', 'approved');
 					$this->db->where('quotes.quote_status <>', 'completed');
+					$this->db->where('erp_quotes.status', 'loans');
 					$this->db->order_by('quotes.date DESC');
 					$this->db->limit(20);
 					$q = $this->db->get();
@@ -363,6 +367,7 @@ class Db_model extends CI_Model
 				->join('currencies','currencies.code = quote_items.currency_code','left')
 				->join('loan_groups','loan_groups.id = sales.loan_group_id','left')
 				->where($this->db->dbprefix('sales').'.sale_status !=', 'registered')
+				->where($this->db->dbprefix('sales').'.status', 'loans')
 				->group_by('sales.id')
 				->order_by('sales.id','DESC');
 				$this->db->limit(20);
@@ -517,6 +522,7 @@ class Db_model extends CI_Model
         }
         return FALSE;
 	}
+	
 	function getSaleTotal(){
 		$this->db->select('SUM(erp_sales.total) as s_total');
 		$this->db->where('status','loans');
@@ -526,6 +532,7 @@ class Db_model extends CI_Model
 		}
 		return false;
 	}
+	
 	function getPayment_amount(){
 		$this->db->select('SUM(erp_payments.principle_amount) as p_amt');
 		$q=$this->db->get('erp_payments',1);
@@ -534,6 +541,7 @@ class Db_model extends CI_Model
 		}
 		return false;
 	}
+	
 	function getExpanse()
 	{
 		$this->db->select('SUM(erp_expenses.amount) AS total_expanse');

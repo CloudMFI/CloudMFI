@@ -294,8 +294,9 @@ $lang["total_bad_loan"]							="Total Bad Loan";
 $lang["priciple"]								="Priciple";
 $lang["interest"]								="Interest";
 $lang["saving"]									="Saving";
-$lang["daily_monitor_reports_(o_d_r)"]			="Dailyonitor Reports (Outstanding, Disbursement, Repayment)";
-$lang[""]		="";
+$lang["total_good_loan"]						="Total Good Loan";
+$lang["daily_monitor_reports_(o_d_r)"]			="Daily Monitor Reports (Outstanding, Disbursement, Repayment)";
+
 $lang[""]		="";
 $lang[""]		="";
 $lang[""]		="";

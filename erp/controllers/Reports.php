@@ -18093,28 +18093,18 @@ class Reports extends MY_Controller
         echo json_encode($rows);
     }
 	
-	public function daily_monitor_report($reference = NULL,$user = NULL, $branch=null){
-		//$this->erp->print_arrays($this->input->post('reference_no'));
+	public function daily_monitor_report($reference = NULL,$user = NULL, $branch=null){ 
 		$this->erp->checkPermissions();
-		if ($this->input->post('start_date')) {
-			$start_date =  $this->input->post('start_date');
-		}else{
-			$start_date = NULL;
-		}
-		if ($this->input->post('end_date')) {
-			$end_date = $this->input->post('end_date');
-		}else{
-			$end_date=NULL;
-		}
-		if ($this->input->post('customer')) {
-            $customer = $this->input->post('customer');
+		 
+		if ($this->input->post('loans_term')) {
+            $loans_term = $this->input->post('loans_term');
         } else {
-            $customer = NULL;
+            $loans_term = NULL;
         }
-		if ($this->input->post('reference_no')) {
-            $reference = $this->input->post('reference_no');
+		if ($this->input->post('late_days')) {
+            $late_days = $this->input->post('late_days');
         } else {
-            $reference = NULL;
+            $late_days = NULL;
         }
 		if ($this->input->post('user')) {
 			$user = $this->input->post('user');
@@ -18126,16 +18116,33 @@ class Reports extends MY_Controller
 		}else{
 			$branch =NULL;
 		} 
-		$this->data['customer']		 = $customer;
+		 
+		$user_id = $this->session->userdata('user_id');
+		$users = $this->quotes_model->getUser($user_id);		
+		$branch_id = $branch ? $branch : $users->branch_id;
+		
+		$co_reports_by_branch = $this->reports_model->getCoReportByBranch($branch_id);
+		//$this->erp->print_arrays($branch_co);
 		$this->data['ref_no']  = $this->reports_model->getReference($reference);
 		$this->data['co'] = $this->reports_model->getStaff($user);
-		$this->data['dfCurrncy']   = $this->reports_model->getSettingCurrncy();
-		$this->data['branch_name']   = $this->site->getAllBranch_Name($branch);
+		$date_now = date('m/d/Y', time());
+		
+		foreach($co_reports_by_branch as $co_reports){
+			$co_id = $co_reports->id;
+			$TotalOutstanding = $this->reports_model->getOutstandingByCO($co_id, $loans_term);
+			//$this->erp->print_arrays($TotalOutstanding);
+			foreach($TotalOutstanding as $Outstan){
+				$co_reports->total_outstanding = $Outstan->total_outstanding;
+			}
+		}
+		$this->data['monitor_report'] = $co_reports_by_branch;
+		$this->data['dfCurrncy'] = $this->reports_model->getSettingCurrncy();
+		$this->data['branches'] = $this->site->getAllBranches();
 		$outstanding_amt = $this->reports_model->getOutstanding($customer,$reference,$user,$branch);
-		$this->data['outstanding']= $outstanding_amt;
-        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('reports')));
-        $meta = array('page_title' => lang('reports'), 'bc' => $bc);
-        $this->page_construct('reports/daily_monitor_report', $meta, $this->data);
+		$this->data['outstanding'] = $outstanding_amt;
+        $bc = array(array('link' => base_url(), 'page' => lang('reports')), array('link' => '#', 'page' => lang('daily_monitor_reports')));
+        $meta = array('page_title' => lang('daily_monitor_reports'), 'bc' => $bc);
+        $this->page_construct('reports/daily_monitor_report', $meta, $this->data); 
 	}
 }
     
