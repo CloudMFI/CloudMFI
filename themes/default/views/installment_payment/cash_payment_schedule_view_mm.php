@@ -84,24 +84,24 @@
 					</table>
 					<table style="width:90%;font-size:11px;margin-top:5px;line-height:15px !important;font-weight: normal;"> 
 						<tr>
-							<td width="5%">ထုတ္ေခ်းသည့္ရက္စြဲ <br>(Disburse Date)</td>
-							<td width="10%">: <b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
+							<td width="5%">ထုတ္ေခ်းသည့္ရက္စြဲ <br>(Disbursement Date)</td>
+							<td width="10%" style="vertical-align: top;">: <b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
 							<td width="1%">ေခ်းေငြသက္တမ္း<br>(Loan Term)</td>
-							<td width="10%">: <b><?= number_format($sale->term,0); ?>  <?= lang("days") ?> </b></td>
+							<td width="10%"  style="vertical-align: top;">: <b><?= number_format($sale->term,0); ?>  <?= lang("days") ?> </b></td>
 							<td width="5%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
-							<td width="5%">:</td>
+							<td width="5%"  style="vertical-align: top;">:</td>
 						</tr>
 						<tr>
 							<td width="5%">အတိုးႏွဳန္း<br>(Interest Rate)</td>
-							<td width="10%">: <b><?= ($sale->rate_text ? $sale->rate_text : "")?></b></td>
+							<td width="10%"  style="vertical-align: top;">: <b><?= ($sale->rate_text ? $sale->rate_text : "")?></b></td>
 							<td width="1%">ေခ်းေငြတာ၀န္ခံအမွတ္<br>(Credit Officer ID)</td>
-							<td width="10%">: <b><?= $creator->first_name . ' ' . $creator->last_name ; ?></b></td>
-							<td width="5%">စတင္ေပးေခ်းရမည့္ရက္စြဲ<br>(First Repaymeny Date)</b></td>
-							<td width="5%">:</td>
+							<td width="10%"  style="vertical-align: top;">: <b><?= $creator->first_name . ' ' . $creator->last_name ; ?></b></td>
+							<td width="5%">စတင္ေပးေခ်းရမည့္ရက္စြဲ<br>(First Repayment Date)</b></td>
+							<td width="5%"  style="vertical-align: top;">:</td>
 						</tr>
 						<tr>
-							<td width="5%">လိပ္စာ<br>(Leader/ Borrower Address)</td>
-							<td colspan="5">:<b><?='#'.$customer->house_no; ?></b></td>
+							<td width="5%">ေငြေခ်းသူလိပ္စာ<br>(Leader/ Borrower Address)</td>
+							<td colspan="5"  style="vertical-align: top;">:<b><?='#'.$customer->house_no; ?></b></td>
 							
 						</tr>
 						
@@ -258,7 +258,7 @@
 					</div>
 
 					<div style="margin-top: 10px; margin-bottom: 10px; font-weight:normal;font-size:11px;">
-						<p>ေခ်းေငြအတိုးအရင္း အားလံုးျပီးဆံုးသည့္တိုင္ေအာင္ တာ၀န္ယူေပးဆပ္မည္ ျဖစ္ေၾကာင္းကို အသိသက္ေသေရွ႕ေမွာက္တြင္ ကၽြန္ေတာ္ ကၽြန္မ ေငြေခ်းသူႏွင့္ ပူးတြဲေငြေခ်းသူတို႔က လက္၀ဲလက္မကို ႏွိပ္ပါသည္</p><br>
+						<p>ေခ်းေငြအတိုးအရင္း အားလံုးျပီးဆံုးသည့္တိုင္ေအာင္ တာ၀န္ယူေပးဆပ္မည္ ျဖစ္ေၾကာင္းကို အသိသက္ေသေရွ႕ေမွာက္တြင္ ကၽြန္ေတာ္/ ကၽြန္မ ေငြေခ်းသူႏွင့္ ပူးတြဲေငြေခ်းသူတို႔က လက္၀ဲလက္မကို ႏွိပ္ပါသည္</p><br>
 						<table style="font-size:11px;margin-top: 50px;width:100%;">
 							<tr>
 								<td width="20%"><td>
