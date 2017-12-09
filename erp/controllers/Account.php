@@ -4069,7 +4069,6 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 								'created_by'			=> $this->session->userdata('user_id'),
 								'biller_id'				=> $sale->branch_id,
 								'saving_balance'		=> $saving_amount,
-								'by_co'					=> $sale->by_co,
 							);
 			//$this->erp->print_arrays($data);			
 			
@@ -4234,8 +4233,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 								'paid_by'			=> $this->input->post('paid_by'),
 								'bank_acc_code'		=> $this->input->post('bank_account'),
 								'invoce_no'			=> $this->input->post('invoce_no'),
-								'created_by'		=> $this->session->userdata('user_id'),
-								'by_co'				=> $sale->by_co,
+								'created_by'		=> $this->session->userdata('user_id'), 
 								'biller_id'			=> $sale->branch_id,
 								'owed_interest'		=> $owed_interest,
 								'owed_services'		=> $owed_services,

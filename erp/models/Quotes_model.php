@@ -955,7 +955,7 @@ class Quotes_model extends CI_Model
 							$loan = $this->erp->getPaymentSchedule($sale_id, $total, $data['rate_type'], $data['interest_rate'], $data['term'], $data['frequency'], $due_date, $date_now, $sale['currency_code'], $data['principle_frequency'], $saving_amount, $saving_interest_rate, $saving_type );
 							//$this->erp->print_arrays($loan);
 							if($loan) {
-								$this->addLoan($loan, $data['by_co']);
+								$this->addLoan($loan);
 							}
 						}
 						$this->site->updateReference('so');
@@ -968,10 +968,9 @@ class Quotes_model extends CI_Model
         return false;
 	}
 
-	public function addLoan($data = array(), $by_co) {
+	public function addLoan($data = array()) {
 		if($data) {
-			foreach($data as $dt) {
-				$dt['by_co'] = $by_co;
+			foreach($data as $dt) { 
 				$this->db->insert('loans', $dt);
 			}
 		}

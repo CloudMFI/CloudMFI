@@ -2889,5 +2889,24 @@ ORDER BY
 		}
 		return false;
 	}
-	
+	function getAllPaymentBySaleID($sale_id){
+		$this->db->where('paid_type','Loans Received');
+		$this->db->where('sale_id', $sale_id);
+		$q = $this->db->get('payments');
+        if($q->num_rows() > 0 ) {
+			foreach($q->result() as $row){
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false;
+	}
+	public function getSaleItemByID($id)
+    {
+        $q = $this->db->get_where('sale_items', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
 }

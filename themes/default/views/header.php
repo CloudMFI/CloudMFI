@@ -628,11 +628,16 @@
 														</a>
 														<ul>												
 														
-															<li id="reports_loan_report">
+															<!--<li id="reports_loan_report">
 																<a href="<?= site_url('reports/loan_report') ?>">
 																	<i class="fa fa-money"></i><span class="text"> <?= lang('loan_report'); ?></span>
 																</a>
-															</li>												
+															</li>-->
+															<li id="reports_customer_reports">
+																<a href="<?= site_url('reports/customer_reports') ?>">
+																	<i class="fa fa-money"></i><span class="text"> <?= lang('customer_reports'); ?></span>
+																</a>
+															</li>
 															<li id="reports_daily_sales">
 																<a href="<?= site_url('reports/daily_sales') ?>">
 																	<i class="fa fa-list"></i><span class="text"> <?= lang('loan_daily'); ?></span>

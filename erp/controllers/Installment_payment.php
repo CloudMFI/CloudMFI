@@ -4729,8 +4729,7 @@ class Installment_Payment extends MY_Controller
 								'other_paid' 			=> $other_paids,
 								'paid_by' 				=> $pay_method,								
 								'bank_acc_code'			=> $this->input->post('bank_account'),
-								'created_by' 			=> $this->session->userdata('user_id'),
-								'by_co'					=> $sale->by_co,
+								'created_by' 			=> $this->session->userdata('user_id'), 
 								'type'					=> 'received', //$payment_status,		
 								'extra_paid'			=> $penalty_paid,
 								'paid_type' 			=> 'Loans Received',
@@ -5086,8 +5085,7 @@ class Installment_Payment extends MY_Controller
 										'extra_paid'			=> $penalty_paid,
 										'interest_discount'		=> $this->input->post('discount_rate'),
 										'bank_acc_code'			=> $this->input->post('bank_account'),
-										'updated_by' 			=> $this->session->userdata('user_id'),
-										'by_co'					=> $sale->by_co,
+										'updated_by' 			=> $this->session->userdata('user_id'), 
 										'invoce_no'				=> $this->input->post('invoce_no'),
 										'owed_interest'			=> $owed_interest,
 										'owed_services'			=> $owed_services,
@@ -5302,8 +5300,7 @@ class Installment_Payment extends MY_Controller
 										'paid_type'				=> 'Loans Received',
 										'extra_paid'			=> $penalty_paid,
 										'bank_acc_code'			=> $this->input->post('bank_account'),
-										'created_by' 			=> $this->session->userdata('user_id'),
-										'by_co'					=> $sale->by_co,
+										'created_by' 			=> $this->session->userdata('user_id'), 
 										'invoce_no'				=> $this->input->post('invoce_no'),
 										'owed_interest'			=> $owed_interests,
 										'owed_services'			=> $owed_services,
@@ -8766,8 +8763,8 @@ class Installment_Payment extends MY_Controller
 			$this->data['setting']= $this->site->get_setting();
 			$this->data['sale_id']= $recipt_voucher;
 			$this->data['modal_js'] = $this->site->modal_js();
-			//$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);			
-			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view_mm',$this->data);
+			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);			
+			//$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view_mm',$this->data);
 		//}
     }
 	
@@ -8802,8 +8799,8 @@ class Installment_Payment extends MY_Controller
 			$this->data['address'] = $this->site->getAddressToString($customer->country, $customer->state, $customer->district, $customer->sangkat, $customer->village,'KH');
 			$this->data['setting']= $this->site->get_setting();
 			$this->data['modal_js'] = $this->site->modal_js();
-			//$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);			
-			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view_mm',$this->data);
+			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);			
+			//$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view_mm',$this->data);
     }
 	public function certify_latter(){
 		$this->erp->checkPermissions();

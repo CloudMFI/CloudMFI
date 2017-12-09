@@ -2125,19 +2125,20 @@
 			});
 			
 			////////////Saving
-			var saving_rate = $('#saving_rate').val()? ($('#saving_rate').val()) : 0;
-			var saving_rate_amt = saving_rate.replace('%', '');
+			var saving_rate = $('#saving_rate').val()? ($('#saving_rate').val()) : 0; 
+			var saving_rate_amt = saving_rate_amt ? saving_rate.replace('%', '') : 0;			
 			var saving_rate_amount = (saving_rate_amt/100);
 			
-			var saving_amt = $('#saving_amount').val()? ($('#saving_amount').val()) : 0;
-			var saving_amount = formatDecimal(saving_amt.split(',').join(''));
+			
+			var saving_amt = $('#saving_amount').val()? ($('#saving_amount').val()) : 0; 
+			var saving_amount = saving_amt ? formatDecimal(saving_amt.split(',').join('')) : 0 ;
 			
 			var saving_interest_rate = $('#saving_interest_rate').val()? ($('#saving_interest_rate').val()) : 0;
-			var saving_interest_amt = saving_interest_rate.replace('%', '');
+			var saving_interest_amt = saving_interest_rate ?  saving_interest_rate.replace('%', '') : 0; 
 			var saving_interest_amount = (saving_interest_amt/100);
 			
 			var saving_type = $('#saving_type').val()? ($('#saving_type').val()) : 0;
-			//alert(saving_interest_amount);
+			//
 			if(services == '') {
 				var link1= $('<a href="Quotes/cash_payment_schedule_preview/'+lease_amount+'/'+rate_type+'/'+interest_rate+'/'+term_cash+'/'+frequency_cash+'/'+currency+'/'+new_date+'/'+principle_fq+'/'+null+'/'+saving_amount+'/'+saving_interest_amount+'/'+saving_type+'" rel="lightbox" id="print_payment'+count_link1+'" data-toggle="modal" data-target="#myModal"></a>');
 			}else {

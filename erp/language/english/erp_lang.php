@@ -1001,5 +1001,5 @@ $lang["loan_active"]							="Loans Active";
 
 
 $lang["daily_monitor_reports"]					= "Daily Monitor Reports";
-$lang[""]			= "";
+$lang["customer_reports"]						= "Customer Reports";
 $lang[""]			= "";
