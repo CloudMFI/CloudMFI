@@ -84,12 +84,12 @@
 					</table>
 					<table style="width:90%;font-size:11px;margin-top:5px;line-height:15px !important;font-weight: normal;"> 
 						<tr>
-							<td width="5%">ထုတ္ေခ်းသည့္ရက္စြဲ <br>(Disbursement Date)</td>
-							<td width="10%" style="vertical-align: top;">: <b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
+							<td width="5%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
+							<td width="10%" style="vertical-align: top;">: </td>
 							<td width="1%">ေခ်းေငြသက္တမ္း<br>(Loan Term)</td>
 							<td width="10%"  style="vertical-align: top;">: <b><?= number_format($sale->term,0); ?>  <?= lang("days") ?> </b></td>
-							<td width="5%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
-							<td width="5%"  style="vertical-align: top;">:</td>
+							<td width="5%">ထုတ္ေခ်းသည့္ရက္စြဲ <br>(Disbursement Date)</td>
+							<td width="5%"  style="vertical-align: top;">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
 						</tr>
 						<tr>
 							<td width="5%">အတိုးႏွဳန္း<br>(Interest Rate)</td>
