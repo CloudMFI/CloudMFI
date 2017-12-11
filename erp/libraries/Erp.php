@@ -816,10 +816,11 @@ class Erp
 	}
 	
 	
-	function getPaymentSchedule($sale_id = NULL, $lease_amount = NULL, $rate_type = NULL, $interest = NULL, $term_in_days = NULL, $frequency = NULL, $start_date = NULL, $app_date = NULL, $currency = NULL, $principle_fq = NULL)
-	{
+	function getPaymentSchedule($sale_id = NULL, $lease_amount = NULL, $rate_type = NULL, $interest = NULL, $term_in_days = NULL, $frequency = NULL, $start_date = NULL, $app_date = NULL, $currency = NULL, $principle_fq = NULL, $saving_amount = NULL, $saving_interest_rate = NULL, $saving_type = NULL)
+	{	
 		$term = round($term_in_days/$frequency);
 		$payment_schedule = '';
+		
 		if($rate_type == '1') {
 			$terms = ($frequency > 1) ? $term : round($term / 1.4);	
 			$principles = $lease_amount/$terms;
@@ -828,6 +829,10 @@ class Erp
 			$interest_rate = 0;
 			$j=0;
 			$days = 0;
+			
+			$count_day = $j;
+			$saving_amt = 0; 
+			$saving_interest_amount = $saving_interest_rate * $saving_amount;
 			
 			for($i=1;$i<=$terms;$i++) {
 				if($i == 1) {
@@ -869,32 +874,65 @@ class Erp
 				}				
 				$principle_amt = str_replace(',', '', $principle);
 				$payment_amt = $principle_amt + $interest_rate;
+				
+				//////Compulsory_Saving Start
+				if($saving_type == 1){
+					if($frequency == 30) {
+						$saving_amounts = $saving_interest_amount;
+					}else{
+						if($count_day == "mountly"){
+							$saving_amounts = $saving_amt;
+						}else {
+							$saving_amounts = 0;
+						}
+					}
+				}//////Compulsory_Saving End
+				
 				if($i == $terms){
 					$payment_schedule [] = array(
-													'period' 	=> $i,
-													'sale_id' 	=> $sale_id,
-													'type' 		=> $rate_type,
-													'dateline' 	=> $deadline,
-													'principle' => str_replace(',', '', $lease_amt),
-													'interest' 	=> $interest_rate,
-													'payment' 	=> $payment_amt,
-													'balance' 	=> 0,
+													'period' 			=> $i,
+													'sale_id' 			=> $sale_id,
+													'type' 				=> $rate_type,
+													'dateline' 			=> $deadline,
+													'principle' 		=> str_replace(',', '', $lease_amt),
+													'interest' 			=> $interest_rate,
+													'payment' 			=> $payment_amt,
+													'balance' 			=> 0,
+													'saving_interest' 	=> $saving_amounts,
 												);
 				} else {
 					$lease_amt -= $principle_amt;
 					$payment_schedule [] = array(
 													
-													'period'	=> $i,
-													'sale_id' 	=> $sale_id,
-													'type' 		=> $rate_type,
-													'dateline' 	=> $deadline,
-													'principle' => str_replace(',', '', $principle_amt),
-													'interest' 	=> $interest_rate,
-													'payment' 	=> $payment_amt,
-													'balance' 	=> (($lease_amt <= 0)? 0:$lease_amt),
+													'period'			=> $i,
+													'sale_id' 			=> $sale_id,
+													'type' 				=> $rate_type,
+													'dateline' 			=> $deadline,
+													'principle' 		=> str_replace(',', '', $principle_amt),
+													'interest' 			=> $interest_rate,
+													'payment' 			=> $payment_amt,
+													'balance' 			=> (($lease_amt <= 0)? 0:$lease_amt),
+													'saving_interest' 	=> $saving_amounts,
 												);
 				}
 				$j += $day_of_month;
+				//////Compulsory_Saving Start
+				if($i == 1) {
+					$ap_date = date('Y-m-d', strtotime($app_date));
+					$appr_date = date_create($ap_date);
+					$st_date = date_create($start_date);
+					$numdays = date_diff($appr_date, $st_date);
+					$count_day = $day_of_month + $numdays->days;
+				}
+				else{
+					$count_day += $day_of_month;
+				}
+				//$count_day += $day_of_month;				
+				if($count_day >= 29){
+					$saving_amt = $saving_interest_amount;
+					unset($count_day);
+					$count_day = "mountly";
+				}//////Compulsory_Saving End
 			}
 			//$this->erp->print_arrays($payment_schedule);
 			return $payment_schedule;
@@ -904,6 +942,11 @@ class Erp
 			$lease_amt = $lease_amount;
 			$j=0;
 			$days = 0;
+			
+			$count_day = $j;
+			$saving_amt = 0; 
+			$saving_interest_amount = $saving_interest_rate * $saving_amount;
+			
 			for($i=1;$i<=$terms;$i++) {
 				if($i == 1) {
 					$st_dateline = $start_date;
@@ -945,6 +988,20 @@ class Erp
 				$principles = $payment_amt - $interest_rate;
 				$principle = $this->erp->roundUpMoney($principles, $currency);
 				$principle_amt = str_replace(',', '', $principle);
+				
+				//////Compulsory_Saving Start
+				if($saving_type == 1){
+					if($frequency == 30) {
+						$saving_amounts = $saving_interest_amount;
+					}else{
+						if($count_day == "mountly"){
+							$saving_amounts = $saving_amt;
+						}else {
+							$saving_amounts = 0;
+						}
+					}
+				}//////Compulsory_Saving End
+				
 				if($i == $terms) {
 					$payment_schedule [] = array(
 													'period' 	=> $i,
@@ -955,6 +1012,7 @@ class Erp
 													'interest' 	=> $interest_rate,
 													'payment' 	=> $payment_amt,
 													'balance' 	=> (($lease_amt <= 0)? 0:$lease_amt),
+													'saving_interest' 	=> $saving_amounts,
 												);
 											
 				}else {
@@ -968,9 +1026,28 @@ class Erp
 													'interest' 	=> $interest_rate,
 													'payment' 	=> $payment_amt,
 													'balance' 	=> (($lease_amt <= 0)? 0:$lease_amt),
+													'saving_interest' 	=> $saving_amounts,
 												);
 				}
 				$j += $day_of_month;
+				
+				//////Compulsory_Saving Start
+				if($i == 1) {
+					$ap_date = date('Y-m-d', strtotime($app_date));
+					$appr_date = date_create($ap_date);
+					$st_date = date_create($start_date);
+					$numdays = date_diff($appr_date, $st_date);
+					$count_day = $day_of_month + $numdays->days;
+				}
+				else{
+					$count_day += $day_of_month;
+				}
+				//$count_day += $day_of_month;				
+				if($count_day >= 29){
+					$saving_amt = $saving_interest_amount;
+					unset($count_day);
+					$count_day = "mountly";
+				}//////Compulsory_Saving End
 			}
 			return $payment_schedule;
 		} else if($rate_type == '3') {
@@ -981,6 +1058,10 @@ class Erp
 			$lease_amt = $lease_amount;
 			$j=0;
 			$days = 0;
+			
+			$count_day = $j;
+			$saving_amt = 0; 
+			$saving_interest_amount = $saving_interest_rate * $saving_amount;
 			
 			for($i=1;$i<=$terms;$i++) {
 				if($i == 1) {
@@ -1021,6 +1102,20 @@ class Erp
 				}
 				$principle_amt = str_replace(',', '', $principle);
 				$payment_amt = $principle_amt + $interest_rate;
+				
+				//////Compulsory_Saving Start
+				if($saving_type == 1){
+					if($frequency == 30) {
+						$saving_amounts = $saving_interest_amount;
+					}else{
+						if($count_day == "mountly"){
+							$saving_amounts = $saving_amt;
+						}else {
+							$saving_amounts = 0;
+						}
+					}
+				}//////Compulsory_Saving End
+				
 				if($i == $terms) {
 					$payment_schedule [] = array(
 													'period' 	=> $i,
@@ -1031,6 +1126,7 @@ class Erp
 													'interest' 	=> $interest_rate,
 													'payment' 	=> $payment_amt,
 													'balance' 	=> (($lease_amt <= 0)? 0:$lease_amt),
+													'saving_interest' 	=> $saving_amounts,
 												);
 											
 				}else {
@@ -1044,9 +1140,29 @@ class Erp
 													'interest' 	=> $interest_rate,
 													'payment' 	=> $payment_amt,
 													'balance' 	=> (($lease_amt <= 0)? 0:$lease_amt),
+													'saving_interest' 	=> $saving_amounts,
 												);
 				}
 				$j += $day_of_month;
+				
+				//////Compulsory_Saving Start
+				if($i == 1) {
+					$ap_date = date('Y-m-d', strtotime($app_date));
+					$appr_date = date_create($ap_date);
+					$st_date = date_create($start_date);
+					$numdays = date_diff($appr_date, $st_date);
+					$count_day = $day_of_month + $numdays->days;
+				}
+				else{
+					$count_day += $day_of_month;
+				}
+				//$count_day += $day_of_month;				
+				if($count_day >= 29){
+					$saving_amt = $saving_interest_amount;
+					unset($count_day);
+					$count_day = "mountly";
+				}//////Compulsory_Saving End
+				
 			}
 			return $payment_schedule;
 		} else if($rate_type == '4') {
@@ -1060,7 +1176,12 @@ class Erp
 			$interest_rate = ($interests * $loan_days) / $terms;
 			
 			$j=0;
-			$days = 0;		    
+			$days = 0;
+
+			$count_day = $j;
+			$saving_amt = 0; 
+			$saving_interest_amount = $saving_interest_rate * $saving_amount;
+			
 			for($i=1;$i<=$terms;$i++) {
 				if($i == 1) {
 					$st_dateline = $start_date;
@@ -1091,6 +1212,20 @@ class Erp
 				
 				$principle_amt = str_replace(',', '', $principle);
 				$payment_amt = $principle_amt + $interest_rate;
+				
+				//////Compulsory_Saving Start
+				if($saving_type == 1){
+					if($frequency == 30) {
+						$saving_amounts = $saving_interest_amount;
+					}else{
+						if($count_day == "mountly"){
+							$saving_amounts = $saving_amt;
+						}else {
+							$saving_amounts = 0;
+						}
+					}
+				}//////Compulsory_Saving End
+				
 				if($i == $terms){
 					$payment_schedule [] = array(
 													'period' 	=> $i,
@@ -1101,6 +1236,7 @@ class Erp
 													'interest' 	=> $interest_rate,
 													'payment' 	=> $payment_amt,
 													'balance' 	=> 0,
+													'saving_interest' 	=> $saving_amounts,
 												);
 				} else{
 					$lease_amt -= $principle_amt;
@@ -1113,9 +1249,28 @@ class Erp
 													'interest' 	=> $interest_rate,
 													'payment' 	=> $payment_amt,
 													'balance' 	=> (($lease_amt <= 0)? 0:$lease_amt),
+													'saving_interest' 	=> $saving_amounts,
 												);
 				}
 				$j += $day_of_month;
+				
+				//////Compulsory_Saving Start
+				if($i == 1) {
+					$ap_date = date('Y-m-d', strtotime($app_date));
+					$appr_date = date_create($ap_date);
+					$st_date = date_create($start_date);
+					$numdays = date_diff($appr_date, $st_date);
+					$count_day = $day_of_month + $numdays->days;
+				}
+				else{
+					$count_day += $day_of_month;
+				}
+				//$count_day += $day_of_month;				
+				if($count_day >= 29){
+					$saving_amt = $saving_interest_amount;
+					unset($count_day);
+					$count_day = "mountly";
+				}//////Compulsory_Saving End
 			}
 			//$this->erp->print_arrays($payment_schedule);
 			return $payment_schedule;
@@ -1129,6 +1284,11 @@ class Erp
 			$counter = 1;
 			$tprinciple = 0;
 			$days = 0;
+			
+			$count_day = $j;
+			$saving_amt = 0; 
+			$saving_interest_amount = $saving_interest_rate * $saving_amount;
+			
 			for($i=1;$i<=$terms;$i++) { 
 				if($i == 1) {
 					$st_dateline = $start_date;
@@ -1176,6 +1336,20 @@ class Erp
 					$principle_amt = 0;
 				}
 				$payment_amt = $principle_amt + $interest_rate;
+				
+				//////Compulsory_Saving Start
+				if($saving_type == 1){
+					if($frequency == 30) {
+						$saving_amounts = $saving_interest_amount;
+					}else{
+						if($count_day == "mountly"){
+							$saving_amounts = $saving_amt;
+						}else {
+							$saving_amounts = 0;
+						}
+					}
+				}//////Compulsory_Saving End
+				
 				if($i == $terms) {
 					$payment_schedule [] = array(
 													'period' 	=> $i,
@@ -1186,6 +1360,7 @@ class Erp
 													'interest' 	=> $interest_rate,
 													'payment' 	=> $payment_amt,
 													'balance' 	=> 0,
+													'saving_interest' 	=> $saving_amounts,
 												);
 				} else {
 					$lease_amt -= $principle_amt;
@@ -1198,24 +1373,55 @@ class Erp
 													'interest' 	=> $interest_rate,
 													'payment' 	=> $payment_amt,
 													'balance' 	=> (($lease_amt <= 0)? 0:$lease_amt),
+													'saving_interest' 	=> $saving_amounts,
 												);
 				}
 				$counter++;
 				$j += $day_of_month;
+				
+				//////Compulsory_Saving Start
+				if($i == 1) {
+					$ap_date = date('Y-m-d', strtotime($app_date));
+					$appr_date = date_create($ap_date);
+					$st_date = date_create($start_date);
+					$numdays = date_diff($appr_date, $st_date);
+					$count_day = $day_of_month + $numdays->days;
+				}
+				else{
+					$count_day += $day_of_month;
+				}
+				//$count_day += $day_of_month;				
+				if($count_day >= 29){
+					$saving_amt = $saving_interest_amount;
+					unset($count_day);
+					$count_day = "mountly";
+				}//////Compulsory_Saving End
+				
 			}
 			//$this->print_arrays($payment_schedule);
 			return $payment_schedule;
 		} else if($rate_type == '6') {
 			$terms = $term ;			
 			$principles = $lease_amount/$terms;
-			$principle = $this->erp->roundUpMoney($principles, $currency);
+			//$principle = $this->erp->roundUpMoney($principles, $currency);
+			$principle = round($principles);
+			$first_principle = str_replace(',', '', $principle) + ($lease_amount - (str_replace(',', '', $principle) * $terms));
+			$total_interest_amt = ($lease_amount * $interest) * ($terms) ;
+			$interest_rate = round($lease_amount * $interest);
+			//$first_interest = round( $interest_rate + ($total_interest_amt - ($interest_rate * $terms)));
+			
 			$lease_amt = $lease_amount;
 			
 			$j=0;
-			$days = 0;		    
+			$days = 0;	
+
+			$count_day = $j;
+			$saving_amt = 0; 
+			$saving_interest_amount = $saving_interest_rate * $saving_amount;
+			
 			for($i=1;$i<=$terms;$i++) {				
 				
-				$interest_rate = $lease_amount * $interest;
+				
 				if($i == 1) {
 					$st_dateline = $start_date;
 					$dateline = $this->site->getNoneHoliday($start_date);
@@ -1224,7 +1430,7 @@ class Erp
 					$dateline = $this->site->getNoneHoliday(date('Y-m-d', strtotime("+".$j." days", strtotime($start_date))));					
 				}
 				$day = date('l',strtotime($dateline));
-				$deadline = $this->site->SkipSunday($day, $dateline);
+				$deadline = $this->site->getWeekendPayments($day, $dateline);
 				$n = ((strtotime($deadline) - strtotime($st_dateline)) / (60 * 60 * 24));
 				$nameday = date('l',strtotime($deadline));
 				
@@ -1245,16 +1451,32 @@ class Erp
 				
 				$principle_amt = str_replace(',', '', $principle);
 				$payment_amt = $principle_amt + $interest_rate;
-				if($i == $terms){
+				
+				//////Compulsory_Saving Start
+				if($saving_type == 1){
+					if($frequency == 30) {
+						$saving_amounts = $saving_interest_amount;
+					}else{
+						if($count_day == "mountly"){
+							$saving_amounts = $saving_amt;
+						}else {
+							$saving_amounts = 0;
+						}
+					}
+				}//////Compulsory_Saving End
+				
+				if($i == 1){
+					$lease_amt -= $first_principle;
 					$payment_schedule [] = array(
 													'period' 	=> $i,
 													'sale_id' 	=> $sale_id,
 													'type' 		=> $rate_type,
 													'dateline' 	=> $deadline,
-													'principle' => str_replace(',', '', $lease_amt),
+													'principle' => str_replace(',', '', $first_principle),
 													'interest' 	=> $interest_rate,
 													'payment' 	=> $payment_amt,
-													'balance' 	=> 0,
+													'balance' 	=> $lease_amt,
+													'saving_interest' 	=> $saving_amounts,
 												);
 				} else{
 					$lease_amt -= $principle_amt;
@@ -1267,9 +1489,28 @@ class Erp
 													'interest' 	=> $interest_rate,
 													'payment' 	=> $payment_amt,
 													'balance' 	=> (($lease_amt <= 0)? 0:$lease_amt),
+													'saving_interest' 	=> $saving_amounts,
 												);
 				}
 				$j += $day_of_month;
+				
+				//////Compulsory_Saving Start
+				if($i == 1) {
+					$ap_date = date('Y-m-d', strtotime($app_date));
+					$appr_date = date_create($ap_date);
+					$st_date = date_create($start_date);
+					$numdays = date_diff($appr_date, $st_date);
+					$count_day = $day_of_month + $numdays->days;
+				}
+				else{
+					$count_day += $day_of_month;
+				}
+				//$count_day += $day_of_month;				
+				if($count_day >= 29){
+					$saving_amt = $saving_interest_amount;
+					unset($count_day);
+					$count_day = "mountly";
+				}//////Compulsory_Saving End
 			}
 			
 			return $payment_schedule;

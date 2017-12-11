@@ -14559,7 +14559,7 @@ class Reports extends MY_Controller
 						CONCAT(".$this->db->dbprefix('companies').".family_name_other, ' ', ".$this->db->dbprefix('companies').".name_other) as customer_name_kh, ".
 						$this->db->dbprefix('quote_items').".product_name AS asset, ".
 						"(SELECT u.name FROM erp_companies u WHERE erp_quotes.biller_id = u.id) AS dealer_name,".
-						$this->db->dbprefix('quotes').".status,".
+						$this->db->dbprefix('quotes').".quote_status,".
 						$this->db->dbprefix('quotes').".date,".
 						"(SELECT u.username FROM erp_users u WHERE quotes.updated_by = u.id) AS underwriter,".
 						$this->db->dbprefix('sales').".issue_date,".
@@ -14570,6 +14570,7 @@ class Reports extends MY_Controller
 				->join('sales', 'sales.quote_id = quotes.id', 'left')
 				->join('companies','quotes.customer_id=companies.id','INNER')
 				->join('quote_items', 'quotes.id = quote_items.quote_id', 'left')
+				->where('quotes.status', 'loans')
                 ->where('warehouse_id', $warehouse_id);
         } else {
         $this->load->library('datatables');
@@ -14582,7 +14583,7 @@ class Reports extends MY_Controller
 					$this->db->dbprefix('quote_items').".product_name AS asset,".
 					"((SELECT erp_companies.name FROM erp_companies WHERE erp_quotes.biller_id = erp_companies.id)) AS dealer_name, ".
 					
-					$this->db->dbprefix('quotes').".status as status, 
+					$this->db->dbprefix('quotes').".quote_status as status, 
 					DATE_FORMAT(".$this->db->dbprefix('quotes').".date,'%d-%m-%Y %h:%i:%s'),
 					DATE_FORMAT(".$this->db->dbprefix('quotes').".approved_date,'%d-%m-%Y %h:%i:%s'),
 					CONCAT(".$this->db->dbprefix('users').".first_name, ' ', ".$this->db->dbprefix('users').".last_name) AS coname,
@@ -14590,7 +14591,7 @@ class Reports extends MY_Controller
 					$this->db->dbprefix('quotes').".grand_total * (".$this->db->dbprefix('currencies').".rate / ".$setting->rate ."),".
 					$this->db->dbprefix('currencies').".name as crname ")
                 ->from('quotes')
-				->join('users','quotes.created_by=users.id','INNER')
+				->join('users','quotes.by_co=users.id','INNER')
 				->join('sales', 'sales.quote_id = quotes.id', 'left')
 				->join('companies','quotes.customer_id=companies.id','INNER')
 				//->join('companies AS C','quotes.biller_id=C.id','left')
@@ -14598,6 +14599,7 @@ class Reports extends MY_Controller
 				->join('quote_items', 'quotes.id = quote_items.quote_id', 'left')
 				->join('currencies','currencies.code = quote_items.currency_code','left')
 				->join('loan_groups','loan_groups.id = quotes.loan_group_id','left')
+				->where('quotes.status', 'loans')
 				->order_by('quotes.id','DESC');
 
 				//"(SELECT u.name FROM erp_companies u WHERE erp_quotes.biller_id = u.id) AS dealer_name,". == C.name AS dealer_name,".
@@ -14620,7 +14622,7 @@ class Reports extends MY_Controller
 		}
 		
 		if ($user_query) {
-			$this->datatables->where('quotes.created_by', $user_query);
+			$this->datatables->where('quotes.by_co', $user_query);
 		}
 
 		if ($reference_no) {
@@ -15654,30 +15656,7 @@ class Reports extends MY_Controller
 	
         $this->load->library('datatables');
 		$setting = $this->down_payment_model->getSettingCurrncy();
-         if ($warehouse_id) {
-            $this->datatables
-                ->select($this->db->dbprefix('quotes').".id,".
-						$this->db->dbprefix('quotes').".reference_no,
-						CONCAT(".$this->db->dbprefix('companies').".family_name, ' ', ".$this->db->dbprefix('companies').".name) as customer_name_en,
-						CONCAT(".$this->db->dbprefix('companies').".family_name_other, ' ', ".$this->db->dbprefix('companies').".name_other) as customer_name_kh, ".
-						$this->db->dbprefix('quote_items').".product_name AS asset, ".
-						"(SELECT u.name FROM erp_companies u WHERE erp_quotes.biller_id = u.id) AS dealer_name,
-						
-						IF(".$this->db->dbprefix('sales').".sale_status = 'activated', ".$this->db->dbprefix('sales').".sale_status, ".$this->db->dbprefix('quotes').".status) as status,".
-						$this->db->dbprefix('quotes').".date,".
-						$this->db->dbprefix('quotes').".approved_date,".
-						$this->db->dbprefix('sales').".approved_date as acception_date,".
-						"TIMEDIFF(".$this->db->dbprefix('quotes').".approved_date,".$this->db->dbprefix('quotes').".date) as duration, ".
-						"(SELECT u.username FROM erp_users u WHERE quotes.updated_by = u.id) AS underwriter,".
-						$this->db->dbprefix('users').".username,".
-						$this->db->dbprefix('quotes').".grand_total")
-                ->from('quotes')
-				->join('users','quotes.created_by=users.id','INNER')
-				->join('sales', 'sales.quote_id = quotes.id', 'left')
-				->join('companies','quotes.customer_id=companies.id','INNER')
-				->join('quote_items', 'quotes.id = quote_items.quote_id', 'left')
-                ->where('warehouse_id', $warehouse_id);
-        } else {
+         
             $this->datatables
                 ->select($this->db->dbprefix('quotes').".id,".
 						$this->db->dbprefix('quotes').".reference_no,
@@ -15686,7 +15665,7 @@ class Reports extends MY_Controller
 						$this->db->dbprefix('quote_items').".product_name AS asset,
 						C.name AS dealer_name,
 						
-						IF(".$this->db->dbprefix('sales').".sale_status = 'activated', ".$this->db->dbprefix('sales').".sale_status, ".$this->db->dbprefix('quotes').".status) as status,".
+						IF(".$this->db->dbprefix('sales').".sale_status = 'activated', ".$this->db->dbprefix('sales').".sale_status, ".$this->db->dbprefix('quotes').".quote_status) as status,".
 						$this->db->dbprefix('quotes').".date,".
 						$this->db->dbprefix('quotes').".approved_date,".
 						$this->db->dbprefix('sales').".approved_date as acception_date,".
@@ -15696,13 +15675,15 @@ class Reports extends MY_Controller
 						
 						$this->db->dbprefix('quotes').".total*(".$this->db->dbprefix('currencies').".rate / ".$setting->rate .") ")
                 ->from('quotes')
-				->join('users','quotes.created_by=users.id','INNER')
+				->join('users','quotes.by_co=users.id','INNER')
 				->join('sales', 'sales.quote_id = quotes.id', 'left')
 				->join('companies','quotes.customer_id=companies.id','INNER')
 				->join('companies AS C','quotes.biller_id=C.id','left')
 				->join('quote_items', 'quotes.id = quote_items.quote_id', 'left')
-				->join('currencies','currencies.code = quote_items.currency_code','left');
-        }
+				->join('currencies','currencies.code = quote_items.currency_code','left')
+				->where('quotes.status','loans')
+				->where('sales.status','loans');
+        
 		
 		if ($product_id) {
 			$this->datatables->join('quote_items', 'quote_items.quote_id = quotes.id', 'left');
@@ -15720,7 +15701,7 @@ class Reports extends MY_Controller
 		}
 		
 		if ($user_query) {
-			$this->datatables->where('quotes.created_by', $user_query);
+			$this->datatables->where('quotes.by_co', $user_query);
 		}
 
 		if ($reference_no) {
@@ -16031,27 +16012,7 @@ class Reports extends MY_Controller
         
         $this->load->library('datatables');
 		$setting = $this->down_payment_model->getSettingCurrncy();
-         if ($warehouse_id) {
-            $this->datatables
-                ->select($this->db->dbprefix('sales').".id,".
-						$this->db->dbprefix('sales').".reference_no,
-						CONCAT(".$this->db->dbprefix('companies').".family_name, ' ', ".$this->db->dbprefix('companies').".name) AS customer_name_en,
-						CONCAT(".$this->db->dbprefix('companies').".family_name_other, ' ', ".$this->db->dbprefix('companies').".name_other) as customer_name_kh, ".	
-						$this->db->dbprefix('companies').".gender, ".
-						$this->db->dbprefix('companies').".phone1, ".
-						
-						$this->db->dbprefix('sales').".contract_date,
-						(".$this->db->dbprefix('sales').".interest_rate*100) as interest, ".
-						$this->db->dbprefix('sales').".term, ".
-						"COALESCE((SELECT u.username FROM erp_users u WHERE ".$this->db->dbprefix("sales").".created_by = u.id), '') AS co,".
-						$this->db->dbprefix('sales').".grand_total,	
-						(".$this->db->dbprefix('sales').".grand_total - ".$this->db->dbprefix("sales").".paid) as balance")
-                ->from('sales')
-				->join('users','sales.created_by=users.id','INNER')
-				->join('companies','sales.customer_id=companies.id','INNER')
-				->join('companies as myBranch', 'users.branch_id = myBranch.id')
-                ->where('warehouse_id', $warehouse_id);
-        } else {
+         
             $this->datatables
                 ->select($this->db->dbprefix('sales').".id,".
 						$this->db->dbprefix('sales').".reference_no,
@@ -16073,7 +16034,7 @@ class Reports extends MY_Controller
 				->join('companies as myBranch', 'users.branch_id = myBranch.id','INNER')
 				->join('sale_items', 'sales.id = sale_items.sale_id', 'INNER')
 				->join('currencies','currencies.code = sale_items.currency_code','left');
-        }
+        
 		if($this->GP && !($this->Owner || $this->Admin) && $this->session->view_right == 0) {
 			$this->datatables->where('sales.branch_id', $this->session->branch_id);
 		}
@@ -18111,5 +18072,250 @@ class Reports extends MY_Controller
         $rows['results'] = $this->reports_model->getCustomerSuggestions($term, $limit);
         echo json_encode($rows);
     }
+	
+	public function daily_monitor_report($reference = NULL,$user = NULL, $branch=null){ 
+		$this->erp->checkPermissions();
+		 
+		if ($this->input->post('loans_term')) {
+            $loans_term = $this->input->post('loans_term');
+        } else {
+            $loans_term = NULL;
+        }
+		if ($this->input->post('late_days')) {
+            $late_days = $this->input->post('late_days');
+        } else {
+            $late_days = NULL;
+        }
+		if ($this->input->post('user')) {
+			$user = $this->input->post('user');
+		}else{
+			$user=NULL;
+		}
+		if ($this->input->post('branch')) {
+			$branch = $this->input->post('branch');
+		}else{
+			$branch =NULL;
+		} 
+		 
+		$user_id = $this->session->userdata('user_id');
+		$users = $this->quotes_model->getUser($user_id);		
+		$branch_id = $branch ? $branch : $users->branch_id;
+		
+		$co_reports_by_branch = $this->reports_model->getCoReportByBranch($branch_id);
+		//$this->erp->print_arrays($branch_co);
+		$this->data['ref_no']  = $this->reports_model->getReference($reference);
+		$this->data['co'] = $this->reports_model->getStaff($user);
+		$date_now = date('m/d/Y', time());
+		
+		foreach($co_reports_by_branch as $co_reports){
+			$co_id = $co_reports->id;
+			$TotalOutstanding = $this->reports_model->getOutstandingByCO($co_id, $loans_term);
+			//$this->erp->print_arrays($TotalOutstanding);
+			foreach($TotalOutstanding as $Outstan){
+				$co_reports->total_outstanding = $Outstan->total_outstanding;
+			}
+		}
+		$this->data['monitor_report'] = $co_reports_by_branch;
+		$this->data['dfCurrncy'] = $this->reports_model->getSettingCurrncy();
+		$this->data['branches'] = $this->site->getAllBranches();
+		$outstanding_amt = $this->reports_model->getOutstanding($customer,$reference,$user,$branch);
+		$this->data['outstanding'] = $outstanding_amt;
+        $bc = array(array('link' => base_url(), 'page' => lang('reports')), array('link' => '#', 'page' => lang('daily_monitor_reports')));
+        $meta = array('page_title' => lang('daily_monitor_reports'), 'bc' => $bc);
+        $this->page_construct('reports/daily_monitor_report', $meta, $this->data); 
+	}
+	
+	
+	function customer_reports()
+	{
+		 
+		$this->erp->checkPermissions();
+		$this->load->model('reports_model');
+		$this->erp->load->model('reports_model');
+		$this->data['products'] = $this->site->getProducts();
+		$this->data['group_Loan'] = $this->site->getLoanGroups();
+		$this->data['dealer'] = $this->site->getAllDealer('supplier');
+		 
+        
+		$this->data['customers'] = $this->site->getCustomerIDName();
+		$this->data['branches'] = $this->site->getAllBranches();
+		$this->data['users'] = $this->reports_model->getStaff();
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('customer_reports')));
+        $meta = array('page_title' => lang('customer_reports'), 'bc' => $bc);
+        $this->page_construct('reports/customer_reports', $meta, $this->data);
+	}
+	public function getCustomerReports()
+	{
+		if ($this->input->get('user')) {
+            $user_query = $this->input->get('user');
+        } else {
+            $user_query = NULL;
+        }
+        if ($this->input->get('reference_no')) {
+            $reference_no = $this->input->get('reference_no');
+        } else {
+            $reference_no = NULL;
+        }
+        if ($this->input->get('customer')) {
+            $customer = $this->input->get('customer');
+        } else {
+            $customer = NULL;
+        }
+		if ($this->input->get('product_id')) {
+            $product_id = $this->input->get('product_id');
+        } else {
+            $product_id = NULL;
+        }
+        if ($this->input->get('dealer')) {
+            $dealer = $this->input->get('dealer');
+        } else {
+            $dealer = NULL;
+        }
+		if ($this->input->get('gr_loan')) {
+            $gr_loan = $this->input->get('gr_loan');
+        } else {
+            $gr_loan = NULL;
+        }
+		if ($this->input->get('warehouse')) {
+            $warehouse = $this->input->get('warehouse');
+        } else {
+            $warehouse = NULL;
+        }
+        if ($this->input->get('start_date')) {
+            $start_date = $this->input->get('start_date');
+        } else {
+            $start_date = NULL;
+        }
+        if ($this->input->get('end_date')) {
+            $end_date = $this->input->get('end_date');
+        } else {
+            $end_date = NULL;
+        }
+		
+        if ($start_date) {
+            $start_date = $this->erp->fld($start_date);
+            $end_date = $this->erp->fld($end_date);
+        }
+        if ((!$this->Owner || !$this->Admin) && !$warehouse_id) {
+            $user = $this->site->getUser();
+            $warehouse_id = $user->warehouse_id;
+        }
+		$approve_link = anchor('quotes/approvedApplicant/$4', '<i class="fa fa-file-text-o"></i> ' . lang('view_details'));
+        $detail_link = anchor('sales/view/$1', '<i class="fa fa-file-text-o"></i> ' . lang('sale_details'));
+         
+		$delete_link = "<a href='#' class='po' title='<b>" . lang("delete_contract") . "</b>' data-content=\"<p>"
+            . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('sales/delete/$1') . "'>"
+            . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
+            . lang('delete_contract') . "</a>";
+        $action = '<div class="text-center"><div class="btn-group text-left">'
+            . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
+            . lang('actions') . ' <span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right" role="menu">
+			 <li class="ps">' . $approve_link . '</li>
+            <li class="ps">' . $payment_schedule . '</li> 
+        </ul>
+		</div></div>';
+        //$action = '<div class="text-center">' . $detail_link . ' ' . $edit_link . ' ' . $email_link . ' ' . $delete_link . '</div>';
+		$setting = $this->down_payment_model->getSettingCurrncy();
+        $this->load->library('datatables');
+        
+            $this->datatables
+                ->select($this->db->dbprefix('sales').".id,". 
+						$this->db->dbprefix('sales').".reference_no,".
+						$this->db->dbprefix('sales').".quote_id as qi, 
+						CONCAT(".$this->db->dbprefix('companies').".family_name,' ',".$this->db->dbprefix('companies').".name) AS customer_name,
+						CONCAT(".$this->db->dbprefix('companies').".family_name_other,' ',".$this->db->dbprefix('companies').".name_other) as customer_name_other, ".
+						$this->db->dbprefix('sales').".approved_date,
+						CONCAT(".$this->db->dbprefix('users').".first_name,' ',".$this->db->dbprefix('users').".last_name) as co_name ,myBranch.name, 
+						CONCAT(TRUNCATE((".$this->db->dbprefix('sales').".interest_rate*100), 2),' ', '%') AS interest,
+						CONCAT(TRUNCATE(".$this->db->dbprefix('sales').".term, 0), ' ', 'Days')  AS term, 
+						IF(".$this->db->dbprefix('sales').".frequency = 1, 'daily', IF(".$this->db->dbprefix('sales').".frequency = 7, 'Weekly', IF(".$this->db->dbprefix('sales').".frequency = 14, 'Two Week', IF(".$this->db->dbprefix('sales').".frequency = 30, 'Monthly','')))), 						
+						
+						((COALESCE(".$this->db->dbprefix('sales').".total, 0))) * (".$this->db->dbprefix('currencies').".rate / ".$setting->rate .") as total,
+						".$this->db->dbprefix('sales').".grand_total * (".$this->db->dbprefix('currencies').".rate / ".$setting->rate .") as disburse, ".
+							
+						$this->db->dbprefix('currencies').".name AS crname, ".
+						$this->db->dbprefix('sales').".sale_status, ".						
+						$this->db->dbprefix('sales').".mfi AS mfi, ".
+						$this->db->dbprefix('sales').".loan_group_id AS loan_g_id, ".
+						$this->db->dbprefix('companies').".id AS com_id")
+                ->from('sales')
+				->join('loans','sales.id=loans.sale_id','INNER')
+				->join('sale_items', 'sales.id = sale_items.sale_id', 'INNER')
+				->join('companies', 'sales.customer_id = companies.id', 'INNER')
+				->join('products', 'sale_items.product_id = products.id', 'INNER') 
+				->join('quotes','quotes.id = sales.quote_id','left')
+				->join('quote_items','quote_items.quote_id = quotes.id','left')
+				->join('users','sales.by_co = users.id','INNER')
+				->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
+				->join('currencies','currencies.code = sale_items.currency_code','left')
+				->join('loan_groups','loan_groups.id = sales.loan_group_id','left')
+				->where($this->db->dbprefix('sales').'.status =', 'loans')
+				->where($this->db->dbprefix('sales').'.sale_status !=', 'approved')
+				->group_by('sales.id')
+				->order_by('sales.id','DESC');
+				 
+		if($this->GP && !($this->Owner || $this->Admin) && $this->session->view_right == 0) {
+			$this->datatables->where('sales.branch_id', $this->session->branch_id);
+		}
+		if ($product_id) {
+			$this->datatables->join('sale_items as si', 'si.sale_id = sales.id', 'left');
+			$this->datatables->where('si.product_id', $product_id);
+		}
+        if (!$this->Customer && !$this->Supplier && !$this->Owner && !$this->Admin && !$this->session->userdata('view_right')) {
+            //$this->datatables->where('created_by', $this->session->userdata('user_id'));
+        } elseif ($this->Customer) {
+            $this->datatables->where('customer_id', $this->session->userdata('user_id'));
+        }
+		if ($user_query) {
+			$this->datatables->where('sales.by_co', $user_query);
+		}
+		if ($reference_no) {
+			$this->datatables->like('sales.reference_no', $reference_no);
+		}
+		if ($dealer) {
+			$this->datatables->where('sales.biller_id', $dealer);
+		}
+		if ($gr_loan) {
+			$this->datatables->where('sales.loan_group_id', $gr_loan);
+		}
+		if ($customer) {
+			$this->datatables->where('sales.customer_id', $customer);
+		}
+		if ($warehouse) {
+			$this->datatables->where('sales.warehouse_id', $warehouse);
+		}
+		if ($start_date) {
+			$this->datatables->where($this->db->dbprefix('sales').'.date BETWEEN "' . $start_date . '" and "' . $end_date . '"');
+		}
+        $this->datatables->add_column("Actions", $action,$this->db->dbprefix('sales').".id, com_id, loan_g_id, qi");
+        $this->datatables->unset_column("com_id");
+		$this->datatables->unset_column("loan_g_id");
+		$this->datatables->unset_column("qi");
+		echo $this->datatables->generate();
+    }
+	
+	
+	function history_reports($sale_id = NULL)
+	{
+		$this->load->model('reports_model'); 
+		$this->data['sale_id']	= $sale_id;
+		$sales = $this->accounts_model->getSaleById($sale_id);
+		$customer_id = $sales->customer_id;
+		$this->data['sales'] = $sales ;
+		$sale_item = $this->installment_payment_model->getSaleItemByID($sale_id);
+		$this->data['c_o'] = $this->site->getUser($sales->by_co);
+		$this->data['currency'] = $this->site->getCurrencyByCode($sale_item->currency_code);
+		$this->data['customer'] = $this->installment_payment_model->getMfiCustomer($customer_id);
+		$this->data['payments'] = $this->reports_model->getAllPaymentBySaleID($sale_id);
+		$this->data['sale_item'] = $this->reports_model->getSaleItemByID($sale_id);
+		$this->data['setting'] = $this->reports_model->getSettings();  		
+		$this->data['currencies'] = $this->accounts_model->getCurrncy();  
+		$this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+		$this->data['modal_js'] = $this->site->modal_js();
+		$this->load->view($this->theme . 'reports/history_reports', $this->data);
+	 
+	}
+	
 }
     

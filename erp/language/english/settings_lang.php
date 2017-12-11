@@ -401,3 +401,4 @@ $lang["approved"]						="Loans Approved";
 $lang["loans_completed"]				="Loans Completed";
 $lang["Loans_rejected"]					="Loans Rejected";
 $lang["loans_application"]				="Loans Application";
+

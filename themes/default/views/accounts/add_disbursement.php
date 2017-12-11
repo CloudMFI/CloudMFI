@@ -63,11 +63,12 @@
 								</div>
 								
 							</div>
-							<div class="col-lg-12">
+							<div class="col-lg-12">								
+								<div class="col-md-6" id = "compulsory_saving">
+								</div>
 								<div class="col-md-6" id = "services">
 								</div>
-								<div class="col-md-6" id = "total_service_payment">
-								</div>
+								<input type="hidden" name="total_service_and_saving" id="total_service_and_saving" />
 							</div>
 							<div class="col-lg-12">
 								<!--<div class="col-md-6">
@@ -164,6 +165,7 @@
 					$('#service_payment').val(formatMoney(scdata.service));
 					$('#df_rate').val(scdata.def_rate);
 					$('#sale_rate').val(scdata.sale_rate);
+					$('#total_service_and_saving').val(scdata.total_service_and_saving);
 					var box = '';
 					var box1 = '';
 					
@@ -183,23 +185,27 @@
 							var tax = scdata.one_services[index].tax_rate;
 							var tax_rate = tax * svamount;
 							sv_amount = svamount + tax_rate;
-						}						
+						}					
 						box += 
 								'<div class="form-group">'+
 									'<label for="'+ scdata.one_services[index].id +'">'+ scdata.one_services[index].description +'</label>'+ 
 									'<input type="text" class="form-control" name="service[]" id="'+ scdata.one_services[index].id +'" value="'+ formatMoney(sv_amount) +'" style="pointer-events: none;" />'+
 									'<input type="hidden" class="form-control" name="service_id[]" id="'+ scdata.one_services[index].id +'" value="'+ scdata.one_services[index].id +'" />'+
+									'<input type="hidden" class="form-control" name="service_payments" id="service_payments" value="'+  scdata.service  +'"  />'+
 								'</div>';
-						box1 = 
-								'<div class="form-group">'+
-									'<label> <?= lang("customer_payment", "service_payment"); ?> </label>'+ 
-									'<input type="text" class="form-control" name="service_payment" id="service_payment" value="'+ formatMoney(scdata.service) +'" style="pointer-events: none;" />'+
-								'</div>';
-								
 					});
 					
+					if(scdata.saving_amount){
+						box1 = 
+								'<div class="form-group">'+
+									'<label> <?= lang("compulsory_saving", "compulsory_saving"); ?> </label>'+ 
+									'<input type="text" class="form-control" name="compulsory_saving" id="compulsory_saving" value="'+ formatMoney(scdata.saving_amount) +'" style="pointer-events: none;" />'+
+									'<input type="hidden" class="form-control" name="saving_amount" id="saving_amount" value="'+  scdata.saving_amount  +'"  />'+
+								'</div>';
+					}
+					
 					$('#services').html(box);
-					$('#total_service_payment').html(box1);
+					$('#compulsory_saving').html(box1);
 				},
 				error: function () {
                         bootbox.alert('<?= lang('ajax_error') ?>');
@@ -213,7 +219,9 @@
 	$(document).ready(function (){
 		$('#amount').keyup(function(){
 			var amount = $('#amount').val()? parseFloat($('#amount').val()) : 0;			
-			var grand_total = $('#grand_total').val();
+			var grand_totals = $('#grand_total').val();
+			var service_and_saving = $('#total_service_and_saving').val()? parseFloat($('#total_service_and_saving').val()) : 0; 
+			var grand_total = grand_totals - service_and_saving;
 			var branch_amount = $('#branch_amount').val()? parseFloat($('#branch_amount').val()) : 0;			
 			if (amount > grand_total && amount < branch_amount && branch_amount > 0){
 				$('#amount').val(formatMoney(grand_total));	

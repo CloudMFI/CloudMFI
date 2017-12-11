@@ -84,24 +84,24 @@
 					</table>
 					<table style="width:90%;font-size:11px;margin-top:5px;line-height:15px !important;font-weight: normal;"> 
 						<tr>
-							<td width="5%">ထုတ္ေခ်းသည့္ရက္စြဲ </td>
-							<td width="10%">: <?= $this->erp->hrsd(date('Y-m-d')); ?></td>
-							<td width="1%">ေခ်းေငြသက္တမ္း</td>
-							<td width="10%">: <?= number_format($sale->term,0); ?>  <?= lang("days") ?> </td>
-							<td width="5%">ေပးေခ်သည့္ပံုစံ</b></td>
-							<td width="5%">:</td>
+							<td width="5%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
+							<td width="10%" style="vertical-align: top;">: </td>
+							<td width="1%">ေခ်းေငြသက္တမ္း<br>(Loan Term)</td>
+							<td width="10%"  style="vertical-align: top;">: <b><?= number_format($sale->term,0); ?>  <?= lang("days") ?> </b></td>
+							<td width="5%">ထုတ္ေခ်းသည့္ရက္စြဲ <br>(Disbursement Date)</td>
+							<td width="5%"  style="vertical-align: top;">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
 						</tr>
 						<tr>
-							<td width="5%">အတိုးႏွဳန္း</td>
-							<td width="10%">: <b><?= ($sale->rate_text ? $sale->rate_text : "")?></b></td>
-							<td width="1%">ေခ်းေငြတာ၀န္ခံအမွတ္</td>
-							<td width="10%">: <b><?= $creator->first_name . ' ' . $creator->last_name ; ?></b></td>
-							<td width="5%">စတင္ေပးေခ်းရမည့္ရက္စြဲ</b></td>
-							<td width="5%">:</td>
+							<td width="5%">အတိုးႏွဳန္း<br>(Interest Rate)</td>
+							<td width="10%"  style="vertical-align: top;">: <b><?= ($sale->rate_text ? $sale->rate_text : "")?></b></td>
+							<td width="1%">ေခ်းေငြတာ၀န္ခံအမွတ္<br>(Credit Officer ID)</td>
+							<td width="10%"  style="vertical-align: top;">: <b><?= $creator->first_name . ' ' . $creator->last_name ; ?></b></td>
+							<td width="5%">စတင္ေပးေခ်းရမည့္ရက္စြဲ<br>(First Repayment Date)</b></td>
+							<td width="5%"  style="vertical-align: top;">:</td>
 						</tr>
 						<tr>
-							<td width="5%">ရံုးလိပ္စာ	</td>
-							<td colspan="5">:<?='#'.$customer->house_no; ?></td>
+							<td width="5%">ေငြေခ်းသူလိပ္စာ<br>(Leader/ Borrower Address)</td>
+							<td colspan="5"  style="vertical-align: top;">:<b><?='#'.$customer->house_no; ?></b></td>
 							
 						</tr>
 						
@@ -110,13 +110,13 @@
 					<div>	
 						<table style="font-size:11px;width:100%;margin-top: 10px;"  border="1">
 							<tr class="p_l_r" style="background-color:#009900;color:white;width:100%; height:30px;">
-								<td style="text-align: center;" colspan="2">(ေပးေခ်ရမည့္ေန႔)<br>Due Date</td>
+								<td style="text-align: center;" colspan="2">ေပးေခ်ရမည့္ေန႔<br>(Due Date)</td>
 								
-								<td style="text-align: center;">(အရင္းေငြ)<br>Principle</td>
-								<td style="text-align: center;">(အတိုးႏႈန္း)<br>Interest</td>
-								<td style="text-align: center;">(လက္က်န္ အရင္းေငြ)<br>Balance</td>
-								<td style="text-align: center;">(လစဥ္သြင္းရန္အရစ္က်ေငြ)<br>Total Due</td>
-								<td style="text-align: center;">(လက္မွတ္)<br>Signature</td>
+								<td style="text-align: center;">အရင္းေငြ<br>(Principle)</td>
+								<td style="text-align: center;">အတိုးႏႈန္း<br>(Interest)</td>
+								<td style="text-align: center;">လက္က်န္ အရင္းေငြ<br>(Balance)</td>
+								<td style="text-align: center;">လစဥ္သြင္းရန္အရစ္က်ေငြ<br>(Total Due)</td>
+								<td style="text-align: center;">လက္မွတ္<br>(Signature)</td>
 							</tr>
 							<?php
 								$total_principle = 0;
@@ -258,7 +258,7 @@
 					</div>
 
 					<div style="margin-top: 10px; margin-bottom: 10px; font-weight:normal;font-size:11px;">
-						<p>ေခ်းေငြအတိုးအရင္း အားလံုးျပီးဆံုးသည့္တိုင္ေအာင္ တာ၀န္ယူေပးဆပ္မည္ ျဖစ္ေၾကာင္းကို အသိသက္ေသေရွ႕ေမွာက္တြင္ ကၽြန္ေတာ္ ကၽြန္မ ေငြေခ်းသူႏွင့္ ပူးတြဲေငြေခ်းသူတို႔က လက္၀ဲလက္မကို ႏွိပ္ပါသည္</p><br>
+						<p>ေခ်းေငြအတိုးအရင္း အားလံုးျပီးဆံုးသည့္တိုင္ေအာင္ တာ၀န္ယူေပးဆပ္မည္ ျဖစ္ေၾကာင္းကို အသိသက္ေသေရွ႕ေမွာက္တြင္ ကၽြန္ေတာ္/ ကၽြန္မ ေငြေခ်းသူႏွင့္ ပူးတြဲေငြေခ်းသူတို႔က လက္၀ဲလက္မကို ႏွိပ္ပါသည္</p><br>
 						<table style="font-size:11px;margin-top: 50px;width:100%;">
 							<tr>
 								<td width="20%"><td>

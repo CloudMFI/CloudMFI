@@ -875,14 +875,14 @@ class Customers extends MY_Controller
 					$this->db->dbprefix('quote_items').".product_name AS asset,".
 					"((SELECT erp_companies.name FROM erp_companies WHERE erp_quotes.biller_id = erp_companies.id)) AS dealer_name, ".
 					
-					$this->db->dbprefix('quotes').".status as status, 
+					$this->db->dbprefix('quotes').".quote_status as status, 
 					DATE_FORMAT(".$this->db->dbprefix('quotes').".date,'%d-%m-%Y %h:%i:%s'),
 					DATE_FORMAT(".$this->db->dbprefix('quotes').".approved_date,'%d-%m-%Y %h:%i:%s'),
 					CONCAT(".$this->db->dbprefix('users').".first_name, ' ', ".$this->db->dbprefix('users').".last_name) AS coname,
 					myBranch.name,".
 					$this->db->dbprefix('quotes').".total * (".$this->db->dbprefix('currencies').".rate / ".$setting->rate .")")
 			->from('quotes')
-			->join('users','quotes.created_by=users.id','INNER')
+			->join('users','quotes.by_co=users.id','INNER')
 			->join('sales', 'sales.quote_id = quotes.id', 'left')
 			->join('companies','quotes.customer_id=companies.id','INNER')
 			->join('companies as myBranch', 'users.branch_id = myBranch.id', 'left')
@@ -891,10 +891,11 @@ class Customers extends MY_Controller
 			->join('loan_groups','loan_groups.id = quotes.loan_group_id','left')
 			//->where('quotes.customer_id', $id)
 			->where('companies.gov_id', $id)
+			->where('quotes.status', 'loans')
 			->order_by('quotes.id','DESC');
 		
 		if(!$view_draft && !($this->Owner || $this->Admin)) {
-			$this->datatables->where('erp_quotes.status <>', 'draft');
+			$this->datatables->where('erp_quotes.quote_status <>', 'draft');
 		}
         $this->datatables->add_column("Actions", $action,$this->db->dbprefix('quotes').".id");
         echo $this->datatables->generate();

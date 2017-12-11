@@ -196,6 +196,7 @@
 								?>
 								<td  class="t_c"><?= lang("principle_balance") ?></td>
 								<td  class="t_c"><?= lang("total_intallment") ?></td>
+								<td  class="t_c"><?= lang("saving_interest") ?></td>
 								
 							</tr>
 							<?php
@@ -226,6 +227,7 @@
 										
 										$Principles = $this->erp->roundUpMoney($pt->principle, $sale_item->currency_code);
 										$interests = $this->erp->roundUpMoney($pt->interest, $sale_item->currency_code);
+										$saving_interest = $this->erp->roundUpMoney($pt->saving_interest, $sale_item->currency_code);
 										
 											echo '<tr class="row-data" '.(($pt->paid_amount > 0)? 'style="background-color:#B4D8E8;font-weight:normal;"':'').'>
 												<td class="t_c" style="padding-left: 5px; padding-right: 5px; height: 25px;font-weight:normal;">'. $pt->period .'</td>
@@ -294,6 +296,7 @@
 											
 											echo '<td class="t_c" style="padding-left:5px;padding-right:5px;font-weight:normal">'. $this->erp->roundUpMoney($balance, $sale_item->currency_code) .'</td>
 												<td class="t_c" style="padding-left:5px;padding-right:5px;font-weight:normal">'. $this->erp->roundUpMoney($payment, $sale_item->currency_code) .'</td>
+												<td class="t_r" style="padding-left:5px;padding-right:25px;font-weight:normal; text-align:right">'. $saving_interest  .'</td>
 												
 												</tr>';
 												
@@ -303,6 +306,7 @@
 										$total_alls += str_replace(',', '', $all_service_paid);
 										$total_haft += str_replace(',', '', $haft_service_paid)/2 ;
 										$total_insurence += str_replace(',', '', $insurence_paid) /2 ;
+										$total_saving += str_replace(',', '', $saving_interest);
 										$total_pay = ($total_payment);
 									}
 								}
@@ -332,6 +336,7 @@
 								?>
 								<td></td>
 								<td class="t_c" style="padding-left:5px;padding-right:5px;"><?= $this->erp->roundUpMoney($total_pay, $sale_item->currency_code); ?></td>
+								<td class="t_r" style="padding-left:5px;padding-right:25px; text-align:right"><?= $this->erp->roundUpMoney($total_saving,$sale_item->currency_code); ?></td>
 								<td id="hide_action3"></td>
 							</tr>
 							

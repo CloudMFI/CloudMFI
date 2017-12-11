@@ -343,6 +343,7 @@ class Installment_Payment extends MY_Controller
 				->join('users','sales.by_co=users.id','INNER')
 				->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 				->join('currencies','currencies.code = quote_items.currency_code','left')
+				->where($this->db->dbprefix('sales').'.status =', 'loans')
 				->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 				//->where('loans.dateline =', date('Y-m-d'))
 				->where('sales.frequency =', 1)
@@ -488,6 +489,7 @@ class Installment_Payment extends MY_Controller
 			->join('users','sales.by_co=users.id','INNER')
 			->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 			->join('currencies','currencies.code = quote_items.currency_code','left')
+			->where($this->db->dbprefix('sales').'.status =', 'loans')
 			->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 			//->where('loans.dateline =', date('Y-m-d'))
 			->where('sales.frequency =', 7)
@@ -634,6 +636,7 @@ class Installment_Payment extends MY_Controller
 			->join('users','sales.by_co=users.id','INNER')
 			->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 			->join('currencies','currencies.code = quote_items.currency_code','left')
+			->where($this->db->dbprefix('sales').'.status =', 'loans')
 			->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 			//->where('loans.dateline =', date('Y-m-d'))
 			->where('sales.frequency =', 14)
@@ -779,6 +782,7 @@ class Installment_Payment extends MY_Controller
 			->join('users','sales.by_co=users.id','INNER')
 			->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 			->join('currencies','currencies.code = quote_items.currency_code','left')
+			->where($this->db->dbprefix('sales').'.status =', 'loans')
 			->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 			//->where('loans.dateline =', date('Y-m-d'))
 			->where('sales.frequency =', 30)
@@ -924,6 +928,7 @@ class Installment_Payment extends MY_Controller
 			->join('users','sales.by_co=users.id','INNER')
 			->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 			->join('currencies','currencies.code = quote_items.currency_code','left')
+			->where($this->db->dbprefix('sales').'.status =', 'loans')
 			->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 			//->where('loans.dateline =', date('Y-m-d'))
 			->where('sales.frequency =', 360)
@@ -1070,6 +1075,7 @@ class Installment_Payment extends MY_Controller
 				->join('users','sales.by_co=users.id','INNER')
 				->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
 				->join('currencies','currencies.code = quote_items.currency_code','left')
+				->where($this->db->dbprefix('sales').'.status =', 'loans')
 				->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 				->where('loans.dateline =', date('Y-m-d'))
 				->where('loans.paid_amount', 0)
@@ -1217,6 +1223,7 @@ class Installment_Payment extends MY_Controller
 				->join('quote_items','quote_items.quote_id = quotes.id','left')
 				->join('users','sales.by_co=users.id','INNER')
 				->join('currencies','currencies.code = quote_items.currency_code','left')
+				->where($this->db->dbprefix('sales').'.status =', 'loans')
 				->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 				->where('loans.dateline <', date('Y-m-d'))
 				->where('loans.paid_amount', 0)
@@ -1365,6 +1372,7 @@ class Installment_Payment extends MY_Controller
 				->join('quote_items','quote_items.quote_id = quotes.id','left')
 				->join('users','sales.by_co=users.id','INNER')
 				->join('currencies','currencies.code = quote_items.currency_code','left')
+				->where($this->db->dbprefix('sales').'.status =', 'loans')
 				->where("(erp_sales.sale_status = 'activated' OR erp_sales.sale_status = 'completed')")
 				->where('erp_sales.status','loans')
 				->where('loans.paid_amount', 0)
@@ -4701,6 +4709,8 @@ class Installment_Payment extends MY_Controller
 			}
 			$owed_principle = $principle - $priciple_paid;
 			
+			$saving_interest = str_replace(',', '', $this->input->post('saving_interest'));
+			$saving_interest_amt = $this->erp->convertCurrency($df_currency, $loan_currency, $saving_interest);
 			$payment = array(
 								'date' 					=> $pay_date,
 								'biller_id'				=> $sale->branch_id,
@@ -4719,7 +4729,7 @@ class Installment_Payment extends MY_Controller
 								'other_paid' 			=> $other_paids,
 								'paid_by' 				=> $pay_method,								
 								'bank_acc_code'			=> $this->input->post('bank_account'),
-								'created_by' 			=> $this->session->userdata('user_id'),
+								'created_by' 			=> $this->session->userdata('user_id'), 
 								'type'					=> 'received', //$payment_status,		
 								'extra_paid'			=> $penalty_paid,
 								'paid_type' 			=> 'Loans Received',
@@ -4731,6 +4741,7 @@ class Installment_Payment extends MY_Controller
 								'owed_penalty'			=> $owed_penalty,
 								'owed_other_paid'		=> $owed_other_paid,
 								'owed_principle'		=> $owed_principle,
+								'saving_balance'		=> $saving_interest_amt,
 								
 							);
 							
@@ -4750,7 +4761,7 @@ class Installment_Payment extends MY_Controller
 								$file = $this->upload->file_name;
 								$payment['document'] = $file;
 							}
-			$this->erp->print_arrays($payment);
+			//$this->erp->print_arrays($payment);
 			//$paid = $total_services_paid ;
 			$paid = str_replace(',', '', $this->erp->roundUpMoney($total_services_paid, $df_currency));
 			$arr_services = array();			
@@ -5074,7 +5085,7 @@ class Installment_Payment extends MY_Controller
 										'extra_paid'			=> $penalty_paid,
 										'interest_discount'		=> $this->input->post('discount_rate'),
 										'bank_acc_code'			=> $this->input->post('bank_account'),
-										'updated_by' 			=> $this->session->userdata('user_id'),
+										'updated_by' 			=> $this->session->userdata('user_id'), 
 										'invoce_no'				=> $this->input->post('invoce_no'),
 										'owed_interest'			=> $owed_interest,
 										'owed_services'			=> $owed_services,
@@ -5289,7 +5300,7 @@ class Installment_Payment extends MY_Controller
 										'paid_type'				=> 'Loans Received',
 										'extra_paid'			=> $penalty_paid,
 										'bank_acc_code'			=> $this->input->post('bank_account'),
-										'created_by' 			=> $this->session->userdata('user_id'),
+										'created_by' 			=> $this->session->userdata('user_id'), 
 										'invoce_no'				=> $this->input->post('invoce_no'),
 										'owed_interest'			=> $owed_interests,
 										'owed_services'			=> $owed_services,
@@ -8752,8 +8763,8 @@ class Installment_Payment extends MY_Controller
 			$this->data['setting']= $this->site->get_setting();
 			$this->data['sale_id']= $recipt_voucher;
 			$this->data['modal_js'] = $this->site->modal_js();
-			//$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);			
-			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view_mm',$this->data);
+			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);			
+			//$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view_mm',$this->data);
 		//}
     }
 	
@@ -8788,8 +8799,8 @@ class Installment_Payment extends MY_Controller
 			$this->data['address'] = $this->site->getAddressToString($customer->country, $customer->state, $customer->district, $customer->sangkat, $customer->village,'KH');
 			$this->data['setting']= $this->site->get_setting();
 			$this->data['modal_js'] = $this->site->modal_js();
-			//$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);			
-			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view_mm',$this->data);
+			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);			
+			//$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view_mm',$this->data);
     }
 	public function certify_latter(){
 		$this->erp->checkPermissions();

@@ -533,6 +533,8 @@
 						</div>
 					</div>
 					
+					
+					
 					<div class="col-md-4 col-sm-4">
 						<div class="form-group">
 							<?= lang("default_transfer_money","default_transfer_money"); ?>
@@ -550,6 +552,60 @@
 							<input type="hidden" value="<?= $data->default_transfer_money;?>" name="transfer_money" class="form-control" style="width:100%;"/>
 						</div>
 					</div>
+					
+					<div class="col-md-4 col-sm-4">
+						<div class="form-group">
+							<?= lang("default_saving_deposit","default_saving_deposit"); ?>
+							<?php
+								$acc_section = array(""=>"");
+								$get_saving_deposit = "";
+								foreach($default_saving_deposit as $saving_deposit){
+									$get_saving_deposit = $saving_deposit->accountname;
+								}
+								foreach($chart_accounts as $section){
+									$acc_section[$section->accountcode] = $section->accountcode.' | '.$section->accountname;
+								}
+								echo form_dropdown('default_saving_deposit', $acc_section, '' ,'id="default_saving_deposit" class="form-control" data-placeholder="' . $data->default_saving_deposit . ' | ' . $get_saving_deposit . '" style="width:100%;" ');
+							?>
+							<input type="hidden" value="<?= $data->default_saving_deposit;?>" name="saving_deposit" class="form-control" style="width:100%;"/>
+						</div>
+					</div>
+					
+					<div class="col-md-4 col-sm-4">
+						<div class="form-group">
+							<?= lang("default_saving_interest","default_saving_interest"); ?>
+							<?php
+								$acc_section = array(""=>"");
+								$get_saving_interest = "";
+								foreach($default_saving_interest as $saving_interest){
+									$get_saving_interest = $saving_interest->accountname;
+								}
+								foreach($chart_accounts as $section){
+									$acc_section[$section->accountcode] = $section->accountcode.' | '.$section->accountname;
+								}
+								echo form_dropdown('default_saving_interest', $acc_section, '' ,'id="default_saving_interest" class="form-control" data-placeholder="' . $data->default_saving_interest . ' | ' . $get_saving_interest . '" style="width:100%;" ');
+							?>
+							<input type="hidden" value="<?= $data->default_saving_interest;?>" name="saving_interest" class="form-control" style="width:100%;"/>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<div class="form-group">
+							<?= lang("default_cash_withdrawal","default_cash_withdrawal"); ?>
+							<?php
+								$acc_section = array(""=>"");
+								$get_cash_withdrawal = "";
+								foreach($default_cash_withdrawal as $cash_withdrawal){
+									$get_cash_withdrawal = $cash_withdrawal->accountname;
+								}
+								foreach($chart_accounts as $section){
+									$acc_section[$section->accountcode] = $section->accountcode.' | '.$section->accountname;
+								}
+								echo form_dropdown('default_cash_withdrawal', $acc_section, '' ,'id="default_cash_withdrawal" class="form-control" data-placeholder="' . $data->default_cash_withdrawal . ' | ' . $get_cash_withdrawal . '" style="width:100%;" ');
+							?>
+							<input type="hidden" value="<?= $data->default_cash_withdrawal;?>" name="cash_withdrawal" class="form-control" style="width:100%;"/>
+						</div>
+					</div>
+					
 					<?php
 					}
 					?>

@@ -559,7 +559,20 @@
                                         <input type="checkbox" value="1" class="checkbox"
                                                name="money_saving-export" <?php echo $p->{'money_saving-export'} ? "checked" : ''; ?>>
                                     </td>
-                                    <td></td>
+                                    <td>
+										<div class="container-fluid">
+										 <div class="col-md-6">
+											<input type="checkbox" value="1" id="money_saving-withdrawal" class="checkbox"
+											   name="money_saving-withdrawal" <?php echo $p->{'money_saving-withdrawal'} ? "checked" : ''; ?>>
+											   <label for="money_saving-withdrawal" class="padding05"><?= lang('cash_withdrawal') ?></label>
+										 </div>
+										 <div class="col-md-6">
+											<input type="checkbox" value="1" id="money_saving-compulsory" class="checkbox"
+											   name="money_saving-compulsory" <?php echo $p->{'money_saving-compulsory'} ? "checked" : ''; ?>>
+											   <label for="money_saving-compulsory" class="padding05"><?= lang('compulsory_saving') ?></label>
+										 </div>
+										</div>
+									</td>
 								</tr>
 								
 							<!--

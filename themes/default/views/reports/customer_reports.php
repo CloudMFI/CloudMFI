@@ -1,29 +1,43 @@
 <?php
+	
 	$v = "";
+	/* if($this->input->post('name')){
+	  $v .= "&product=".$this->input->post('product');
+	  } */
+	if ($this->input->post('reference_no')) {
+		$v .= "&reference_no=" . $this->input->post('reference_no');
+	}
+	if ($this->input->post('customer')) {
+		$v .= "&customer=" . $this->input->post('customer');
+	}
+	if ($this->input->post('biller')) {
+		$v .= "&biller=" . $this->input->post('biller');
+	}
+	if ($this->input->post('gr_loan')) {
+		$v .= "&gr_loan=" . $this->input->post('gr_loan');
+	}
+	if ($this->input->post('warehouse')) {
+		$v .= "&warehouse=" . $this->input->post('warehouse');
+	}
+	if ($this->input->post('user')) {
+		$v .= "&user=" . $this->input->post('user');
+	}
+	if ($this->input->post('serial')) {
+		$v .= "&serial=" . $this->input->post('serial');
+	}
 	if ($this->input->post('start_date')) {
 		$v .= "&start_date=" . $this->input->post('start_date');
 	}
 	if ($this->input->post('end_date')) {
 		$v .= "&end_date=" . $this->input->post('end_date');
 	}
-	if ($this->input->post('customer')) {
-		$v .= "&customer=" . $this->input->post('customer');
+	if ($this->input->post('product_id')) {
+		$v .= "&product_id=" . $this->input->post('product_id');
 	}
-	if ($this->input->post('reference_no')) {
-		$v .= "&reference_no=" . $this->input->post('reference_no');
+	if(isset($date)){
+		$v .= "&d=" . $date;
 	}
-	if ($this->input->post('user')) {
-		$v .= "&user=" . $this->input->post('user');
-	}
-	if ($this->input->post('branch')) {
-		$v .= "&branch=" . $this->input->post('branch');
-	}
-	if ($this->input->post('loan_type')) {
-		$v .= "&loan_type=" . $this->input->post('loan_type');
-	}
-	if ($this->input->post('loan_term')) {
-		$v .= "&loan_term=" . $this->input->post('loan_term');
-	}
+
 ?>
 <style>
 	#QUData {
@@ -31,23 +45,22 @@
 		max-width: 100%;
 		min-height: 300px;
 		display: block;
+		//cursor: pointer;
 		white-space: nowrap;
+		width:100%;
 	}
 </style>
-
 <script>
 	function left_side(x){
 		return '<div class="text-left">'+x+'</div>';
 	}
     $(document).ready(function () {
         var oTable = $('#QUData').dataTable({
-            "aaSorting": [[7, "desc"]],
-            "aLengthMenu": [[10, 50, 100, 250, 500], [10, 50, 100, 250, 500]],
+            "aaSorting": [[0, "desc"]],
+            "aLengthMenu": [[10, 50, 100, 250, 500], [10,50, 100, 250, 500]],
             "iDisplayLength": <?= $Settings->rows_per_page ?>,
-			"bJQueryUI":true,
-			'bLengthChange': false,
-			'bProcessing': true, 'bServerSide': true,
-            'sAjaxSource': '<?= site_url('reports/getLoanReports'. ($warehouse_id ? '/' . $warehouse_id : '')).'/?v=1'.$v?>',
+            'bProcessing': true, 'bServerSide': true,
+            'sAjaxSource': '<?= site_url('reports/getCustomerReports'. ($warehouse_id ? '/' . $warehouse_id : '')).'/?v=1'.$v?>',
             'fnServerData': function (sSource, aoData, fnCallback) {
                 aoData.push({
                     "name": "<?= $this->security->get_csrf_token_name() ?>",
@@ -55,36 +68,52 @@
                 });
                 $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
             },
-            "aoColumns": [{"mRender": center}, null, null, null, {"mRender": gender}, null, {"mRender": fld}, {"mRender": terest_in_percent}, {"mRender": term_in_days}, null, {"mRender": currencyFormat}, {"mRender": currencyFormat}],
-			'fnRowCallback': function (nRow, aData, iDisplayIndex) {
-                
-				nRow.id = aData[0]; 
-				nRow.className = "contract_link";
+            'fnRowCallback': function (nRow, aData, iDisplayIndex) {
+                var oSettings = oTable.fnSettings();
+				nRow.id = aData[0];
+				nRow.className = "history";
+				$(nRow).attr("status", aData[13]);
+				$(nRow).attr("mfi", aData[14]); 
 				 
+				return nRow;
             },
-			
-			'fnFooterCallback': function (nRow, aaData, iStart, iEnd, aiDisplay) {
-                var total_amount = 0, gbalance = 0;
+			"fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay) {
+                var request_loan = 0, disburse = 0, remaining = 0;
                 for (var i = 0; i < aaData.length; i++) {
-					total_amount += parseFloat(aaData[aiDisplay[i]][10]);
-					gbalance += parseFloat(aaData[aiDisplay[i]][11]);
+					if(isNaN(parseFloat(aaData[aiDisplay[i]][10]))){
+						request_loan += parseFloat(0);
+					}else{
+						request_loan += parseFloat(aaData[aiDisplay[i]][10]);
+					}
+					
+					if(isNaN(parseFloat(aaData[aiDisplay[i]][11]))){
+						disburse += parseFloat(0);
+					}else{
+						disburse += parseFloat(aaData[aiDisplay[i]][11]);
+					}
+					 
                 }
                 var nCells = nRow.getElementsByTagName('th');
-                nCells[10].innerHTML = currencyFormat(parseFloat(total_amount));
-                nCells[11].innerHTML = currencyFormat(parseFloat(gbalance));
-            }
-        }).fnSetFilteringDelay().dtFilter([
-			{column_number: 0, filter_default_label: "[<?=lang('no');?>]", filter_type: "text", data: []},
-            {column_number: 1, filter_default_label: "[<?=lang('reference_no');?>]", filter_type: "text", data: []},
+                nCells[10].innerHTML = currencyFormat(parseFloat(request_loan));
+                nCells[11].innerHTML = currencyFormat(parseFloat(disburse)); 
+            },
+            "aoColumns": [{
+                "bSortable": false,
+                "mRender": checkbox
+            },  null,  null, null,{"mRender": fld}, null, null,   null, null, null, {"mRender": currencyFormat}, {"mRender": currencyFormat} , null, {"mRender": row_status_down}, {"bVisible": false}, {"bSortable": false}]
+        }).fnSetFilteringDelay().dtFilter([ 
+            {column_number: 1, filter_default_label: "[<?=lang('reference_no');?>]", filter_type: "text", data: []}, 
             {column_number: 2, filter_default_label: "[<?=lang('customer');?>]", filter_type: "text", data: []},
             {column_number: 3, filter_default_label: "[<?=lang('customer_kh');?>]", filter_type: "text", data: []},
-            {column_number: 4, filter_default_label: "[<?=lang('gender');?>]", filter_type: "text", data: []},
-            {column_number: 5, filter_default_label: "[<?=lang('phone');?>]", filter_type: "text", data: []},
-            {column_number: 6, filter_default_label: "[<?=lang('disburse_date');?>]", filter_type: "text", data: []},
-            {column_number: 7, filter_default_label: "[<?=lang('interest');?> (yyyy-mm-dd)]", filter_type: "text", data: []},
-            {column_number: 8, filter_default_label: "[<?=lang('term');?>]", filter_type: "text", data: []},
-            {column_number: 9, filter_default_label: "[<?=lang('co');?>]", filter_type: "text", data: []},
-			
+            {column_number: 4, filter_default_label: "[<?=lang('approved_date');?>]", filter_type: "text", data: []},
+			{column_number: 5, filter_default_label: "[<?=lang('created_by');?>]", filter_type: "text", data: []},
+            {column_number: 6, filter_default_label: "[<?=lang('branch');?>]", filter_type: "text", data: []}, 
+            {column_number: 7, filter_default_label: "[<?=lang('rate');?>]", filter_type: "text", data: []},
+			{column_number: 8, filter_default_label: "[<?=lang('term');?>]", filter_type: "text", data: []},
+            {column_number: 9, filter_default_label: "[<?=lang('pay_term');?>]", filter_type: "text", data: []},			
+            {column_number: 12, filter_default_label: "[<?=lang('currency');?>]", filter_type: "text", data: []},
+            {column_number: 13, filter_default_label: "[<?=lang('status');?>]", filter_type: "text", data: []},
+            {column_number: 14, filter_default_label: "[<?=lang('mfi');?>]", filter_type: "text", data: []},
         ], "footer");
         <?php if($this->session->userdata('remove_quls')) { ?>
         if (localStorage.getItem('quitems')) {
@@ -138,16 +167,30 @@
             $("#form").slideUp();
             return false;
         });
+        $("#product").autocomplete({
+            source: '<?= site_url('reports/suggestions'); ?>',
+            select: function (event, ui) {
+                $('#product_id').val(ui.item.id);
+                //$(this).val(ui.item.label);
+            },
+            minLength: 1,
+            autoFocus: false,
+            delay: 300,
+        });
     });
 </script>
 
 <?php if ($Owner) {
-    echo form_open('quotes/quote_actions', 'id="action-form"');
+    echo form_open('down_payment/Down_Payment_actions', 'id="action-form"');
 } ?>
 <div class="box">
     <div class="box-header">
         <h2 class="blue">
-			<i class="fa-fw fa fa-heart-o"></i><?= lang('loan_report'); ?>
+		<?php if (isset($this->permission['reports-back_office']) ?$this->permission['reports-back_office']  : ('')){ ?>
+			<i class="fa-fw fa fa-heart-o"></i><?= lang('contracts') . ' (' . ($warehouse_id ? $warehouse->name : lang('all_warehouses')) . ')'; ?>
+		<?php }else{ ?>
+			<i class="fa-fw fa fa-heart-o"></i><?= lang('customer_reports'); ?>
+		<?php } ?>
         </h2>
 		
 		<div class="box-icon">
@@ -171,7 +214,7 @@
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon fa fa-tasks tip" data-placement="left" title="<?= lang("actions") ?>"></i></a>
                     <ul class="dropdown-menu pull-right" class="tasks-menus" role="menu" aria-labelledby="dLabel">
                         <li>
-							<?php if (isset($this->permission['reports-back_office'])?($this->permission['reports-back_office']):''){ ?>
+							<?php if (isset($this->permission['reports-back_office']) ?$this->permission['reports-back_office']  : ('')){ ?>
 								<a href="<?= site_url('quotes/add') ?>"><i class="fa fa-plus-circle"></i> <?= lang('add_contract') ?>
                             </a>
 							<?php }else{ ?>
@@ -179,9 +222,8 @@
                             </a>
 							<?php } ?>
                         </li>
-						<li>
-							<a href="<?= site_url('reports/print_loan_reports/'.((isset($_POST['start_date']))? ($this->erp->fsd($_POST['start_date']).'/'):'').((isset($_POST['end_date']))? ($this->erp->fsd($_POST['end_date']).'/'):'').(isset($_POST['customer'])? $_POST['customer'].'/':'0').(isset($_POST['user'])? $_POST['user'].'/':'0').(isset($_POST['branch'])? $_POST['branch'].'/':'0').(isset($_POST['loan_type'])? $_POST['loan_type'].'/':'0').(isset($_POST['loan_term'])? $_POST['loan_term'].'/':'0').(isset($_POST['reference_no'])? $_POST['reference_no'].'/':'0')) ?>" target="_blank"><i class="fa fa-print"></i> <?= lang('print') ?></a>
-                        </li>
+						
+						 
 						<?php if ($Owner || $Admin) {?>
 							<li>
 								<a href="#" id="excel" data-action="export_excel"><i class="fa fa-file-excel-o"></i> <?= lang('export_to_excel') ?>
@@ -211,22 +253,17 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-							<?php if (isset($this->permission['reports-back_office'])?($this->permission['reports-back_office']):''){ ?>
+							<?php if (isset($this->permission['reports-back_office']) ?$this->permission['reports-back_office']  : ('')){ ?>
 							<a href="#" class="bpo" title="<?= $this->lang->line("delete_contracts") ?>" 
                                 data-content="<p><?= lang('r_u_sure') ?></p><button type='button' class='btn btn-danger' id='delete' data-action='delete'><?= lang('i_m_sure') ?></a> <button class='btn bpo-close'><?= lang('no') ?></button>" 
                                 data-html="true" data-placement="left"><i class="fa fa-trash-o"></i> <?= lang('delete_contracts') ?>
                             </a>
 							<?php }else{ ?>
-                            <a href="#" class="bpo" title="<?= $this->lang->line("delete_quotes") ?>" 
+                           <!-- <a href="#" class="bpo" title="<?= $this->lang->line("delete_quotes") ?>" 
                                 data-content="<p><?= lang('r_u_sure') ?></p><button type='button' class='btn btn-danger' id='delete' data-action='delete'><?= lang('i_m_sure') ?></a> <button class='btn bpo-close'><?= lang('no') ?></button>" 
                                 data-html="true" data-placement="left"><i class="fa fa-trash-o"></i> <?= lang('delete_quotes') ?>
-                            </a>
+                            </a>-->
 							<?php } ?>
-                        </li>
-						<li>
-                            <a href="<?= site_url('customers/send_sms'); ?>" data-toggle="modal" data-target="#myModal" id="SMS">
-                                <i class="fa fa-send"></i> <?= lang("Send SMS"); ?>
-                            </a>
                         </li>
                     </ul>
                 </li>
@@ -262,104 +299,73 @@
                 <p class="introtext"><?= lang('list_results'); ?></p>
 				
 				<div id="form">
-
-                    <?php echo form_open("reports/loan_report"); ?>
+                    <?php echo form_open("Reports/customer_reports"); ?>
                     <div class="row">
+						
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("start_date", "start_date"); ?>
-                                <?php echo form_input('start_date', (isset($_POST['start_date']) ? $_POST['start_date'] : ""), 'class="form-control date" id="start_date"'); ?>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <?= lang("end_date", "end_date"); ?>
-                                <?php echo form_input('end_date', (isset($_POST['end_date']) ? $_POST['end_date'] : ""), 'class="form-control date" id="end_date"'); ?>
-                            </div>
-                        </div>
-						<div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="scustomer"><?= lang("customer"); ?></label>
+                                <label class="control-label" for="user"><?= lang("created_by"); ?></label>
                                 <?php
-                                $cust["0"] = "All";
-								if(isset($customers)){
-									foreach ($customers as $customer) {
-										$cust[$customer->id] = $customer->family_name .' '. $customer->name;
-									}
-								}
-                                echo form_dropdown('customer', $cust, (isset($_POST['customer']) ? $_POST['customer'] : ""), 'class="form-control" id="scustomer" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("customer") . '"');
+                                $us[""] = "";
+								if(is_array(isset($users) ?$users  : (''))){
+                                foreach ($users as $user) {
+                                    $us[$user->id] = $user->first_name . " " . $user->last_name;
+                                }}
+                                echo form_dropdown('user', isset($us) ?$us  : (''), (isset($_POST['user']) ? $_POST['user'] : ""), 'class="form-control" id="user" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("user") . '"');
                                 ?>
                             </div>
-                        </div>
+                        </div>                        
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label class="control-label" for="reference_no"><?= lang("reference_no"); ?></label>
-                                <?php echo form_input('reference_no', (isset($_POST['reference_no']) ? $_POST['reference_no'] : ""), 'class="form-control tip" id="reference_no"'); ?>
-
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="user"><?= lang("co"); ?></label>
+                                <label class="control-label" for="biller"><?= lang("dealer"); ?></label>
                                 <?php
-                                $us["0"] = "All";
-								if(isset($users)){
-									foreach ($users as $user) {
-										$us[$user->id] = $user->first_name . " " . $user->last_name;
-									}
-								}
-                                echo form_dropdown('user', $us, (isset($_POST['user']) ? $_POST['user'] : ""), 'class="form-control" id="user" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("user") . '"');
+                                $bl[""] = "";
+								if(is_array(isset($dealer) ?$dealer  : (''))){
+                                foreach ($dealer as $dealer) {
+                                    $bl[$dealer->id] = $dealer->company != '-' ? $dealer->company : $dealer->name;
+                                }}
+                                echo form_dropdown('dealer', isset($bl) ?$bl  : (''), (isset($_POST['dealer']) ? $_POST['dealer'] : ""), 'class="form-control" id="biller" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("dealer") . '"');
+                                ?>
+                            </div>
+                        </div>						
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="group_loans"><?= lang("group_loans"); ?></label>
+                                <?php
+                                $gl[""] = "";
+								if(is_array(isset($group_Loan) ?$group_Loan  : (''))){
+                                foreach ($group_Loan as $gr_loan) {
+                                    $gl[$gr_loan->id] = $gr_loan->name;
+                                }}
+                                echo form_dropdown('gr_loan', isset($gl) ?$gl  : (''), (isset($_POST['gr_loan']) ? $_POST['gr_loan'] : ""), 'class="form-control" id="gr_loan" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("group_loans") . '"');
                                 ?>
                             </div>
                         </div>
 						<div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="branch"><?= lang("branch"); ?></label>
-                                <?php
-                                $bch["0"] = "All";
-								if(isset($branches)){
-									foreach ($branches as $branch) {
-										$bch[$branch->id] = $branch->name;
-									}
-								}
-                                echo form_dropdown('branch', $bch, (isset($_POST['branch']) ? $_POST['branch'] : ""), 'class="form-control" id="branch" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("branch") . '"');
-                                ?>
-                            </div>
-                        </div>
+							<div class="form-group">
+								<?= lang("start_date", "start_date"); ?>
+								<?php echo form_input('start_date', (isset($_POST['start_date']) ? $_POST['start_date'] : ""), 'class="form-control datetime" id="start_date" '); ?>
+							</div>
+						</div>						
 						<div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="loan_type"><?= lang("loan_type"); ?></label>
-                                <?php
-                                $lt["0"] = "All";
-								if(isset($loan_types)){
-									foreach ($loan_types as $loan_type) {
-										$lt[$loan_type->id] = $loan_type->name;
-									}
-								}
-                                echo form_dropdown('loan_type', $lt, (isset($_POST['loan_type']) ? $_POST['loan_type'] : ""), 'class="form-control" id="loan_type" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("loan_type") . '"');
-                                ?>
+							<div class="form-group">
+								<?= lang("end_date", "end_date"); ?>
+								<?php echo form_input('end_date', (isset($_POST['end_date']) ? $_POST['end_date'] : ""), 'class="form-control datetime" id="end_date" ' ); ?>
+							</div>
+						</div>
+                        <?php if($this->Settings->product_serial) { ?>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <?= lang('serial_no', 'serial'); ?>
+                                    <?= form_input('serial', '', 'class="form-control tip" id="serial"'); ?>
+                                </div>
                             </div>
-                        </div>
-						<div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="loan_term"><?= lang("loan_term"); ?></label>
-                                <?php
-                                $ltm["0"] = "All";
-								if(isset($loan_terms)) {
-									foreach ($loan_terms as $loan_term) {
-										$ltm[$loan_term->amount] = $loan_term->amount ." Day";
-									}
-								}
-                                echo form_dropdown('loan_term', $ltm, (isset($_POST['loan_term']) ? $_POST['loan_term'] : ""), 'class="form-control" id="loan_term" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("loan_term") . '"');
-                                ?>
-                            </div>
-                        </div>
+                        <?php } ?>
                     </div>
                     <div class="form-group">
                         <div class="controls"> <?php echo form_submit('submit_report', $this->lang->line("submit"), 'class="btn btn-primary"'); ?> </div>
                     </div>
                     <?php echo form_close(); ?>
-
                 </div>
 				
 				<div class="clearfix"></div>
@@ -367,31 +373,38 @@
                     <table id="QUData" class="table table-bordered table-hover table-striped">
                         <thead>
                         <tr class="active">
-                            <th><?php echo $this->lang->line("no"); ?></th>
-							<th><?php echo $this->lang->line("reference_no"); ?></th>
-							<th><?php echo $this->lang->line("customer"); ?></th>
-							<th><?php echo $this->lang->line("customer_kh"); ?></th>
-							<th><?php echo $this->lang->line("gender"); ?></th>
-                            <th><?php echo $this->lang->line("phone"); ?></th>
-							<th><?php echo $this->lang->line("disburse_date"); ?></th>
-							<th><?php echo $this->lang->line("interest"); ?></th>
+                            <th style="min-width:30px; width: 30px; text-align: center;">
+                                <input class="checkbox checkft" type="checkbox" name="check"/>
+                            </th> 
+                            <th><?php echo $this->lang->line("reference_no"); ?></th> 
+                            <th><?php echo $this->lang->line("customer_en"); ?></th>
+                            <th><?php echo $this->lang->line("customer_kh"); ?></th>
+                            <th><?php echo $this->lang->line("approved_date"); ?></th>
+                            <th><?php echo $this->lang->line("c.o_name"); ?></th>
+                            <th><?php echo $this->lang->line("branch"); ?></th> 
+							<th><?php echo $this->lang->line("rate"); ?></th>
 							<th><?php echo $this->lang->line("term"); ?></th>
-							<th><?php echo $this->lang->line("co"); ?></th>
-							<th><?php echo $this->lang->line("loan_request"); ?></th>
-                            <th><?php echo $this->lang->line("disburse"); ?></th>
+							<th><?php echo $this->lang->line("pay_term"); ?></th>
+                            <th><?php echo $this->lang->line("loan_request"); ?></th>
+							<th><?php echo $this->lang->line("disburse"); ?></th> 
+							<th><?php echo $this->lang->line("currency"); ?></th>
+                            <th><?php echo $this->lang->line("status"); ?></th>
+                            <th><?php echo $this->lang->line("mfi"); ?></th>
+                            <th style="width:115px; text-align:center;"><?php echo $this->lang->line("actions"); ?></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td colspan="12"
+                            <td colspan="17"
                                 class="dataTables_empty"><?php echo $this->lang->line("loading_data"); ?>
 							</td>
                         </tr>
                         </tbody>
                         <tfoot class="dtFilter">
                         <tr class="active">
-                            <th></th>
-                            <th></th>
+                            <th style="min-width:30px; width: 30px; text-align: center;">
+                                <input class="checkbox checkft" type="checkbox" name="check"/>
+                            </th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -400,8 +413,13 @@
                             <th></th>
                             <th></th>
                             <th></th>
+							<th></th>
+							<th></th>
                             <th></th>
                             <th></th>
+							<th></th>
+							<th></th>
+                            <th style="width:115px; text-align:center;"><?php echo $this->lang->line("actions"); ?></th>
                         </tr>
                         </tfoot>
                     </table>

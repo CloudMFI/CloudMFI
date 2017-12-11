@@ -188,6 +188,7 @@ class system_settings extends MY_Controller
 				'penalty_types'  => $penalty_types,
 				'penalty_days' => $this->input->post('penalty_days'),
 				'interest_discount' => $this->input->post('interest_discount'),
+				'compulsory_saving' => $this->input->post('compulsory_saving'),
 				'adv_app_amount' => trim(str_replace(',', '', $this->input->post('ad_app_amount'))),
             );
 			//$this->erp->print_arrays($data);
@@ -969,6 +970,8 @@ class system_settings extends MY_Controller
 				'money_saving-delete'=>$this->input->post('money_saving-delete'),
 				'money_saving-import'=>$this->input->post('money_saving-import'),
 				'money_saving-export'=>$this->input->post('money_saving-export'),
+				'money_saving-withdrawal'=>$this->input->post('money_saving-withdrawal'),
+				'money_saving-compulsory'=>$this->input->post('money_saving-compulsory'),
 				
 				'completed-index'=>$this->input->post('completed-index'),
             );

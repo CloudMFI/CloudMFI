@@ -348,6 +348,15 @@ $ps = array('0' => lang("disable"), '1' => lang("enable"));
 						echo form_dropdown('interest_discount', $interest_discount, isset($settings->interest_discount)? $settings->interest_discount:'', 'class="form-control select" id="interest_discount" placeholder="' . lang("select") . ' ' . lang("status") . '" style="width:100%" ');
 						?>
 					</div>
+					<div class="col-md-4">
+						<?= lang("compulsory_saving", "compulsory_saving"); ?>
+						<?php
+						$compulsory[(isset($_POST['compulsory_saving']) ? $_POST['compulsory_saving'] : '')] = (isset($_POST['compulsory_saving']) ? $_POST['compulsory_saving'] : '');
+						$compulsory['enable'] = "Enable";
+						$compulsory['disable'] = "Disable";
+						echo form_dropdown('compulsory_saving', $compulsory, isset($settings->compulsory_saving)? $settings->compulsory_saving:'', 'class="form-control select" id="compulsory_saving" placeholder="' . lang("select") . ' ' . lang("status") . '" style="width:100%" ');
+						?>
+					</div>
                     </fieldset>
 					<!--
 					<fieldset class="scheduler-border">
@@ -819,7 +828,7 @@ $ps = array('0' => lang("disable"), '1' => lang("enable"));
                                 <label class="control-label" for="decimals"><?= lang("decimals"); ?></label>
 
                                 <div class="controls"> <?php
-                                    $decimals = array(0 => lang('disable'), 1 => '1', 2 => '2', 3 => '3', 4 => '4');
+                                    $decimals = array(0 => lang('disable'), 0 => '0', 1 => '1', 2 => '2', 3 => '3', 4 => '4');
                                     echo form_dropdown('decimals', $decimals, $Settings->decimals, 'class="form-control tip" id="decimals"  style="width:100%;" required="required"');
                                     ?>
                                 </div>

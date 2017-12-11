@@ -918,7 +918,7 @@ $lang["loan_daily"]								="Loan Daily";
 $lang["loan_monthly"]							="Loan Monthly";
 $lang["select_for_charge"]						="Select for charge";
 $lang["list_installment"]						="List Installment";
-$lang["manage_saving"]						    ="Manage Saving";
+$lang["manage_saving"]						    ="MANAGE SAVING";
 $lang["list_saving"]							="Saving List";
 $lang["open_account"]							="Open Account";
 $lang['total_expense']							="Total Expense";
@@ -988,5 +988,18 @@ $lang["loan_activated"]							="Loans Activated";
 $lang["re_payments"]							="RePayments";
 $lang["re_payments_report"]						="RePayments Report";
 $lang["bad_loans_list"]							="Bad Loans List";
-$lang["loans_pay_off"]							="Loans Pay Off";
+$lang["loans_pay_off"]							="Loans Pay Off"; 
 $lang["loan_active"]							="Loans Active";
+$lang["compulsory_saving"]						="Compulsory Saving";
+$lang["cash_withdrawal"]						= "Cash Withdrawal"; 
+$lang["loan_active"]							="Loans Active"; 
+
+
+
+
+
+
+
+$lang["daily_monitor_reports"]					= "Daily Monitor Reports";
+$lang["customer_reports"]						= "Customer Reports";
+$lang[""]			= "";

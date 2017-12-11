@@ -1330,6 +1330,12 @@ $(document).ready(function() {
 		
     });
 	
+	$('body').on('click', '.history td:not(:first-child :last-child)', function() {
+		$('#myModal').modal({remote: site.base_url + 'Reports/history_reports/' + $(this).parent('.history').attr('id')});
+		$('#myModal').modal('show');
+		
+    });
+	
 	$('body').on('click', '.phone_collection_link td:not(:first-child :last-child)', function() {
         $('#myModal').modal({remote: site.base_url + 'collection/add_phone_collection/' + $(this).parent('.phone_collection_link').attr('id')});
         $('#myModal').modal('show');

@@ -166,9 +166,7 @@ class Saving extends MY_Controller
 				->join('sale_items', 'sales.id = sale_items.sale_id', 'INNER')
 				->join('companies', 'sales.customer_id = companies.id', 'INNER')
 				->join('companies AS myBranch', 'users.branch_id= myBranch.id', 'left')
-				->join('products', 'sale_items.product_id = products.id', 'left')
 				->join('sale_services', 'sales.id = sale_services.sale_id', 'left')
-				->join('variants', 'variants.id = sale_items.color', 'left')
 				->join('currencies','currencies.code = sale_items.currency_code','left')
 				->where($this->db->dbprefix('sales').'.status ', 'saving')				
 				->group_by('sales.id')
@@ -1162,6 +1160,242 @@ class Saving extends MY_Controller
 	}
 	
 	
+	function compulsory_saving()
+	{
+		//$this->erp->print_arrays(savingList);
+		//$this->erp->checkPermissions('index', true, 'saving');
+		$this->erp->load->model('reports_model');
+		$this->data['users'] = $this->reports_model->getStaff();
+		$this->data['products'] = $this->site->getProducts(); 
+		$this->data['dealer'] = $this->site->getAllDealer('supplier');
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        
+		if (isset($this->permission['reports-back_office']) ?$this->permission['reports-back_office']  : ('')){
+			$bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('contracts')));
+			$meta = array('page_title' => lang('contracts'), 'bc' => $bc);
+		}else{
+			$bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('compulsory_saving')));
+			$meta = array('page_title' => lang('compulsory_saving'), 'bc' => $bc);
+		}		
+        $this->page_construct('saving/compulsory_saving', $meta, $this->data);
+	}
+	
+	public function getCompulsorySaving( )
+    {
+		if ($this->input->get('user')) {
+            $user_query = $this->input->get('user');
+        } else {
+            $user_query = NULL;
+        }
+        if ($this->input->get('reference_no')) {
+            $reference_no = $this->input->get('reference_no');
+        } else {
+            $reference_no = NULL;
+        }
+        if ($this->input->get('customer')) {
+            $customer = $this->input->get('customer');
+        } else {
+            $customer = NULL;
+        }
+		 
+        if ($this->input->get('start_date')) {
+            $start_date = $this->input->get('start_date');
+        } else {
+            $start_date = NULL;
+        }
+        if ($this->input->get('end_date')) {
+            $end_date = $this->input->get('end_date');
+        } else {
+            $end_date = NULL;
+        }
+		
+        if ($start_date) {
+            $start_date = $this->erp->fld($start_date);
+            $end_date = $this->erp->fld($end_date);
+        }
+         
+		$approve_link = anchor('quotes/approvedApplicant/$1', '<i class="fa fa-file-text-o"></i> ' . lang('view_details'));
+        
+		$delete_link = "<a href='#' class='po' title='<b>" . lang("delete_contract") . "</b>' data-content=\"<p>"
+            . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('sales/delete/$1') . "'>"
+            . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
+            . lang('delete_contract') . "</a>";
+        $action = '<div class="text-center"><div class="btn-group text-left">'
+            . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
+            . lang('actions') . ' <span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right" role="menu">
+			 <li class="ps">' . $approve_link . '</li> 
+			 
+        </ul>
+		</div></div>';
+        //$action = '<div class="text-center">' . $detail_link . ' ' . $edit_link . ' ' . $email_link . ' ' . $delete_link . '</div>';
+		$setting = $this->down_payment_model->getSettingCurrncy();
+        $this->load->library('datatables');
+        
+            $this->datatables
+                ->select($this->db->dbprefix('sales').".id,".
+						$this->db->dbprefix('sales').".reference_no,".
+						$this->db->dbprefix('sales').".quote_id as qi, 
+						CONCAT(".$this->db->dbprefix('companies').".family_name,' ',".$this->db->dbprefix('companies').".name) AS customer_name,
+						CONCAT(".$this->db->dbprefix('companies').".family_name_other,' ',".$this->db->dbprefix('companies').".name_other) as customer_name_other,  
+						myBranch.name,
+						".$this->db->dbprefix('sales').".approved_date,
+						((COALESCE(".$this->db->dbprefix('loan').".total, 0))) * (".$this->db->dbprefix('currencies').".rate / ".$setting->rate .") as total,
+						CONCAT(TRUNCATE((".$this->db->dbprefix('sales').".saving_rate*100), 2),' ', '%') AS interest, 						
+						".$this->db->dbprefix('sales').".saving_amount * (".$this->db->dbprefix('currencies').".rate / ".$setting->rate .") as saving_amount,
+						CONCAT(TRUNCATE((".$this->db->dbprefix('sales').".saving_interest_rate*100), 2),' ', '%') AS saving_interest_rate, 
+						". $this->db->dbprefix('sales').".saving_balance * (".$this->db->dbprefix('currencies').".rate / ".$setting->rate .") as saving_balance,
+						". $this->db->dbprefix('sales').".cash_withdrawal * (".$this->db->dbprefix('currencies').".rate / ".$setting->rate .") as cash_withdrawal,".
+						$this->db->dbprefix('currencies').".name AS crname, ".
+						$this->db->dbprefix('sales').".sale_status, ")
+                ->from('sales')
+				->join('sale_items', 'sales.id = sale_items.sale_id', 'left')
+				->join('sales as erp_loan', 'erp_loan.id = sales.sales_id', 'left')
+				->join('companies', 'sales.customer_id = companies.id', 'left')
+				->join('companies AS myBranch', 'sales.branch_id= myBranch.id', 'left')
+				->join('currencies','currencies.code = sale_items.currency_code','left')
+				->where($this->db->dbprefix('sales').'.status =', 'saving')			
+				->group_by('sales.id')
+				->order_by('sales.id','DESC');
+				 
+		
+		if($this->GP && !($this->Owner || $this->Admin) && $this->session->view_right == 0) {
+			$this->datatables->where('sales.branch_id', $this->session->branch_id);
+		}
+		if ($product_id) {
+			$this->datatables->join('sale_items as si', 'si.sale_id = sales.id', 'left');
+			$this->datatables->where('si.product_id', $product_id);
+		}
+        if (!$this->Customer && !$this->Supplier && !$this->Owner && !$this->Admin && !$this->session->userdata('view_right')) {
+            //$this->datatables->where('created_by', $this->session->userdata('user_id'));
+        } elseif ($this->Customer) {
+            $this->datatables->where('customer_id', $this->session->userdata('user_id'));
+        }
+		/*if($this->GP &&!($this->Owner && $this->Admin) && $this->session->userdata('view_right') == 0){
+			$this->datatables->where('sales.created_by', $this->session->userdata('user_id'));
+		}*/
+		if ($user_query) {
+			$this->datatables->where('sales.by_co', $user_query);
+		}
+		if ($reference_no) {
+			$this->datatables->like('sales.reference_no', $reference_no);
+		}
+		if ($dealer) {
+			$this->datatables->where('sales.biller_id', $dealer);
+		}
+		 
+		if ($customer) {
+			$this->datatables->where('sales.customer_id', $customer);
+		}
+		 
+		if ($start_date) {
+			$this->datatables->where($this->db->dbprefix('sales').'.date BETWEEN "' . $start_date . '" and "' . $end_date . '"');
+		}
+        $this->datatables->add_column("Actions", $action,$this->db->dbprefix('sales').".id,qi");
+		$this->datatables->unset_column("qi");
+		echo $this->datatables->generate();
+    }
+	
+	function cash_withdrawal()
+	{
+
+		$this->load->model('quotes_model');
+		$this->load->model('accounts_model');
+		$this->load->model('saving_model');
+		$this->load->model('site');
+		
+		$this->form_validation->set_rules('cash_withdrawal', $this->lang->line("cash_withdrawal"), 'required'); 
+		$this->form_validation->set_rules('bank_account', $this->lang->line("cash_out"), 'required');
+		$this->form_validation->set_rules('contract_id', $this->lang->line("saving_reference"), 'required');
+		
+		if ($this->form_validation->run() == true) {
+			$reference_no = $this->site->getReference('pp');
+			$setting = $this->saving_model->get_setting();
+			
+			$contracts = $this->input->post('contract_id');
+			$contract = explode('#', $contracts); 
+			$sale_id = $contract[0];
+			
+			$bank_account = $this->input->post('bank_account');
+			$bank_act = explode('#', $bank_account); 
+			$account_code = $bank_act[0];
+			
+			$sale = $this->saving_model->getSaleById($sale_id);
+			$saleItem = $this->saving_model->getSaleItemBysaleID($sale_id);
+			
+			$withdrawal = $this->input->post('cash_withdrawal');
+			$withdrawals= $this->erp->convertCurrency($setting->default_currency, $saleItem->currency_code, $withdrawal);
+			
+			$payment = array(
+								'sale_id'				=> $sale_id,
+								'biller_id'				=> $sale->branch_id,
+								'type'					=> 'withdrawal',
+								'paid_type' 			=> 'Withdrawal',
+								'date' 					=> $this->erp->fld(trim($this->input->post('date'))),
+								'reference_no'  		=> $reference_no,								
+								'amount'				=> $withdrawals, 
+								'paid_by'				=> $this->input->post('paid_by'),
+								'bank_acc_code'			=> $account_code,
+								'created_by'			=> $this->session->userdata('user_id'),
+								
+			
+			);
+			// $this->erp->print_arrays($payment);
+			
+			$saving_balance = $sale->saving_balance - $withdrawals;
+			$cash_withdrawal= $sale->cash_withdrawal+ $withdrawals;
+			$sale_status = "activated";
+			if($saving_balance == 0){
+				$sale_status = "completed";
+			}
+			$update_saving = array(
+			
+								'saving_balance'		=> $saving_balance,
+								'cash_withdrawal'		=> $cash_withdrawal,
+								'sale_status'			=> $sale_status,
+								
+			);
+			//$this->erp->print_arrays($update_saving);
+		}
+
+		if ($this->form_validation->run() == true && $sid = $this->saving_model->addCashWithdrawal($payment, $update_saving )) {
+			$this->session->set_flashdata('message', $this->lang->line("withdrawal_added")); 	 
+            redirect('saving/compulsory_saving');
+			
+		} else {
+			$user_id = $this->session->userdata('user_id');
+			$user = $this->quotes_model->getUser($user_id);
+			 
+			$this->data['reference_pp'] = $this->site->getReference('pp');
+			$this->data['banks'] = $this->accounts_model->getBankAccountByBranch($user->branch_id);
+			$this->data['currencies'] = $this->accounts_model->getCurrncy();
+			$this->data['contracts'] = $this->saving_model->getSavingCustomer($user->branch_id);
+			//$this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+			$this->data['modal_js'] = $this->site->modal_js();
+			$this->load->view($this->theme . 'saving/cash_withdrawal', $this->data);
+		}
+	}
+	
+	public function ajaxGetSavingBysaleID($sale_id = NULL){ 
+		$setting = $this->saving_model->getSettingCurrncy();
+		$def_currency = $setting->code;		
+		$def_rate = $setting->rate;
+		if ($rows = $this->saving_model->getAjaxSavingById($sale_id)) {
+			$currency = $rows->currency_code;
+			$currency_name = $rows->curr_name;
+			$save_currency = $this->site->getCurrencyByCode($currency);
+			$save_rate = $save_currency->rate;
+			
+			$saving_balance = $this->erp->convertCurrency($currency, $def_currency, $rows->saving_balance);			 
+			$saving_balances = str_replace(',', '', $this->erp->roundUpMoney($saving_balance,$currency));						
+			$balances = $this->erp->roundUpMoney($saving_balances,$currency) .' '. $rows->curr_name;
+			$customer = $rows->customer_name;
+			
+            echo json_encode(array( 'balance'=> $saving_balances , 'customer'=>$customer, 'balances'=>$balances, 'def_rate'=>$def_rate, 'save_rate'=>$save_rate ));
+        } else {
+            echo json_encode(false);
+        }
+	}
 	
 }
 

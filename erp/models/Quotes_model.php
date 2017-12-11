@@ -202,7 +202,7 @@ class Quotes_model extends CI_Model
 						$this->db->dbprefix('quote_items').".product_name AS asset,".
 						"((SELECT erp_companies.name FROM erp_companies WHERE erp_quotes.biller_id = erp_companies.id)) AS dealer_name, ".
 						
-						$this->db->dbprefix('quotes').".status as status,".
+						$this->db->dbprefix('quotes').".quote_status as status,".
 						$this->db->dbprefix('quotes').".date as submit_date,".
 						$this->db->dbprefix('quotes').".approved_date, 
 						CONCAT(".$this->db->dbprefix('users').".first_name, ' ', ".$this->db->dbprefix('users').".last_name) AS co_name,
@@ -277,7 +277,7 @@ class Quotes_model extends CI_Model
 		}
 		
 	}*/
-    public function addQuote($data = array(), $items = array(), $services = array(), $guarantor_ = array(), $employee_ = array(), $documentsArray = array(), $customers = array(), $field_check = array(),$collateral_= array(), $group_loan = array(),  $join_lease = array(), $join_guarantor = array())
+    public function addQuote($data = array(), $items = array(), $services = array(), $guarantor_ = array(), $employee_ = array(), $documentsArray = array(), $customers = array(), $field_check = array(),$collateral_= array(), $group_loan = array(),  $join_lease = array(), $join_guarantor = array(), $saving = array(), $saving_item = array())
     {	
         $guarantor  = $this->db;
         $employee   = $this->db;
@@ -349,16 +349,31 @@ class Quotes_model extends CI_Model
 			if ($this->db->insert('quotes', $data)) {
 				$quote_id = $this->db->insert_id();
 				
+				if(is_array($items)){
+					foreach ($items as $item) {
+						$item['quote_id'] = $quote_id;
+						$this->db->insert('quote_items', $item);
+					}
+				}
+				
 				if($collateral_) {
 					$collateral_['quote_id']=$quote_id;
 					$this->db->insert('collateral', $collateral_);
 					$this->site->updateReference('cl');
 				}
 				
-				//if ($this->site->getReference('qu')){
-					$this->site->updateReference('qu');
-				//}
-
+				if($saving){
+					$saving['quotes_id']= $quote_id;
+					$saving['customer_id'] = $com_id;
+					$this->db->insert('quotes', $saving);
+					$saving_id = $this->db->insert_id();
+					
+					$saving_item['quote_id']=$saving_id;
+					$this->db->insert('quote_items', $saving_item);
+				}
+				
+				$this->site->updateReference('qu');
+				
 				foreach($documentsArray as $docs)
 				{
 					$this->db->insert('quote_photos',array('quote_id' => $quote_id, 'name' => $docs['name'], 'type' => $docs['type']));
@@ -366,17 +381,12 @@ class Quotes_model extends CI_Model
 
 				#insert Service into table qoute_service
 				if(is_array($services)){
-				foreach ($services as $sv) {
-					$sv['quote_id'] = $quote_id;
-					$this->db->insert('quote_services', $sv);
+					foreach ($services as $sv) {
+						$sv['quote_id'] = $quote_id;
+						$this->db->insert('quote_services', $sv);
 					}
 				}
-				if(is_array($items)){
-				foreach ($items as $item) {
-					$item['quote_id'] = $quote_id;
-					$this->db->insert('quote_items', $item);
-				}
-				}
+				
 				if($field_check) {
 					$field_check['quote_id'] = $quote_id;
 					$this->db->insert('field_check', $field_check);
@@ -388,7 +398,7 @@ class Quotes_model extends CI_Model
 		
         return false;
     }
-	public function addApplicant($data = array(), $items = array(), $services = array(), $guarantor_ = array(), $employee_ = array(), $documentsArray = array(), $customers = array(), $field_check = array(),$collateral_= array(), $join_lease = array(), $join_guarantor = array())
+	public function addApplicant($data = array(), $items = array(), $services = array(), $guarantor_ = array(), $employee_ = array(), $documentsArray = array(), $customers = array(), $field_check = array(),$collateral_= array(), $join_lease = array(), $join_guarantor = array(), $saving = array(), $saving_item =array())
     {	
 		
         $guarantor  = $this->db;
@@ -439,10 +449,18 @@ class Quotes_model extends CI_Model
 					$this->db->insert('collateral', $collateral_);
 					$this->site->updateReference('cl');
 				}
+				$this->site->updateReference('qu');
 				
-				//if ($this->site->getReference('qu')) {
-					$this->site->updateReference('qu');
-				//}
+				
+				if($saving){
+					$saving['quotes_id']= $quote_id;
+					$saving['customer_id'] = $cid;
+					$this->db->insert('quotes', $saving);	
+					$saving_id = $this->db->insert_id();
+					
+					$saving_item['quote_id']=$saving_id;
+					$this->db->insert('quote_items', $saving_item);
+				}
 
 				foreach($documentsArray as $docs)
 				{
@@ -549,9 +567,9 @@ class Quotes_model extends CI_Model
     }
 	*/
 	
-	public function updateQuotationDetails($id, $data, $services = array(), $items, $employee = array(), $guarantor = array(), $documentsArray = array(), $customers = array(), $field_check = array(),$collaterals= array(), $group_loan= array(), $join_lease = array(), $join_guarantor = array())
-    {
-		//$this->erp->print_arrays($collaterals);
+	public function updateQuotationDetails($id, $data, $services = array(), $items, $employee = array(), $guarantor = array(), $documentsArray = array(), $customers = array(), $field_check = array(),$collaterals= array(), $group_loan= array(), $join_lease = array(), $join_guarantor = array(), $saving = array(), $saving_item = array())
+    {	
+		
 		$quote           = $this->getQuoteByID($id);
 		$emp_id          = $quote->employee_id;
 		$guarantor_id    = $quote->guarantor_id;
@@ -707,11 +725,34 @@ class Quotes_model extends CI_Model
 				
 				$this->db->delete('quote_items', array('quote_id' => $id));
 				if(is_array($items)){
-				foreach ($items as $item) {
-					$item['quote_id'] = $id;
-					$this->db->insert('quote_items', $item);
+					foreach ($items as $item) {
+						$item['quote_id'] = $id;
+						$this->db->insert('quote_items', $item);
+					}
 				}
-				}
+				
+				$saving_ = $this->getQuoteSavingQuoteID($id);
+				if($saving){
+					if($saving_){
+						$saving['quotes_id']= $id;
+						$saving['customer_id'] = $customer_id;
+						$this->db->update('quotes', $saving , array('quotes_id' => $id));						
+						$this->db->update('quote_items', $saving_item , array('quote_id' => $saving_->id));
+					}else {
+						$saving['quotes_id']= $id;
+						$saving['customer_id'] = $customer_id;
+						$this->db->insert('quotes', $saving);
+						$saving_id = $this->db->insert_id();
+					
+						$saving_item['quote_id']=$saving_id;
+						$this->db->insert('quote_items', $saving_item);
+					}
+
+				}else{
+					$this->db->delete('quotes', array('quotes_id' => $id));
+					$this->db->delete('quote_items', array('quote_id' => $saving_->id));
+				} 
+				
 				$quote           = $this->getQuoteByID($id);
 				$emp_id          = $quote->employee_id;
 				$guarantor_id    = $quote->guarantor_id;
@@ -781,7 +822,7 @@ class Quotes_model extends CI_Model
         }
         return FALSE;
 	}
-	public function getApprovedApplicant($id = NULL, $data = array(), $items = array(), $quote_reject=array(), $agency=array())
+	public function getApprovedApplicant($id = NULL, $data = array(), $items = array(), $quote_reject=array(), $agency=array(), $saving = array(), $saving_item = array())
 	{
 		//$this->erp->print_arrays($companies);
 		$due_date = $data['due_date'];
@@ -789,7 +830,7 @@ class Quotes_model extends CI_Model
 			if($data['status'] == 'approved') {
 				$quote['approved_date'] = $data['approved_date'];
 				$quote['acceptation_date'] = date('Y-m-d H:i:s');
-				$quote['status'] = 'approved';
+				$quote['quote_status'] = 'approved';
 			} elseif($data['status'] == 'rejected') {
 				$quote['approved_date'] = $data['approved_date'];;
 				unset($data['due_date']);
@@ -807,13 +848,16 @@ class Quotes_model extends CI_Model
 	
 		}
 		
+		$quotesSaving = $this->getQuoteSavingQuoteID($id);
 		$quote['updated_by'] = $this->session->userdata('user_id');
 		if ($this->db->update('quotes', $quote, array('id' => $id))) {	
 			if($data['status'] == 'rejected'){
-				$this->db->update('quotes',array('status'=>$data['status']),array('id'=>$id));			
+				$this->db->update('quotes',array('quote_status'=>$data['status']),array('id'=>$id));
+
+				$this->db->update('quotes',array('quote_status'=>$data['status']),array('id'=>$quotesSaving->id));
 				
 				if($contract = $this->getSaleByQuoteID($id)){
-					$data['status']='loan';
+					$data['status']='loans';
 					$this->db->update('sales', array('sale_status' => $data['status']), array('id' => $contract->id));
 				}
 			}	
@@ -860,20 +904,40 @@ class Quotes_model extends CI_Model
 					$data['quote_id'] = $id;
 					$data['status']='loans';
 					$data['approved_date'] = $date_now;
-					$data['reference_no'] = $this->site->getReference('so');
+					$sale_ref = $this->site->getReference('so');
+					$data['reference_no'] = $sale_ref;
 					$data['updated_by'] = $this->session->userdata('user_id');
 					if($this->db->insert('sales', $data)){
 						$sale_id = $this->db->insert_id();
 						$default_currency = $this->get_setting();
 						$quote_services = $this->getServicesByQuoteID($id);
-						
+
 						foreach ($items as $sale) {
 							$sale['sale_id'] = $sale_id;
 							$this->db->insert('sale_items', $sale);
 						}
+
+						if($saving){
+							$saving['sales_id'] = $sale_id;
+							$saving['reference_no'] = $sale_ref;
+							$saving['sale_status'] = 'approved';
+							$this->db->insert('sales', $saving);
+							$save_id = $this->db->insert_id();
+
+							$saving_item['sale_id'] = $save_id;
+							$this->db->insert('sale_items', $saving_item);
+
+							$this->db->update('quotes',array('quote_status'=>'approved'),array('id'=>$quotesSaving->id));
+						}
 						
 						$total = $this->erp->convertCurrency($sale['currency_code'], $default_currency->default_currency, $data['total']); /////convertCurrencyBack
-					
+						
+						$saving_rate = $saving['saving_rate'] ? $saving['saving_rate'] : 0;
+						$saving_amt = $this->erp->convertCurrency($sale['currency_code'], $default_currency->default_currency, $saving['saving_amount']);
+						$saving_amount = $saving_amt ? $saving_amt : 0;
+						$saving_interest_rate = $saving['saving_interest_rate'] ? $saving['saving_interest_rate'] : 0;
+						$saving_type = $saving['saving_type'] ? $saving['saving_type'] : 0;
+
 						if($quote_services) {
 							foreach($quote_services as $qs) {
 								if ($qs->type=='Percentage'){
@@ -888,7 +952,7 @@ class Quotes_model extends CI_Model
 						
 						$holiday = $this->getHolidays();
 						if($data['mfi']) {
-							$loan = $this->erp->getPaymentSchedule($sale_id, $total, $data['rate_type'], $data['interest_rate'], $data['term'], $data['frequency'], $due_date, $date_now, $sale['currency_code'], $data['principle_frequency'] );
+							$loan = $this->erp->getPaymentSchedule($sale_id, $total, $data['rate_type'], $data['interest_rate'], $data['term'], $data['frequency'], $due_date, $date_now, $sale['currency_code'], $data['principle_frequency'], $saving_amount, $saving_interest_rate, $saving_type );
 							//$this->erp->print_arrays($loan);
 							if($loan) {
 								$this->addLoan($loan);
@@ -901,13 +965,12 @@ class Quotes_model extends CI_Model
 			}
 			return true;
 		}
-			
         return false;
 	}
-	
+
 	public function addLoan($data = array()) {
 		if($data) {
-			foreach($data as $dt) {
+			foreach($data as $dt) { 
 				$this->db->insert('loans', $dt);
 			}
 		}
@@ -925,7 +988,6 @@ class Quotes_model extends CI_Model
         }
         return FALSE;
 	}
-	
 	public function getQuoteItemByQuoteID($id = NULL)
 	{
 		$q = $this->db->get_where('quote_items' , array('quote_id' => $id));
@@ -935,6 +997,24 @@ class Quotes_model extends CI_Model
             }
 
             return $data;
+        }
+        return FALSE;
+	}
+	
+	public function getQuoteSavingQuoteID($id = NULL)
+	{
+		$q = $this->db->get_where('quotes' , array('quotes_id' => $id));
+		if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+	}
+	
+	public function getSaveItemBySaveID($id = NULL)
+	{
+		$q = $this->db->get_where('quote_items' , array('quote_id' => $id));
+		if ($q->num_rows() > 0) {
+            return $q->row();
         }
         return FALSE;
 	}

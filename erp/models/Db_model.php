@@ -187,7 +187,7 @@ class Db_model extends CI_Model
 					CONCAT(".$this->db->dbprefix('companies').".family_name_other, ' ', ".$this->db->dbprefix('companies').".name_other) as customer_name_kh, ".	
 					$this->db->dbprefix('quote_items').".product_name AS asset,".
 					$this->db->dbprefix('quotes').".biller,".						
-					$this->db->dbprefix('quotes').".status,".
+					$this->db->dbprefix('quotes').".quote_status as status,".
 					$this->db->dbprefix('quotes').".date,".
 					$this->db->dbprefix('quotes').".approved_date,".
 					$this->db->dbprefix('sales').".issue_date, ".
@@ -209,14 +209,16 @@ class Db_model extends CI_Model
 						$this->db->where('quotes.branch_id', $this->session->branch_id);
 					}
 					if(!$view_draft && !($this->Owner || $this->Admin)) {
-						$this->db->where('erp_quotes.status <>', 'draft');
-						$this->db->where('erp_quotes.status <>', 'activated');
-						$this->db->where('erp_quotes.status <>', 'approved');
-						$this->db->where('erp_quotes.status <>', 'completed');
+						$this->db->where('erp_quotes.quote_status <>', 'draft');
+						$this->db->where('erp_quotes.quote_status <>', 'activated');
+						$this->db->where('erp_quotes.quote_status <>', 'approved');
+						$this->db->where('erp_quotes.quote_status <>', 'completed');
+						$this->db->where('erp_quotes.status', 'loans');
 					}
-					$this->db->where('erp_quotes.status <>', 'activated');
-					$this->db->where('erp_quotes.status <>', 'approved');
-					$this->db->where('erp_quotes.status <>', 'completed');
+					$this->db->where('erp_quotes.quote_status <>', 'activated');
+					$this->db->where('erp_quotes.quote_status <>', 'approved');
+					$this->db->where('erp_quotes.quote_status <>', 'completed');
+					$this->db->where('erp_quotes.status', 'loans');
 					$this->db->order_by('quotes.date DESC');
 					$this->db->limit(20);
 					$q = $this->db->get();
@@ -276,7 +278,7 @@ class Db_model extends CI_Model
 					CONCAT(".$this->db->dbprefix('companies').".family_name_other, ' ', ".$this->db->dbprefix('companies').".name_other) as customer_name_kh, ".	
 					$this->db->dbprefix('quote_items').".product_name AS asset,".
 					$this->db->dbprefix('quotes').".biller,".						
-					$this->db->dbprefix('quotes').".status,".
+					$this->db->dbprefix('quotes').".quote_status as status,".
 					$this->db->dbprefix('quotes').".date,".
 					$this->db->dbprefix('quotes').".approved_date,".
 					$this->db->dbprefix('sales').".issue_date, ".
@@ -298,15 +300,17 @@ class Db_model extends CI_Model
 						$this->db->where('quotes.branch_id', $this->session->branch_id);
 					}
 					if(!$view_draft && !($this->Owner || $this->Admin)){
-						$this->db->where('erp_quotes.status <>', 'draft');
-						$this->db->where('quotes.status <>', 'activated');
-						$this->db->where('quotes.status <>', 'approved');
-						$this->db->where('quotes.status <>', 'completed');
+						$this->db->where('erp_quotes.quote_status <>', 'draft');
+						$this->db->where('quotes.quote_status <>', 'activated');
+						$this->db->where('quotes.quote_status <>', 'approved');
+						$this->db->where('quotes.quote_status <>', 'completed');
+						$this->db->where('erp_quotes.status', 'loans');
 					}
 					$this->db->where('quotes.loan_group_id !=',null);
-					$this->db->where('quotes.status <>', 'activated');
-					$this->db->where('quotes.status <>', 'approved');
-					$this->db->where('quotes.status <>', 'completed');
+					$this->db->where('quotes.quote_status <>', 'activated');
+					$this->db->where('quotes.quote_status <>', 'approved');
+					$this->db->where('quotes.quote_status <>', 'completed');
+					$this->db->where('erp_quotes.status', 'loans');
 					$this->db->order_by('quotes.date DESC');
 					$this->db->limit(20);
 					$q = $this->db->get();
@@ -363,6 +367,7 @@ class Db_model extends CI_Model
 				->join('currencies','currencies.code = quote_items.currency_code','left')
 				->join('loan_groups','loan_groups.id = sales.loan_group_id','left')
 				->where($this->db->dbprefix('sales').'.sale_status !=', 'registered')
+				->where($this->db->dbprefix('sales').'.status', 'loans')
 				->group_by('sales.id')
 				->order_by('sales.id','DESC');
 				$this->db->limit(20);
@@ -423,6 +428,7 @@ class Db_model extends CI_Model
 		$settings = $this->getSettingCurrncy();
 		$this->db->select('COUNT(erp_quotes.id) as app_num, 
 		SUM('.$this->db->dbprefix('quotes').'.total) as app_amount');
+		$this->db->where('status','loans');
 		$q = $this->db->get('quotes', 1);
 		if($q->num_rows() > 0) {
 			return $q->row();
@@ -465,7 +471,8 @@ class Db_model extends CI_Model
 	function getAllRejected(){
 		$this->db->select('COUNT(erp_quotes.id) as reject_num, 
 		SUM('.$this->db->dbprefix('quotes').'.total) as total_rejectd');
-		$this->db->where('status','rejected');
+		$this->db->where('quote_status','rejected');
+		$this->db->where('status','loans');
 		$q = $this->db->get('quotes', 1);
 		if($q->num_rows() > 0) {
 			return $q->row();
@@ -485,7 +492,7 @@ class Db_model extends CI_Model
 	}
 	function CountID_Quotes(){
 		$this->db->select('COUNT(erp_quotes.id) as id');
-		$this->db->where('erp_quotes.status','applicant');
+		$this->db->where('erp_quotes.quote_status','applicant');
 		$q = $this->db->get('quotes');
 		if($q->num_rows() > 0) {
 			return $q->row();
@@ -494,7 +501,7 @@ class Db_model extends CI_Model
 	}
 	function CountGroupLoan_Quotes(){
 		$this->db->select('COUNT(erp_quotes.loan_group_id) as id');
-		$this->db->where('erp_quotes.status','applicant');
+		$this->db->where('erp_quotes.quote_status','applicant');
 		$q = $this->db->get('quotes');
 		
 		if($q->num_rows() > 0) {
@@ -515,14 +522,17 @@ class Db_model extends CI_Model
         }
         return FALSE;
 	}
+	
 	function getSaleTotal(){
 		$this->db->select('SUM(erp_sales.total) as s_total');
+		$this->db->where('status','loans');
 		$q=$this->db->get('sales',1);
 		if($q->num_rows()>0){
 			return $q->row();
 		}
 		return false;
 	}
+	
 	function getPayment_amount(){
 		$this->db->select('SUM(erp_payments.principle_amount) as p_amt');
 		$q=$this->db->get('erp_payments',1);
@@ -531,6 +541,7 @@ class Db_model extends CI_Model
 		}
 		return false;
 	}
+	
 	function getExpanse()
 	{
 		$this->db->select('SUM(erp_expenses.amount) AS total_expanse');
