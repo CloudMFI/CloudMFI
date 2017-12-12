@@ -782,7 +782,7 @@
 											</li>
 
 														
-											<li class="mm_nbc_reports"><!--- FRC Report-->
+											<li class="mm_nbc_reports"><!--- FRD Report-->
 												<a class="dropmenu" href="#">
 													<i class="fa fa-money"></i>
 													<span class="text"> <?= lang('nec_report'); ?> </span>
@@ -829,69 +829,75 @@
 														<a href="<?= site_url('reports/income_statement_report') ?>">
 															<i class="fa fa-list"></i><span class="text">Monthly Progress Report</span>
 														</a>
-													</li><!-- Amm change -->
+													</li>
+													<li id="reports_balance_sheet_reports"> <!-- MSM Dec12 2017 add new report at FRD -->
+														<a href="<?= site_url('reports/planning_monthly_report') ?>">
+															<i class="fa fa-list"></i><span class="text">Planning Monthly Report</span>
+														</a>
+													</li>
+													<!-- Amm change -->
 												</ul>
 											</li>
 
-																			<!-- Old Version
-																			<li id="reports_balance_sheet_reports">
-																				<a href="<?= site_url('reports/balance_sheet_reports') ?>">
-																					<i class="fa fa-list"></i><span class="text"> <?= lang('balance_sheet_reports'); ?></span>
-																				</a>
-																			</li>
-																			<li id="reports_income_statement_report">
-																				<a href="<?= site_url('reports/income_statement_report') ?>">
-																					<i class="fa fa-list"></i><span class="text"> <?= lang('income_statement_report'); ?></span>
-																				</a>
-																			</li>
-																			<li id="reports_income_statement_report">
-																				<a href="<?= site_url('reports/income_statement_report') ?>">
-																					<i class="fa fa-list"></i><span class="text"> <?= lang('income_statement_report'); ?></span>
-																				</a>
-																			</li>
-																			<li id="reports_loan_classification">
-																				<a href="<?= site_url('reports/loan_classification') ?>">
-																					<i class="fa fa-list"></i><span class="text"> <?= lang('loan_classification'); ?></span>
-																				</a>
-																			</li>
-																			<li id="reports_weigth_interest_rate_report">
-																				<a href="<?= site_url('reports/weigth_interest_rate_report') ?>">
-																					<i class="fa fa-list"></i><span class="text"> <?= lang('weigth_interest_rate_report'); ?></span>
-																				</a>
-																			</li>
-																			<li id="reports_credit_by_types_report">
-																				<a href="<?= site_url('reports/credit_by_types_report') ?>">
-																					<i class="fa fa-list"></i><span class="text"> <?= lang('credit_by_types_report'); ?></span>
-																				</a>
-																			</li>
-																			<li id="reports_credit_by_currencies_report">
-																				<a href="<?= site_url('reports/credit_by_currencies_report') ?>">
-																					<i class="fa fa-list"></i><span class="text"> <?= lang('credit_by_currencies_report'); ?></span>
-																				</a>
-																			</li>
-																			<li id="reports_large_exposure_report">
-																				<a href="<?= site_url('reports/large_exposure_report') ?>">
-																					<i class="fa fa-list"></i><span class="text"> <?= lang('large_exposure_report'); ?></span>
-																				</a>
-																			</li>
-																			<li id="reports_deposit_by_types_report">
-																				<a href="<?= site_url('reports/deposit_by_types_report') ?>">
-																					<i class="fa fa-list"></i><span class="text"> <?= lang('deposit_by_types_report'); ?></span>
-																				</a>
-																			</li>
-																			<li id="reports_deposit_by_currencies">
-																				<a href="<?= site_url('reports/deposit_by_currencies') ?>">
-																					<i class="fa fa-list"></i><span class="text"> <?= lang('deposit_by_currencies'); ?></span>
-																				</a>
-																			</li>
-																			<li id="reports_network_informations">
-																				<a href="<?= site_url('reports/network_informations') ?>">
-																					<i class="fa fa-list"></i><span class="text"> <?= lang('network_informations'); ?></span>
-																				</a>
-																			</li>
-																			
-																		</ul>
-																	</li> Old Version -->
+													<!-- Old Version
+													<li id="reports_balance_sheet_reports">
+														<a href="<?= site_url('reports/balance_sheet_reports') ?>">
+															<i class="fa fa-list"></i><span class="text"> <?= lang('balance_sheet_reports'); ?></span>
+														</a>
+													</li>
+													<li id="reports_income_statement_report">
+														<a href="<?= site_url('reports/income_statement_report') ?>">
+															<i class="fa fa-list"></i><span class="text"> <?= lang('income_statement_report'); ?></span>
+														</a>
+													</li>
+													<li id="reports_income_statement_report">
+														<a href="<?= site_url('reports/income_statement_report') ?>">
+															<i class="fa fa-list"></i><span class="text"> <?= lang('income_statement_report'); ?></span>
+														</a>
+													</li>
+													<li id="reports_loan_classification">
+														<a href="<?= site_url('reports/loan_classification') ?>">
+															<i class="fa fa-list"></i><span class="text"> <?= lang('loan_classification'); ?></span>
+														</a>
+													</li>
+													<li id="reports_weigth_interest_rate_report">
+														<a href="<?= site_url('reports/weigth_interest_rate_report') ?>">
+															<i class="fa fa-list"></i><span class="text"> <?= lang('weigth_interest_rate_report'); ?></span>
+														</a>
+													</li>
+													<li id="reports_credit_by_types_report">
+														<a href="<?= site_url('reports/credit_by_types_report') ?>">
+															<i class="fa fa-list"></i><span class="text"> <?= lang('credit_by_types_report'); ?></span>
+														</a>
+													</li>
+													<li id="reports_credit_by_currencies_report">
+														<a href="<?= site_url('reports/credit_by_currencies_report') ?>">
+															<i class="fa fa-list"></i><span class="text"> <?= lang('credit_by_currencies_report'); ?></span>
+														</a>
+													</li>
+													<li id="reports_large_exposure_report">
+														<a href="<?= site_url('reports/large_exposure_report') ?>">
+															<i class="fa fa-list"></i><span class="text"> <?= lang('large_exposure_report'); ?></span>
+														</a>
+													</li>
+													<li id="reports_deposit_by_types_report">
+														<a href="<?= site_url('reports/deposit_by_types_report') ?>">
+															<i class="fa fa-list"></i><span class="text"> <?= lang('deposit_by_types_report'); ?></span>
+														</a>
+													</li>
+													<li id="reports_deposit_by_currencies">
+														<a href="<?= site_url('reports/deposit_by_currencies') ?>">
+															<i class="fa fa-list"></i><span class="text"> <?= lang('deposit_by_currencies'); ?></span>
+														</a>
+													</li>
+													<li id="reports_network_informations">
+														<a href="<?= site_url('reports/network_informations') ?>">
+															<i class="fa fa-list"></i><span class="text"> <?= lang('network_informations'); ?></span>
+														</a>
+													</li>
+													
+												</ul>
+											</li> Old Version -->
 
 
 
