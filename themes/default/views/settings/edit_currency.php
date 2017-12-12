@@ -1,4 +1,4 @@
-<div class="modal-dialog">
+<div class="modal-dialog" style="width:700px;">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-2x">&times;</i>
@@ -32,24 +32,28 @@
                 <label class="control-label" for="rate"><?php echo $this->lang->line("exchange_rate"); ?></label>
 
                 <div
-                    class="controls"> <?php echo form_input('rate', $currency->rate, 'class="form-control" id="rate" required="required"'); ?> </div>
+                    class="controls"> <?php echo form_input('rate', $this->erp->formatDecimal($currency->rate), 'class="form-control" id="rate" required="required"'); ?> </div>
             </div>
 			
 			<div class="form-group all">
 				<?= lang("currency_type_*", "currency_type"); ?>
 				<div class="form-group all" style="border: solid 1px #ccc; height:40px; padding:10px;">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<b>Hundred Round</b>	
 						<input type="checkbox" name="hundred" id="hundred" value="1" class="check" <?php echo($currency->currency_type=='1'?'checked="checked"':''); ?>/>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<b>No Decimal</b>	
 						<input type="checkbox" name="no_decimal" id="no_decimal" value="2" class="check" <?php echo($currency->currency_type=='2'?'checked="checked"':''); ?>/>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<b>Decimal Round</b>	
 						<input type="checkbox" name="decimal" id="decimal" value="3" class="check" <?php echo($currency->currency_type=='3'?'checked="checked"':''); ?>/>
-					</div>			
+					</div>
+					<div class="col-sm-3">
+						<b>Kyat Round</b>	
+						<input type="checkbox" name="kyat_round" id="kyat_round" value="4" class="check" <?php echo($currency->currency_type=='4'?'checked="checked"':''); ?>/>
+					</div>
 				</div>
 			</div>
 			

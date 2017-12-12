@@ -2321,7 +2321,7 @@ class Down_Payment extends MY_Controller
 					fclose($handle);
 				}
 				$titles = array_shift($arrResult);
-				$keys = array('identify','gov_id', 'family_name', 'family_name_other','name', 'name_other','gender','date_of_birth', 'age', 'phone1','phone2','status','address','nationality','country','state','district','sangkat','village','house_no','housing','years','months','issue_by','issue_date','created_by');
+				$keys = array('identify','gov_id', 'family_name', 'family_name_other','name', 'name_other','gender','date_of_birth', 'age', 'phone1','phone2','status','address','nationality','country','state','district','sangkat','village','house_no','housing','years','months','issue_by','issue_date');
 				$final = array();
 				foreach ($arrResult as $key => $value) {
 					$final[] = array_combine($keys, $value);
@@ -2356,7 +2356,6 @@ class Down_Payment extends MY_Controller
 										'address'                => $value['address'],
 										'nationality'            => $value['nationality'],
 										'country'                => $value['country'],
-										//'city'           		 => $value['city'],
 										'state'           		 => $value['state'],
 										'district'               => $value['district'],										
 										'sangkat'                => $value['sangkat'],
@@ -2367,7 +2366,6 @@ class Down_Payment extends MY_Controller
 										'months'                 => $value['months'],
 										'issue_by'				 => $value['issue_by'],
 										'issue_date'			 => $this->erp->fld($value['issue_date']),
-										//'created_by'			 => $value['created_by'],
 									);	
 				}
 						
@@ -2490,7 +2488,7 @@ class Down_Payment extends MY_Controller
 									'grand_total'               => str_replace(',', '',$disbure_amount),
 									//'disburse'              	 => $value['disburse'],
 									'status'					=> 'loans',
-									'sale_status'				=> $value['status'],
+									'sale_status'				=> 'activated',
 									//'payment_status'			=> $payment_status,
 									//'paid'					=> $paid,
 									'paid'						=> $this->erp->formatDecimal($value['paid']),

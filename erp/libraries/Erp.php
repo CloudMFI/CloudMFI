@@ -1761,6 +1761,11 @@ class Erp
 				$ds = $this->Settings->decimals_sep;
 				return number_format($number, $decimals, $ds, $ts);
                 break;
+			case 4:
+                $devide = round($number/50);
+				$result = ($devide * 50);
+				return number_format($result);
+                break;
             default:
                 if ($this->Settings->sac) {
 					return ($this->Settings->display_symbol == 1 ? $this->Settings->symbol : '') .
