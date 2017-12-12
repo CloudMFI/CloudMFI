@@ -1,7 +1,7 @@
 <link href="https://fonts.googleapis.com/css?family=Battambang" rel="stylesheet"> 
  <?php
 	$sale->total = $this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $sale->total);
-	//$this->erp->print_arrays($last_payment);
+ //$this->erp->print_arrays($saving);
 ?>
  <style type="text/css">
     .container {
@@ -203,7 +203,9 @@
 										?>
 										<td class="t_c" style="width:10%;"><?= lang("principle_balance") ?></td>
 										<td class="t_c" style="width:10%;"><?= lang("total_intallment") ?></td>
+										<?php if($saving){?>
 										<td class="t_c" style="width:7%;"><?= lang("saving_interest") ?></td>
+										<?php }?>
 										<td class="t_c" style="padding: 5px; width:10%;"><?= lang("action") ?></td>
 									</tr>						
 									<?php
@@ -305,10 +307,11 @@
 												}
 												$balances = (($pt->balance > 0)? $pt->balance : 0);
 											echo '<td class="t_c" style="padding-left:5px;padding-right:5px; width:10%">'. $this->erp->roundUpMoney($balances, $sale_item->currency_code) .'</td>
-												  <td class="t_c" style="padding-left:5px;padding-right:5px; width:10%">'. $this->erp->roundUpMoney($payment, $sale_item->currency_code) .'</td>
-												  <td class="t_r" style="padding-left:5px;padding-right:25px;font-weight:normal; text-align:right">'. $saving_interest  .'</td>
-												 ';	
-
+												  <td class="t_c" style="padding-left:5px;padding-right:5px; width:10%">'. $this->erp->roundUpMoney($payment, $sale_item->currency_code) .'</td>';	
+											if($saving){
+												echo 
+												 '<td class="t_r" style="padding-left:5px;padding-right:25px;font-weight:normal; text-align:right">'. $saving_interest  .'</td>';}
+							
 												if ($pt->id <= $last_payment->loan_id){
 													if ($pt->id < $last_payment->loan_id){
 														$re_payment ='&ensp; &ensp;';
@@ -365,7 +368,9 @@
 										
 										<td></td>
 										<td class="t_c" style="padding-left:5px;padding-right:5px;"><?= $this->erp->roundUpMoney($total_pay, $sale_item->currency_code); ?></td>
+										<?php if ($saving){?>
 										<td class="t_r" style="padding-left:5px;padding-right:25px; text-align:right"><?= $this->erp->roundUpMoney($total_saving,$sale_item->currency_code); ?></td>
+										<?php } ?>
 										<td></td>
 										
 									</tr>
