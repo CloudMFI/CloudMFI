@@ -143,7 +143,7 @@ if (isset($biller_id)) {
                 nCells[12].innerHTML = currencyFormat(parseFloat(total));
             }
         }).fnSetFilteringDelay().dtFilter([
-            {column_number: 1, filter_default_label: "[<?=lang('date');?> (yyyy-mm-dd)]", filter_type: "text", data: []},
+            {column_number: 1, filter_default_label: "[<?=lang('date');?> (dd-mm-yyyy)]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('pay_term');?>]", filter_type: "text", data: []},
 			{column_number: 3, filter_default_label: "[<?=lang('payment_ref');?>]", filter_type: "text", data: []},
 			{column_number: 4, filter_default_label: "[<?=lang('customer');?>]", filter_type: "text", data: []},

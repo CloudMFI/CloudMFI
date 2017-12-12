@@ -41,10 +41,10 @@
 									
 								</div>
 								
-								<div class="col-md-6">									
+								<div class="col-md-6"> 
 									<div class="form-group">
 										<?= lang("date", "date"); ?>
-										<?php echo form_input('date', (isset($_POST['date']) ? $_POST['date'] : ''), 'class="form-control date" id="date" data-bv-notempty="true"'); ?>
+										<?php echo form_input('date', (isset($_POST['date']) ? $_POST['date'] : date('d/m/Y')), 'class="form-control date" id="date" data-bv-notempty="true"'); ?>
 									</div>
 								</div>
 							</div>
@@ -217,7 +217,7 @@
 						$('#owed_balance').val(formatMoney(scdata.sumOweds));
 						$('#saving_interest').val(scdata.saving_interest);
 						$('#loan_id').val(scdata.id);
-						$('#date').val(scdata.dateline);
+						//$('#date').val(scdata.dateline);
 						$('#name').val(scdata.customer);
 						var haftterm = scdata.haftterm;
 						var period = scdata.period;

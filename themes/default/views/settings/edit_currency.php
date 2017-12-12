@@ -20,19 +20,22 @@
                 <label class="control-label" for="name"><?php echo $this->lang->line("currency_name"); ?></label>
 
                 <div
-                    class="controls"> <?php echo form_input('name', $currency->name, 'class="form-control" id="name" required="required"'); ?> </div>
+                    class="controls"> <?php echo form_input('name', $currency->name, 'class="form-control" id="name" required="required"'); ?> 
+				</div>
             </div>
             <div class="form-group">
                 <label class="control-label" for="name_other"><?php echo $this->lang->line("currency_name_other"); ?></label>
 
                 <div
-                    class="controls"> <?php echo form_input('name_other', $currency->name_other, 'class="form-control" id="name_other" required="required"'); ?> </div>
+                    class="controls"> <?php echo form_input('name_other', $currency->name_other, 'class="form-control" id="name_other" required="required"'); ?> 
+				</div>
             </div>
             <div class="form-group">
                 <label class="control-label" for="rate"><?php echo $this->lang->line("exchange_rate"); ?></label>
 
                 <div
-                    class="controls"> <?php echo form_input('rate', $this->erp->formatDecimal($currency->rate), 'class="form-control" id="rate" required="required"'); ?> </div>
+                    class="controls"> <?php echo form_input('rate', $this->erp->formatDecimal($currency->rate), 'class="form-control" id="rate" required="required"'); ?> 
+				</div>
             </div>
 			
 			<div class="form-group all">

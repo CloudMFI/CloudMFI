@@ -8754,6 +8754,7 @@ class Installment_Payment extends MY_Controller
 			$this->data['countloans'] = $countloans;
 			$this->data['sale_id'] = $sale_id;
 			$this->data['sale_item'] = $sale_item;
+			$this->data['saving'] = $this->installment_payment_model->getSaleSavingSaleID($sale_id);
 			$this->data['collateraltype'] = $this->installment_payment_model->getCollateralBySale($sale_id);
 			$this->data['total_service'] = $this->installment_payment_model->getservicefee($sale_id);
 			$this->data['services'] = $this->installment_payment_model->getServices($sale_id);
@@ -8889,6 +8890,7 @@ class Installment_Payment extends MY_Controller
 		$this->data['customer'] = $customer;
 		$this->data['loan'] = $loans;
 		$this->data['sale_item'] = $sale_item;
+		$this->data['saving'] = $this->installment_payment_model->getSaleSavingSaleID($id);
 		$this->data['loans'] = $this->installment_payment_model->getBalanceBysale($id);
 		$this->data['currency'] = $this->site->getCurrencyByCode($sale_item->currency_code);
 		$this->data['tloans'] = $this->site->getAllTotalLoanBySaleID($sale->id);
