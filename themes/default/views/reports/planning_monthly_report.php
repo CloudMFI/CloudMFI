@@ -1,4 +1,3 @@
-<?php //$this->erp->print_arrays($contract_info) ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -140,19 +139,19 @@
 						<td style="padding:5px"> </td>
 						<td style="padding:5px"> </td>
 						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
+						<td class="no_border3"> </td>
+						<td class="no_border3"> -</td>
 					</tr>
 					<tr>
 						<td class="no_border"> </td>
 						<td class="no_border1">Total </td>
-						<td  class="no_border">Ks </td>
+						<td  class="no_border"></td>
 						<td style="padding:5px"> </td>
 						<td style="padding:5px"> </td>
 						<td style="padding:5px"> </td>
 						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
+						<td class="no_border3"> -</td>
+						<td class="no_border3"> -</td>
 					</tr>
 					<tr>
 						<td class="no_border"></td>
