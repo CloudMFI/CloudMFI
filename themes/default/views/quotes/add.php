@@ -395,6 +395,7 @@
 																		<!-- Country end -->
 																		<div class="form-group">
 																			<?= lang("district", "cus_district"); ?>
+																			<strong>/Township</strong>
 																			<?php echo form_input('cus_district', isset($customer->district)?$customer->district:$applicant->district, 'class="form-control" id="cus_district"  placeholder="' . lang("select_province_to_load") . '" data-bv-notempty="true"');?>
 																		</div>
 																		<!-- District end -->
@@ -413,6 +414,7 @@
 																	<div class="col-md-6">
 																		<div class="form-group">
 																			<?= lang("province", "cus_province"); ?>
+																			<strong>/State</strong>
 																			<?php echo form_input('cus_province', isset($customer->province)?$customer->province: isset($applicant->state)?$applicant->state:$branch->state, 'class="form-control" id="cus_province"  placeholder="' . lang("select_province") . '" required="required"');?>
 																		</div>
 																		<!-- Provience end -->
