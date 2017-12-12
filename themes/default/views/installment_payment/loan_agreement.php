@@ -53,6 +53,9 @@
 			vertical-align:center;
 			text-align: center;
 		}
+		span{
+			font-size:13px;
+		}
 
 	</style>
 	</head>
@@ -76,7 +79,7 @@
 			
 			</div>
 			<div>
-				<p style="text-align:center;" class="small-letter"> <b>လိုင်စင်ရဘဏ္ဍာရေးစက်မှုလုပ်ငန်း</b></p>
+				<p style="text-align:center;" class="small-letter"> <b>လိုင္စင္ရဘ႑ာေရးစက္မႈလုပ္ငန္း</b></p>
 				<p style="text-align:center;" class="small-letter"> <b>အုပ္စု ေခ်းေငြစာခ်ုပ္</b></p>
 			</div>
 			
@@ -126,12 +129,12 @@
 			<div style=" padding-left:10px; padding-right:10px;">
 				<table border="1" style="max-width:100%; font-size:11px;">
 					<tr>
-						<th style="width:5%">No.</th>
-						<th style="width:10%">Loan ID</th>
-						<th style="width:20%">Borrower Name</th>
-						<th style="width:15%"> NRC No </th>
-						<th style="width:10%">Loan Amount</th>
-						<th style="width:10%">Signature</th>
+						<th style="width:5%"><span>(စဥ္)</span><br>No</th>
+						<th style="width:10%"><span>( ေခ်းေငြ    ID)</span><br>Loan ID</th>
+						<th style="width:20%"><span>(ေငြေခ်းသူအမည္)</span><br>Borrower Name</th>
+						<th style="width:15%"><span>(မွတ္ပံုတင္အမွတ္)</span><br> NRC No </th>
+						<th style="width:10%"><span>( ေခ်းေငြပမာဏ    )</span><br>Loan Amount</th>
+						<th style="width:10%"><span>( လက္မွတ္)</span><br>Signature</th>
 					</tr>
 					<tr>
 						<td style="padding:5px">1 </td>

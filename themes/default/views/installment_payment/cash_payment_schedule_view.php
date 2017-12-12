@@ -196,7 +196,9 @@
 								?>
 								<td  class="t_c"><?= lang("principle_balance") ?></td>
 								<td  class="t_c"><?= lang("total_intallment") ?></td>
+								<?php if($saving){?>
 								<td  class="t_c"><?= lang("saving_interest") ?></td>
+								<?php }?>
 								
 							</tr>
 							<?php
@@ -295,10 +297,12 @@
 											$balance = (($pt->balance > 0)? $pt->balance : 0);
 											
 											echo '<td class="t_c" style="padding-left:5px;padding-right:5px;font-weight:normal">'. $this->erp->roundUpMoney($balance, $sale_item->currency_code) .'</td>
-												<td class="t_c" style="padding-left:5px;padding-right:5px;font-weight:normal">'. $this->erp->roundUpMoney($payment, $sale_item->currency_code) .'</td>
-												<td class="t_r" style="padding-left:5px;padding-right:25px;font-weight:normal; text-align:right">'. $saving_interest  .'</td>
+												  <td class="t_c" style="padding-left:5px;padding-right:5px;font-weight:normal">'. $this->erp->roundUpMoney($payment, $sale_item->currency_code) .'</td>';
 												
-												</tr>';
+											if($saving){
+												echo 
+												 '<td class="t_r" style="padding-left:5px;padding-right:25px;font-weight:normal; text-align:right">'. $saving_interest  .'</td>';}
+											echo'</tr>';
 												
 										$total_principle += str_replace(',', '', $Principles);
 										$total_interest += str_replace(',', '', $interests);
@@ -336,7 +340,9 @@
 								?>
 								<td></td>
 								<td class="t_c" style="padding-left:5px;padding-right:5px;"><?= $this->erp->roundUpMoney($total_pay, $sale_item->currency_code); ?></td>
+								<?php if ($saving){?>
 								<td class="t_r" style="padding-left:5px;padding-right:25px; text-align:right"><?= $this->erp->roundUpMoney($total_saving,$sale_item->currency_code); ?></td>
+								<?php } ?>
 								<td id="hide_action3"></td>
 							</tr>
 							

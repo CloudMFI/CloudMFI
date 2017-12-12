@@ -1,4 +1,7 @@
+<?php 
+	//$this->erp->print_arrays($saving);
 
+?>
  <style type="text/css">
          .container {
 		/*	height: 842px;*/
@@ -181,7 +184,9 @@
 					?>
 					<td  class="t_c" style="width: 80px;"><?= lang("principle_balance") ?></td>	
 					<td  class="t_c" style="width: 80px;"><?= lang("total_intallment") ?></td>
+					<?php if($saving){?>
 					<td  class="t_c" style="width: 80px;"><?= lang("saving_interest") ?></td>
+					<?php }?>
 				</tr>				
 			<?php
 				$total_principle = 0;
@@ -259,10 +264,11 @@
 						
 					echo'
 						<td class="t_c" style="padding-left:5px;padding-right:5px;">'. $this->erp->roundUpMoney((($pt['balance'] > 0)? $pt['balance'] : 0),$product->currency_code) .'</td>
-						<td class="t_c" style="padding-left:5px;padding-right:5px;">'. $this->erp->roundUpMoney($payment , $product->currency_code) .'</td>
-						<td class="t_c" style="padding-left:5px;padding-right:5px;">'. $saving_interest .'</td>
-						
-					</tr>';
+						<td class="t_c" style="padding-left:5px;padding-right:5px;">'. $this->erp->roundUpMoney($payment , $product->currency_code) .'</td>';
+					if($saving){
+						echo 
+						'<td class="t_c" style="padding-left:5px;padding-right:5px;">'. $saving_interest .'</td>';}
+					echo'</tr>';
 					$total_principle += str_replace(',', '', $principles);
 					$total_interest += str_replace(',', '', $interests);
 					$total_payment += $payment;
@@ -294,7 +300,9 @@
 					?>
 					<td class="t_c" style="padding-left:5px;padding-right:5px;"></td>
 					<td class="t_c" style="padding-left:5px;padding-right:5px;"><?= $this->erp->roundUpMoney($total_payment, $product->currency_code); ?></td>
+					<?php if ($saving){?>
 					<td class="t_c" style="padding-left:5px;padding-right:5px;"><?= $this->erp->roundUpMoney($total_saving, $product->currency_code); ?></td>
+					<?php } ?>
 				</tr>
 				
 			</table>

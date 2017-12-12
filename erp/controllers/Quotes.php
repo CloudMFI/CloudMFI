@@ -2871,7 +2871,8 @@ class Quotes extends MY_Controller
 		
 		//$this->erp->print_arrays($arr_service);
 		$ids = explode('###', $str_ids);
-		$this->data['services'] = $arr_service;	
+		$this->data['services'] = $arr_service;
+		$this->data['saving'] = $saving_amount;
 		$this->data['amount'] = $lease_amount;
 		$this->data['stcurrency'] = $this->quotes_model->getSettingCurrncy();
 		$this->data['currency'] = $this->site->getCurrencyByCode($currency);
@@ -2897,6 +2898,7 @@ class Quotes extends MY_Controller
 		$this->erp->checkPermissions('index',true,'quotes');
 		$this->load->model('quotes_model');
 		
+		$this->data['saving'] = $this->quotes_model->getQuoteSavingQuoteID($id);
 		$this->data['services'] = $this->quotes_model->getQuoteServices($id);
 		//$this->erp->print_arrays($id);
 		$this->data['amount'] = $lease_amount;

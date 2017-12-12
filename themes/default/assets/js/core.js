@@ -871,6 +871,11 @@ function roundUpMoney(x, type) {
 	}if(type == 3){		
 		return formatMoney(x);
 	}
+	if(type == 4){
+		var devide = Math.round(x/50);
+		var result = (devide * 50);
+		return Math.round(result);
+	}
     /* switch(type) 
 		alert(x +"###"+ type);
 		case 1:
