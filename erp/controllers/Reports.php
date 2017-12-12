@@ -16926,6 +16926,15 @@ class Reports extends MY_Controller
 		$meta = array('page_title' => lang('network_informations'), 'bc' => $bc);    
         $this->page_construct('reports/network_informations', $meta, $this->data);
 	}
+        public function planning_monthly_report() { //MSM 12 Dec 2017 add for Planning Monthly Report
+        $this->erp->checkPermissions();
+
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+    
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('planning_monthly_report')));
+        $meta = array('page_title' => lang('planning_monthly_report'), 'bc' => $bc);    
+        $this->page_construct('reports/planning_monthly_report', $meta, $this->data);
+        }
 	public function daily_transaction_report() {
 		$this->erp->checkPermissions('daily_transaction',null,'reports');
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
