@@ -85,7 +85,17 @@
 					<table style="width:90%;font-size:11px;margin-top:5px;line-height:15px !important;font-weight: normal;"> 
 						<tr>
 							<td width="5%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
-							<td width="10%" style="vertical-align: top;">: </td>
+							<td width="10%" style="vertical-align: top;">: <span style="display:none;"><?= $sale->frequency; ?></span>
+								<?php
+								$frequency[""] = "";
+								$frequency[1] = "Daily";
+								$frequency[7] = "Weekly";
+								$frequency[14] = "Two Week";
+								$frequency[30] = "Monthly";
+								$frequency[90] = "Quarterly";
+								$frequency[180] = "Haft Year";
+								$frequency[360] = "Yearly";
+								echo  $frequency[$sale->frequency];?></td>
 							<td width="1%">ေခ်းေငြသက္တမ္း<br>(Loan Term)</td>
 							<td width="10%"  style="vertical-align: top;">: <b><?= number_format($sale->term,0); ?>  <?= lang("days") ?> </b></td>
 							<td width="5%">ထုတ္ေခ်းသည့္ရက္စြဲ <br>(Disbursement Date)</td>
