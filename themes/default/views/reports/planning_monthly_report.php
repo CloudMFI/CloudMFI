@@ -99,8 +99,8 @@
 			
 			</div>
 			<div>
-				<p style="text-align:center;" class="small-letter"> <b> <?php echo $setting->site_name ?> Planning Monthly Report Format</b></p>
-				<p style="padding-left:10px;text-align:left;" class="small-letter"> <b>အဖြဲ႕အစည္းအမည္ - <?php echo $setting->site_name ?>(November'2017) </b></p>
+				<p style="text-align:center;" class="small-letter"> <b> <?= $Settings->site_name ?>  Planning Monthly Report Format</b></p>
+				<p style="padding-left:10px;text-align:left;" class="small-letter"> <b>အဖြဲ႕အစည္းအမည္ - <?= $Settings->site_name ?> (November'2017) </b></p>
 				
 			</div>
 			<div style=" padding-left:10px; padding-right:10px;">
