@@ -1065,10 +1065,10 @@ class system_settings extends MY_Controller
                 'name' 			   => $this->input->post('name'),
 				'name_other' 	   => $this->input->post('name_other'),
                 'rate'			   => $this->input->post('rate'),
-				'currency_type'    => ($this->input->post('hundred')?$this->input->post('hundred'):$this->input->post('no_decimal'))?:$this->input->post('decimal'),
-				'currency_status'  => (($this->input->post('hundred')? 'Hundred Round':'')?($this->input->post('hundred')? 'Hundred Round':''):($this->input->post('no_decimal')? 'No Decimal':''))?:($this->input->post('decimal')? 'Decimal Round':''),
-				
+				'currency_type'    => ($this->input->post('hundred')?$this->input->post('hundred'):$this->input->post('no_decimal'))?:$this->input->post('decimal')?:$this->input->post('kyat_round'),
+				'currency_status'  => (($this->input->post('hundred')? 'Hundred Round':'')?($this->input->post('hundred')? 'Hundred Round':''):($this->input->post('no_decimal')? 'No Decimal':''))?:($this->input->post('decimal')? 'Decimal Round':'')?:($this->input->post('kyat_round')? 'Kyat Round':''),
             );
+			 //$this->erp->print_arrays($data);
         } elseif ($this->input->post('add_currency')) {
             $this->session->set_flashdata('error', validation_errors());
             redirect("system_settings/currencies");
@@ -1102,9 +1102,12 @@ class system_settings extends MY_Controller
                 'name' => $this->input->post('name'),
 				'name_other' => $this->input->post('name_other'),
                 'rate' => $this->input->post('rate'),
-				'currency_type'    => ($this->input->post('hundred')?$this->input->post('hundred'):$this->input->post('no_decimal'))?:$this->input->post('decimal'),
-				'currency_status'  => (($this->input->post('hundred')? 'Hundred Round':'')?($this->input->post('hundred')? 'Hundred Round':''):($this->input->post('no_decimal')? 'No Decimal':''))?:($this->input->post('decimal')? 'Decimal Round':''),
-            );
+				//'currency_type'    => ($this->input->post('hundred')?$this->input->post('hundred'):$this->input->post('no_decimal'))?:$this->input->post('decimal'),
+				//'currency_status'  => (($this->input->post('hundred')? 'Hundred Round':'')?($this->input->post('hundred')? 'Hundred Round':''):($this->input->post('no_decimal')? 'No Decimal':''))?:($this->input->post('decimal')? 'Decimal Round':''),
+				'currency_type'    => ($this->input->post('hundred')?$this->input->post('hundred'):$this->input->post('no_decimal'))?:$this->input->post('decimal')?:$this->input->post('kyat_round'),
+				'currency_status'  => (($this->input->post('hundred')? 'Hundred Round':'')?($this->input->post('hundred')? 'Hundred Round':''):($this->input->post('no_decimal')? 'No Decimal':''))?:($this->input->post('decimal')? 'Decimal Round':'')?:($this->input->post('kyat_round')? 'Kyat Round':''),
+		   );
+		  
         } elseif ($this->input->post('edit_currency')) {
             $this->session->set_flashdata('error', validation_errors());
             redirect("system_settings/currencies");
