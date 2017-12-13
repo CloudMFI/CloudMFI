@@ -8,6 +8,11 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Battambang|Moul" rel="stylesheet"> 
+		<?php
+			$sale->total = $this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $sale->total);
+			$service->amount = $this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $service->amount);
+			
+		?>
 	<style type="text/css">
 		@media print {
 			.phone {color:red;}
@@ -15,47 +20,47 @@
         html, body {
             height: 100%;
         }
-		.contain-wrapper {
-		width: 21cm;
-		min-height: 29.7cm;
-		padding: 2cm;
-		margin: 1cm auto;
-		border-radius: 5px;
-		background: white;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-		font-family: Zawgyi-One,'Battambang', Times New Roman;
-		}
-		.ch-box{
-			width:15px;height:15px;border:1px solid black;display:inline-block;
-		}
-		.small-letter{
-			font-family:Zawgyi-One,khmer os muol;font-weight:bold;font-size:12px;
-		}
-		.chat table{
-			border-collapse:collapse;
-			width: 100%;
-			margin-bottom:20px;
-		}
-		.chat table tr td{
-			border:1px solid black;
-		}
-		.chat tr td {
-			padding:10px;
-		}
-		.order-num{
-			font-weight:bold;
-		}
-		#logo img{
-			width:150px;
-		}
-		th{
-			padding: 10px;
-			vertical-align:center;
-			text-align: center;
-		}
-		span{
-			font-size:13px;
-		}
+	.contain-wrapper {
+	width: 21cm;
+	min-height: 29.7cm;
+	padding: 2cm;
+	margin: 1cm auto;
+	border-radius: 5px;
+	background: white;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	font-family: Zawgyi-One,'Battambang', Times New Roman;
+	}
+	.ch-box{
+		width:15px;height:15px;border:1px solid black;display:inline-block;
+	}
+	.small-letter{
+		font-family:Zawgyi-One,khmer os muol;font-weight:bold;font-size:12px;
+	}
+	.chat table{
+		border-collapse:collapse;
+		width: 100%;
+		margin-bottom:20px;
+	}
+	.chat table tr td{
+		border:1px solid black;
+	}
+	.chat tr td {
+		padding:10px;
+	}
+	.order-num{
+		font-weight:bold;
+	}
+	#logo img{
+		width:150px;
+	}
+	th{
+		padding: 10px;
+		vertical-align:center;
+		text-align: center;
+	}
+	span{
+		font-size:13px;
+	}
 
 	</style>
 	</head>
