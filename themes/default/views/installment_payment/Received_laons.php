@@ -134,12 +134,12 @@
 						</span>
 						<br>
 						<br>
-						<span style="font-size:13px;text-align: justify-all;">
+						<!-- <span style="font-size:13px;text-align: justify-all;">
 							Morakot Microfinance Myanmar Limited will charge you a one-time adminstration fee of 5,000ks of the amount of the loan initially provided to you this fee upfont from the loan disbursed to you at the time of disbursement and may safe keep 5% the disbursement amount perloan as a compulsory
 							 saving to you at the time of disbursement.You may withdraw all (but not part) of a compulsory saving if you have no loans outstanding at Morakot Microfinance Myanmar Limited at the time withdrawal and cease to be a member of Morakot Microfinance Myanmar Limited.At any time if you have loans due to Morakot Microfinance 
 Myanmar Limited you may not withdraw any compulsory saving and pays interest on each compulsory saving at rate of 1.25% per month,calculate
 the interest based on a 30 day month.Interest is paid at the end of year and at the time of withdrawal of the compulsory saving.
-						</span>
+						</span> -->
 					</div>		
 					
 				</div>

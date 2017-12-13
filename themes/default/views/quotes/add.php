@@ -392,29 +392,41 @@
 																			echo form_dropdown('cus_country', $cus_country, isset($customer->country)?$customer->country: isset($applicant->country)?$applicant->country:$branch->country , 'class="form-control select" id="cus_country" data-placeholder="' . lang("select") . ' ' . lang("country") . '" style="width:100%" required="required"');
 																			?>
 																		</div>
+																		<!-- Country end -->
 																		<div class="form-group">
 																			<?= lang("district", "cus_district"); ?>
+																			<strong>/Township</strong>
 																			<?php echo form_input('cus_district', isset($customer->district)?$customer->district:$applicant->district, 'class="form-control" id="cus_district"  placeholder="' . lang("select_province_to_load") . '" data-bv-notempty="true"');?>
 																		</div>
+																		<!-- District end -->
 																		<div class="form-group">
 																			<?= lang("village", "cus_village"); ?>
 																			<?php echo form_input('cus_village', isset($customer->village)?$customer->village:$applicant->village, 'class="form-control" id="cus_village"  placeholder="' . lang("select_communce_to_load") . '" data-bv-notempty="true"');?>
 																		</div>
+																		<!-- Village end -->
 																		<div class="form-group">
 																			<?= lang("current_address", "cus_house_no"); ?>
 																			<?php echo form_input('cus_house_no', (isset($_POST['cus_house_no']) ? $_POST['cus_house_no'] : $applicant->house_no), 'class="form-control" id="cus_house_no" required="required"'); ?>
 																		</div>
+																		<!-- Current end -->
 																	</div>
 																	
 																	<div class="col-md-6">
 																		<div class="form-group">
 																			<?= lang("province", "cus_province"); ?>
+																			<strong>/State</strong>
 																			<?php echo form_input('cus_province', isset($customer->province)?$customer->province: isset($applicant->state)?$applicant->state:$branch->state, 'class="form-control" id="cus_province"  placeholder="' . lang("select_province") . '" required="required"');?>
 																		</div>
+																		<!-- Provience end -->
 																		<div class="form-group">
 																			<?= lang("communce", "cus_communce"); ?>
-																			<?php echo form_input('cus_communce', isset($customer->communce)?$customer->communce:($applicant ? $applicant->sangkat : ''), 'class="form-control" id="cus_communce"  placeholder="' . lang("select_district_to_load") . '" data-bv-notempty="true"');?>
+																			<?php echo form_input('cus_communce', isset($customer->communce)?$customer->communce:($applicant ? $applicant->sangkat : ''), 'class="form-control" id="cus_communce"  placeholder="' . lang("select_district_to_load") . '" "');?>
 																		</div>
+																		<!-- Communce end //amm -->
+
+
+
+
 																		<!--<div class="form-group">
 																			<?= lang("street", "cus_street"); ?>
 																			<?php echo form_input('cus_street', (isset($_POST['cus_street']) ? $_POST['cus_street'] : $applicant->street), 'class="form-control" id="cus_street"'); ?>
@@ -429,6 +441,7 @@
 																			echo form_dropdown('cus_housing', $cus_housing, isset($customer->housing)?$customer->housing:'', 'class="form-control select" id="cus_housing" placeholder="' . lang("select") . ' ' . lang("housing") . '" style="width:100%" data-bv-notempty="true"');
 																			?>
 																		</div>
+																		<!-- Housing end -->
 																		<div class="form-group">
 																			<b style="padding-bottom:5px; display:block;"><?= lang("time_at_this_address"); ?></b>
 																			<?php echo form_input('cus_years', (isset($_POST['cus_years']) ? $_POST['cus_years'] : $applicant->years), 'class="form-control" id="cus_years" placeholder="' . lang("years") . '" style="display:inline !important; width:35% !important;"'); ?>

@@ -87,31 +87,31 @@
 				<table width="100%">
 					<tr>
 						<td style="width:20%;">ရက္စဲြ<br>(Date)</td>
-						<td>:</td>
+						<td style="width:15%">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
 						<td style="width:15%">ေခ်းေငြကာလ<br>(Loan term)</td>
-						<td>:</td>
+						<td style="width:15%">:</td>
 						<td style="width:20%">စတင္ေပးေခ်ရမည္ေန႕ရက္<br>(First Repayment Date)</td>
-						<td>:</td>
+						<td style="width:15%">:</td>
 					</tr>
 					<tr>
 						<td style="width:20%">အဖြဲ႕၀င္အေရအတြက္<br>(Number of member)</td>
-						<td>:</td>
+						<td style="width:15%">:</td>
 						<td style="width:20%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
-						<td>:</td>
+						<td style="width:15%">:</td>
 						<td style="width:15%">စာခ်ဳပ္အမ်ိဳးအစား<br>(Contract Type)</td>
-						<td>:</td>
+						<td style="width:15%">:</td>
 					</tr>
 					<tr>
 						<td style="width:20%">၀ိုင္းၾကီးခ်ဳပ္နံပါတ္<br>(Group No. )</td>
-						<td>:</td>
+						<td style="width:15%">:<b> <?=$sale->reference_no;?> </b></td>
 						<td style="width:15%">အတိုးနႈန္း<br>(Interest Rate)</td>
-						<td>:</td>
+						<td style="width:15%">:<?= ($sale->rate_text ? $sale->rate_text : "")?></b></td>
 						<td style="width:15%">ေခ်းေငြအရာရွိ ID<br>(Credit Officer ID)</td>
-						<td>:</td>
+						<td style="width:15%">:<b><?= $creator->first_name . ' ' . $creator->last_name ; ?></td>
 					</tr>
 					<tr>
 						<td style="width:20%">လိပ္စာ<br>(Leader/Borrower Address )</td>
-						<td>:</td>
+						<td>:<b><?='#'.$customer->house_no; ?></td>
 					</tr>
 				</table>				 
 			</div>
@@ -162,7 +162,8 @@
 						<td> </td>
 						<td> </td>
 						
-					</tr><tr>
+					</tr>
+					<tr>
 						<td style="padding:5px">4 </td>
 						<td> </td>
 						<td> </td>
