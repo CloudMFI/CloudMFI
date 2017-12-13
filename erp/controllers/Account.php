@@ -4059,6 +4059,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 			$data = array	(
 								'type'					=> 'disburse',
 								'paid_type' 			=> 'Disburse',
+								'note' 					=> 'Disburse',
 								'date' 					=> $this->erp->fld(trim($this->input->post('date'))),
 								'reference_no'  		=> $reference_no, //$this->input->post('reference'),
 								'sale_id'				=> $sale_id,
@@ -4230,6 +4231,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 								'other_paid'		=> $other_paids,
 								'type'				=> 'received', //$payment_status,	
 								'paid_type' 		=> 'Loans Received',
+								'note'				=> 'Loans Received',
 								'paid_by'			=> $this->input->post('paid_by'),
 								'bank_acc_code'		=> $this->input->post('bank_account'),
 								'invoce_no'			=> $this->input->post('invoce_no'),

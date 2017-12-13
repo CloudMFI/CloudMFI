@@ -2558,11 +2558,10 @@ class Installment_Payment_model extends CI_Model
 	
 	public function updatePayments($id, $data = array(), $services = array(), $updateloan = array(), $pay_Ref)
     {	
-		
 		$sale_id = $data['sale_id'];
 		$lastLoan = $this->getLoanByReference($pay_Ref);
-		$MaxLoan = $this->getMaxLoanBySaleID($sale_id);	
-		
+		$MaxLoan = $this->getMaxLoanBySaleID($sale_id);
+
 		if($data){			
 			$sales = $this->getSaleById($sale_id);
 			$oldPayment = $this->getPaymentByID($id);

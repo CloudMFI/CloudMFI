@@ -316,25 +316,10 @@ if (isset($biller_id)) {
                                 <?php echo form_input('payment_ref', (isset($_POST['payment_ref']) ? $_POST['payment_ref'] : ""), 'class="form-control tip" id="payment_ref"'); ?>
 
                             </div>
-                        </div>
-
+                        </div> 
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("sale_ref", "sale_ref"); ?>
-                                <?php echo form_input('sale_ref', (isset($_POST['sale_ref']) ? $_POST['sale_ref'] : ""), 'class="form-control tip" id="sale_ref"'); ?>
-
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="rcustomer"><?= lang("customer"); ?></label>
-                                <?php echo form_input('customer', (isset($_POST['customer']) ? $_POST['customer'] : ""), 'class="form-control" id="rcustomer" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("customer") . '"'); ?>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="rbiller"><?= lang("biller"); ?></label>
+                                <label class="control-label" for="rbiller"><?= lang("branch"); ?></label>
                                 <?php
                                 $bl[''] = '';
                                 foreach ($billers as $biller) {
@@ -343,15 +328,10 @@ if (isset($biller_id)) {
                                 echo form_dropdown('biller', $bl, (isset($_POST['biller']) ? $_POST['biller'] : ""), 'class="form-control" id="rbiller" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("biller") . '"');
                                 ?>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("supplier", "rsupplier"); ?>
-                                <?php echo form_input('supplier', (isset($_POST['supplier']) ? $_POST['supplier'] : ""), 'class="form-control" id="rsupplier" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("supplier") . '"'); ?> </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="user"><?= lang("created_by"); ?></label>
+                                <label class="control-label" for="user"><?= lang("by_co"); ?></label>
                                 <?php
                                 $us[""] = "";
                                 foreach ($users as $user) {

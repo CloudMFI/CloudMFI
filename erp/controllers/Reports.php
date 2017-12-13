@@ -6841,7 +6841,7 @@ class Reports extends MY_Controller
 				->join('companies as myBranch', 'users.branch_id = myBranch.id')
                 ->join('sales', 'payments.sale_id=sales.id OR payments.group_payment_id=sales.id', 'left')
                 ->join('purchases', 'payments.purchase_id=purchases.id', 'left');
-				$this->datatables->where('payments.type','received');
+				//$this->datatables->where('payments.type','received');
                 $this->datatables->group_by('payments.id');
 			
 			if(!$this->Owner && !$this->Admin && $this->session->userdata('view_right') == 0){
@@ -7023,13 +7023,7 @@ class Reports extends MY_Controller
 			}            
 			if ($biller_id) {
                 $this->db->where('payments.biller_id', $biller_id);
-            }
-            if ($supplier) {
-                $this->db->where('purchases.supplier_id', $supplier);
-            }
-            if ($biller_id) {
-                $this->db->where('payments.biller_id', $biller_id);
-            }
+            } 
             if ($customer) {
                 $this->db->where('sales.customer_id', $customer);
             }
@@ -7161,38 +7155,21 @@ class Reports extends MY_Controller
 				->join('loans','loans.id = payments.loan_id','INNER')
                 ->join('purchases', 'payments.purchase_id=purchases.id', 'left');
 				$this->datatables->where('payments.paid_type','Loans Received');
+				$this->datatables->where('payments.date =', date('Y-m-d'));
                 $this->datatables->group_by('payments.id');
 				$this->datatables->order_by('payments.id','DESC');
 			
 			if(!$this->Owner && !$this->Admin && $this->session->userdata('view_right') == 0){
 				if ($user) {
-					$this->datatables->where('payments.created_by', $user);
+					$this->datatables->where('sales.by_co', $user);
 				}
 			}
 			if ($biller_id) {
                 $this->datatables->where('payments.biller_id', $biller_id);
-            }
-            if ($customer) {
-                $this->datatables->where('sales.customer_id', $customer);
-            }
-            if ($supplier) {
-                $this->datatables->where('purchases.supplier_id', $supplier);
-            }
-            if ($biller_id) {
-                $this->datatables->where('payments.biller_id', $biller_id);
-            }
-            if ($customer) {
-                $this->datatables->where('sales.customer_id', $customer);
-            }
+            } 
             if ($payment_ref) {
                 $this->datatables->like('payments.reference_no', $payment_ref, 'both');
-            }
-            if ($sale_ref) {
-                $this->datatables->like('sales.reference_no', $sale_ref, 'both');
-            }
-            if ($purchase_ref) {
-                $this->datatables->like('purchases.reference_no', $purchase_ref, 'both');
-            }
+            } 
             if ($start_date) {
                 $this->datatables->where($this->db->dbprefix('payments').'.date BETWEEN "' . $start_date . '" and "' . $end_date . '"');
             }
@@ -7440,13 +7417,15 @@ class Reports extends MY_Controller
 				->join('users as erp_co','sales.by_co = erp_co.id','left')
 				->join('loans','loans.sale_id = sales.id','INNER')
                 ->join('purchases', 'payments.purchase_id=purchases.id', 'left');
+				
 				$this->datatables->where('payments.paid_type','Loans Received');
+				$this->datatables->where('payments.date =', date('Y-m-d'));
                 $this->datatables->group_by('payments.id');
 				$this->datatables->order_by('payments.id','DESC'); 
 			
 			if(!$this->Owner && !$this->Admin && $this->session->userdata('view_right') == 0){
 				if ($user) {
-					$this->datatables->where('payments.created_by', $user);
+					$this->datatables->where('sales.by_co', $user);
 				}
 			}
 			if ($biller_id) {

@@ -706,13 +706,7 @@
 																	<i class="fa fa-barcode"></i>
 																	<span class="text"> <?= lang('bad_loan_repayments'); ?></span>
 																</a>
-															</li>
-															<li id="reports_payments" class="sub_navigation">
-																<a class="submenu" href="<?= site_url('reports/payments'); ?>">
-																	<i class="fa fa-money"></i>
-																	<span class="text"> <?= lang('payments_report'); ?></span>
-																</a>
-															</li>
+															</li> 
 															<li id="reports_loan_daily_collection" class="sub_navigation">
 																<a class="submenu" href="<?= site_url('reports/loan_daily_collection'); ?>">
 																	<i class="fa fa-money"></i>
@@ -723,6 +717,12 @@
 																<a class="submenu" href="<?= site_url('reports/loan_daily_collection_details'); ?>">
 																	<i class="fa fa-money"></i>
 																	<span class="text"> <?= lang('daily_loan_collection_details'); ?></span>
+																</a>
+															</li>
+															<li id="reports_payments" class="sub_navigation">
+																<a class="submenu" href="<?= site_url('reports/payments'); ?>">
+																	<i class="fa fa-money"></i>
+																	<span class="text"> <?= lang('payments_report'); ?></span>
 																</a>
 															</li>
 															<li id="reports_repayment_reports" class="sub_navigation">

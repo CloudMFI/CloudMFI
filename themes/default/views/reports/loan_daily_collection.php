@@ -110,15 +110,14 @@ if (isset($biller_id)) {
             },
             "fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay) {
                 var total = 0;
-                for (var i = 0; i < aaData.length; i++) {
-                    
+                for (var i = 0; i < aaData.length; i++) {                    
                     total += parseFloat(aaData[aiDisplay[i]][8]);
                 }
                 var nCells = nRow.getElementsByTagName('th');
                 nCells[8].innerHTML = currencyFormat(parseFloat(total));
             }
         }).fnSetFilteringDelay().dtFilter([
-            {column_number: 1, filter_default_label: "[<?=lang('date');?> (yyyy-mm-dd)]", filter_type: "text", data: []},
+            {column_number: 1, filter_default_label: "[<?=lang('date');?> (dd-mm-yyyy)]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('payment_ref');?>]", filter_type: "text", data: []},
             {column_number: 3, filter_default_label: "[<?=lang('sale_ref');?>]", filter_type: "text", data: []},
 			{column_number: 4, filter_default_label: "[<?=lang('customer');?>]", filter_type: "text", data: []},
@@ -286,33 +285,10 @@ if (isset($biller_id)) {
                                 <?php echo form_input('payment_ref', (isset($_POST['payment_ref']) ? $_POST['payment_ref'] : ""), 'class="form-control tip" id="payment_ref"'); ?>
 
                             </div>
-                        </div>
-
+                        </div> 
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("sale_ref", "sale_ref"); ?>
-                                <?php echo form_input('sale_ref', (isset($_POST['sale_ref']) ? $_POST['sale_ref'] : ""), 'class="form-control tip" id="sale_ref"'); ?>
-
-                            </div>
-                        </div>
-
-                        <!--<div class="col-sm-4">
-                            <div class="form-group">
-                                <?= lang("purchase_ref", "purchase_ref"); ?>
-                                <?php echo form_input('purchase_ref', (isset($_POST['purchase_ref']) ? $_POST['purchase_ref'] : ""), 'class="form-control tip" id="purchase_ref"'); ?>
-
-                            </div>
-                        </div>-->
-
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="rcustomer"><?= lang("customer"); ?></label>
-                                <?php echo form_input('customer', (isset($_POST['customer']) ? $_POST['customer'] : ""), 'class="form-control" id="rcustomer" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("customer") . '"'); ?>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label" for="rbiller"><?= lang("biller"); ?></label>
+                                <label class="control-label" for="rbiller"><?= lang("branch"); ?></label>
                                 <?php
                                 $bl[''] = '';
                                 foreach ($billers as $biller) {
@@ -321,12 +297,7 @@ if (isset($biller_id)) {
                                 echo form_dropdown('biller', $bl, (isset($_POST['biller']) ? $_POST['biller'] : ""), 'class="form-control" id="rbiller" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("biller") . '"');
                                 ?>
                             </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <?= lang("supplier", "rsupplier"); ?>
-                                <?php echo form_input('supplier', (isset($_POST['supplier']) ? $_POST['supplier'] : ""), 'class="form-control" id="rsupplier" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("supplier") . '"'); ?> </div>
-                        </div>
+                        </div> 
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="control-label" for="user"><?= lang("created_by"); ?></label>
