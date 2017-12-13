@@ -5,14 +5,14 @@
 	
 ?>
  <style type="text/css">
-    .container {
-        width: 800px;
-        margin-left: auto;
-        margin-right: auto;
+	.container {
+	    width: 800px;
+	    margin-left: auto;
+	    margin-right: auto;
 	}	
 	.t_c{text-align:center;}
 	.t_r{text-align:center;}
-    @media print
+	@media print
 	{    
 		.no-print, .no-print *
 		{
@@ -107,7 +107,16 @@
 							<td width="1%">ေခ်းေငြတာ၀န္ခံအမွတ္<br>(Credit Officer ID)</td>
 							<td width="10%"  style="vertical-align: top;">: <b><?= $creator->first_name . ' ' . $creator->last_name ; ?></b></td>
 							<td width="5%">စတင္ေပးေခ်းရမည့္ရက္စြဲ<br>(First Repayment Date)</b></td>
-							<td width="5%"  style="vertical-align: top;">:</td>
+							<?php 
+								
+								if(array($loan)) {
+									$i = 0;
+									$len = count($loan);
+									foreach($loan as $pt){	
+										if ($pt === reset($loan)){
+							?>			
+							<td width="5%"  style="vertical-align: top;">:<b><?= $this->erp->hrsd($pt->dateline); ?></b></td>
+							<?php }}} ?>
 						</tr>
 						<tr>
 							<td width="5%">ေငြေခ်းသူလိပ္စာ<br>(Leader/ Borrower Address)</td>
