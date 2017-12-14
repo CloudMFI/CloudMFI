@@ -107,9 +107,11 @@
 							<div class="col-lg-12">
 								<div class="col-md-6">									
 									<div class="form-group">
-										<?= lang("remaining", "remaining"); ?>
+										
+										<?= lang("loan_request_amount", "remaining"); ?> 
 										<?php echo form_input('remaining', '' , 'class="form-control number_only" id="remaining" style="pointer-events: none;"'); ?>
 									</div>
+									
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
