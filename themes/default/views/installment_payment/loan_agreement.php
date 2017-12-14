@@ -1,4 +1,4 @@
-<?php //$this->erp->print_arrays($contract_info) ?>
+<?php // $this->erp->print_arrays($contract_info) ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,50 +17,50 @@
 		@media print {
 			.phone {color:red;}
 		}
-        html, body {
-            height: 100%;
-        }
-	.contain-wrapper {
-	width: 21cm;
-	min-height: 29.7cm;
-	padding: 2cm;
-	margin: 1cm auto;
-	border-radius: 5px;
-	background: white;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-	font-family: Zawgyi-One,'Battambang', Times New Roman;
-	}
-	.ch-box{
-		width:15px;height:15px;border:1px solid black;display:inline-block;
-	}
-	.small-letter{
-		font-family:Zawgyi-One,khmer os muol;font-weight:bold;font-size:12px;
-	}
-	.chat table{
-		border-collapse:collapse;
-		width: 100%;
-		margin-bottom:20px;
-	}
-	.chat table tr td{
-		border:1px solid black;
-	}
-	.chat tr td {
-		padding:10px;
-	}
-	.order-num{
-		font-weight:bold;
-	}
-	#logo img{
-		width:150px;
-	}
-	th{
-		padding: 10px;
-		vertical-align:center;
-		text-align: center;
-	}
-	span{
-		font-size:13px;
-	}
+	        html, body {
+	            height: 100%;
+	        }
+		.contain-wrapper {
+		width: 21cm;
+		min-height: 29.7cm;
+		padding: 2cm;
+		margin: 1cm auto;
+		border-radius: 5px;
+		background: white;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		font-family: Zawgyi-One,'Battambang', Times New Roman;
+		}
+		.ch-box{
+			width:15px;height:15px;border:1px solid black;display:inline-block;
+		}
+		.small-letter{
+			font-family:Zawgyi-One,khmer os muol;font-weight:bold;font-size:12px;
+		}
+		.chat table{
+			border-collapse:collapse;
+			width: 100%;
+			margin-bottom:20px;
+		}
+		.chat table tr td{
+			border:1px solid black;
+		}
+		.chat tr td {
+			padding:10px;
+		}
+		.order-num{
+			font-weight:bold;
+		}
+		#logo img{
+			width:150px;
+		}
+		th{
+			padding: 10px;
+			vertical-align:center;
+			text-align: center;
+		}
+		span{
+			font-size:13px;
+		}
 
 	</style>
 	</head>
@@ -84,6 +84,7 @@
 			
 			</div>
 			<div>
+			
 				<p style="text-align:center;" class="small-letter"> <b>လိုင္စင္ရဘ႑ာေရးစက္မႈလုပ္ငန္း</b></p>
 				<p style="text-align:center;" class="small-letter"> <b>အုပ္စု ေခ်းေငြစာခ်ုပ္</b></p>
 			</div>
@@ -91,32 +92,42 @@
 			<div style=" height:100px; padding-left:15px;font-size:10px;line-height: 18px;">
 				<table width="100%">
 					<tr>
-						<td style="width:20%;">ရက္စဲြ<br>(Date)</td>
-						<td style="width:15%">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
-						<td style="width:15%">ေခ်းေငြကာလ<br>(Loan term)</td>
-						<td style="width:15%">:</td>
-						<td style="width:20%">စတင္ေပးေခ်ရမည္ေန႕ရက္<br>(First Repayment Date)</td>
-						<td style="width:15%">:</td>
+						<td style="width:18%;">ရက္စဲြ<br>(Date)</td>
+						<td style="width:15%;vertical-align: top;">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
+						<td style="width:13%">ေခ်းေငြကာလ<br>(Loan term)</td>
+						<td style="width:15%;vertical-align: top;">:<b><?= round($contract_info->terms); ?> <?= lang("days") ?></b></td>
+						<td style="width:18%">စတင္ေပးေခ်ရမည္ေန႕ရက္<br>(First Repayment Date)</td>
+						<td style="width:15%;vertical-align: top;">:</td>
 					</tr>
 					<tr>
-						<td style="width:20%">အဖြဲ႕၀င္အေရအတြက္<br>(Number of member)</td>
-						<td style="width:15%">:</td>
-						<td style="width:20%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
-						<td style="width:15%">:</td>
-						<td style="width:15%">စာခ်ဳပ္အမ်ိဳးအစား<br>(Contract Type)</td>
-						<td style="width:15%">:</td>
+						<td style="width:18%">အဖြဲ႕၀င္အေရအတြက္<br>(Number of member)</td>
+						<td style="width:15%;vertical-align: top;">:</td>
+						<td style="width:13%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
+						<td style="width:15%;vertical-align: top;">:<b><span style="display:none;"><?= $contract_info->frequency; ?></span>
+								<?php
+								$frequency[""] = "";
+								$frequency[1] = "Daily";
+								$frequency[7] = "Weekly";
+								$frequency[14] = "Two Week";
+								$frequency[30] = "Monthly";
+								$frequency[90] = "Quarterly";
+								$frequency[180] = "Haft Year";
+								$frequency[360] = "Yearly";
+								echo  $frequency[$contract_info->frequency];?></b></td>
+						<td style="width:18%">စာခ်ဳပ္အမ်ိဳးအစား<br>(Contract Type)</td>
+						<td style="width:15%;vertical-align: top;">:</td>
 					</tr>
 					<tr>
-						<td style="width:20%">၀ိုင္းၾကီးခ်ဳပ္နံပါတ္<br>(Group No. )</td>
-						<td style="width:15%">:<b> <?=$sale->reference_no;?> </b></td>
-						<td style="width:15%">အတိုးနႈန္း<br>(Interest Rate)</td>
-						<td style="width:15%">:<?= ($sale->rate_text ? $sale->rate_text : "")?></b></td>
-						<td style="width:15%">ေခ်းေငြအရာရွိ ID<br>(Credit Officer ID)</td>
-						<td style="width:15%">:<b><?= $creator->first_name . ' ' . $creator->last_name ; ?></td>
+						<td style="width:18%">၀ိုင္းၾကီးခ်ဳပ္နံပါတ္<br>(Group No. )</td>
+						<td style="width:15%;vertical-align: top;">:<b> <?= $contract_info->reference_no; ?></b></td>
+						<td style="width:13%">အတိုးနႈန္း<br>(Interest Rate)</td>
+						<td style="width:15%;vertical-align: top;">:<b><?php echo $contract_info->interest ?></b></td>
+						<td style="width:18%">ေခ်းေငြအရာရွိ ID<br>(Credit Officer ID)</td>
+						<td style="width:15%;vertical-align: top;">:<b><?= $contract_info->approv_name; ?></b></td>
 					</tr>
 					<tr>
-						<td style="width:20%">လိပ္စာ<br>(Leader/Borrower Address )</td>
-						<td>:<b><?='#'.$customer->house_no; ?></td>
+						<td style="width:18%">လိပ္စာ<br>(Leader/Borrower Address )</td>
+						<td style="vertical-align: top;">:<b><?='#'.$customer->house_no; ?></td>
 					</tr>
 				</table>				 
 			</div>
@@ -141,51 +152,17 @@
 						<th style="width:10%"><span>( ေခ်းေငြပမာဏ    )</span><br>Loan Amount</th>
 						<th style="width:10%"><span>( လက္မွတ္)</span><br>Signature</th>
 					</tr>
+					
 					<tr>
 						<td style="padding:5px">1 </td>
-						<td style="padding:5px"></td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						
-					</tr>
-					<tr>
-						<td style="padding:5px">2 </td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
+						<td style="padding:5px"> <?= $contract_info->reference_no; ?></td>
+						<td style="padding:5px"> <?= $contract_info->customer_name; ?> </td>
+						<td style="padding:5px">  <?= $contract_info->gov_id; ?></td>
+						<td style="padding:5px">  <?=round($contract_info->total); ?></td>
 						<td style="padding:5px"> </td>
 						
 					</tr>
-					<tr>
-						<td style="padding:5px">3 </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						
-					</tr>
-					<tr>
-						<td style="padding:5px">4 </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						
-					</tr>
-					<tr>
-						<td style="padding:5px">5 </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						
-					</tr>					
+									
 				</table>				 
 			</div>
 			
