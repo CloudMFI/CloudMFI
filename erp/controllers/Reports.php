@@ -7407,7 +7407,7 @@ class Reports extends MY_Controller
 				".$this->db->dbprefix('payments') . ".interest_amount,
 				".$this->db->dbprefix('payments') . ".penalty_amount,
 				".$this->db->dbprefix('payments') . ".service_amount,
-				".$this->db->dbprefix('payments') . ".amount, erp_payments.type,")
+				".$this->db->dbprefix('payments') . ".amount, erp_payments.paid_by,")
 				
                 ->from('payments')
 				->join('users','payments.created_by=users.id','INNER')

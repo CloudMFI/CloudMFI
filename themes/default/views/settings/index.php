@@ -700,15 +700,20 @@ $ps = array('0' => lang("disable"), '1' => lang("enable"));
 						<div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label" for="penalty_amount"><?= lang("penalty_amount"); ?></label>
-                                <?php echo form_input('penalty_amount', $Settings->penalty_amount, 'class="form-control tip" required="required" id="over_due_days"'); ?>
+								<?php
+									if($settings->penalty_types == "Percentage"){
+										$penalty_amount = $Settings->penalty_amount * 100 .''. '%';
+									}else {
+										$penalty_amount = $this->erp->formatDecimal($Settings->penalty_amount);
+									}
+								?>
+                                <?php echo form_input('penalty_amount', $penalty_amount, 'class="form-control tip" required="required" id="over_due_days"'); ?>
                             </div>
                         </div>
 						
 						<div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label" for="penalty_days"><?= lang("penalty_days"); ?></label>
-
-
                                 <?php echo form_input('penalty_days', $Settings->penalty_days, 'class="form-control tip" required="required" id="penalty_days"'); ?>
                             </div>
                         </div>
