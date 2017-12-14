@@ -678,12 +678,12 @@
 																	<span class="text"> <?= lang('outstanding_reports'); ?></span>
 																</a>
 															</li>
-															<li id="reports_daily_monitor_report" class="sub_navigation">
+															<!--<li id="reports_daily_monitor_report" class="sub_navigation">
 																<a class="submenu" href="<?= site_url('reports/daily_monitor_report'); ?>">
 																	<i class="fa fa-barcode"></i>
 																	<span class="text"> <?= lang('daily_monitor_reports'); ?></span>
 																</a>
-															</li>
+															</li>-->
 														</ul>
 
 													</li> <!--- end loan Report-->									

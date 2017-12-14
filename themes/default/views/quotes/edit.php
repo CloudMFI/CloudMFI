@@ -782,7 +782,7 @@
 														<div class="panel-body" style="padding: 5px;">
 															<div class="col-lg-6">
 																<div class="form-group">
-																	<?= lang("saving_rate_%", "saving_rate"); ?>
+																	<?= lang("saving_amount_%", "saving_rate"); ?>
 																	<?php echo form_input('saving_rate', (isset($qu_saving->saving_rate) ? $qu_saving->saving_rate * 100 .'%' : 0), 'class="form-control" id="saving_rate" '); ?>
 																</div>
 															</div>
@@ -795,7 +795,7 @@
 															</div>
 															<div class="col-lg-6">
 																<div class="form-group">
-																	<?= lang("saving_interest_rate_%", "saving_interest_rate"); ?>
+																	<?= lang("interest_of_saving_%", "saving_interest_rate"); ?>
 																	<?php echo form_input('saving_interest_rate', (isset($qu_saving->saving_interest_rate) ? $qu_saving->saving_interest_rate * 100 .'%' : 0), 'class="form-control" id="saving_interest_rate" '); ?>
 																</div>
 															</div>
@@ -3404,14 +3404,16 @@
 			readURL(this);
 		});
 		
-		$('#saving_rate').live('keyup , change', function(e) {
-			var saving_rate = $(this).val();
-			var total_amount = $('#total_amount').val();
+		$('#saving_rate, #total_amount').live('keyup , change', function() {
+			var saving_rate = $('#saving_rate').val();
+			var total_amount = parseFloat($('#total_amount').val()); 
 			var saving_rates = saving_rate.replace('%', '');
 			if(saving_rate.search('%') > 0) { 
 				var saving = (saving_rates/100);
 				var saving_amt = total_amount * saving ;
 				$('#saving_amount').val(formatMoney(saving_amt));
+			}else{
+				$('#saving_amount').val(0);
 			}
 		});
 		

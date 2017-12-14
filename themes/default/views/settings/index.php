@@ -3,6 +3,11 @@ $wm = array('0' => lang('no'), '1' => lang('yes'));
 $ps = array('0' => lang("disable"), '1' => lang("enable"));
 ?>
 <script>
+
+	$(window).load(function() {
+		$('#currency').attr("readonly",true);
+	});
+	
     $(document).ready(function () {
         <?php if(isset($message)) { echo 'localStorage.clear();'; } ?>
         var timezones = <?php echo json_encode(DateTimeZone::listIdentifiers(DateTimeZone::ALL)); ?>;
@@ -128,7 +133,7 @@ $ps = array('0' => lang("disable"), '1' => lang("enable"));
 												$cu[$currency->code] = $currency->name;
 											}
 										}		
-                                        echo form_dropdown('currency', isset($cu) ?$cu  : (''), $Settings->default_currency, 'class="form-control tip" id="currency" required="required" style="width:100%;"');
+                                        echo form_dropdown('currency', isset($cu) ?$cu  : (''), $Settings->default_currency, 'class="form-control tip" id="currency" required="required" style="pointer-events: none;" readonly style="width:100%;"');
                                         ?>
                                     </div>
                                 </div>
