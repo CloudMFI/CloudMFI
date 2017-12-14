@@ -382,4 +382,7 @@ $lang["saving_interest_rate"]					= "Saving Interest Rate";
 $lang["saving_type"]							= "Saving Type";
 $lang["saving_rate_%"]							= "Saving Rate (%)";
 $lang["saving_interest_rate_%"]					= "Saving Interest Rate (%)";
+$lang["saving_amount_%"]						= "Saving Amount (%)";
+$lang["interest_of_saving_%"]					= "Interest of Saving (%)";
+$lang[""]			= "";
 $lang[""]			= "";

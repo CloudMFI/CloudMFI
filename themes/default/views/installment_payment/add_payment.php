@@ -107,8 +107,7 @@
 			}
 			$service->total_charge +=$service_amount;
 		}
-		//$this->erp->print_arrays($service_amount);
-		//$this->erp->print_arrays($service->total_charge)
+		//$this->erp->print_arrays($service_amount); 
 		$saving_interest += str_replace(',', '', $this->erp->roundUpMoney($loan->saving_interest,$sale_item->currency_code)); //$saving_interest;
 		$installment_amount += str_replace(',', '', $this->erp->roundUpMoney($loan->payment,$sale_item->currency_code)); //$loan->payment;
 		$interest_amount += str_replace(',', '', $this->erp->roundUpMoney($loan->interest,$sale_item->currency_code)); //$loan->interest;
@@ -129,10 +128,9 @@
 						);
 		$i++;
 	}
-	//$this->erp->print_arrays($deposits);
+	 
 	$penalty_amount = $overdue_days * $penalty_rate;
-	$penalty_amount = $this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $penalty_amount);
-	//$total_amount += $penalty_amount + $installment_amt;	
+	$penalty_amount = $this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $penalty_amount); 
 	$interest_am = $this->erp->roundUpMoney($interest_amount,$sale_item->currency_code);
 	$principle_am = $this->erp->roundUpMoney($principle_amount,$sale_item->currency_code);
 	$penalty_am = $this->erp->roundUpMoney($penalty_amount,$sale_item->currency_code);
@@ -355,6 +353,7 @@
 											$pay_method[""] = "";
 											$pay_method["cash"] = "Cash";
 											$pay_method["wing"] = "Wing";
+											$pay_method["True Money"] = "True Money";
 											$pay_method["Visa"] = "Visa Card";
 											echo form_dropdown('pay_method', $pay_method, 'cash', 'class="form-control select" id="pay_method" placeholder="' . lang("select") . ' ' . lang("pay_method") . '" style="width:100%" data-bv-notempty="true"');
 											?>

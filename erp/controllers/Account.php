@@ -4071,7 +4071,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 								'biller_id'				=> $sale->branch_id,
 								'saving_balance'		=> $saving_amount,
 							);
-			//$this->erp->print_arrays($data);			
+			//$this->erp->print_arrays($data);
 			
 			$arr_services = array();
 			if($services){

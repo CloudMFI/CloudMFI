@@ -723,6 +723,7 @@ $lang["down_%"]									= "Down %";
 $lang["advance_payment"]						= "Advance Payment";
 $lang["total_service_charge"]					= "Total Service Charge";
 $lang["second_payment"]							= "Second Payment";
+$lang["loan_request_amount"]        ="Loan Request Amount";
 $lang["remaining"]								= "Remaining";
 $lang["province"]								= "Province";
 $lang["bank_name"]								= "Bank Name";
