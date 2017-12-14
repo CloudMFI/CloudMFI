@@ -711,7 +711,7 @@ class Down_Payment extends MY_Controller
 		$collateral_contract_land = anchor('Installment_payment/collateral_contract_land/$1', '<i class="fa fa-file-text-o"></i> ' . lang('collateral_contract_land'),'target="_blank"');
 		$guareentee_contract = anchor('Installment_payment/guareentee_contract/$1', '<i class="fa fa-file-text-o"></i> ' . lang('guareentee_contract'),'target="_blank"');		
 		$collateral_contract = anchor('Installment_payment/collateral_contract/$1', '<i class="fa fa-file-text-o"></i> ' . lang('collateral_contract'),'target="_blank"');		
-		$mcontract = anchor('Installment_payment/mfi_contract/$1', '<i class="fa fa-file-text-o"></i> ' . lang('loan_agreement'),'target="_blank"');
+		$mcontract = anchor('Installment_payment/mfi_contract/$1/$3', '<i class="fa fa-file-text-o"></i> ' . lang('loan_agreement'),'target="_blank"');
 		$guarantor = anchor('Installment_payment/guarantor_contract/$1', '<i class="fa fa-file-text-o"></i> ' . lang('guarantor_contract'),'target="_blank"');
 		$group_agreement = anchor('Installment_payment/group_agreement/$1/$3', '<i class="fa fa-file-text-o"></i> ' . lang('group_agreement'),'target="_blank"');
 		$received = anchor('Installment_payment/Received_loans/$1', '<i class="fa fa-file-text-o"></i> ' . lang('received_loan_form'),'target="_blank"');

@@ -3444,7 +3444,7 @@ class Installment_Payment_model extends CI_Model
 	}
 	
 	public function group_applicant($group = NULL) {
-		$this->db->select('CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) AS customer_name');
+		$this->db->select('CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) AS customer_name, sales.reference_no, sales.total, companies.gov_id');
 		$this->db->join('sales','companies.id=sales.customer_id','LEFT');
 		$this->db->where('sales.loan_group_id',$group);
 		$q = $this->db->get('companies');		
@@ -3737,5 +3737,13 @@ class Installment_Payment_model extends CI_Model
         return FALSE;
     }
 	
+	public function getGroupLoanByID($id =null)
+    {
+       $q = $this->db->get_where('loan_groups', array('id' => $id),1);
+		if($q->num_rows() > 0) {
+			return $q->row();
+		}
+		return FALSE;
+    }
 	
 }

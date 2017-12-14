@@ -1,4 +1,4 @@
-<?php // $this->erp->print_arrays($contract_info) ?>
+<?php  // $this->erp->print_arrays($group_name) ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -119,7 +119,7 @@
 					</tr>
 					<tr>
 						<td style="width:18%">၀ိုင္းၾကီးခ်ဳပ္နံပါတ္<br>(Group No. )</td>
-						<td style="width:15%;vertical-align: top;">:<b> <?= $contract_info->reference_no; ?></b></td>
+						<td style="width:15%;vertical-align: top;">:<b> <?= $group_name->name; ?></b></td>
 						<td style="width:13%">အတိုးနႈန္း<br>(Interest Rate)</td>
 						<td style="width:15%;vertical-align: top;">:<b><?php echo $contract_info->interest ?></b></td>
 						<td style="width:18%">ေခ်းေငြအရာရွိ ID<br>(Credit Officer ID)</td>
@@ -152,17 +152,23 @@
 						<th style="width:10%"><span>( ေခ်းေငြပမာဏ    )</span><br>Loan Amount</th>
 						<th style="width:10%"><span>( လက္မွတ္)</span><br>Signature</th>
 					</tr>
-					
+					<?php 
+					$i = 1;
+					foreach($group_loan as $group){						
+					?>
 					<tr>
-						<td style="padding:5px">1 </td>
-						<td style="padding:5px"> <?= $contract_info->reference_no; ?></td>
-						<td style="padding:5px"> <?= $contract_info->customer_name; ?> </td>
-						<td style="padding:5px">  <?= $contract_info->gov_id; ?></td>
-						<td style="padding:5px">  <?=round($contract_info->total); ?></td>
+						<td style="padding:5px"> <?= $i; ?> </td>
+						<td style="padding:5px"> <?= $group->reference_no; ?></td>
+						<td style="padding:5px"> <?= $group->customer_name; ?> </td>
+						<td style="padding:5px">  <?= $group->gov_id; ?></td>
+						<td style="padding:5px">  <?= $this->erp->formatMoney($this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $group->total)) ; ?></td>
 						<td style="padding:5px"> </td>
 						
 					</tr>
-									
+					<?php
+					$i++;
+					}
+					?>			
 				</table>				 
 			</div>
 			
