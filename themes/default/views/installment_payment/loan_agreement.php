@@ -1,4 +1,4 @@
-<?php  // $this->erp->print_arrays($group_name) ?>
+<?php  //$this->erp->print_arrays($group_loan) ?>
 <!DOCTYPE html>
 <html>
 	<head>

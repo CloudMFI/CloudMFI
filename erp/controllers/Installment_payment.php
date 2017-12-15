@@ -9216,9 +9216,9 @@ class Installment_Payment extends MY_Controller
 		$this->data['setting'] = $this->settings_model->getSettings();
 		$this->data['sale_item'] = $this->Installment_payment_model->getSaleItemSaleByID($sale_id);
 		$this->data['contract_info'] = $this->Installment_payment_model->loan_agreement_ByID($sale_id);
-		$this->data['group_loan'] = $this->Installment_payment_model->group_applicant($group);
-		$this->data['group_info'] = $this->Installment_payment_model->group_agreement_ByID($group);
-		$this->data['group_name'] = $this->Installment_payment_model->getGroupLoanByID($group);
+		$this->data['group_loan'] = $this->Installment_payment_model->group_applicant($sale->loan_group_id);
+		$this->data['group_info'] = $this->Installment_payment_model->group_agreement_ByID($sale->loan_group_id);
+		$this->data['group_name'] = $this->Installment_payment_model->getGroupLoanByID($sale->loan_group_id);
 		$this->data['contract_gr_info'] = $this->Installment_payment_model->guarantor_loan_agreement_ByID($sale_id);
 		$this->data['contract_join_gr_info'] = $this->Installment_payment_model->join_guarantor_loan_agreement_ByID($sale_id);
 		$this->data['village'] = $this->Installment_payment_model->loan_agreemen_Cus_village($sale_id);

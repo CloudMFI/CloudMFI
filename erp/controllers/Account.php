@@ -205,6 +205,11 @@ class Account extends MY_Controller
 			}else{
 				$saving_interest = $this->input->post('default_saving_interest');
 			}
+			if($this->input->post('default_saving_interest_payble') == null){
+				$saving_interest_payble = $this->input->post('saving_interest_payble');
+			}else{
+				$saving_interest_payble = $this->input->post('default_saving_interest_payble');
+			}
 			if($this->input->post('default_cash_withdrawal') == null){
 				$cash_withdrawal = $this->input->post('cash_withdrawal');
 			}else{
@@ -244,6 +249,7 @@ class Account extends MY_Controller
 				'default_transfer_money' 	=> $transfer_money,
 				'default_saving_deposit' 	=> $saving_deposit,
 				'default_saving_interest' 	=> $saving_interest,
+				'default_saving_interest_payble' 	=> $saving_interest_payble,
 				'default_cash_withdrawal' 	=> $cash_withdrawal,
 				);
 			//echo '<pre>';print_r($data);echo '</pre>';exit;
@@ -283,6 +289,7 @@ class Account extends MY_Controller
 		$this->data['retained_earning'] = $this->accounts_model->get_retained_earning();
 		$this->data['default_saving_deposit'] = $this->accounts_model->getdefault_saving_deposit();
 		$this->data['default_saving_interest'] = $this->accounts_model->getdefault_saving_interest();
+		$this->data['default_saving_interest_payble'] = $this->accounts_model->getdefault_saving_interest_payble();
 		$this->data['default_cash_withdrawal'] = $this->accounts_model->getdefault_cash_withdrawal();
 		$this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         //$this->data['action'] = $action;
@@ -4071,7 +4078,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 								'biller_id'				=> $sale->branch_id,
 								'saving_balance'		=> $saving_amount,
 							);
-			// $this->erp->print_arrays($data);
+			 //$this->erp->print_arrays($data);
 			
 			$arr_services = array();
 			if($services){

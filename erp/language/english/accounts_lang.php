@@ -184,6 +184,6 @@ $lang["customer_payment"]							="Customer Payment";
 $lang["default_saving_deposit"]						="Default Saving Deposit";
 $lang["default_saving_interest"]					="Default Saving Interest";
 $lang["default_cash_withdrawal"]					="Default Cash Withdrawal";
-$lang[""]											="";
+$lang["default_saving_interest_payble"]				="Default Saving Interest Payble";
 $lang[""]											="";
 $lang[""]											="";
