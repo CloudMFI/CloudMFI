@@ -97,7 +97,7 @@
 						<td style="width:13%">ေခ်းေငြကာလ<br>(Loan term)</td>
 						<td style="width:15%;vertical-align: top;">:<b><?= round($contract_info->terms); ?> <?= lang("day") ?></b></td>
 						<td style="width:18%">စတင္ေပးေခ်ရမည္ေန႕ရက္<br>(First Repayment Date)</td>
-						<td style="width:15%;vertical-align: top;">:</td>
+						<td style="width:15%;vertical-align: top;">: <b><?= $this->erp->hrsd($contract_info->installment_date); ?></b> </td>
 					</tr>
 					<tr>
 						<td style="width:18%">အဖြဲ႕၀င္အေရအတြက္<br>(Number of member)</td>
