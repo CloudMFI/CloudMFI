@@ -4043,7 +4043,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 			
 			$grand_total = str_replace(',', '', $this->input->post('grand_total'));
 			$amount = str_replace(',', '', $this->input->post('amount')) + str_replace(',', '', $this->input->post('total_service_and_saving'));
-			$service = str_replace(',', '', $this->input->post('service_payment'));
+			$service = str_replace(',', '', $this->input->post('service_payments'));
 			$saving = str_replace(',', '', $this->input->post('saving_amount'));
 			$balance = $grand_total - $amount;
 			$saleItem = $this->accounts_model->getSaleItemBysaleID($sale_id);
@@ -4052,7 +4052,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 			$defaultAmount = $this->erp->convertCurrency($default_currency->default_currency, $saleItem->currency_code,$amount);
 			$service_amount = $this->erp->convertCurrency($default_currency->default_currency, $saleItem->currency_code,$service);
 			$saving_amount = $this->erp->convertCurrency($default_currency->default_currency, $saleItem->currency_code,$saving);
-			//$this->erp->print_arrays($balance);
+			//$this->erp->print_arrays($service_amount);
 			$services = str_replace(',', '', $this->input->post('service'));
 			$service_id = $this->input->post('service_id');
 			$reference_no = $this->site->getReference('pp');
@@ -4071,7 +4071,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 								'biller_id'				=> $sale->branch_id,
 								'saving_balance'		=> $saving_amount,
 							);
-			//$this->erp->print_arrays($data);
+			// $this->erp->print_arrays($data);
 			
 			$arr_services = array();
 			if($services){

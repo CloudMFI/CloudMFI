@@ -95,7 +95,7 @@
 						<td style="width:18%;">ရက္စဲြ<br>(Date)</td>
 						<td style="width:15%;vertical-align: top;">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
 						<td style="width:13%">ေခ်းေငြကာလ<br>(Loan term)</td>
-						<td style="width:15%;vertical-align: top;">:<b><?= round($contract_info->terms); ?> <?= lang("days") ?></b></td>
+						<td style="width:15%;vertical-align: top;">:<b><?= round($contract_info->terms); ?> <?= lang("day") ?></b></td>
 						<td style="width:18%">စတင္ေပးေခ်ရမည္ေန႕ရက္<br>(First Repayment Date)</td>
 						<td style="width:15%;vertical-align: top;">:</td>
 					</tr>
@@ -160,8 +160,8 @@
 						<td style="padding:5px"> <?= $i; ?> </td>
 						<td style="padding:5px"> <?= $group->reference_no; ?></td>
 						<td style="padding:5px"> <?= $group->customer_name; ?> </td>
-						<td style="padding:5px">  <?= $group->gov_id; ?></td>
-						<td style="padding:5px">  <?= $this->erp->formatMoney($this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $group->total)) ; ?></td>
+						<td style="padding:5px"> <?= $group->gov_id; ?> </td>
+						<td style="padding:5px"> <?= $this->erp->formatMoney($this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $group->total)) ; ?> </td>
 						<td style="padding:5px"> </td>
 						
 					</tr>
