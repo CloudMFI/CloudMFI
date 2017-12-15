@@ -115,14 +115,14 @@ class Installment_Payment_model extends CI_Model
 		companies.date_of_birth,companies.phone1 as phone,
 		CONCAT(erp_users.first_name," ",erp_users.last_name) AS approv_name,identify_types.name as identname, companies.gov_id,
 		quotes.approved_date,collateral_types.type,quote_items.description,
-		companies.village,companies.sangkat, companies.district,companies.state, quotes.installment_date,
+		companies.village,companies.sangkat, companies.district,companies.state, quotes.installment_date, 
 		COUNT(period) as cperiod, MAX(dateline) as enddate, MIN(dateline) as startdate'); 		
 		$this->db->join('collateral','collateral.sale_id=sales.id');
 		$this->db->join('collateral_types','collateral_types.id=collateral.cl_type','left');
 		$this->db->join('companies','sales.customer_id = companies.id');
 		$this->db->join('quotes','quotes.id = sales.quote_id');
 		$this->db->join('addresses','addresses.code = companies.village', 'left');
-		$this->db->join('quote_items','quote_items.quote_id = quotes.id','left');
+		$this->db->join('quote_items','sales.quote_id = quote_items.quote_id ','left'); 
 		$this->db->join('users','sales.approved_by = users.id');
 		$this->db->join('identify_types','identify_types.id = companies.identify', 'left');
 		$this->db->join('loans','loans.sale_id = sales.id','left');
@@ -371,6 +371,8 @@ class Installment_Payment_model extends CI_Model
 				}	
 		}
 	}
+	
+	 
 	////////////////////////////////////////
     public function getProductNames($term, $warehouse_id, $limit = 15)
     {
@@ -2109,6 +2111,8 @@ class Installment_Payment_model extends CI_Model
         return FALSE;
     }
 	
+	 
+	
 	function getSalesById($id){
 		$q = $this->db->get_where('sales', array('id' => $id), 1);
         if ($q->num_rows() > 0) {
@@ -3444,7 +3448,7 @@ class Installment_Payment_model extends CI_Model
 	}
 	
 	public function group_applicant($group = NULL) {
-		$this->db->select('CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) AS customer_name, sales.reference_no, sales.total, companies.gov_id');
+		$this->db->select('CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) AS customer_name, sales.reference_no, sales.total, companies.gov_id ');
 		$this->db->join('sales','companies.id=sales.customer_id','LEFT');
 		$this->db->where('sales.loan_group_id',$group);
 		$q = $this->db->get('companies');		
@@ -3744,6 +3748,17 @@ class Installment_Payment_model extends CI_Model
 			return $q->row();
 		}
 		return FALSE;
+    }
+	
+	public function CountGroupLoanByID($gr_id =null)
+    {
+		 $this->db->select('COUNT(loan_group_id) AS gr_id');
+		$q = $this->db->where('loan_group_id', $gr_id );
+		$q = $this->db->get_where('sales');
+		if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
     }
 	
 }

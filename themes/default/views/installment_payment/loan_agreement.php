@@ -1,4 +1,4 @@
-<?php  //$this->erp->print_arrays($group_loan) ?>
+<?php //$this->erp->print_arrays($count_group) ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -101,7 +101,7 @@
 					</tr>
 					<tr>
 						<td style="width:18%">အဖြဲ႕၀င္အေရအတြက္<br>(Number of member)</td>
-						<td style="width:15%;vertical-align: top;">:</td>
+						<td style="width:15%;vertical-align: top;">: <b> <?= $count_group->gr_id; ?></b></td>
 						<td style="width:13%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
 						<td style="width:15%;vertical-align: top;">:<b><span style="display:none;"><?= $contract_info->frequency; ?></span>
 								<?php
@@ -115,7 +115,7 @@
 								$frequency[360] = "Yearly";
 								echo  $frequency[$contract_info->frequency];?></b></td>
 						<td style="width:18%">စာခ်ဳပ္အမ်ိဳးအစား<br>(Contract Type)</td>
-						<td style="width:15%;vertical-align: top;">:</td>
+						<td style="width:15%;vertical-align: top;">: <b> <?= $sale_item->product_name; ?> </b></td>
 					</tr>
 					<tr>
 						<td style="width:18%">၀ိုင္းၾကီးခ်ဳပ္နံပါတ္<br>(Group No. )</td>
