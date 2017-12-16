@@ -7394,10 +7394,7 @@ class Reports extends MY_Controller
 				IF(".$this->db->dbprefix('sales').".frequency = 1, 'Daily', IF(".$this->db->dbprefix('sales').".frequency = 7, 'Weekly', IF(".$this->db->dbprefix('sales').".frequency = 14, 'Two Week', IF(".$this->db->dbprefix('sales').".frequency = 30, 'Monthly','')))),
 				" . $this->db->dbprefix('payments') . ".reference_no as payment_ref, 
 				
-				IF((ISNULL(".$this->db->dbprefix("payments").".sale_id) AND NOT ISNULL(".$this->db->dbprefix("payments").".purchase_id)), 
-				(SELECT erp_companies.name FROM erp_companies WHERE erp_companies.id = erp_purchases.supplier_id),
-				IF((NOT ISNULL(".$this->db->dbprefix("payments").".sale_id) AND ISNULL(".$this->db->dbprefix("payments").".purchase_id)),
-				(SELECT CONCAT(erp_companies.family_name_other,' ',erp_companies.name_other) FROM erp_companies WHERE erp_companies.id = erp_sales.customer_id),'')) as people,
+				CONCAT(".$this->db->dbprefix('companies').".family_name, ' ', ".$this->db->dbprefix('companies').".name) as customer_name,
 				myBranch.name,
 				CONCAT(".$this->db->dbprefix('co').".first_name, 
 						' ', 
@@ -7413,6 +7410,7 @@ class Reports extends MY_Controller
 				->join('users','payments.created_by=users.id','INNER')
 				->join('companies as myBranch', 'users.branch_id = myBranch.id')
                 ->join('sales', 'payments.sale_id = sales.id ', 'left')
+				->join('companies ', 'sales.customer_id = companies.id')
 				->join('quotes','quotes.id = sales.quote_id','left')
 				->join('users as erp_co','sales.by_co = erp_co.id','left')
 				->join('loans','loans.sale_id = sales.id','INNER')
