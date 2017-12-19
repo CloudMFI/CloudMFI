@@ -2638,8 +2638,8 @@ ORDER BY
 
 	public function getSaleByUserID($user_id,$start_date,$end_date,$user,$branch_query){	
 		$this->db->select('sales.id, sales.by_co as co_id,sales.branch_id,CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) as cus_name,
-						   DATE_FORMAT(erp_sales.date,"%d/%m/%Y %h:%i:%s") as date,
-						   DATE_FORMAT(erp_sales.approved_date,"%d/%m/%Y") as approved_date,
+						   erp_sales.date as date,
+						   erp_sales.approved_date as approved_date,
 						   erp_sales.grand_total as l_disburse,
 						   CONCAT(TRUNCATE((erp_sales.interest_rate*100), 2)," ", "%") AS interest,
 						   CONCAT(TRUNCATE(erp_sales.term, 0)," ", "Days")  AS term,
@@ -2671,25 +2671,61 @@ ORDER BY
 		return false;
 	}
 	
-	public function getDailyDisburseByCO($user_id,$start_date,$end_date,$user,$branch_query){	
+	public function getDailyDisburseByCO($user_id,$start_date,$end_date,$user,$branch_query){
 		$this->db->select('sales.id, sales.by_co as co_id,sales.branch_id,CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) as cus_name,
-						   DATE_FORMAT(erp_sales.date,"%d/%m/%Y %h:%i:%s") as date,
-						   DATE_FORMAT(erp_sales.approved_date,"%d/%m/%Y") as approved_date,
+						   erp_sales.date as date,
+						   erp_sales.approved_date as approved_date,
 						   erp_sales.grand_total as l_disburse,
 						   CONCAT(TRUNCATE((erp_sales.interest_rate*100), 2)," ", "%") AS interest,
 						   CONCAT(TRUNCATE(erp_sales.term, 0)," ", "Days")  AS term,
 						   sales.reference_no,
 						   sales.frequency,
 						   payments.amount as disburse_amount,
-						   payments.service_amount ,						   
+						   payments.service_amount,
 						   payments.date as disburse_date,
-						   
-						  
-						   
-						   ');
+						');
+		$this->db->where('sales.by_co',$user_id);
+		$this->db->where('payments.paid_type','Disburse');
+		$this->db->where('payments.date =', date('Y-m-d'));
+		$this->db->order_by('sales.id','DESC'); 
+		$this->db->join('users','sales.by_co = users.id','INNER');
+		$this->db->join('payments','sales.id = payments.sale_id','left');
+		$this->db->join('companies', 'sales.customer_id = companies.id', 'INNER');
+		
+		if ($start_date || $end_date) {
+			$this->db->where('erp_sales.approved_date BETWEEN "' . $this->erp->fld($start_date) .' 00.00 " and "' . $this->erp->fld($end_date).' 23.59 "');
+		}
+		if ($user) {
+			$this->db->where('sales.by_co', $user);
+		}
+		if ($branch_query) {
+			$this->db->where('sales.branch_id', $branch_query);
+		}
+		$q = $this->db->get('sales');
+		if($q->num_rows() > 0 ) {
+			foreach($q->result() as $row){
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false;
+	}
+	
+	public function getDisburseByCO($user_id,$start_date,$end_date,$user,$branch_query){
+		$this->db->select('sales.id, sales.by_co as co_id,sales.branch_id,CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) as cus_name,
+						   erp_sales.date as date,
+						   erp_sales.approved_date as approved_date,
+						   erp_sales.grand_total as l_disburse,
+						   CONCAT(TRUNCATE((erp_sales.interest_rate*100), 2)," ", "%") AS interest,
+						   CONCAT(TRUNCATE(erp_sales.term, 0)," ", "Days")  AS term,
+						   sales.reference_no,
+						   sales.frequency,
+						   payments.amount as disburse_amount,
+						   payments.service_amount,
+						   payments.date as disburse_date,
+						');
 		$this->db->where('sales.by_co',$user_id);
 		$this->db->where('payments.paid_type','Disburse'); 
-		$this->db->where('payments.date =', date('Y-m-d'));
 		$this->db->order_by('sales.id','DESC'); 
 		$this->db->join('users','sales.by_co = users.id','INNER');
 		$this->db->join('payments','sales.id = payments.sale_id','left');
@@ -2770,7 +2806,7 @@ ORDER BY
 	
 	public function getPaymentBySaleID($user_id,$start_date,$end_date,$user,$branch_query){
 		$this->db->select('sales.by_co AS co_id,sales.branch_id,CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) as cus_name,
-						   DATE_FORMAT(erp_payments.date,"%d/%m/%Y") AS date,
+						   erp_payments.date AS date,
 						   SUM(erp_payments.principle_amount) AS principle_collection,
 						   SUM(erp_payments.interest_amount) AS interest_collection,
 						   SUM(erp_payments.service_amount) AS service_collection,
@@ -2778,8 +2814,7 @@ ORDER BY
 						   sales.frequency');
 		$this->db->where('sales.by_co',$user_id);
 		$this->db->where('payments.paid_type','Loans Received');
-		$this->db->where('payments.type','Received');
-		//$this->db->or_where('payments.paid_type',Null);
+		$this->db->where('payments.type','Received'); 
 		$this->db->group_by('payments.sale_id');
 		$this->db->order_by('sales.id','DESC');
 		$this->db->join('sales','sales.id = payments.sale_id','INNER'); 

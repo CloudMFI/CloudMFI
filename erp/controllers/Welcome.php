@@ -31,10 +31,15 @@ class Welcome extends MY_Controller
 		$_SESSION["branchName"] = $branchName;
 		$_SESSION["branch_id"] = $branch_id;
 		
+		$month = date('m', time());
+		$year = date('Y', time());
+		$last_day = days_in_month($month, $year);
+		// $this->erp->print_arrays($last_day);
+		
 		$this->data['sales'] = $this->db_model->getLatestSales();
         $this->data['quotes'] = $this->db_model->getLastestQuotes();
         $this->data['applicant'] = $this->db_model->getLastFiveQuoat();
-		//$this->erp->print_arrays($applicant);
+		
 		$this->data['applicant_group'] = $this->db_model->getQuotesGroup();
         $this->data['contract'] = $this->db_model->getLastFiveContract();
         $this->data['five_dealer'] = $this->db_model->getLastFiveDealer();
@@ -43,18 +48,16 @@ class Welcome extends MY_Controller
         $this->data['transfers'] = $this->db_model->getLatestTransfers();
         $this->data['customers'] = $this->db_model->getLatestCustomers();
         $this->data['suppliers'] = $this->db_model->getLatestSuppliers();
-		$this->data['dealers'] = $this->db_model->getLatestDealers(); //$this->erp->print_arrays($this->db_model->getLatestDealers());
+		$this->data['dealers'] = $this->db_model->getLatestDealers(); 
+		
         $this->data['chatData'] = $this->db_model->getChartData();
         $this->data['stock'] = $this->db_model->getStockValue();
         $this->data['bs'] = $this->db_model->getBestSeller();
 		
-		/*$this->data['app'] = $this->db_model->getAllApplicant();
-		$this->data['contract'] = $this->db_model->getAllContract();
-		$this->data['rejceted'] = $this->db_model->getAllRejected();*/
-		$this->data['app_d'] = $this->db_model->getAllApplicant();
-		$this->data['contract_d'] = $this->db_model->getAllContract();
-		$this->data['disbursement'] = $this->db_model->getDisbursementAmount();
-		$this->data['rejceted_d'] = $this->db_model->getAllRejected();
+		$this->data['app_d'] = $this->db_model->getAllApplicant($month, $year, $last_day);
+		$this->data['contract_d'] = $this->db_model->getAllContract($month, $year, $last_day);
+		$this->data['disbursement'] = $this->db_model->getDisbursementAmount($month, $year, $last_day);
+		$this->data['rejceted_d'] = $this->db_model->getAllRejected($month, $year, $last_day);
 		$this->data['payment']=$this->db_model->getPaymentAmount();
 		$this->data['sales_id'] = $this->db_model->CountSaleID();
 		$this->data['num_Id'] = $this->db_model->CountID_Quotes();
@@ -62,7 +65,7 @@ class Welcome extends MY_Controller
 		$this->data['loan_group_id'] = $this->db_model->CountGroupLoan_Quotes();
 		$this->data['s_total'] = $this->db_model->getSaleTotal();
 		$this->data['p_amount'] = $this->db_model->getPayment_amount();
-		$this->data['expanse']	= $this->db_model->getExpanse();	
+		$this->data['expanse']	= $this->db_model->getExpanse($month, $year, $last_day);	
 		
         $lmsdate = date('Y-m-d', strtotime('first day of last month')) . ' 00:00:00';
         $lmedate = date('Y-m-d', strtotime('last day of last month')) . ' 23:59:59';

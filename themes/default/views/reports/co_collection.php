@@ -142,7 +142,7 @@
 							<th style="text-align:center;"><?= lang('interest_collection') ?></th>
 							<th style="text-align:center;"><?= lang('service_fee') ?></th>
 							<th style="text-align:center;"><?= lang('penalty_collection') ?></th>
-							<th style="text-align:center;"><?= lang('tt_collection') ?></th>
+							<th style="text-align:center;"><?= lang('total_collection') ?></th>
 						</tr>
                         </thead>
                          <tbody>
@@ -189,7 +189,7 @@
 											<tr>
 												<td style="text-align:right;"><?= $i ?></td>
 												<td style="text-align:left;"><?= $co_l->cus_name; ?></td>
-												<td style="text-align:left;"><?= $co_l->date; ?></td>
+												<td style="text-align:left;"><?= $this->erp->hrsd($co_l->date); ?></td>
 												<td style="text-align:right;"><?= $this->erp->formatDecimal($principle); ?></td>
 												<td style="text-align:right;"><?= $this->erp->formatDecimal($interest); ?></td>
 												<td style="text-align:right;"><?= $this->erp->formatDecimal($service); ?></td>

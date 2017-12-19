@@ -17,42 +17,21 @@
 		overflow-x: scroll;
 		max-width: 100%;
 		min-height: 300px;
-		display: block;
-		//cursor: pointer;
+		display: block; 
 		white-space: nowrap;
 	}
 	@media print{
-				#tb tr th{
-					background-color: #DCDCDC !important;
-				}
-				#body{
-					width:1000px;
-					height:100%;
-					margin:0 auto;
-					background:#fff !important;
-				}
+				 
 				#print{
 					display:none;
 				}
-				#form{
-					display:none;
-				}
-				#foot{
-					width:100%;
-					background:#fff !important;
-				}	
-				.fon{
-					color: rgba(0, 0, 0, 0.3) !important;
-				}
-				.left_ch{
-					 left: 80px !important;
-				}
+			   
 			}
 </style>
 <div class="box">
     <div class="box-header">
         <h2 class="blue">
-			<i class="fa-fw fa fa-heart-o"></i><?= lang('co_reports'); ?>
+			<i class="fa-fw fa fa-heart-o"></i><?= lang('disbursement_reports'); ?>
         </h2>
 		
 		<div class="box-icon">
@@ -77,7 +56,7 @@
 				
 				<!---Start Search------->
 				<div id="form">
-					<?php echo form_open('Reports/co_reports/', 'id="action-form"'); ?>
+					<?php echo form_open('Reports/disbursement_reports/', 'id="action-form"'); ?>
 					<div class="row" style="padding:10px;">
 						<div class="col-sm-4">
 							<div class="form-group">
@@ -129,25 +108,21 @@
 				<!---End Search------->
 				
 				<div class="clearfix"></div>
-				<p style="font-size:20px; text-align:center;">
-					<?= lang("co_reports"); ?>
+				<p style="font-size:20px; text-align:center;">  
+					<?= lang("disbursement_reports"); ?> 
 				</p>
                 <div>
                     <table id="QUData" class="table table-bordered table-hover table-striped table-condensed">
                         <thead>
                         <tr class="active">
                             <th style="text-align:center; width:10px;">#</th>
+							<th style="text-align:center;"><?= lang('loan_reference') ?></th>
 							<th style="text-align:center;"><?= lang('customer') ?></th>
-							<th style="text-align:center;"><?= lang('submit_date') ?></th>
-							<th style="text-align:center;"><?= lang('approved_date') ?></th>
-							<th style="text-align:center;"><?= lang('l_disburse') ?></th>
+							<th style="text-align:center;"><?= lang('disburse_date') ?></th>
+							<!--<th style="text-align:center;"><?= lang('service') ?></th>-->
 							<th style="text-align:center;"><?= lang('interest') ?></th>
-							<th style="text-align:center;"><?= lang('term') ?></th>
-							<th style="text-align:center;"><?= lang('principle_collection') ?></th>
-							<th style="text-align:center;"><?= lang('interest_collection') ?></th>
-							<th style="text-align:center;"><?= lang('service_fee') ?></th>
-							<th style="text-align:center;"><?= lang('penalty_collection') ?></th>
-							<th style="text-align:center;"><?= lang('total_collection') ?></th>
+							<th style="text-align:center;"><?= lang('payment_terms') ?></th>
+							<th style="text-align:center;"><?= lang('disburse_amount') ?></th>
 						</tr>
                         </thead>
                          <tbody>
@@ -155,23 +130,22 @@
 							if(is_array($branches)){
 							   foreach($branches as $branch_name){
 							?>
-							<tr>
+							<tr class="branch">
 								<td colspan="12" class="text-left" style="font-weight:bold; font-size:19px !important; color:green;">
 									<?= lang("branch"); ?>
-									<i class="fa fa-angle-double-right" aria-hidden="true"></i>
-									&nbsp;&nbsp;<?=$branch_name->name?>
+									<i class="fa fa-angle-double-right" aria-hidden="true"></i> &nbsp;&nbsp;<?=$branch_name->name?>
 								</td>
 							</tr>
 							 <?php 
 								$credit_offier 	= $branch_name->co_id;
 								foreach($credit_offier AS $user){ ?>
 								
-								<tr>
-									<td colspan="12" class="text-left" style="font-weight:bold; color:#083686;">&nbsp;&nbsp;&nbsp;&nbsp; 								
+								<tr class="co">
+									<td colspan="12" class="text-left" style="font-weight:bold; color: #083686;">&nbsp;&nbsp;&nbsp;&nbsp;								
 										<?= lang("credit_officer"); ?>
-										<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+										<i class="fa fa-angle-double-right" aria-hidden="true"></i>	 
 										&nbsp;&nbsp;&nbsp;
-										<?= $user->first_name.' '.$user->last_name; ?>
+										<?= $user->first_name.' '.$user->last_name; ?>							
 									</td>
 								</tr>
 									<?php
@@ -184,43 +158,37 @@
 									$tt_coll		= 0;
 									$loans = $user->sale;				
 									foreach($loans as $co_l){ 
-									$total_collection = $co_l->principle_collection + $co_l->interest_collection + $co_l->service_collection + $co_l->penalty_collection;
+										$frequency_cash[""] = "";
+										$frequency_cash[1] = "Daily";
+										$frequency_cash[7] = "Weekly";
+										$frequency_cash[14] = "Two Week";
+										$frequency_cash[30] = "Monthly";
+										$frequency_cash[360] = "Yearly";
 									?>
 										<tr>
-											<td style="text-align:right;"><?= $i ?></td>
-											<td style="text-align:left;"><?= $co_l->cus_name; ?></td>
-											<td style="text-align:left;"><?= $this->erp->hrsd($co_l->date); ?></td>
-											<td style="text-align:left;"><?= $this->erp->hrsd($co_l->approved_date); ?></td>
-											<td style="text-align:right;"><?= $this->erp->formatDecimal($co_l->l_disburse) ?></td>
-											<td style="text-align:right;"><?= $co_l->interest; ?></td>
-											<td style="text-align:left;"><?= $co_l->term; ?></td>
-											<td style="text-align:right;"><?= $this->erp->formatDecimal($co_l->principle_collection); ?></td>
-											<td style="text-align:right;"><?= $this->erp->formatDecimal($co_l->interest_collection); ?></td>
-											<td style="text-align:right;"><?= $this->erp->formatDecimal($co_l->service_collection); ?></td>
-											<td style="text-align:right;"><?= $this->erp->formatDecimal($co_l->penalty_collection); ?></td>
-											<td style="text-align:right;"><?= $this->erp->formatDecimal($total_collection); ?></td>
+											<td style="text-align:center;"><?= $i ?></td>
+											<td style="text-align:center;"><?= $co_l->reference_no; ?></td>
+											<td style="text-align:center;"><?= $co_l->cus_name; ?></td>
+											<td style="text-align:center;"><?= $this->erp->hrsd($co_l->disburse_date); ?></td>											
+											<!--<td style="text-align:center;"> <?= $this->erp->formatDecimal($co_l->service_amount); ?> </td>-->
+											<td style="text-align:center;"><?= $co_l->interest; ?></td>
+											<td style="text-align:center;"><?= $frequency_cash[$co_l->frequency]; ?></td>
+											<td style="text-align:center;"> <?= $this->erp->formatDecimal($co_l->disburse_amount); ?> </td>
 										</tr>
 									<?php 
 									$i++;
-									$tt_disburse += $co_l->l_disburse;
-									$principle_amt += $co_l->principle_collection;
-									$interest_amt += $co_l->interest_collection;
-									$service_amt += $co_l->service_collection;
-									$penalty_amt += $co_l->penalty_collection;
-									$tt_coll += $total_collection;
+									$total_disburse += $co_l->disburse_amount;
+									$total_service += $co_l->service_amount;
+									 
 									} ?>
-									<tr class="active">
-										<td colspan="4" class="right" style="font-weight:bold;"><?= lang("total") ?> 
+									<tr class="active" id="total">
+										<td colspan="6" class="right" style="font-weight:bold;"><?= lang("total") ?> 
 											<i class="fa fa-angle-double-right" aria-hidden="true"></i> 
 										</td>
-										<td class="text-right"><b><?= $this->erp->formatDecimal($tt_disburse); ?></b></td>
-										<td></td>
-										<td></td>
-										<td class="text-right"><b><?= $this->erp->formatDecimal($principle_amt); ?></b></td>
-										<td class="text-right"><b><?= $this->erp->formatDecimal($interest_amt); ?></b></td>
-										<td class="text-right"><b><?= $this->erp->formatDecimal($service_amt); ?></b></td>
-										<td class="text-right"><b><?= $this->erp->formatDecimal($penalty_amt); ?></b></td>
-										<td class="text-right"><b><?= $this->erp->formatDecimal($tt_coll); ?></b></td>
+										<!--<td class="text-center"><b><?= $this->erp->formatDecimal($total_service); ?></b></td>-->
+										 
+										<td class="text-center"><b><?= $this->erp->formatDecimal($total_disburse); ?></b></td>
+										
 									</tr>
 							<?php 
 								}

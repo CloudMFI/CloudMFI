@@ -747,6 +747,12 @@
 																	<span class="text"> <?= lang('daily_disbursement'); ?></span>
 																</a>
 															</li>
+															<li id="reports_disbursement_reports" class="sub_navigation">
+																<a class="submenu" href="<?= site_url('reports/disbursement_reports'); ?>">
+																	<i class="fa fa-barcode"></i>
+																	<span class="text"> <?= lang('disbursement_reports'); ?></span>
+																</a>
+															</li>
 															<li id="reports_co_reports" class="sub_navigation">
 																<a class="submenu" href="<?= site_url('reports/co_reports'); ?>">
 																	<i class="fa fa-barcode"></i>

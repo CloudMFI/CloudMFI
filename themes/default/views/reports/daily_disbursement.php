@@ -118,7 +118,7 @@
                             <th style="text-align:center; width:10px;">#</th>
 							<th style="text-align:center;"><?= lang('loan_reference') ?></th>
 							<th style="text-align:center;"><?= lang('customer') ?></th>
-							<th style="text-align:center;"><?= lang('disburse_date') ?></th>							
+							<th style="text-align:center;"><?= lang('disburse_date') ?></th>
 							<!--<th style="text-align:center;"><?= lang('service') ?></th>-->
 							<th style="text-align:center;"><?= lang('interest') ?></th>
 							<th style="text-align:center;"><?= lang('payment_terms') ?></th>
