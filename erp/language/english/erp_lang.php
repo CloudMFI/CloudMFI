@@ -998,4 +998,9 @@ $lang["loan_active"]							="Loans Active";
  
 $lang["daily_monitor_reports"]					= "Daily Monitor Reports";
 $lang["customer_reports"]						= "Customer Reports";
+$lang["daily_disbursement"]						= "Daily Disbursement";
+$lang["loan_reference"]							= "Loan Reference";
+$lang["payment_terms"]							= "Payment Terms";
+$lang[""]			= "";
+$lang[""]			= "";
 $lang[""]			= "";

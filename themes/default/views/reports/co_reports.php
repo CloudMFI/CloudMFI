@@ -129,7 +129,10 @@
 				<!---End Search------->
 				
 				<div class="clearfix"></div>
-                <div class="table-responsive">
+				<p style="font-size:20px; text-align:center;">
+					<?= lang("co_reports"); ?>
+				</p>
+                <div>
                     <table id="QUData" class="table table-bordered table-hover table-striped table-condensed">
                         <thead>
                         <tr class="active">
@@ -164,10 +167,10 @@
 								foreach($credit_offier AS $user){ ?>
 								
 								<tr>
-									<td colspan="12" class="text-left" style="font-weight:bold; color:orange;">&nbsp;&nbsp;&nbsp;&nbsp;								
+									<td colspan="12" class="text-left" style="font-weight:bold; color:#083686;">&nbsp;&nbsp;&nbsp;&nbsp; 								
 										<?= lang("credit_officer"); ?>
 										<i class="fa fa-angle-double-right" aria-hidden="true"></i>
-										
+										&nbsp;&nbsp;&nbsp;
 										<?= $user->first_name.' '.$user->last_name; ?>
 									</td>
 								</tr>
@@ -186,7 +189,7 @@
 										<tr>
 											<td style="text-align:right;"><?= $i ?></td>
 											<td style="text-align:left;"><?= $co_l->cus_name; ?></td>
-											<td style="text-align:left;"><?= $co_l->date; ?></td>
+											<td style="text-align:left;"><?= $this->erp->hrsd($co_l->date); ?></td>
 											<td style="text-align:left;"><?= $co_l->approved_date; ?></td>
 											<td style="text-align:right;"><?= $this->erp->formatDecimal($co_l->l_disburse) ?></td>
 											<td style="text-align:right;"><?= $co_l->interest; ?></td>
@@ -229,18 +232,7 @@
 						for($k = 0;$k<7;$k++){
 						?>
 						<?php $i++; }?>
-						<!--<tr>
-							<td style="text-align:right; font-weight:bold;"><?= lang('total') ?></td>
-							<td style="text-align:right; font-weight:bold;"></td>
-							<td style="text-align:right; font-weight:bold;"></td>
-							<td style="text-align:right; font-weight:bold;"></td>
-							<td style="text-align:right; font-weight:bold;"></td>
-							<td style="text-align:right; font-weight:bold;"></td>
-							<td style="text-align:right; font-weight:bold;"></td>
-							<td style="text-align:right; font-weight:bold;"></td>
-							<td style="text-align:right; font-weight:bold;"></td>
-							<td style="text-align:right; font-weight:bold; color:red"></td>
-						</tr>-->
+						 
                        </tbody>
                     </table>
                 </div>

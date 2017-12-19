@@ -741,12 +741,18 @@
 															<span class="chevron closed"></span>
 														</a>
 														<ul>
+															<li id="reports_daily_disbursement" class="sub_navigation">
+																<a class="submenu" href="<?= site_url('reports/daily_disbursement'); ?>">
+																	<i class="fa fa-barcode"></i>
+																	<span class="text"> <?= lang('daily_disbursement'); ?></span>
+																</a>
+															</li>
 															<li id="reports_co_reports" class="sub_navigation">
 																<a class="submenu" href="<?= site_url('reports/co_reports'); ?>">
 																	<i class="fa fa-barcode"></i>
 																	<span class="text"> <?= lang('co_reports'); ?></span>
 																</a>
-															</li>
+															</li>															
 															<li id="reports_co_collection" class="sub_navigation">
 																<a class="submenu" href="<?= site_url('reports/co_collection'); ?>">
 																	<i class="fa fa-barcode"></i>

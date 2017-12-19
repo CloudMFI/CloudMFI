@@ -2191,11 +2191,11 @@ ORDER BY
 						$this->db->dbprefix('sales').".contract_date,
 						(".$this->db->dbprefix('sales').".interest_rate*100) as interest, ".
 						$this->db->dbprefix('sales').".term, ".
-						"COALESCE((SELECT u.username FROM erp_users u WHERE ".$this->db->dbprefix("sales").".created_by = u.id), '') AS co,".
+						"COALESCE((SELECT u.username FROM erp_users u WHERE ".$this->db->dbprefix("sales").".by_co = u.id), '') AS co,".
 						$this->db->dbprefix('sales').".grand_total,	
 						(".$this->db->dbprefix('sales').".grand_total - ".$this->db->dbprefix("sales").".paid) as balance")
                 ->from('sales')
-				->join('users','sales.created_by=users.id','INNER')
+				->join('users','sales.by_co=users.id','INNER')
 				->join('companies','sales.customer_id=companies.id','INNER')
 				->join('companies as myBranch', 'users.branch_id = myBranch.id');
 		if ($start_date || $end_date) {
@@ -2208,7 +2208,7 @@ ORDER BY
 			$this->db->like('sales.reference_no', $reference_no);
 		}
 		if ($user) {
-			$this->db->where('sales.created_by', $user);
+			$this->db->where('sales.by_co', $user);
 		}
 		if ($branch) {
 			$this->db->where('users.branch_id', $branch);
@@ -2564,6 +2564,7 @@ ORDER BY
 	
 	public function getBranches(){	
 		$this->db->where('group_name','biller');
+		//$this->db->where('id !=',1);
 		$q = $this->db->get('companies');
 		if($q->num_rows() > 0 ) {
 			foreach($q->result() as $row){
@@ -2574,11 +2575,41 @@ ORDER BY
 		return false;
 	}
 	
+	public function getDailyBranches(){	
+		$this->db->where('group_name','biller');
+		//$this->db->join('payments',' companies.id = payments.biller_id','left');
+		$q = $this->db->get('companies');
+		if($q->num_rows() > 0 ) {
+			foreach($q->result() as $row){
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false;
+	}
+	
+	public function getCoDisburse($branch_id){
+		$this->db->select('users.id,sales.branch_id,users.first_name,users.last_name'); 
+		$this->db->join('sales','sales.by_co =users.id','INNER');
+		$this->db->join('payments','sales.id =payments.sale_id','INNER');
+		$this->db->where('sales.branch_id',$branch_id);
+		$this->db->where('payments.date =', date('Y-m-d'));
+		$this->db->group_by('users.id');
+		$this->db->order_by('users.id','DESC');
+		$q = $this->db->get('users');
+		if($q->num_rows() > 0 ) {
+			foreach($q->result() as $row){
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false;
+	}
+	
 	public function getUser($branch_id){
-		$this->db->select('users.id,quotes.branch_id,users.first_name,users.last_name');
-		$this->db->join('quotes','quotes.created_by=users.id','INNER');	
-		$this->db->join('sales','sales.quote_id=quotes.id','INNER');
-		$this->db->where('quotes.branch_id',$branch_id);
+		$this->db->select('users.id,sales.branch_id,users.first_name,users.last_name'); 
+		$this->db->join('sales','sales.by_co =users.id','INNER');
+		$this->db->where('sales.branch_id',$branch_id);
 		$this->db->group_by('users.id');
 		$this->db->order_by('users.id','DESC');
 		$q = $this->db->get('users');
@@ -2606,30 +2637,72 @@ ORDER BY
 	}
 
 	public function getSaleByUserID($user_id,$start_date,$end_date,$user,$branch_query){	
-		$this->db->select('sales.id, quotes.created_by as co_id,quotes.branch_id,CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) as cus_name,
-						   DATE_FORMAT(erp_quotes.date,"%d/%m/%Y %h:%i:%s") as date,
-						   DATE_FORMAT(erp_quotes.approved_date,"%d/%m/%Y") as approved_date,
+		$this->db->select('sales.id, sales.by_co as co_id,sales.branch_id,CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) as cus_name,
+						   DATE_FORMAT(erp_sales.date,"%d/%m/%Y %h:%i:%s") as date,
+						   DATE_FORMAT(erp_sales.approved_date,"%d/%m/%Y") as approved_date,
 						   erp_sales.grand_total as l_disburse,
 						   CONCAT(TRUNCATE((erp_sales.interest_rate*100), 2)," ", "%") AS interest,
-						   CONCAT(TRUNCATE(erp_sales.term, 0)," ", "ថ្ងៃ")  AS term,
+						   CONCAT(TRUNCATE(erp_sales.term, 0)," ", "Days")  AS term,
 						   (SELECT SUM(principle_amount) FROM erp_payments WHERE sale_id = erp_sales.id AND type = "received") AS principle_collection,
 						   (SELECT SUM(interest_amount) FROM erp_payments WHERE sale_id = erp_sales.id AND type = "received") AS interest_collection,
 						   (SELECT SUM(service_amount) FROM erp_payments WHERE sale_id = erp_sales.id AND type = "received") AS service_collection,
 						   (SELECT SUM(penalty_amount) FROM erp_payments WHERE sale_id = erp_sales.id AND type = "received") AS penalty_collection');
-		$this->db->where('quotes.created_by',$user_id);
-		$this->db->order_by('sales.id','DESC');
-		$this->db->join('quotes','sales.quote_id = quotes.id','left');
-		$this->db->join('users','quotes.created_by=users.id','INNER');
+		$this->db->where('sales.by_co',$user_id);
+		$this->db->order_by('sales.id','DESC'); 
+		$this->db->join('users','sales.by_co = users.id','INNER');
 		$this->db->join('companies', 'sales.customer_id = companies.id', 'INNER');
 		
 		if ($start_date || $end_date) {
-			$this->db->where('erp_quotes.approved_date BETWEEN "' . $this->erp->fld($start_date) .' 00.00 " and "' . $this->erp->fld($end_date).' 23.59 "');
+			$this->db->where('erp_sales.approved_date BETWEEN "' . $this->erp->fld($start_date) .' 00.00 " and "' . $this->erp->fld($end_date).' 23.59 "');
 		}
 		if ($user) {
-			$this->db->where('quotes.created_by', $user);
+			$this->db->where(' sales.by_co', $user);
 		}
 		if ($branch_query) {
-			$this->db->where('quotes.branch_id', $branch_query);
+			$this->db->where('sales.branch_id', $branch_query);
+		}
+		$q = $this->db->get('sales');
+		if($q->num_rows() > 0 ) {
+			foreach($q->result() as $row){
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false;
+	}
+	
+	public function getDailyDisburseByCO($user_id,$start_date,$end_date,$user,$branch_query){	
+		$this->db->select('sales.id, sales.by_co as co_id,sales.branch_id,CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) as cus_name,
+						   DATE_FORMAT(erp_sales.date,"%d/%m/%Y %h:%i:%s") as date,
+						   DATE_FORMAT(erp_sales.approved_date,"%d/%m/%Y") as approved_date,
+						   erp_sales.grand_total as l_disburse,
+						   CONCAT(TRUNCATE((erp_sales.interest_rate*100), 2)," ", "%") AS interest,
+						   CONCAT(TRUNCATE(erp_sales.term, 0)," ", "Days")  AS term,
+						   sales.reference_no,
+						   sales.frequency,
+						   payments.amount as disburse_amount,
+						   payments.service_amount ,						   
+						   payments.date as disburse_date,
+						   
+						  
+						   
+						   ');
+		$this->db->where('sales.by_co',$user_id);
+		$this->db->where('payments.paid_type','Disburse'); 
+		$this->db->where('payments.date =', date('Y-m-d'));
+		$this->db->order_by('sales.id','DESC'); 
+		$this->db->join('users','sales.by_co = users.id','INNER');
+		$this->db->join('payments','sales.id = payments.sale_id','left');
+		$this->db->join('companies', 'sales.customer_id = companies.id', 'INNER');
+		
+		if ($start_date || $end_date) {
+			$this->db->where('erp_sales.approved_date BETWEEN "' . $this->erp->fld($start_date) .' 00.00 " and "' . $this->erp->fld($end_date).' 23.59 "');
+		}
+		if ($user) {
+			$this->db->where('sales.by_co', $user);
+		}
+		if ($branch_query) {
+			$this->db->where('sales.branch_id', $branch_query);
 		}
 		$q = $this->db->get('sales');
 		if($q->num_rows() > 0 ) {
@@ -2696,22 +2769,21 @@ ORDER BY
 	}
 	
 	public function getPaymentBySaleID($user_id,$start_date,$end_date,$user,$branch_query){
-		$this->db->select('quotes.created_by AS co_id,quotes.branch_id,CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) as cus_name,
+		$this->db->select('sales.by_co AS co_id,sales.branch_id,CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) as cus_name,
 						   DATE_FORMAT(erp_payments.date,"%d/%m/%Y") AS date,
 						   SUM(erp_payments.principle_amount) AS principle_collection,
 						   SUM(erp_payments.interest_amount) AS interest_collection,
 						   SUM(erp_payments.service_amount) AS service_collection,
 						   SUM(erp_payments.penalty_amount) AS penalty_collection,
 						   sales.frequency');
-		$this->db->where('quotes.created_by',$user_id);
+		$this->db->where('sales.by_co',$user_id);
 		$this->db->where('payments.paid_type','Loans Received');
 		$this->db->where('payments.type','Received');
 		//$this->db->or_where('payments.paid_type',Null);
 		$this->db->group_by('payments.sale_id');
 		$this->db->order_by('sales.id','DESC');
-		$this->db->join('sales','sales.id = payments.sale_id','INNER');
-		$this->db->join('quotes','quotes.id = sales.quote_id','INNER');
-		$this->db->join('companies','companies.id=quotes.customer_id','INNER');
+		$this->db->join('sales','sales.id = payments.sale_id','INNER'); 
+		$this->db->join('companies','companies.id = sales.customer_id','INNER');
 		/*if($start_date && $end_date){
 			$this->db->where('payments.date >="'.$start_date.' 00.00" AND payments.date <="'.$end_date.' 23.59"');
 		}*/
@@ -2720,10 +2792,10 @@ ORDER BY
 			$this->db->where('payments.date BETWEEN "' . $this->erp->fld($start_date) .' 00.00 " and "' . $this->erp->fld($end_date).' 23.59 "');
 		}
 		if ($user) {
-			$this->db->where('quotes.created_by', $user);
+			$this->db->where('sales.by_co', $user);
 		}
 		if ($branch_query) {
-			$this->db->where('quotes.branch_id', $branch_query);
+			$this->db->where('sales.branch_id', $branch_query);
 		}
 		
 		$q = $this->db->get('payments');

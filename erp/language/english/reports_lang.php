@@ -311,6 +311,6 @@ $lang["loan_frequency"]							="Loan Frequency";
 $lang["customer_name_(eng)"]					="Customer Name (Eng)";
 $lang["customer_name_(other)"]					="Customer Name (Other)";
 $lang["days"]									="Days";
-$lang[""]		="";
+$lang["daily_disbursement_reports"]				="Daily Disbursement Reports";
 $lang[""]		="";
 $lang[""]		="";

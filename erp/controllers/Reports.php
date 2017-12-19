@@ -17840,6 +17840,50 @@ class Reports extends MY_Controller
         $this->page_construct('reports/co_reports', $meta, $this->data);
     }
 	
+	public function daily_disbursement()
+    {
+        $this->erp->checkPermissions('index');
+		$this->erp->checkPermissions('installments',false,'reports');
+		if ($this->input->post('start_date')) {
+			$start_date =  $this->input->post('start_date');
+		}else{
+			$start_date = NULL;
+		}
+		if ($this->input->post('end_date')) {
+			$end_date = $this->input->post('end_date');
+		}else{
+			$end_date=NULL;
+		}
+		if ($this->input->post('user')) {
+			$users = $this->input->post('user');
+		}else{
+			$users=NULL;
+		}
+		if ($this->input->post('branch')) {
+			$by_branch = $this->input->post('branch');
+		}else{
+			$by_branch=NULL;
+		}
+		$this->data['start_date']    	= $start_date;
+		$this->data['end_date'] 	 	= $end_date;
+		$this->data['branch_name']		= $this->site->getAllBranch_Name($by_branch);
+		$this->data['co'] 				= $this->reports_model->getStaff($user);
+		$branches = $this->reports_model->getDailyBranches();
+		foreach($branches as $branch){
+				$branch->co_id = $this->reports_model->getCoDisburse($branch->id);
+				foreach($branch->co_id as $user){
+					$user->sale = $this->reports_model->getDailyDisburseByCO($user->id,$start_date,$end_date,$users,$by_branch);
+				}	
+		}
+		$this->data['branches'] 		= $branches;
+		$this->data['credit_offier']	= $this->reports_model->getAllCreditOfficer();
+		$this->data['loans'] 			= $this->reports_model->getAllLoansByCreditOfficer();
+		
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('report')));
+        $meta = array('page_title' => lang('report'), 'bc' => $bc);
+        $this->page_construct('reports/daily_disbursement', $meta, $this->data);
+    }
+	
 	public function co_collection($start_date=null,$end_date=null)
     {
         $this->erp->checkPermissions('index');
