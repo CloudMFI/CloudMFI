@@ -103,7 +103,7 @@
 						<td style="width:18%">အဖြဲ႕၀င္အေရအတြက္<br>(Number of member)</td>
 						<td style="width:15%;vertical-align: top;">: <b> <?= $count_group->gr_id; ?></b></td>
 						<td style="width:13%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
-						<td style="width:15%;vertical-align: top;">:<b><span style="display:none;"><?= $contract_info->frequency; ?></span>
+						<td style="width:15%;vertical-align: top;">:<b>
 								<?php
 								$frequency[""] = "";
 								$frequency[1] = "Daily";
@@ -127,7 +127,7 @@
 					</tr>
 					<tr>
 						<td style="width:18%">လိပ္စာ<br>(Leader/Borrower Address )</td>
-						<td style="vertical-align: top;">:<b><?='#'.$customer->house_no; ?></td>
+						<td style="vertical-align: top;" colspan="5">:<b><?='#'.$contract_info->house_no; ?></td>
 					</tr>
 				</table>				 
 			</div>
@@ -136,7 +136,7 @@
 				<p>
 					ရံုးလိပ္စာ(Office Address ) :အမွတ္ ၁၈/၅၆ ၊ဥသာျမိဳ႕သစ္(၆)ရပ္ကြက္ ၊ရန္ကုန္ မႏၲေလးလမ္းမၾကီးသာမေဏေက်ာ စာသင္တိုက္အနီး၊ ပဲခူးျမိဳ႕။ Ph - ၀၉၁၁၂၃၄၅၆၇၈
 				</p>
-				<br>
+				
 				<p>
 					ေခ်းေငြ မေပးသြင္းနိုင္ပါက ၀ိုင္းၾကီးခ်ဳပ္စနစ္ျဖင့္  အဖြဲ႕ အမွတ္ ………………… ၏ အဖြဲ႕၀င္မ်ားႏွင့္ပူးတဲြ ေငြေခ်းသူတို႔က အညီအမွ် တာ၀န္ယူေျဖရွင္းေပးမည္ ျဖစ္ေၾကာင္းလက္မွတ္ေရးထိုး ပါသည္။
 				</p>	

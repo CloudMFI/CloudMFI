@@ -112,7 +112,7 @@ class Installment_Payment_model extends CI_Model
 		CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) AS customer_name,
 		sales.reference_no,companies.gov_id,companies.gender,companies.name as companies_name,sales.note,
 		companies.spouse_name,companies.spouse_gender as sp_gender, companies.spouse_birthdate as sp_date, companies.spouse_status as sp_status,
-		companies.date_of_birth,companies.phone1 as phone,
+		companies.date_of_birth,companies.phone1 as phone,companies.house_no,
 		CONCAT(erp_users.first_name," ",erp_users.last_name) AS approv_name,identify_types.name as identname, companies.gov_id,
 		quotes.approved_date,collateral_types.type,quote_items.description,
 		companies.village,companies.sangkat, companies.district,companies.state, quotes.installment_date, 
@@ -3448,7 +3448,7 @@ class Installment_Payment_model extends CI_Model
 	}
 	
 	public function group_applicant($group = NULL) {
-		$this->db->select('CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) AS customer_name, sales.reference_no, sales.total, companies.gov_id ');
+		$this->db->select('CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) AS customer_name,sales.reference_no, sales.total, companies.gov_id ');
 		$this->db->join('sales','companies.id=sales.customer_id','LEFT');
 		$this->db->where('sales.loan_group_id',$group);
 		$q = $this->db->get('companies');		
