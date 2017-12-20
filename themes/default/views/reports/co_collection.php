@@ -129,7 +129,7 @@
 				<!---End Search------->
 				<div class="clearfix"></div>
 				<p style="font-size:20px; text-align:center;">  
-					<?= lang("co_collection_reports"); ?>   
+					<B> <?= lang("co_collection_reports"); ?>   </B>
 				</p>
                 <div>
                     <table id="QUData" class="table table-bordered table-hover table-striped table-condensed">

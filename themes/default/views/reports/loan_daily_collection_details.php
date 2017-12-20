@@ -365,9 +365,12 @@ if (isset($biller_id)) {
 
 				<!--<div class="table-responsive">-->
                 <div>
-				<p style="font-size:20px; text-align:center;"> 
+				<!--<p style="font-size:20px; text-align:center;"> 
 					<b> <?= $setting->site_name; ?> </b> <br>
 					<?= lang("loans_collection_details"); ?>  
+				</p>-->
+				<p style="font-size:20px; text-align:center;">  
+					 <B> <?= lang("loans_collection_details"); ?>  <?= date('d/m/Y'); ?>   </B>
 				</p>
                     <table id="PayRData"
                            class="table table-bordered table-hover table-striped table-condensed reports-table">

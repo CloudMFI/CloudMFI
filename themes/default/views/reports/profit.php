@@ -26,7 +26,10 @@
 			</a>-->
             <h4 class="modal-title" id="myModalLabel"><?= lang('sale_dialy').' ('.$this->erp->hrsd($date).')'; ?></h4>
         </div>
-        <div class="modal-body">
+		<p style="font-size:20px; text-align:center;">  
+			<?= lang("daily_disbursement_reports"); ?>  <?= date('d/m/Y'); ?>  
+		</p>
+        <div class="table-responsive">
 				<table id="POData" cellpadding="0" cellspacing="0" border="0" class="table table-condensed table-bordered table-hover table-striped">
                     <thead>
                         <tr class="active">

@@ -108,8 +108,8 @@
 				<!---End Search------->
 				
 				<div class="clearfix"></div>
-				<p style="font-size:20px; text-align:center;">  
-					<?= lang("daily_disbursement_reports"); ?>  <?= date('d/m/Y'); ?>  
+				<p style="font-size:20px; text-align:center;">
+					<B> <?= lang("daily_disbursement_reports"); ?>  <?= date('d/m/Y'); ?>   </B>
 				</p>
                 <div>
                     <table id="QUData" class="table table-bordered table-hover table-striped table-condensed">

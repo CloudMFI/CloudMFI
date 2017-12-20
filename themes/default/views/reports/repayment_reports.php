@@ -128,7 +128,10 @@
 				</div>
 				<!---End Search------->
 				<div class="clearfix"></div>
-                <div class="table-responsive">
+				<p style="font-size:20px; text-align:center;">  
+					<B> <?= lang("repayment_loan_report"); ?>  <?= date('d/m/Y'); ?>   </B>
+				</p>
+                <div>
                     <table id="QUData" class="table table-bordered table-hover table-striped table-condensed">
                         <thead>
                         <tr class="active">

@@ -385,6 +385,9 @@
                 </div>
 				
 				<div class="clearfix"></div>
+				<p style="font-size:20px; text-align:center;"> 
+					<B> <?= lang("daily_applicant"); ?>  <?= date('d/m/Y'); ?>   </B>
+				</p>
                 <div class="table-responsive">
                     <table id="QUData" class="table table-bordered table-hover table-striped">
                         <thead>

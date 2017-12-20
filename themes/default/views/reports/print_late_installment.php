@@ -150,6 +150,9 @@
 				<!---End Search------->
 				
 				<div class="clearfix"></div>
+					<p style="font-size:20px; text-align:center;">  
+						 <B> <?= lang("bad_loan_repayments"); ?>  <?= date('d/m/Y'); ?>   </B>
+					</p>
                     <table id="QUData" class="table table-bordered table-hover table-striped table-responsive">
                         <thead>
                         <tr class="active">

@@ -313,4 +313,4 @@ $lang["customer_name_(other)"]					="Customer Name (Other)";
 $lang["days"]									="Days";
 $lang["daily_disbursement_reports"]				="Daily Disbursement Reports";
 $lang["disbursement_reports"]					="Disbursement Reports";
-$lang[""]		="";
+$lang["loan_disburse"]							="Loan Disburse";
