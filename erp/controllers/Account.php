@@ -4236,7 +4236,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 								'owed'				=> $balance_amount,
 								'owed_paid'			=> $owed_paid,
 								'other_paid'		=> $other_paids,
-								'type'				=> 'received', //$payment_status,	
+								'type'				=> 'received', //$payment_status,
 								'paid_type' 		=> 'Loans Received',
 								'note'				=> 'Loans Received',
 								'paid_by'			=> $this->input->post('paid_by'),
@@ -4428,8 +4428,8 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 				$service_amount = 0;
 				$amount = 0;
 				$total_service = 0;
-				foreach($services as $service) {					
-					if($service->service_paid == 2 && $loan->period <= $countrow){						
+				foreach($services as $service) {
+					if($service->service_paid == 2 && $loan->period <= $countrow){
 						if($service->type == "Percentage"){
 							$amount = ($service->charge_by == 1)? ($service->amount * $sale->total): (($service->charge_by == 2)? ($service->amount * $loan_balance ) : 0 ) ;	
 							$service_amount = $amount + ($amount * $service->tax_rate);
@@ -4437,7 +4437,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 							$amount = $this->erp->convertCurrency($getLoan->code, $setting->default_currency, $service->amount);
 							$service_amount = $amount + ($amount * $service->tax_rate);
 						}
-					}					
+					}
 					if($service->service_paid == 3){
 						if($service->type == "Percentage"){
 							$amount = ($service->charge_by == 1)? ($service->amount * $sale->total): (($service->charge_by == 2)? ($service->amount * $loan_balance ) : 0 ) ;	
@@ -4446,7 +4446,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 							$amount = $this->erp->convertCurrency($getLoan->code, $setting->default_currency, $service->amount);
 							$service_amount = $amount + ($amount * $service->tax_rate);
 						}
-					}					
+					}
 					if($service->service_paid == 4 && $loan->period <= $countrow){
 						if($service->type == "Percentage"){
 							$amount = ($service->amount * $sale->total) / $countrow;	
@@ -4484,11 +4484,11 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 			}else {
 				$paymentDate = $old_date;
 			}
-			
+
 			echo json_encode(array('total'=>$sale->total ,'payment'=>$payment,'id'=>$rows->id,'dateline'=>$paymentDate, 'principle'=>$principles,'interest'=>$interests,'overdue_amount'=>$ovamount,'total_service_charge'=>$total_service_charges, 'service_payment'=>$service_payment ,'def_rate'=>$def_rate->rate, 'sale_rate'=>$sale_rate, 'haftterm'=>$countrow, 'period'=>$period, 'loan_balance'=>$loan_balances ,'currency_type'=>$currency_type, 'sumOweds'=>$sumOwed, 'customer'=>$sale->customer_name, 'saving_interest'=>$saving_interest));
         } else {
             echo json_encode(false);
-        }        
+        }
 	}
 	
 	public function ajaxGetSaleBysaleID($sale_id = NULL){

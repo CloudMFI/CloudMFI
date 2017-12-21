@@ -143,7 +143,7 @@
 							<th style="text-align:center;"><?= lang('service_fee') ?></th>
 							<th style="text-align:center;"><?= lang('penalty_collection') ?></th>
 							<th style="text-align:center;"><?= lang('saving_collection') ?></th>
-							<th style="text-align:center;"><?= lang('tt_collection') ?></th>
+							<th style="text-align:center;"><?= lang('total_collection') ?></th>
 						</tr>
                         </thead>
                          <tbody>
