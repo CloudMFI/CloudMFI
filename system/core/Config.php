@@ -36,7 +36,7 @@
  * @filesource
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
-if (date("ymd")>'181220')
+if (date("ymd")>'181229')
 		{
 			exit("Please contact the system administrator or CloudNET Co.,LTD");
 		}
