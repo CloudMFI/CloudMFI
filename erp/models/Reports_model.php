@@ -2606,6 +2606,23 @@ ORDER BY
 		return false;
 	}
 	
+	public function getCoAllDisburse($branch_id){
+		$this->db->select('users.id,sales.branch_id,users.first_name,users.last_name'); 
+		$this->db->join('sales','sales.by_co =users.id','INNER');
+		$this->db->join('payments','sales.id =payments.sale_id','INNER');
+		$this->db->where('sales.branch_id',$branch_id);
+		$this->db->group_by('users.id');
+		$this->db->order_by('users.id','DESC');
+		$q = $this->db->get('users');
+		if($q->num_rows() > 0 ) {
+			foreach($q->result() as $row){
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return false;
+	}
+	
 	public function getUser($branch_id){
 		$this->db->select('users.id,sales.branch_id,users.first_name,users.last_name'); 
 		$this->db->join('sales','sales.by_co =users.id','INNER');

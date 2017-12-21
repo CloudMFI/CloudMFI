@@ -35,9 +35,12 @@
             <button type="button" class="btn btn-xs btn-default no-print pull-right" style="margin-right:15px;" onclick="window.print();">
                 <i class="fa fa-print"></i> <?= lang('print'); ?>
             </button>
-            <h4 class="modal-title" id="myModalLabel"><?= lang('month_profit').' ('.$date.')'; ?></h4>
+            <h4 class="modal-title" id="myModalLabel"><?= lang('monthly_laons').' ('.$date.')'; ?></h4>
         </div>
         <div class="modal-body">
+			<p style="font-size:20px; text-align:center;">  
+				<?= lang("monthly_laons"); ?>  <?= date('d/m/Y'); ?>  
+			</p>
             <div class="table-responsive">
 				<table id="POData" cellpadding="0" cellspacing="0" border="0" class="table table-condensed table-bordered table-hover table-striped">
                     <thead>

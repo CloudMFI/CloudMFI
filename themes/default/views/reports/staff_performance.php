@@ -120,7 +120,7 @@
 				<p style="font-size:20px; text-align:center;">
 					<B> <?= lang("staff_performance"); ?> </B>
 				</p>
-                <div class="table-responsive">
+                <div>
                     <table id="QUData" class="table table-bordered table-hover table-striped">
                         <thead>
                         <tr class="active">

@@ -73,6 +73,9 @@
             <div class="col-lg-12">
 				<p class="introtext"><?= lang('list_results'); ?></p>
 				<?php $num_col=2; ?>
+				<p style="font-size:20px; text-align:center;">  
+					<B> <?= lang("balance_sheet"); ?>  </B>
+				</p>
                 <div class="table-scroll">
                     <table  cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-hover table-striped table-condensed">
 						<thead>
