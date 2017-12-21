@@ -129,7 +129,7 @@
 				<!---End Search------->
 				<div class="clearfix"></div>
 				<p style="font-size:20px; text-align:center;">  
-					<B> <?= lang("repayment_loan_report"); ?>  <?= date('d/m/Y'); ?>   </B>
+					<B> <?= lang("daily_terms_collection_by_co"); ?>  <?= date('d/m/Y'); ?>   </B>
 				</p>
                 <div>
                     <table id="QUData" class="table table-bordered table-hover table-striped table-condensed">
@@ -143,7 +143,7 @@
 							<th style="text-align:center;"><?= lang('service_fee') ?></th>
 							<th style="text-align:center;"><?= lang('penalty_collection') ?></th>
 							<th style="text-align:center;"><?= lang('saving_collection') ?></th>
-							<th style="text-align:center;"><?= lang('tt_collection') ?></th>
+							<th style="text-align:center;"><?= lang('total_collection') ?></th>
 						</tr>
                         </thead>
                          <tbody>

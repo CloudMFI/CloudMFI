@@ -90,7 +90,9 @@
                     <?php echo form_close(); ?>
                 </div>
                 <div class="clearfix"></div>
-
+				<p style="font-size:20px; text-align:center;">  
+					<B> <?= lang("general_ledger"); ?>  </B>
+				</p>
                 <div class="table-scroll">
                     <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-hover table-striped table-condensed">
 						<thead>

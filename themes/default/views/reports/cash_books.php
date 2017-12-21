@@ -108,7 +108,9 @@ if ($this->input->post('end_date')) {
                     <?php echo form_close(); ?>
                 </div>
                 <div class="clearfix"></div>
-
+				<p style="font-size:20px; text-align:center;">  
+					<B> <?= lang("cash_book_reports"); ?>  </B>
+				</p>
                 <div class="table-responsive">
                     <table id="registerTable" cellpadding="0" cellspacing="0" border="0"
                            class="table table-bordered table-hover table-striped reports-table" style="width:100%;">
@@ -127,7 +129,7 @@ if ($this->input->post('end_date')) {
 									if($br->account){
 							?>
 										<tr style="">
-											<td colspan="3" style="font-size:16px; background-color:#def3fa;"> <b> <?= lang('branch'); ?> : <?= $br->name ?> <i class="fa fa-angle-double-right" aria-hidden="true"></i> </b> <?= $br->sangkat ?> / <?= $br->district ?> / <?= $br->state ?></td>										
+											<td colspan="3" style="font-size:16px; background-color:#def3fa;"> <b> <?= lang('branch'); ?> : <?= $br->name ?> <i class="fa fa-angle-double-right" aria-hidden="true"></i> </b> <?= $br->sangkat ?>  <?= $br->district ?> <?= $br->state ?></td>										
 										</tr>
 										<?php
 											foreach($br->account as $account){

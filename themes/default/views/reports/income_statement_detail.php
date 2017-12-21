@@ -80,6 +80,9 @@
 				
                 <p class="introtext"><?= lang('list_results'); ?></p>
                 <?php $num_col=6; ?>
+				<p style="font-size:20px; text-align:center;">  
+					<B> <?= lang("income_statement_detail"); ?>  </B>
+				</p>
                 <div class="table-scroll">
                     <table cellpadding="0" cellspacing="0" border="0"class="table table-bordered table-condensed table-striped">
 						<thead>

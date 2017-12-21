@@ -17914,11 +17914,13 @@ class Reports extends MY_Controller
 		$this->data['co'] 				= $this->reports_model->getStaff($user);
 		$branches = $this->reports_model->getDailyBranches();
 		foreach($branches as $branch){
-				$branch->co_id = $this->reports_model->getCoDisburse($branch->id);
+				$branch->co_id = $this->reports_model->getCoAllDisburse($branch->id);
+				//$this->erp->print_arrays($branch->id);
 				foreach($branch->co_id as $user){
 					$user->sale = $this->reports_model->getDisburseByCO($user->id,$start_date,$end_date,$users,$by_branch);
 				}	
 		}
+		
 		$this->data['branches'] 		= $branches;
 		$this->data['credit_offier']	= $this->reports_model->getAllCreditOfficer();
 		$this->data['loans'] 			= $this->reports_model->getAllLoansByCreditOfficer();
