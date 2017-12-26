@@ -652,7 +652,7 @@
 															<div class="col-lg-6">
 																<div class="form-group">
 																	<?= lang("saving_amount_%", "saving_rate"); ?>
-																	<?php echo form_input('saving_rate', (isset($_POST['saving_rate']) ? $_POST['saving_rate'] : '3%'), 'class="form-control" id="saving_rate" '); ?>
+																	<?php echo form_input('saving_rate', (isset($_POST['saving_rate']) ? $_POST['saving_rate'] : '5%'), 'class="form-control" id="saving_rate" '); ?>
 																</div>
 															</div>
 															<div class="col-lg-6">
