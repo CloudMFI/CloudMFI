@@ -424,11 +424,13 @@ class Db_model extends CI_Model
 		}
 		return false;
 	}*/
-	function getAllApplicant() {
+	function getAllApplicant($month, $year, $last_day) {
 		$settings = $this->getSettingCurrncy();
 		$this->db->select('COUNT(erp_quotes.id) as app_num, 
 		SUM('.$this->db->dbprefix('quotes').'.total) as app_amount');
 		$this->db->where('status','loans');
+		$this->db->where('quotes.date >=', $year.'-'.$month.'-01 00:00:00');
+		$this->db->where('quotes.date <=', $year.'-'.$month.'-'.$last_day.' 23:59:59');
 		$q = $this->db->get('quotes', 1);
 		if($q->num_rows() > 0) {
 			return $q->row();
@@ -436,22 +438,27 @@ class Db_model extends CI_Model
 		return false;
 	}
 	
-	function getAllContract(){
+	function getAllContract($month, $year, $last_day){
 		$this->db->select('COUNT(erp_sales.id) as sale_num, 
 		SUM('.$this->db->dbprefix('sales').'.total) as loans_amt');
 		$this->db->where('sales.sale_status','activated');
-		$this->db->or_where('sales.sale_status','approved');
+		//$this->db->or_where('sales.sale_status','approved');
 		$this->db->where('sales.status','loans');
+		//$this->db->where('sales.date BETWEEN "'.  ($year.'-'.$month.'-01 00:00:00') . '" and "'.  ($year.'-'.$month.'-'.$last_day.' 23:59:59').'"');
+		$this->db->where('sales.date >=', $year.'-'.$month.'-01 00:00:00');
+		$this->db->where('sales.date <=', $year.'-'.$month.'-'.$last_day.' 23:59:59');
 		$q=$this->db->get('sales',1);
 		if($q->num_rows()>0){
 			return $q->row();
 		}
 		return false;
 	}
-	function getDisbursementAmount(){
+	function getDisbursementAmount($month, $year, $last_day){
 		$this->db->select('COUNT(erp_sales.id) as sale_num,
 		SUM('.$this->db->dbprefix('sales').'.grand_total) as disbursement_amt');
 		$this->db->where('sales.status','loans');
+		$this->db->where('sales.date >=', $year.'-'.$month.'-01 00:00:00');
+		$this->db->where('sales.date <=', $year.'-'.$month.'-'.$last_day.' 23:59:59');
 		$q=$this->db->get('sales',1);
 		if($q->num_rows()>0){
 			return $q->row();
@@ -459,20 +466,30 @@ class Db_model extends CI_Model
 		return false;
 	}
 	function getPaymentAmount(){
-		$this->db->select('SUM(erp_payments.amount) AS total_collection');
+		$this->db->select('COUNT(erp_sales.id) as sale_num,
+		SUM('.$this->db->dbprefix('sales').'.paid) as total_collection');
+		$this->db->where('sales.status','loans'); 
+		$q=$this->db->get('sales',1);
+		if($q->num_rows()>0){
+			return $q->row();
+		}
+		return false;
+		/*$this->db->select('SUM(erp_payments.amount) AS total_collection');
 		$this->db->join('sales','payments.sale_id=sales.id','LEFT');
 		$this->db->where('payments.type <>','saving');
 		$q = $this->db->get('payments');
 		if($q->num_rows()>0){
 			return $q->row();
 		}
-		return false;
+		return false;*/
 	}
-	function getAllRejected(){
+	function getAllRejected($month, $year, $last_day){
 		$this->db->select('COUNT(erp_quotes.id) as reject_num, 
 		SUM('.$this->db->dbprefix('quotes').'.total) as total_rejectd');
 		$this->db->where('quote_status','rejected');
 		$this->db->where('status','loans');
+		$this->db->where('quotes.date >=', $year.'-'.$month.'-01 00:00:00');
+		$this->db->where('quotes.date <=', $year.'-'.$month.'-'.$last_day.' 23:59:59');
 		$q = $this->db->get('quotes', 1);
 		if($q->num_rows() > 0) {
 			return $q->row();
@@ -542,17 +559,15 @@ class Db_model extends CI_Model
 		return false;
 	}
 	
-	function getExpanse()
+	function getExpanse($month, $year, $last_day)
 	{
-		$this->db->select('SUM(erp_expenses.amount) AS total_expanse');
-        $this->db->join('users', 'users.id=expenses.created_by', 'left');
-		$this->db->join('gl_trans', 'gl_trans.account_code = expenses.account_code', 'left');
+		$this->db->select('SUM(erp_expenses.amount) AS total_expanse');  
+		$this->db->where('expenses.date >=', $year.'-'.$month.'-01 00:00:00');
+		$this->db->where('expenses.date <=', $year.'-'.$month.'-'.$last_day.' 23:59:59');
 		$q=$this->db->get('expenses',1);
 		if($q->num_rows()>0){
 			return $q->row();
 		}
 		return false;
 	}
-	
-	
 }

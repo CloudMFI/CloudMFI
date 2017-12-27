@@ -354,6 +354,9 @@ if (isset($biller_id)) {
 
 
                 <div class="table-responsive">
+					<p style="font-size:20px; text-align:center;">  
+						<B> <?= lang("payments_report"); ?>  <?= date('d/m/Y'); ?>   </B>
+					</p>
                     <table id="PayRData"
                            class="table table-bordered table-hover table-striped table-condensed reports-table">
 

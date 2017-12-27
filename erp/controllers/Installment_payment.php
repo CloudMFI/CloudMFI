@@ -4733,7 +4733,7 @@ class Installment_Payment extends MY_Controller
 								'type'					=> 'received', //$payment_status,		
 								'extra_paid'			=> $penalty_paid,
 								'paid_type' 			=> 'Loans Received',
-								'note' 					=> 'Loans Received',
+								'note'					=> 'Loans Received',
 								'group_payment_id' 		=> $id,
 								'invoce_no'				=> $this->input->post('invoce_no'),
 								'owed' 					=> $owed_balance,
@@ -8767,8 +8767,7 @@ class Installment_Payment extends MY_Controller
 			$this->data['setting']= $this->site->get_setting();
 			$this->data['sale_id']= $recipt_voucher;
 			$this->data['modal_js'] = $this->site->modal_js();
-			//$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);			
-			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view_mm',$this->data);
+			$this->load->view($this->theme.'installment_payment/cash_payment_schedule_view',$this->data);	 
 		//}
     }
 	
@@ -9214,11 +9213,16 @@ class Installment_Payment extends MY_Controller
 	}
 	
 	//loan_agreement
-	public function mfi_contract($sale_id) {
+	public function mfi_contract($sale_id, $group) {
 		$this->load->model('Installment_payment_model');
 		$sale = $this->Installment_payment_model->getSaleById($sale_id);
 		$this->data['setting'] = $this->settings_model->getSettings();
+		$this->data['sale_item'] = $this->Installment_payment_model->getSaleItemSaleByID($sale_id);
 		$this->data['contract_info'] = $this->Installment_payment_model->loan_agreement_ByID($sale_id);
+		$this->data['group_loan'] = $this->Installment_payment_model->group_applicant($sale->loan_group_id);
+		$this->data['count_group'] = $this->Installment_payment_model->CountGroupLoanByID($sale->loan_group_id);
+		$this->data['group_info'] = $this->Installment_payment_model->group_agreement_ByID($sale->loan_group_id);
+		$this->data['group_name'] = $this->Installment_payment_model->getGroupLoanByID($sale->loan_group_id);
 		$this->data['contract_gr_info'] = $this->Installment_payment_model->guarantor_loan_agreement_ByID($sale_id);
 		$this->data['contract_join_gr_info'] = $this->Installment_payment_model->join_guarantor_loan_agreement_ByID($sale_id);
 		$this->data['village'] = $this->Installment_payment_model->loan_agreemen_Cus_village($sale_id);

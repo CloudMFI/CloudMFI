@@ -590,6 +590,23 @@
 					</div>
 					<div class="col-md-4 col-sm-4">
 						<div class="form-group">
+							<?= lang("default_saving_interest_payble","default_saving_interest_payble"); ?>
+							<?php
+								$acc_section = array(""=>"");
+								$get_saving_interest_payble = "";
+								foreach($default_saving_interest_payble as $saving_interest_payble){
+									$get_saving_interest_payble = $saving_interest_payble->accountname;
+								}
+								foreach($chart_accounts as $section){
+									$acc_section[$section->accountcode] = $section->accountcode.' | '.$section->accountname;
+								}
+								echo form_dropdown('default_saving_interest_payble', $acc_section, '' ,'id="default_saving_interest_payble" class="form-control" data-placeholder="' . $data->default_saving_interest_payble . ' | ' . $get_saving_interest_payble . '" style="width:100%;" ');
+							?>
+							<input type="hidden" value="<?= $data->default_saving_interest_payble;?>" name="saving_interest_payble" class="form-control" style="width:100%;"/>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<div class="form-group">
 							<?= lang("default_cash_withdrawal","default_cash_withdrawal"); ?>
 							<?php
 								$acc_section = array(""=>"");

@@ -570,7 +570,7 @@ function row_status($x)
 								</div>
 							</div>							
 							<div class="col-sm-4">
-								<div class="small-box padding1010 bred">
+								<div class="small-box padding1010 bred" style="height:134px;">
 									<h4 class="bold"><?= lang('total_disburoment_amount') ?></h4>
 									<i class="fa fa-money"></i>
 
@@ -578,9 +578,9 @@ function row_status($x)
 										<?=$disbursement? $this->erp->formatMoney($disbursement->disbursement_amt):$this->erp->formatMoney('') ?>
 									</h3>
 
-									<p><?= lang('total_collection') ?>
+									<!--<p><?= lang('total_collection') ?>
 										<?=$payment? $this->erp->formatMoney($payment->total_collection):$this->erp->formatMoney('') ?>
-									</p>
+									</p>-->
 								</div>
 							</div>
 							<div class="col-sm-4">

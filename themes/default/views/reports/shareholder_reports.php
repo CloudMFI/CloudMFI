@@ -63,7 +63,9 @@
             <div class="col-lg-12">
 
                 <p class="introtext"><?= lang('list_results'); ?></p>
-
+				<p style="font-size:20px; text-align:center;">  
+					<B> <?= lang("shareholder"); ?>  </B>
+				</p>
                 <div class="table-responsive">
                     <table id="SupData" cellpadding="0" cellspacing="0" border="0" width="100%"
                            class="table table-bordered table-condensed table-hover table-striped">

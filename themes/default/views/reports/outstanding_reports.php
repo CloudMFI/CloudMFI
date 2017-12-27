@@ -156,6 +156,9 @@
 				<!---End Search------->
 				
 				<div class="clearfix"></div>
+				<p style="font-size:20px; text-align:center;">  
+					<B> <?= lang("outstanding_reports"); ?>  <?= date('d/m/Y'); ?>   </B>
+				</p>
                 <div>
                     <table id="QUData" class="table table-bordered table-hover table-striped">
                         <thead>

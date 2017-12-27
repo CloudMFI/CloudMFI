@@ -117,7 +117,10 @@
 				<!---End Search------->
 				
 				<div class="clearfix"></div>
-                <div class="table-responsive">
+				<p style="font-size:20px; text-align:center;">
+					<B> <?= lang("staff_performance"); ?> </B>
+				</p>
+                <div>
                     <table id="QUData" class="table table-bordered table-hover table-striped">
                         <thead>
                         <tr class="active">
@@ -125,7 +128,7 @@
 							<th style="text-align:center;"><?= lang('no_client') ?></th>
 							<th style="text-align:center;"><?= lang('loan_outstanding') ?></th>
 							<th style="text-align:center;"><?= lang('client_disburse') ?></th>
-							<th style="text-align:center;"><?= lang('l_disburse') ?></th>
+							<th style="text-align:center;"><?= lang('loan_disburse') ?></th>
 							<th style="text-align:center;"><?= lang('principle_collection') ?></th>
 							<th style="text-align:center;"><?= lang('interest_collection') ?></th>
 							<th style="text-align:center;"><?= lang('service_fee') ?></th>
@@ -133,7 +136,7 @@
 							<!--<th style="text-align:center;" colspan="2"><?= lang('10_d_collection') ?></th>
 							<th style="text-align:center;"><?= lang('30_d_collection') ?></th>
 							<th style="text-align:center;"><?= lang('60_d_collection') ?></th>-->
-							<th style="text-align:center;"><?= lang('tt_collection') ?></th>
+							<th style="text-align:center;"><?= lang('total_collection') ?></th>
 							<th style="text-align:center;"><?= lang('par%') ?></th>
 						</tr>
                         </thead>

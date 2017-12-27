@@ -678,12 +678,12 @@
 																	<span class="text"> <?= lang('outstanding_reports'); ?></span>
 																</a>
 															</li>
-															<li id="reports_daily_monitor_report" class="sub_navigation">
+															<!--<li id="reports_daily_monitor_report" class="sub_navigation">
 																<a class="submenu" href="<?= site_url('reports/daily_monitor_report'); ?>">
 																	<i class="fa fa-barcode"></i>
 																	<span class="text"> <?= lang('daily_monitor_reports'); ?></span>
 																</a>
-															</li>
+															</li>-->
 														</ul>
 
 													</li> <!--- end loan Report-->									
@@ -741,12 +741,24 @@
 															<span class="chevron closed"></span>
 														</a>
 														<ul>
+															<li id="reports_daily_disbursement" class="sub_navigation">
+																<a class="submenu" href="<?= site_url('reports/daily_disbursement'); ?>">
+																	<i class="fa fa-barcode"></i>
+																	<span class="text"> <?= lang('daily_disbursement'); ?></span>
+																</a>
+															</li>
+															<li id="reports_disbursement_reports" class="sub_navigation">
+																<a class="submenu" href="<?= site_url('reports/disbursement_reports'); ?>">
+																	<i class="fa fa-barcode"></i>
+																	<span class="text"> <?= lang('disbursement_reports'); ?></span>
+																</a>
+															</li>
 															<li id="reports_co_reports" class="sub_navigation">
 																<a class="submenu" href="<?= site_url('reports/co_reports'); ?>">
 																	<i class="fa fa-barcode"></i>
 																	<span class="text"> <?= lang('co_reports'); ?></span>
 																</a>
-															</li>
+															</li>															
 															<li id="reports_co_collection" class="sub_navigation">
 																<a class="submenu" href="<?= site_url('reports/co_collection'); ?>">
 																	<i class="fa fa-barcode"></i>

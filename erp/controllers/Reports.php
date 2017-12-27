@@ -7394,10 +7394,7 @@ class Reports extends MY_Controller
 				IF(".$this->db->dbprefix('sales').".frequency = 1, 'Daily', IF(".$this->db->dbprefix('sales').".frequency = 7, 'Weekly', IF(".$this->db->dbprefix('sales').".frequency = 14, 'Two Week', IF(".$this->db->dbprefix('sales').".frequency = 30, 'Monthly','')))),
 				" . $this->db->dbprefix('payments') . ".reference_no as payment_ref, 
 				
-				IF((ISNULL(".$this->db->dbprefix("payments").".sale_id) AND NOT ISNULL(".$this->db->dbprefix("payments").".purchase_id)), 
-				(SELECT erp_companies.name FROM erp_companies WHERE erp_companies.id = erp_purchases.supplier_id),
-				IF((NOT ISNULL(".$this->db->dbprefix("payments").".sale_id) AND ISNULL(".$this->db->dbprefix("payments").".purchase_id)),
-				(SELECT CONCAT(erp_companies.family_name_other,' ',erp_companies.name_other) FROM erp_companies WHERE erp_companies.id = erp_sales.customer_id),'')) as people,
+				CONCAT(".$this->db->dbprefix('companies').".family_name, ' ', ".$this->db->dbprefix('companies').".name) as customer_name,
 				myBranch.name,
 				CONCAT(".$this->db->dbprefix('co').".first_name, 
 						' ', 
@@ -7407,12 +7404,13 @@ class Reports extends MY_Controller
 				".$this->db->dbprefix('payments') . ".interest_amount,
 				".$this->db->dbprefix('payments') . ".penalty_amount,
 				".$this->db->dbprefix('payments') . ".service_amount,
-				".$this->db->dbprefix('payments') . ".amount, erp_payments.type,")
+				".$this->db->dbprefix('payments') . ".amount, erp_payments.paid_by,")
 				
                 ->from('payments')
 				->join('users','payments.created_by=users.id','INNER')
 				->join('companies as myBranch', 'users.branch_id = myBranch.id')
                 ->join('sales', 'payments.sale_id = sales.id ', 'left')
+				->join('companies ', 'sales.customer_id = companies.id')
 				->join('quotes','quotes.id = sales.quote_id','left')
 				->join('users as erp_co','sales.by_co = erp_co.id','left')
 				->join('loans','loans.sale_id = sales.id','INNER')
@@ -17840,6 +17838,96 @@ class Reports extends MY_Controller
         $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('report')));
         $meta = array('page_title' => lang('report'), 'bc' => $bc);
         $this->page_construct('reports/co_reports', $meta, $this->data);
+    }
+	
+	public function daily_disbursement()
+    {
+        $this->erp->checkPermissions('index');
+		$this->erp->checkPermissions('installments',false,'reports');
+		if ($this->input->post('start_date')) {
+			$start_date =  $this->input->post('start_date');
+		}else{
+			$start_date = NULL;
+		}
+		if ($this->input->post('end_date')) {
+			$end_date = $this->input->post('end_date');
+		}else{
+			$end_date=NULL;
+		}
+		if ($this->input->post('user')) {
+			$users = $this->input->post('user');
+		}else{
+			$users=NULL;
+		}
+		if ($this->input->post('branch')) {
+			$by_branch = $this->input->post('branch');
+		}else{
+			$by_branch=NULL;
+		}
+		$this->data['start_date']    	= $start_date;
+		$this->data['end_date'] 	 	= $end_date;
+		$this->data['branch_name']		= $this->site->getAllBranch_Name($by_branch);
+		$this->data['co'] 				= $this->reports_model->getStaff($user);
+		$branches = $this->reports_model->getDailyBranches();
+		foreach($branches as $branch){
+				$branch->co_id = $this->reports_model->getCoDisburse($branch->id);
+				foreach($branch->co_id as $user){
+					$user->sale = $this->reports_model->getDailyDisburseByCO($user->id,$start_date,$end_date,$users,$by_branch);
+				}	
+		}
+		$this->data['branches'] 		= $branches;
+		$this->data['credit_offier']	= $this->reports_model->getAllCreditOfficer();
+		$this->data['loans'] 			= $this->reports_model->getAllLoansByCreditOfficer();
+		
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('report')));
+        $meta = array('page_title' => lang('report'), 'bc' => $bc);
+        $this->page_construct('reports/daily_disbursement', $meta, $this->data);
+    }
+	
+	public function disbursement_reports()
+    {
+        $this->erp->checkPermissions('index');
+		$this->erp->checkPermissions('installments',false,'reports');
+		if ($this->input->post('start_date')) {
+			$start_date =  $this->input->post('start_date');
+		}else{
+			$start_date = NULL;
+		}
+		if ($this->input->post('end_date')) {
+			$end_date = $this->input->post('end_date');
+		}else{
+			$end_date=NULL;
+		}
+		if ($this->input->post('user')) {
+			$users = $this->input->post('user');
+		}else{
+			$users=NULL;
+		}
+		if ($this->input->post('branch')) {
+			$by_branch = $this->input->post('branch');
+		}else{
+			$by_branch=NULL;
+		}
+		$this->data['start_date']    	= $start_date;
+		$this->data['end_date'] 	 	= $end_date;
+		$this->data['branch_name']		= $this->site->getAllBranch_Name($by_branch);
+		$this->data['co'] 				= $this->reports_model->getStaff($user);
+		$branches = $this->reports_model->getDailyBranches();
+		foreach($branches as $branch){
+				$branch->co_id = $this->reports_model->getCoAllDisburse($branch->id);
+				//$this->erp->print_arrays($branch->id);
+				foreach($branch->co_id as $user){
+					$user->sale = $this->reports_model->getDisburseByCO($user->id,$start_date,$end_date,$users,$by_branch);
+				}	
+		}
+		
+		$this->data['branches'] 		= $branches;
+		$this->data['credit_offier']	= $this->reports_model->getAllCreditOfficer();
+		$this->data['loans'] 			= $this->reports_model->getAllLoansByCreditOfficer();
+		
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('report')));
+        $meta = array('page_title' => lang('report'), 'bc' => $bc);
+        $this->page_construct('reports/disbursement_reports', $meta, $this->data);
     }
 	
 	public function co_collection($start_date=null,$end_date=null)

@@ -862,7 +862,7 @@
 																
 																<div class="col-md-4">
 																	<div class="form-group all">
-																		<?= lang("amount") ?><span style="margin-left:77px;">:</span>
+																		<?= lang("amount") ?><span style="margin-left:60px;">:</span>
 																		<b> <?= (isset($product->unit_price) ? $this->erp->formatMoney($product->unit_price) : '') ?> </b>
 																		<input id="total_amount" class="form-control" name="price" value="<?= (isset($product->unit_price) ? $product->unit_price : ''); ?>" type="hidden">
 																	</div>
@@ -978,7 +978,7 @@
 															<div class="col-sm-12">
 																<div class="col-md-6">
 																	<div class="form-group">
-																		<?= lang('saving_rate_%'); ?> <span style="margin-left:100px;">:</span>
+																		<?= lang('saving_amount_%'); ?> <span style="margin-left:100px;">:</span>
 																		<b> <?php echo $qu_saving->saving_rate * 100 .'%' ; ?> </b>
 																	</div>
 																</div>
@@ -995,7 +995,7 @@
 															<div class="col-sm-12">
 																<div class="col-md-6">
 																	<div class="form-group">
-																		<?= lang('saving_interest_rate_%'); ?> <span style="margin-left:45px;">:</span>
+																		<?= lang('interest_of_saving_%'); ?> <span style="margin-left:83px;">:</span>
 																		<b> <?php echo $qu_saving->saving_interest_rate * 100 .'%' ; ?> </b>
 																	</div>
 																</div>

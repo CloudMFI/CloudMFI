@@ -205,6 +205,11 @@ class Account extends MY_Controller
 			}else{
 				$saving_interest = $this->input->post('default_saving_interest');
 			}
+			if($this->input->post('default_saving_interest_payble') == null){
+				$saving_interest_payble = $this->input->post('saving_interest_payble');
+			}else{
+				$saving_interest_payble = $this->input->post('default_saving_interest_payble');
+			}
 			if($this->input->post('default_cash_withdrawal') == null){
 				$cash_withdrawal = $this->input->post('cash_withdrawal');
 			}else{
@@ -244,6 +249,7 @@ class Account extends MY_Controller
 				'default_transfer_money' 	=> $transfer_money,
 				'default_saving_deposit' 	=> $saving_deposit,
 				'default_saving_interest' 	=> $saving_interest,
+				'default_saving_interest_payble' 	=> $saving_interest_payble,
 				'default_cash_withdrawal' 	=> $cash_withdrawal,
 				);
 			//echo '<pre>';print_r($data);echo '</pre>';exit;
@@ -283,6 +289,7 @@ class Account extends MY_Controller
 		$this->data['retained_earning'] = $this->accounts_model->get_retained_earning();
 		$this->data['default_saving_deposit'] = $this->accounts_model->getdefault_saving_deposit();
 		$this->data['default_saving_interest'] = $this->accounts_model->getdefault_saving_interest();
+		$this->data['default_saving_interest_payble'] = $this->accounts_model->getdefault_saving_interest_payble();
 		$this->data['default_cash_withdrawal'] = $this->accounts_model->getdefault_cash_withdrawal();
 		$this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         //$this->data['action'] = $action;
@@ -4043,7 +4050,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 			
 			$grand_total = str_replace(',', '', $this->input->post('grand_total'));
 			$amount = str_replace(',', '', $this->input->post('amount')) + str_replace(',', '', $this->input->post('total_service_and_saving'));
-			$service = str_replace(',', '', $this->input->post('service_payment'));
+			$service = str_replace(',', '', $this->input->post('service_payments'));
 			$saving = str_replace(',', '', $this->input->post('saving_amount'));
 			$balance = $grand_total - $amount;
 			$saleItem = $this->accounts_model->getSaleItemBysaleID($sale_id);
@@ -4052,7 +4059,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 			$defaultAmount = $this->erp->convertCurrency($default_currency->default_currency, $saleItem->currency_code,$amount);
 			$service_amount = $this->erp->convertCurrency($default_currency->default_currency, $saleItem->currency_code,$service);
 			$saving_amount = $this->erp->convertCurrency($default_currency->default_currency, $saleItem->currency_code,$saving);
-			//$this->erp->print_arrays($balance);
+			//$this->erp->print_arrays($service_amount);
 			$services = str_replace(',', '', $this->input->post('service'));
 			$service_id = $this->input->post('service_id');
 			$reference_no = $this->site->getReference('pp');
@@ -4071,7 +4078,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 								'biller_id'				=> $sale->branch_id,
 								'saving_balance'		=> $saving_amount,
 							);
-			//$this->erp->print_arrays($data);			
+			 //$this->erp->print_arrays($data);
 			
 			$arr_services = array();
 			if($services){
@@ -4229,7 +4236,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 								'owed'				=> $balance_amount,
 								'owed_paid'			=> $owed_paid,
 								'other_paid'		=> $other_paids,
-								'type'				=> 'received', //$payment_status,	
+								'type'				=> 'received', //$payment_status,
 								'paid_type' 		=> 'Loans Received',
 								'note'				=> 'Loans Received',
 								'paid_by'			=> $this->input->post('paid_by'),
@@ -4421,8 +4428,8 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 				$service_amount = 0;
 				$amount = 0;
 				$total_service = 0;
-				foreach($services as $service) {					
-					if($service->service_paid == 2 && $loan->period <= $countrow){						
+				foreach($services as $service) {
+					if($service->service_paid == 2 && $loan->period <= $countrow){
 						if($service->type == "Percentage"){
 							$amount = ($service->charge_by == 1)? ($service->amount * $sale->total): (($service->charge_by == 2)? ($service->amount * $loan_balance ) : 0 ) ;	
 							$service_amount = $amount + ($amount * $service->tax_rate);
@@ -4430,7 +4437,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 							$amount = $this->erp->convertCurrency($getLoan->code, $setting->default_currency, $service->amount);
 							$service_amount = $amount + ($amount * $service->tax_rate);
 						}
-					}					
+					}
 					if($service->service_paid == 3){
 						if($service->type == "Percentage"){
 							$amount = ($service->charge_by == 1)? ($service->amount * $sale->total): (($service->charge_by == 2)? ($service->amount * $loan_balance ) : 0 ) ;	
@@ -4439,7 +4446,7 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 							$amount = $this->erp->convertCurrency($getLoan->code, $setting->default_currency, $service->amount);
 							$service_amount = $amount + ($amount * $service->tax_rate);
 						}
-					}					
+					}
 					if($service->service_paid == 4 && $loan->period <= $countrow){
 						if($service->type == "Percentage"){
 							$amount = ($service->amount * $sale->total) / $countrow;	
@@ -4477,11 +4484,11 @@ function getBillReciept($pdf = NULL, $xls = NULL)
 			}else {
 				$paymentDate = $old_date;
 			}
-			
+
 			echo json_encode(array('total'=>$sale->total ,'payment'=>$payment,'id'=>$rows->id,'dateline'=>$paymentDate, 'principle'=>$principles,'interest'=>$interests,'overdue_amount'=>$ovamount,'total_service_charge'=>$total_service_charges, 'service_payment'=>$service_payment ,'def_rate'=>$def_rate->rate, 'sale_rate'=>$sale_rate, 'haftterm'=>$countrow, 'period'=>$period, 'loan_balance'=>$loan_balances ,'currency_type'=>$currency_type, 'sumOweds'=>$sumOwed, 'customer'=>$sale->customer_name, 'saving_interest'=>$saving_interest));
         } else {
             echo json_encode(false);
-        }        
+        }
 	}
 	
 	public function ajaxGetSaleBysaleID($sale_id = NULL){

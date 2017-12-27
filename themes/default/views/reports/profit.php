@@ -24,9 +24,12 @@
 			<!--<a href="#" class="btn btn-xs btn-default no-print pull-right" style="margin-right:15px;" onclick="sendEmail();">
 				<i class="fa fa-send"></i> <?= lang('Send'); ?>
 			</a>-->
-            <h4 class="modal-title" id="myModalLabel"><?= lang('sale_dialy').' ('.$this->erp->hrsd($date).')'; ?></h4>
+            <h4 class="modal-title" id="myModalLabel"><?= lang('daily_loans').' ('.$this->erp->hrsd($date).')'; ?></h4>
         </div>
-        <div class="modal-body">
+		<p style="font-size:20px; text-align:center;">  
+			<?= lang("daily_loans"); ?>  <?= date('d/m/Y'); ?>  
+		</p>
+        <div class="table-responsive">
 				<table id="POData" cellpadding="0" cellspacing="0" border="0" class="table table-condensed table-bordered table-hover table-striped">
                     <thead>
                         <tr class="active">

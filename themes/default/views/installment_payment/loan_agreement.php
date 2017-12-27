@@ -8,11 +8,6 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<link href="https://fonts.googleapis.com/css?family=Battambang|Moul" rel="stylesheet"> 
-		<?php
-			$sale->total = $this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $sale->total);
-			$service->amount = $this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $service->amount);
-			
-		?>
 	<style type="text/css">
 		@media print {
 			.phone {color:red;}
@@ -20,224 +15,197 @@
         html, body {
             height: 100%;
         }
-	.contain-wrapper {
-	width: 21cm;
-	min-height: 29.7cm;
-	padding: 2cm;
-	margin: 1cm auto;
-	border-radius: 5px;
-	background: white;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-	font-family: Zawgyi-One,'Battambang', Times New Roman;
-	}
-	.ch-box{
-		width:15px;height:15px;border:1px solid black;display:inline-block;
-	}
-	.small-letter{
-		font-family:Zawgyi-One,khmer os muol;font-weight:bold;font-size:12px;
-	}
-	.chat table{
-		border-collapse:collapse;
-		width: 100%;
-		margin-bottom:20px;
-	}
-	.chat table tr td{
-		border:1px solid black;
-	}
-	.chat tr td {
-		padding:10px;
-	}
-	.order-num{
-		font-weight:bold;
-	}
-	#logo img{
-		width:150px;
-	}
-	th{
-		padding: 10px;
-		vertical-align:center;
-		text-align: center;
-	}
-	span{
-		font-size:13px;
-	}
-
+		.contain-wrapper {
+		width: 21cm;
+		min-height: 29.7cm;
+		padding: 2cm;
+		margin: 1cm auto;
+		border-radius: 5px;
+		background: white;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		font-family: 'Battambang', Times New Roman;
+		}
+		.ch-box{
+			width:15px;height:15px;border:1px solid black;display:inline-block;
+		}
+		.small-letter{
+			font-family:khmer os muol;font-weight:bold;font-size:12px;
+		}
+		.chat table{
+			border-collapse:collapse;
+			width: 100%;
+			margin-bottom:20px;
+		}
+		.chat table tr td{
+			border:1px solid black;
+		}
+		.chat tr td {
+			padding:10px;
+		}
+		.order-num{
+			font-weight:bold;
+		}
+		#logo img{
+			width:150px;
+		}
 	</style>
 	</head>
 	<body>
 		<div class="contain-wrapper" style="padding:0; margin:0 auto;">
-			  
-			<div class="header" style=" text-align:center;">
-				<div style=" " id="logo">
-					<span> 
-						<?php if ($Settings->logo2) {
-							echo '<img src="' . site_url() . 'assets/uploads/logos/' . $Settings->logo2 . '" style="margin-bottom:10px;" />';
-						} ?> 
-					</span> 
-				</div>
-					<b>
-					 <?php
-						//echo $this->session->branchName; 
-						 echo $setting->site_name ; 
-					 ?>
-					</b>
-			
-			</div>
-			<div>
-				<p style="text-align:center;" class="small-letter"> <b>လိုင္စင္ရဘ႑ာေရးစက္မႈလုပ္ငန္း</b></p>
-				<p style="text-align:center;" class="small-letter"> <b>အုပ္စု ေခ်းေငြစာခ်ုပ္</b></p>
-			</div>
-			
-			<div style=" height:100px; padding-left:15px;font-size:10px;line-height: 18px;">
-				<table width="100%">
-					<tr>
-						<td style="width:20%;">ရက္စဲြ<br>(Date)</td>
-						<td style="width:15%">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
-						<td style="width:15%">ေခ်းေငြကာလ<br>(Loan term)</td>
-						<td style="width:15%">:</td>
-						<td style="width:20%">စတင္ေပးေခ်ရမည္ေန႕ရက္<br>(First Repayment Date)</td>
-						<td style="width:15%">:</td>
-					</tr>
-					<tr>
-						<td style="width:20%">အဖြဲ႕၀င္အေရအတြက္<br>(Number of member)</td>
-						<td style="width:15%">:</td>
-						<td style="width:20%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
-						<td style="width:15%">:</td>
-						<td style="width:15%">စာခ်ဳပ္အမ်ိဳးအစား<br>(Contract Type)</td>
-						<td style="width:15%">:</td>
-					</tr>
-					<tr>
-						<td style="width:20%">၀ိုင္းၾကီးခ်ဳပ္နံပါတ္<br>(Group No. )</td>
-						<td style="width:15%">:<b> <?=$sale->reference_no;?> </b></td>
-						<td style="width:15%">အတိုးနႈန္း<br>(Interest Rate)</td>
-						<td style="width:15%">:<?= ($sale->rate_text ? $sale->rate_text : "")?></b></td>
-						<td style="width:15%">ေခ်းေငြအရာရွိ ID<br>(Credit Officer ID)</td>
-						<td style="width:15%">:<b><?= $creator->first_name . ' ' . $creator->last_name ; ?></td>
-					</tr>
-					<tr>
-						<td style="width:20%">လိပ္စာ<br>(Leader/Borrower Address )</td>
-						<td>:<b><?='#'.$customer->house_no; ?></td>
-					</tr>
-				</table>				 
-			</div>
-			<br><br>
-			<div style=" width:100%;min-height:100px; padding-top:15px; padding-left:10px;">				 
-				<p>
-					ရံုးလိပ္စာ(Office Address ) :အမွတ္ ၁၈/၅၆ ၊ဥသာျမိဳ႕သစ္(၆)ရပ္ကြက္ ၊ရန္ကုန္ မႏၲေလးလမ္းမၾကီးသာမေဏေက်ာ စာသင္တိုက္အနီး၊ ပဲခူးျမိဳ႕။ Ph - ၀၉၁၁၂၃၄၅၆၇၈
-				</p>
-				<br>
-				<p>
-					ေခ်းေငြ မေပးသြင္းနိုင္ပါက ၀ိုင္းၾကီးခ်ဳပ္စနစ္ျဖင့္  အဖြဲ႕ အမွတ္ ………………… ၏ အဖြဲ႕၀င္မ်ားႏွင့္ပူးတဲြ ေငြေခ်းသူတို႔က အညီအမွ် တာ၀န္ယူေျဖရွင္းေပးမည္ ျဖစ္ေၾကာင္းလက္မွတ္ေရးထိုး ပါသည္။
-				</p>	
-			</div>
-			
-			<div style=" padding-left:10px; padding-right:10px;">
-				<table border="1" style="max-width:100%; font-size:11px;">
-					<tr>
-						<th style="width:5%"><span>(စဥ္)</span><br>No</th>
-						<th style="width:10%"><span>( ေခ်းေငြ    ID)</span><br>Loan ID</th>
-						<th style="width:20%"><span>(ေငြေခ်းသူအမည္)</span><br>Borrower Name</th>
-						<th style="width:15%"><span>(မွတ္ပံုတင္အမွတ္)</span><br> NRC No </th>
-						<th style="width:10%"><span>( ေခ်းေငြပမာဏ    )</span><br>Loan Amount</th>
-						<th style="width:10%"><span>( လက္မွတ္)</span><br>Signature</th>
-					</tr>
-					<tr>
-						<td style="padding:5px">1 </td>
-						<td style="padding:5px"></td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						
-					</tr>
-					<tr>
-						<td style="padding:5px">2 </td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						<td style="padding:5px"> </td>
-						
-					</tr>
-					<tr>
-						<td style="padding:5px">3 </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						
-					</tr>
-					<tr>
-						<td style="padding:5px">4 </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						
-					</tr>
-					<tr>
-						<td style="padding:5px">5 </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						<td> </td>
-						
-					</tr>					
-				</table>				 
-			</div>
-			
-			<div>
-				<p style="text-align:center; padding-top:15px;" class="small-letter"> </p>
-			</div>
-			<div class="rules">
-					<div class="rules_header" style="text-align: center; padding-top:15px;"><b>အထူးစည္းမ်ဥ္းမ်ား</b></div>
-					<div class="rules_body">
-						<ol>
-							<li style="word-wrap: break-word;padding: 15px;">
-								လူၾကီးမင္း၏ ေခ်းေငြေလွ်ာက္လႊာအတြက္ ေက်းဇူးတင္ရွိျပီး <?php echo $setting->site_name ?> ထံမွ ေခ်းေငြထုတ္ယူေသာ အခ်ိန္မွစ၍ ေခ်းေငြျပန္ဆပ္သည့္အခ်ိန္ထိ ၄င္းစည္းမ်ဥ္း စည္းကမ္းမ်ားကိုနားလည္ရန္ ႏွင့္ ၄င္းစည္းမ်ဥ္းစည္းကမ္းတြင္ ပါရွိသည့္အတိုင္း ေပးထားေသာ ကတိမ်ားကို ေစာင့္ထိန္းရန္ အေရးၾကီးပါသည္။ ကိုယ္ေရးအခ်က္အလက္မ်ား ႏွင့္ပတ္သက္ေသာ သတင္းမ်ားကို အခ်ိန္ႏွင့္တေျပးညီအသိေပးရန္ ကတိျပဳျပီး အကယ္၍ အေျပာင္းအလဲရွိပါက ခ်က္ခ်င္း <?php echo $setting->site_name ?> ထံသို႕အေၾကာင္းၾကားရန္ လိုအပ္ပါသည္။
-							</li>
-							<li style="word-wrap: break-word;padding: 15px;">
-								ေခ်းေငြ အတိုးႏွဳန္းမွာတစ္လလွ်င္ ၂.၅% အတိုးႏႈန္း ျဖစ္ပီးေခ်းေငြလက္က်န္စာရင္းအေပၚတြင္ ရက္ေပါင္း ၃၀ ႏႈန္းျဖင့္အတိုးကိုတြက္ခ်က္ပါသည္။ေစာလ်င္စြာ (သို႔) ေနာက္က်စြာ (သို႔) ပိုမ်ားေသာပမာဏမ်ား (သို႔) ပိုနည္းေသာပမာဏမ်ားကိုကၽြႏု္ပ္ တို႔၏ ခြင့္ျပဳခ်က္ မပါရွိပဲ ျပန္လည္ေပးေခ်ျခင္းမျပဳလုပ္ရပါ။ 
-							</li>
-							<li style="word-wrap: break-word;padding: 15px;">							
-								ထုတ္ေခ်းေငြ၏  ၁%  ကိုစီမံခန႔္ခြဲရန္ အခေၾကးေငြ ၀န္ေဆာင္ခ  အေနျဖင့္လည္းေကာင္း  ၊၁%  ကို လူမႈေထာက္ပံ့ေရးရန္ပံုေငြ အျဖစ္လည္းေကာင္း  ၊  ေခ်းေငြ၏  ၃%ကို မျဖစ္မေနစုေဆာင္းေငြ အျဖစ္လည္ေကာင္း  ေခ်းေငြထုတ္သည့္ေန႔တြင္ တစ္ၾကိမ္ေကာက္ခံမည္ျဖစ္သည္။  လူမႈေထာက္ပံ့ေရးရန္ပံုေငြ ေပးသြင္းျခင္းျဖင့္<?php echo $setting->site_name ?> ႏွင့္ အဖြဲ႕၀င္ျဖစ္ေနစဥ္အတြင္း  ေငြေခ်းသူေသဆံုးပါက  ေခ်းေငြမ်ားကိုပယ္ဖ်က္ေပးရန္ အေထာက္အကူျပဳပါသည္။<?php echo $setting->site_name ?>တြင္ ေခ်းထားေသာေခ်းေငြမ်ား မရွိေတာ့ေသာအခါ ႏွင့္<?php echo $setting->site_name ?>၏ အဖြဲ႕၀င္အျဖစ္မွ ႏွဳတ္ထြက္ေသာအခါတြင္္ မျဖစ္မေနစုေဆာင္းေငြအားလံုးကို ထုတ္ယူႏုိင္မည္ ျဖစ္သည္။ စုေငြအတိုးႏွဳန္းမွာ ၁.၂၅%ျဖစ္ျပီး တစ္လ ရက္ (၃၀ )ထားျပီး အတိုးတြက္ခ်က္ပါသည္။
-							</li>
-							<li style="word-wrap: break-word;padding: 15px;">
-								ျပန္လည္ေပးဆပ္ရမည့္ ေငြအားလံုးကို ေပးဆပ္ရမည့္ေန႔တြင္  ညေန(၂)နာရီထက္ ေနာက္မက်ဘဲ ေပးသြင္းရပါမည္။ ထိုေန႔တြင္ ညေန(၂)နာရီထက္ေနာက္က်၍ ေပးသြင္းပါက ေနာက္က်   ေပးသြင္းသည္ဟု သတ္မွတ္ျပီး   ေနာက္က်ေၾကးေပးသြင္းရမည္ ျဖစ္သည္။၁ ရက္ထက္  ေနာက္က်ပါက ေနာက္က်ေၾကး ေပးသြင္းရမည္ျဖစ္ျပီး ထိုေနာက္က်ေၾကးသည္ တစ္ၾကိမ္ျပန္ဆပ္ေငြပမာဏ၏   ၁%  ျဖစ္ျပီး  ၄င္းကိုေနာက္က်သည့္အခါတိုင္း ေနာက္က်ေၾကးအျဖစ္ ေပးသြင္းရပါမည္။ ေငြျပန္ဆပ္ရန္ ပ်က္ကြက္ခဲ့လွ်င္ ေနာက္က်ေၾကးအျပင္  အျခားအေရးယူမႈမ်ားကို ျပဳလုပ္မည္ကို ထုတ္ေခ်းသူဘက္က  သိရွိရန္လိုအပ္ပါသည္။
-							</li>
-							<li style="word-wrap: break-word;padding: 15px;">
-								အကယ္၍ အဖြဲ႕၀င္ တစ္ဦးဦး အခ်ိန္မွီျပန္လည္ေပးဆပ္ရန္ ပ်က္ကြက္ျခင္း၊  ေနာက္က်ျခင္း မ်ားျဖစ္ေပၚပါက ၀ိုင္းၾကီးခ်ဳပ္၏ စည္းကမ္းအရ က်န္ေသာ ၀ိုင္းၾကီးခ်ဳပ္ အဖြဲ႕၀င္မ်ား  အညီအမွ်  တာ၀န္ယူ  ေျဖရွင္းေပးရမည္  ျဖစ္ပီး<?php echo $setting->site_name ?> ထံသို႕  ေငြကို  ခ်က္ခ်င္းျပန္လည္ေပးေခ်ရန္ တာ၀န္ရွိပါသည္။ သင္သည္ေခ်းေငြအဖြဲ႕၀င္ ျဖစ္ေနစဥ္ကာလအတြင္း    ဥပေဒ    (သို႔) စည္းမ်ဥ္းစည္းကမ္းမ်ား    ေျပာင္းလဲျခင္းမ်ားရွိပါက    (သို႔မဟုတ္)    ဥပေဒ    (သို႔) စည္းမ်ဥ္းစည္းကမ္းအသစ္မ်ား  ထြက္  ရွိပါက<?php echo $setting->site_name ?> မွဥပေဒ  ႏွင့္အညီ စည္းမ်ဥ္းစည္းကမ္း အေျပာင္းအလဲ ျပဳလုပ္မည္ကိုလည္း သေဘာတူ ပါသည္။ 
-							</li>
-							<li style="word-wrap: break-word;padding: 15px;">
-								<?php echo $setting->site_name ?> ထံမွေငြေခ်းယူသူသည္ ရရွိသည့္ ေခ်းေငြကို ေခ်းေငြစာခ်ဳပ္တြင္ ေဖာ္ျပထားေသာ လုပ္ငန္းမ်ား လုပ္ကိုင္ရန္အတြက္သာ အသံုးျပဳရမည္ ျဖစျ္ပီး ျပည္ေထာင္စု သမၼတ ျမန္မာနိုင္ငံေတာ္၏ တည္ဆဲဥပေဒမ်ားအရ တားျမစ္ထားသည့္ အျခားေသာ လုပ္ေဆာင္မွဳ မ်ားအတြက္ အသံုးမျပဳရန္ လိုအပ္ပါသည္။
-							</li>
-							<li style="word-wrap: break-word;padding: 15px;">
-								ေငြေခ်းသူအေနျဖင့္  စာခ်ဳပ္ပါ အခ်က္မ်ား အားလံုးကို အတိအက် လိုက္နာ ေဆာင္ရြက္ရန္  လိုအပ္ျပီး  အကယ္ ၍ စာခ်ဳပ္ပါ အခ်က္မ်ားက္ု ခ်ဳိးေဖာက္လွ်င္  ျပည္ေထာင္စုသမၼတ ျမန္မာနိုင္ငံေတာ္ ၏တည္ဆဲ ဥပေဒမ်ားအရ အေရးယူ ေဆာင္ရြက္ခံရမည္ ျဖစ္ပီး တရားစြဲဆိုမွဳ(သို႔)  ေျဖရွင္းမွဳ႕ႏွင့္ စပ္လ်ဥ္းသည့္ ကုန္က်စရိတ္ စုစုေပါင္းကို ပ်က္ကြက္သူ(သို႔) ခ်ိဳးေဖာက္သူဖက္မွ က်ခံရမည္ ျဖစ္သည္ -စသည့္ စည္းမ်ဥ္းစည္းကမ္း အခ်က္မ်ားကို  ေကာင္းစြာ လိုက္နာ ေဆာင္ရြက္မည္ ျဖစ္ေၾကာင္းကို မိမိတို႕၏ သေဘာဆႏၵအရ  လက္မွတ္ေရးထိုးပါသည္
-							</li>
-						</ol>
+			<div class="header" style="width:100%;float:left;">
+				<div class="brand-name" style="width:20%; float:left;margin-top:40px; margin-left:30px;">
+					<div style="float:left;" id="logo">
+					<span> <?php if ($Settings->logo2) {
+						echo '<img src="' . site_url() . 'assets/uploads/logos/' . $Settings->logo2 . '" style="margin-bottom:10px;" />';
+					} ?> </span> 
 					</div>
-			</div>
-			<div class="phara" style="overflow:hidden;width:100%;min-height:100px;clear:both;padding-top:15px; padding-left:10px;">	
-				<div style="padding-left:50px;">
-					<p>ေငြေခ်းသူႏွင့္ ပူးတြဲ ေငြေခ်းသူ၏ ဘယ္လက္မလက္ေဗြ <br> ေငြေခ်းသူ	</p>
+					<div style="margin-top:50px; margin-left:30px;">
+						 <?php echo $this->session->branchName ?>&nbsp; 
+					</div>
+				</div>				
+				<div class="nationality-identifier" style="width:50%; float:left;margin-top:20px;position:relative;">
+					<p style="font-family:Khmer OS Muol;text-align:center;font-size:12px;"​>ព្រះរាជាណាចក្រកម្ពុជា</p>
+					<p style="font-family:Khmer OS Muol;text-align:center;font-size:12px;">ជាតិ​​​ សាសនា​ ព្រះមហាក្សត្រ</p>
+					<p style="font-family:Khmer OS Muol;text-align:center;font-size:12px;"><b> <?php echo $setting->site_name ?> </b></p>					
+					<p style=" text-align:center;font-size:12px; text-align:center;"><b>កិច្ចសន្យាខ្ចីប្រាក់</b></p>
+				</div>
+				<div style="width:20%; float:left;margin-top:70px;">
+				</div>
+				<div style="width:20%; float:left;margin-top:10px;">
+					<span style="font-size:10px;"> លេខគណនីបញ្ជី: &nbsp; <b> <?php echo $contract_info->reference_no?$contract_info->reference_no:'N/A';?></b></span>
 				</div>				
 			</div>
-			
-			<div style=" width:100%;min-height:100px; padding-top:15px; padding-left:10px;">				 
-				1. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 2. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 3. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 4. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 5. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 6. ...........................
-			</div>			
-			<div class="phara" style="overflow:hidden;width:100%;min-height:100px;clear:both;padding-top:15px; padding-left:10px;">	
-				<div style="padding-left:50px;">
-					<p> ပူးတြဲ ေငြေခ်းသူ/အိမ္ေထာင္ဦးစီး /မိသားစု၀င္</p>
-				</div>				
-			</div>			
-			<div style=" width:100%;min-height:100px; padding-top:15px; padding-left:10px;">				 
-				1. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 2. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 3. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 4. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 5. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 6. ...........................
-			</div>
-			
+			<span style="color:red; font-family: 'Battambang'; font-weight:bold;" class="phone">
+				លេខទូរសព្ទទំនាក់ទំនងបន្ទាន់ ៖ ០៩៣ ៩០០ ៩១៤
+			</span>
+			<div class="phara" style="overflow:hidden;width:100%;min-height:100px;clear:both;padding-top:15px;">
+				<div class="pha1-num" style="float:left;">
+				<p class="order-num">១​.</p>
+				</div>
+				<div class="pha1" style="float:left;width:97%;">
+					<p class="pha2-text" style="font-size:14px;">
+						ភាគីឱ្យខ្ចីប្រាក់ឈ្មោះ  <b> <?php echo $setting->site_name ?> </b>​  អាស័យដ្ឋាននៅ ភូមិ<b><?php echo $br_village->village?$br_village->village:'NA';?> </b> ឃុំ <b><?php echo $br_sangkat->sangkat?$br_sangkat->sangkat:'NA';?> </b> ស្រុក <b><?php echo $br_district->district?$br_district->district:'NA';?> </b> <b><?php echo $br_state->state?$br_state->state:'NA';?> </b> ។​ តំណាងពេញច្បាប់ដោយលោក/លោកស្រី<b> <?php echo $contract_info->approv_name?$contract_info->approv_name:'NA'; ?> </b> តួនាទីជា <b> ប្រធានសាខា </b> តទៅនេះហៅភាគីថា  <span class="small-letter">(ក) </span>
+					</p>
+				</div>		
+				<div class="pha2-num" style="float:left;">
+				<p class="order-num">២​.</p>
+				</div>
+				<div class="pha2" style="float:left;width:97%;">
+					<p class="pha2-text" style="font-size:14px;">
+						ភាគីអ្នកខ្ចី ឈ្មោះ &nbsp; <b><?php echo $contract_info->customer_name?$contract_info->customer_name:'NA';?> </b> &nbsp; ភេទៈ<b><?php echo $contract_info->gender?$contract_info->gender:'NA';?> </b> &nbsp;  កើតថ្ងៃទី​ &nbsp; <b><?php echo $this->erp->hrsd($contract_info->date_of_birth)?> </b> &nbsp; &nbsp;  ឯកសារកំណត់អត្តសញ្ញាណ <b><?php echo $contract_info->identname?$contract_info->identname:'NA';?> </b>  លេខ<b><?php echo $contract_info->gov_id?$contract_info->gov_id:'NA'?> </b> ចុះថ្ងៃទី<b> &nbsp; <?php echo $this->erp->hrsd($contract_info->issue_date) ?> &nbsp; </b> អាស័យដ្ឋាន ភូមិ <b><?php echo $village->village?$village->village:'NA';?> </b> ឃុំ <b><?php echo $sangkat->sangkat?$sangkat->sangkat:'NA';?> </b> ស្រុក <b><?php echo $district->district?$district->district:'NA';?> </b> <b><?php echo $state->state?$state->state:'NA';?> </b> តទៅនេះហៅភាគីថា  <span class="small-letter">(ខ) </span>
+					</p>
+				</div>
+				<div class="pha2-num" style="float:left;">
+					<p class="order-num">៣.</p>
+				</div>
+				<div class="pha2" style="float:left;width:97%;">
+					<span class="pha2-text" style="font-size:14px;">
+						អ្នកចូលរួមខ្ចី​ ឈ្មោះ &nbsp; <b> <?php echo $join_lease->name?$join_lease->name:'NA';?> </b> &nbsp; ភេទៈ <b> <?php echo $join_lease->gender?$join_lease->gender:'NA';?> </b> &nbsp;  កើតថ្ងៃទី​ &nbsp; <b><?php echo $this->erp->hrsd($join_lease->date_of_birth)?></b> &nbsp; &nbsp;  ឯកសារកំណត់អត្តសញ្ញាណ <b> <?php echo $join_lease->identname?$join_lease->identname:'NA';?> </b>  លេខ<b> <?php echo $join_lease->gov_id?$join_lease->gov_id:'NA';?> </b> ចុះថ្ងៃទី <b><?php echo $this->erp->hrsd($join_lease->issue_date)?> </b>  អាស័យដ្ឋាន <span style="display:inline-block;"> <b> <?php echo $join_lease->address?$join_lease->address:'NA';?> </b></span>​ ត្រូវជា<b> <?php echo $join_lease->status?$join_lease->status:'NA';?> </b> ។
+					</span>
+				</div>
+				<p style="text-align:center;" class="small-letter"> <b>ភាគីទាំងពីរបានព្រមព្រៀងគ្នាដូចតទៅ</b></p>
+				<div>
+				<p><span class="small-letter">ប្រការ១</span> &nbsp; &nbsp;  ភាគី<span class="small-letter">(ខ) </span>​ បានខ្ចីប្រាក់ចំនួន ( <b> <?php echo $this->erp->convertCurrency($currency->currency_code,$setting->default_currency, $contract_info->total)?> <?= $currency->cname ?>​ )</b>ពីភាគី​<span class="small-letter">(ក)</span>ដើម្បីយកទៅប្រើប្រាស់ក្នុងគោលបំណង  <b> <?php echo $contract_info->note ? $contract_info->note : 'N/A' ?> </b>  ដែលមានអត្រាការប្រាក់សមរម្យលើប្រាក់ដើមដែលនៅសល់ប្រចាំសប្តាហ៍ ឬប្រចាំខែ ដែលបានកំណត់តាមតារាងសងប្រាក់។</p>
+				</div>
+				
+				<div>
+					<p><span class="small-letter">ប្រការ២</span> &nbsp; &nbsp; </b>ភាគី<span class="small-letter">(ខ)</span>រឺអ្នកដាក់ទ្រព្យធានាជំនួស យល់ព្រមដាក់ទ្រព្យធានា <b> <?php echo $collaterals->type?$collaterals->type:'N/A' ?> </b>  ដែលមានលេខសំគាល់ក្នុងប្រព័ន្ធ  <b><?php echo $collaterals->code?$collaterals->code:'N/A' ?></b>  មកឳ្យភាគី <span class="small-letter">(ក)</span>ដើម្បីធានាបំណុលទាំង ប្រាក់ដើមការប្រាក់និងប្រាក់ពិន័យ។</p>					
+					
+					<!--<table style="border-collapse:collapse; width:90%; margin-left:30px; text-align:center;" border="1";>
+						<tr>
+							<td>ប្រភេទទ្រព្យធានា</td>
+							<td>លេខសំគាល់</td>
+							<td>កាលបរិច្ឆេទ</td>
+							<td>ឈ្មោះម្ចាស់ទ្រព្យធានា</td>
+						</tr>
+						<?php
+							foreach($collateral as $collaterals){
+						?>
+						<tr>
+							<td><?php echo $collaterals->type ?></td>
+							<td><?php echo $collaterals->code ?></td>
+							<td><?php echo $this->erp->hrsd($collaterals->issue_date)?></td>
+							<td><?php echo $collaterals->owner_name?$collaterals->owner_name:'NA';?></td>
+						</tr>
+						<?php
+							}
+						?>
+						<tr style="height:100px;" valign="bottom">
+							<td colspan="2">ស្នាមមេដៃម្ចាស់ទ្រព្យធានាទី១</td>
+							<td colspan="2">ស្នាមមេដៃម្ចាស់ទ្រព្យធានាទី២</td>
+						</tr>
+					</table>-->
+				</div>
+				<div style="margin-top:10px;">
+				<p><span class="small-letter">ប្រការ៣</span> &nbsp; &nbsp; ក្នុងកំឡុងពេលនៃការសងប្រាក់ភាគី<span class="small-letter">(ខ)</span>និងបង់ប្រាក់សេវាមោឃភាពដើម្បីទុកជាមោឃះនូវប្រាក់ជំពាក់ចុងក្រោយ បន្ទាប់ពីទូទាត់ប្រាក់ក្នុងលក្ខខណ្ឌដែលភាគី<span class="small-letter">(ខ)</span>បានបង់ប្រាក់សេវាមោឃៈភាព ដែលបាត់បង់អាយុជីវិត នោះប្រាក់ជំពាក់នឹងមិនទាមទារ ពីក្រុមគ្រួសារ អ្នកស្នងមរតក ឬអ្នកធានារបស់ភាគី<span class="small-letter">(ខ)</span>ទៀតឡើយ។</p>	
+				</div>
+				
+				<div>
+				<p><span class="small-letter">ប្រការ៤</span> &nbsp; &nbsp; ភាគី<span class="small-letter">(ខ)</span>ត្រូវសងរំលោះឱ្យបានទៀងទាត់ និងគ្រប់ចំនួន តាមតារាងបង់ប្រាក់ដែលបានកំណត់។ <!--ត្រូវសងរំលោះឱ្យបានគ្រប់តាមចំនួនប្រាក់ក្នុងតារាងបង់ប្រាក់ជារៀងរាល់ សប្តាហ៍/ខែ ដោយចាប់ផ្តើមបង់ពីថ្ងៃទី<b><?php echo $this->erp->hrsd($contract_info->startdate)?> </b>សម្រាប់រយៈពេល<b> <?php echo $contract_info->cperiod?$contract_info->cperiod:'NA';?> </b>ដង។ កាលបរិច្ឆេទសងបញ្ចប់ថ្ងៃទី <b><?php echo $this->erp->hrsd($contract_info->enddate)?> </b>។--></p>	
+				</div>
+				
+				<div>
+				<p><span class="small-letter">ប្រការ៥</span> &nbsp; &nbsp; ក្នុងកំឡុងពេលភាគី<span class="small-letter">(ខ)</span>យល់ព្រមបង់ប្រាក់ពិន័យ ២០០០រៀលក្នុងមួយថ្ងៃ ក្នុងករណីយឺតយ៉ាវ តាមកាលកំណត់​ ក្នុងតារាងសងប្រាក់។ </p>	
+				</div>
+				
+				<div>
+				<p><span class="small-letter">ប្រការ៦</span> &nbsp; &nbsp; ប្រសិនបើ ភាគី <span class="small-letter">(ខ)</span>ចង់បង់ផ្តាច់មុនកាលកំណត់ភាគី<span class="small-letter">(ខ)</span>យល់ព្រមបង់ការប្រាក់ និងប្រាក់សេវាមោឃភាព យ៉ាងតិចបំផុត៦ដង នៃតារាងសងប្រាក់។</p>	
+				</div>
+				
+				<div>
+				<p><span class="small-letter">ប្រការ៧</span> &nbsp; &nbsp; ក្នុងករណីគ្មានលទ្ធភាពសងបំណុលតាមកាលវិភាគកំណត់សងប្រាក់ទេ ឬខកខានមិនបានសងប្រាក់នោះ ភាគី<span class="small-letter">(ខ)</span> និងអ្នកធានា សុខចិត្តឱ្យ ភាគី<span class="small-letter">(ក)</span>រឹបអូសទ្រព្យសម្បត្តិរបស់ខ្លួនលក់ឡៃឡុងដើម្បីយកប្រាក់មកទូទាត់បំណុល ដែលខ្លួននៅជំពាក់រហូតទាល់តែគ្រប់ចំនួន រួមទាំងប្រាក់ដើមការប្រាក់ និងប្រាក់ពិន័យ។</p>			
+				</div>
+				
+				<div>
+				<p><span class="small-letter">ប្រការ៨</span> &nbsp; &nbsp; ក្នុងករណីដែល ភាគី<span class="small-letter">(ខ)</span> គ្មានលទ្ធភាពសងប្រាក់ជំពាក់ អ្នកធានានៃកិច្ចសន្យានេះនឹងសងប្រាក់ជំពាក់ទាំងអស់ ដែលមិនទាន់សងជូនដល់ភាគី <span class="small-letter">(ក)</span> ។</p>			
+				</div>
+				
+				<div>
+				<p><span class="small-letter">ប្រការ៩</span> &nbsp;; &nbsp; ភាគី<span class="small-letter">(ខ)</span> យល់ព្រមជ្រើសយកមធ្យោបាយសងប្រាក់មក ភាគី <span class="small-letter">(ក)</span>វិញតាមរយះដៃគួរផ្ទេរប្រាក់ <b>ទ្រូមានី </b></p>				
+				</div>
+				
+				<div>
+				<p><span class="small-letter">ប្រការ១០</span> &nbsp; &nbsp; ប្រសិនបើ ភាគី<span class="small-letter">(ខ)</span> និងអ្នកធានាមិនគោរពតាមលក្ខខណ្ឌទាំងឡាយនៃកិច្ចសន្យានេះទេហើយមិនបាន បង់ប្រាក់រំលោះជាច្រើនលើកច្រើនសារភាគី<span class="small-letter">(ក)</span>អាចធ្វើការប្តឹងទៅស្ថាប័នគតិយុត្តិដ៏សមស្របណាមួយដែល បានជ្រើសរើសដោយភាគី<span class="small-letter">(ក)</span>ដើម្បីទាមទារប្រាក់ជំពាក់ ទោះបីមុនកាលកំណត់នៃការសងប្រាក់ក៏ដោយ ។ ប្រសិនបើមានការចាត់វិធានការតាមផ្លូវច្បាប់ ថ្លៃឈ្នួល និងថ្លៃចំណាយផ្សេងៗតាមផ្លូវច្បាប់ គឺជាបន្ទុករបស់ភាគី  <span class="small-letter">(ខ)</span>ទាំងស្រុង។</p>				
+				</div>
+				
+				<div>
+				<p><span class="small-letter">ប្រការ១១</span>	&nbsp; &nbsp; កិច្ចសន្យានេះត្រូវបានធ្វើឡើងដោយពុំមានការបង្ខិតបង្ខំពីភាគីណាមួយឡើយ ភាគីទាំងពីរបានអាន និងព្រមព្រៀងគ្នា គ្រប់លក្ខខណ្ឌ និងខ្លឹមសារទាំងអស់នៃកិច្ចសន្យានេះ ហើយចុះហត្ថលេខា និងផ្តិតមេដៃស្តាំទុកជាភស្តុតាង។ </p>				
+				</div>
+				
+				<div>
+					<p style="text-align:right; margin-right:100px;">ធ្វើនៅថ្ងៃទី&nbsp; <b> <?php echo $this->erp->hrsd($contract_info->approved_date)?> </b> &nbsp;</p>
+				</div>
+				
+				<div class="letter-footer" style="with:100%; height:200px; font-size:12px;">
+					<div class="left-footer" style="width: 35%; float:left;padding:10px;">
+						<p class="left-footer" style="text-align:center; font-family:Khmer OS Muol;" >
+							តំណាងម្ចាស់កម្ចី
+						</p>
+						</p><br/><br/><br/>
+						<p style="text-align:center;font-weight:bold;">
+							<span style="text-transform: capitalize;"> <?php echo $contract_info->approv_name?$contract_info->approv_name:'N/A'; ?></span>
+						</p>
+					</div>
+					
+					<div class="left-footer" style="width: 30%; float:left;padding:10px;">
+						<p style="text-align:center;font-family:Khmer OS Muol;">
+							 ស្នាមមេដៃអ្នកចូលរូមខ្ចី
+						</p>
+						</p><br/><br/><br/>
+						<p style="text-align:center;font-weight:bold;">
+							 <?php echo $join_lease->name?$join_lease->name:'NA';?>
+						</p>
+					</div>
+					<div class="left-footer" style="width: 30%; float:left;padding:10px;">
+						<p style="text-align:center;font-family:Khmer OS Muol;">
+							 ស្នាមមេដៃអ្នកខ្ចី
+						</p><br/><br/><br/>
+						<p style="text-align:center; font-weight:bold;">
+							 <span style="text-transform: capitalize;"><?php echo $contract_info->customer_name?$contract_info->customer_name:'N/A';?></span>
+						</p>
+					</div>	
+				</div>	
+			</div>	
 		</div>
 	</body>
 </html>

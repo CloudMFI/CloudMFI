@@ -188,6 +188,7 @@
 											$pay_method[""] = "";
 											$pay_method["cash"] = "Cash";
 											$pay_method["wing"] = "Wing";
+											$pay_method["True Money"] = "True Money";
 											$pay_method["Visa"] = "Visa Card";
 											echo form_dropdown('pay_method', $pay_method,  $payment->paid_by, 'class="form-control select" id="pay_method" placeholder="' . lang("select") . ' ' . lang("pay_method") . '" style="width:100%" data-bv-notempty="true"');
 											?>

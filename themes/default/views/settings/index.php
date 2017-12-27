@@ -3,6 +3,11 @@ $wm = array('0' => lang('no'), '1' => lang('yes'));
 $ps = array('0' => lang("disable"), '1' => lang("enable"));
 ?>
 <script>
+
+	$(window).load(function() {
+		$('#currency').attr("readonly",true);
+	});
+	
     $(document).ready(function () {
         <?php if(isset($message)) { echo 'localStorage.clear();'; } ?>
         var timezones = <?php echo json_encode(DateTimeZone::listIdentifiers(DateTimeZone::ALL)); ?>;
@@ -128,7 +133,7 @@ $ps = array('0' => lang("disable"), '1' => lang("enable"));
 												$cu[$currency->code] = $currency->name;
 											}
 										}		
-                                        echo form_dropdown('currency', isset($cu) ?$cu  : (''), $Settings->default_currency, 'class="form-control tip" id="currency" required="required" style="width:100%;"');
+                                        echo form_dropdown('currency', isset($cu) ?$cu  : (''), $Settings->default_currency, 'class="form-control tip" id="currency" required="required" style="pointer-events: none;" readonly style="width:100%;"');
                                         ?>
                                     </div>
                                 </div>
@@ -695,15 +700,20 @@ $ps = array('0' => lang("disable"), '1' => lang("enable"));
 						<div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label" for="penalty_amount"><?= lang("penalty_amount"); ?></label>
-                                <?php echo form_input('penalty_amount', $Settings->penalty_amount, 'class="form-control tip" required="required" id="over_due_days"'); ?>
+								<?php
+									if($settings->penalty_types == "Percentage"){
+										$penalty_amount = $Settings->penalty_amount * 100 .''. '%';
+									}else {
+										$penalty_amount = $this->erp->formatDecimal($Settings->penalty_amount);
+									}
+								?>
+                                <?php echo form_input('penalty_amount', $penalty_amount, 'class="form-control tip" required="required" id="over_due_days"'); ?>
                             </div>
                         </div>
 						
 						<div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label" for="penalty_days"><?= lang("penalty_days"); ?></label>
-
-
                                 <?php echo form_input('penalty_days', $Settings->penalty_days, 'class="form-control tip" required="required" id="penalty_days"'); ?>
                             </div>
                         </div>

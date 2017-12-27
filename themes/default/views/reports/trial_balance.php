@@ -49,7 +49,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <p class="introtext"><?= lang('list_results'); ?></p>
-                <div class="table-responsive">
+                <div>
+					<p style="font-size:20px; text-align:center;">  
+						<B> <?= lang("trial_balance"); ?>  </B>
+					</p>
                     <table id="SupData" cellpadding="0" cellspacing="0" border="0" class="table table-bordered table-hover table-striped table-condensed">
 						<thead>
 							<tr class="primary">								

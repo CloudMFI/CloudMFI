@@ -115,7 +115,7 @@ if (isset($biller_id)) {
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, null,null, {"mRender": ref} ,{"mRender": ref} ,null, null , {"mRender": currencyFormat},{"mRender": currencyFormat}, {"mRender": currencyFormat} , {"mRender": currencyFormat}, {"mRender": currencyFormat} ,{"mRender": currencyFormat}, {"mRender": row_status}],
+            }, null,null, {"mRender": ref} ,{"mRender": ref} ,null, null , {"mRender": currencyFormat},{"mRender": currencyFormat}, {"mRender": currencyFormat} , {"mRender": currencyFormat}, {"mRender": currencyFormat} ,{"mRender": currencyFormat},null],
             'fnRowCallback': function (nRow, aData, iDisplayIndex) {
                 
             },
@@ -144,7 +144,7 @@ if (isset($biller_id)) {
             }
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('date');?> (dd-mm-yyyy)]", filter_type: "text", data: []},
-            {column_number: 2, filter_default_label: "[<?=lang('pay_term');?>]", filter_type: "text", data: []},
+            {column_number: 2, filter_default_label: "[<?=lang('loan_term');?>]", filter_type: "text", data: []},
 			{column_number: 3, filter_default_label: "[<?=lang('payment_ref');?>]", filter_type: "text", data: []},
 			{column_number: 4, filter_default_label: "[<?=lang('customer');?>]", filter_type: "text", data: []},
 			{column_number: 5, filter_default_label: "[<?=lang('branch');?>]", filter_type: "text", data: []},
@@ -155,7 +155,7 @@ if (isset($biller_id)) {
 			{column_number: 10, filter_default_label: "[<?=lang('penalty_days');?>]", filter_type: "text", data: []},
 			{column_number: 11, filter_default_label: "[<?=lang('services');?>]", filter_type: "text", data: []},
 			{column_number: 12, filter_default_label: "[<?=lang('total_amount');?>]", filter_type: "text", data: []},
-			{column_number: 13, filter_default_label: "[<?=lang('type');?>]", filter_type: "text", data: []},
+			{column_number: 13, filter_default_label: "[<?=lang('paid_by');?>]", filter_type: "text", data: []},
         ], "footer");
 
     });
@@ -266,16 +266,16 @@ if (isset($biller_id)) {
         </div>
         <div class="box-icon">
             <ul class="btn-tasks">
-                <li class="dropdown"><a href="#" id="pdf" data-action="export_pdf" class="tip" title="<?= lang('download_pdf') ?>"><i
-                            class="icon fa fa-file-pdf-o"></i></a></li>
-                <li class="dropdown"><a href="#" id="excel" data-action="export_excel" class="tip" title="<?= lang('download_xls') ?>"><i
-                            class="icon fa fa-file-excel-o"></i></a></li>
-                <li class="dropdown"><a href="#" id="image" class="tip" title="<?= lang('save_image') ?>"><i
-                            class="icon fa fa-file-picture-o"></i></a></li>
+                <!--<li class="dropdown"><a href="#" id="pdf" data-action="export_pdf" class="tip" title="<?= lang('download_pdf') ?>"><i
+                            class="icon fa fa-file-pdf-o"></i></a></li>-->
+                <!--<li class="dropdown"><a href="#" id="excel" data-action="export_excel" class="tip" title="<?= lang('download_xls') ?>"><i
+                            class="icon fa fa-file-excel-o"></i></a></li>-->
+                <!--<li class="dropdown"><a href="#" id="image" class="tip" title="<?= lang('save_image') ?>"><i
+                            class="icon fa fa-file-picture-o"></i></a></li>-->
 				<li class="dropdown">
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#"><i
+						<!--<a data-toggle="dropdown" class="dropdown-toggle" href="#"><i
 								class="icon fa fa-building-o tip" data-placement="left"
-								title="<?= lang("billers") ?>"></i></a>
+								title="<?= lang("billers") ?>"></i></a>-->
 						<ul class="dropdown-menu pull-right" class="tasks-menus" role="menu"
 							aria-labelledby="dLabel">
 							<li><a href="<?= site_url('reports/payments') ?>"><i
@@ -365,9 +365,12 @@ if (isset($biller_id)) {
 
 				<!--<div class="table-responsive">-->
                 <div>
-				<p style="font-size:20px; text-align:center;"> 
+				<!--<p style="font-size:20px; text-align:center;"> 
 					<b> <?= $setting->site_name; ?> </b> <br>
 					<?= lang("loans_collection_details"); ?>  
+				</p>-->
+				<p style="font-size:20px; text-align:center;">  
+					 <B> <?= lang("loans_collection_details"); ?>  <?= date('d/m/Y'); ?>   </B>
 				</p>
                     <table id="PayRData"
                            class="table table-bordered table-hover table-striped table-condensed reports-table">
@@ -377,7 +380,7 @@ if (isset($biller_id)) {
                                 <input class="checkbox checkth" type="checkbox" name="check"/>
                             </th>
                             <th><?= lang("date"); ?></th>
-							<th><?= lang("pay_term"); ?></th>
+							<th><?= lang("loan_term"); ?></th>
                             <th><?= lang("payment_ref"); ?></th>
 							<th><?= lang("customer"); ?></th>
                             <th><?= lang("branch"); ?></th>
@@ -388,7 +391,7 @@ if (isset($biller_id)) {
 							<th><?= lang("penalty"); ?></th>
 							<th><?= lang("services"); ?></th>
                             <th><?= lang("total_amount"); ?></th>
-                            <th><?= lang("type"); ?></th>
+                            <th><?= lang("paid_by"); ?></th>
                         </tr>
                         </thead>
                         <tbody>

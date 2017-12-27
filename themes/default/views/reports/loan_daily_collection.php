@@ -235,16 +235,16 @@ if (isset($biller_id)) {
         </div>
         <div class="box-icon">
             <ul class="btn-tasks">
-                <li class="dropdown"><a href="#" id="pdf" data-action="export_pdf" class="tip" title="<?= lang('download_pdf') ?>"><i
-                            class="icon fa fa-file-pdf-o"></i></a></li>
-                <li class="dropdown"><a href="#" id="excel" data-action="export_excel" class="tip" title="<?= lang('download_xls') ?>"><i
-                            class="icon fa fa-file-excel-o"></i></a></li>
-                <li class="dropdown"><a href="#" id="image" class="tip" title="<?= lang('save_image') ?>"><i
-                            class="icon fa fa-file-picture-o"></i></a></li>
+                <!--<li class="dropdown"><a href="#" id="pdf" data-action="export_pdf" class="tip" title="<?= lang('download_pdf') ?>"><i
+                            class="icon fa fa-file-pdf-o"></i></a></li>-->
+                <!--<li class="dropdown"><a href="#" id="excel" data-action="export_excel" class="tip" title="<?= lang('download_xls') ?>"><i
+                            class="icon fa fa-file-excel-o"></i></a></li>-->
+                <!--<li class="dropdown"><a href="#" id="image" class="tip" title="<?= lang('save_image') ?>"><i
+                            class="icon fa fa-file-picture-o"></i></a></li>-->
 				<li class="dropdown">
-						<a data-toggle="dropdown" class="dropdown-toggle" href="#"><i
+						<!---<a data-toggle="dropdown" class="dropdown-toggle" href="#"><i
 								class="icon fa fa-building-o tip" data-placement="left"
-								title="<?= lang("billers") ?>"></i></a>
+								title="<?= lang("billers") ?>"></i></a>-->
 						<ul class="dropdown-menu pull-right" class="tasks-menus" role="menu"
 							aria-labelledby="dLabel">
 							<li><a href="<?= site_url('reports/payments') ?>"><i
@@ -334,6 +334,9 @@ if (isset($biller_id)) {
 
 
                 <div class="table-responsive">
+					<p style="font-size:20px; text-align:center;">  
+						<B> <?= lang("loan_daily_collection"); ?>  <?= date('d/m/Y'); ?>   </B>
+					</p>
                     <table id="PayRData"
                            class="table table-bordered table-hover table-striped table-condensed reports-table">
 

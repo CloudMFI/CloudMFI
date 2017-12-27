@@ -818,6 +818,20 @@ class Accounts_model extends CI_Model
         }
         return FALSE;
     }
+	public function getdefault_saving_interest_payble()
+    {
+		$this->db->select('accountname');
+		$this->db->from('account_settings');
+		$this->db->join('gl_charts', 'account_settings.default_saving_interest_payble=gl_charts.accountcode');
+        $q = $this->db->get();
+        if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return FALSE;
+    }
 	
 	public function getdefault_cash_withdrawal()
     {

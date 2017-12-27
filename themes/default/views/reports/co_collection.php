@@ -128,7 +128,10 @@
 				</div>
 				<!---End Search------->
 				<div class="clearfix"></div>
-                <div class="table-responsive">
+				<p style="font-size:20px; text-align:center;">  
+					<B> <?= lang("co_collection_reports"); ?>   </B>
+				</p>
+                <div>
                     <table id="QUData" class="table table-bordered table-hover table-striped table-condensed">
                         <thead>
                         <tr class="active">
@@ -139,7 +142,7 @@
 							<th style="text-align:center;"><?= lang('interest_collection') ?></th>
 							<th style="text-align:center;"><?= lang('service_fee') ?></th>
 							<th style="text-align:center;"><?= lang('penalty_collection') ?></th>
-							<th style="text-align:center;"><?= lang('tt_collection') ?></th>
+							<th style="text-align:center;"><?= lang('total_collection') ?></th>
 						</tr>
                         </thead>
                          <tbody>
@@ -159,10 +162,10 @@
 								foreach($credit_offier AS $user){ ?>
 								
 								<tr>
-									<td colspan="12" class="text-left" style="font-weight:bold; color:orange;">&nbsp;&nbsp;&nbsp;&nbsp;								
+									<td colspan="12" class="text-left" style="font-weight:bold; color:#083686;">&nbsp;&nbsp;&nbsp;&nbsp;								
 										<?= lang("credit_officer"); ?>
 										<i class="fa fa-angle-double-right" aria-hidden="true"></i>
-										
+										&nbsp;&nbsp;&nbsp;
 										<?= $user->first_name.' '.$user->last_name; ?>
 									</td>
 								</tr>
@@ -175,31 +178,31 @@
 									$tt_collection = 0;
 									$loans = $user->sale;
 									foreach($loans as $co_l){ 
-									$total_collection = $co_l->principle_collection + $co_l->interest_collection + $co_l->service_collection + $co_l->penalty_collection;
-									if($co_l->cus_name){
-										$principle = $co_l->principle_collection;
-										$interest  = $co_l->interest_collection;
-										$service   = $co_l->service_collection;
-										$penalty   = $co_l->penalty_collection;
-									}
-									?>
-										<tr>
-											<td style="text-align:right;"><?= $i ?></td>
-											<td style="text-align:left;"><?= $co_l->cus_name; ?></td>
-											<td style="text-align:left;"><?= $co_l->date; ?></td>
-											<td style="text-align:right;"><?= $this->erp->formatDecimal($principle); ?></td>
-											<td style="text-align:right;"><?= $this->erp->formatDecimal($interest); ?></td>
-											<td style="text-align:right;"><?= $this->erp->formatDecimal($service); ?></td>
-											<td style="text-align:right;"><?= $this->erp->formatDecimal($penalty); ?></td>
-											<td style="text-align:right;"><?= $this->erp->formatDecimal($total_collection); ?></td>
-										</tr>
-									<?php 
-									$i++;
-									$principle_amt += $principle;
-									$interest_amt  += $interest;
-									$service_amt   += $service;
-									$penalty_amt   += $penalty;
-									$tt_collection += $total_collection;
+										$total_collection = $co_l->principle_collection + $co_l->interest_collection + $co_l->service_collection + $co_l->penalty_collection;
+										if($co_l->cus_name){
+											$principle = $co_l->principle_collection;
+											$interest  = $co_l->interest_collection;
+											$service   = $co_l->service_collection;
+											$penalty   = $co_l->penalty_collection;
+										}
+										?>
+											<tr>
+												<td style="text-align:right;"><?= $i ?></td>
+												<td style="text-align:left;"><?= $co_l->cus_name; ?></td>
+												<td style="text-align:left;"><?= $this->erp->hrsd($co_l->date); ?></td>
+												<td style="text-align:right;"><?= $this->erp->formatDecimal($principle); ?></td>
+												<td style="text-align:right;"><?= $this->erp->formatDecimal($interest); ?></td>
+												<td style="text-align:right;"><?= $this->erp->formatDecimal($service); ?></td>
+												<td style="text-align:right;"><?= $this->erp->formatDecimal($penalty); ?></td>
+												<td style="text-align:right;"><?= $this->erp->formatDecimal($total_collection); ?></td>
+											</tr>
+										<?php 
+										$i++;
+										$principle_amt += $principle;
+										$interest_amt  += $interest;
+										$service_amt   += $service;
+										$penalty_amt   += $penalty;
+										$tt_collection += $total_collection;
 									} ?>
 									<tr class="active">
 										<td colspan="3" class="right" style="font-weight:bold;"><?= lang("total") ?> 
