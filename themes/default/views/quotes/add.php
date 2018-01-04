@@ -220,10 +220,10 @@
 																echo form_dropdown('cus_civility', $cus_civility, isset($customer->civility)?$customer->civility:'', 'class="form-control select" id="cus_civility" placeholder="' . lang("select") . ' ' . lang("civility") . '" style="width:100%" data-bv-notempty="true"')
 																?>
 															</div>-->															
-															<div class="form-group">
+															<!-- <div class="form-group">
 																<?= lang("issue_by", "cus_issue_by"); ?>
 																<?php echo form_input('cus_issue_by', (isset($_POST['cus_issue_by']) ? $_POST['cus_issue_by'] : $applicant->issue_by), 'class="form-control" id="cus_issue_by"'); ?>
-															</div>
+															</div> -->
 															<div class="form-group">
 																<?= lang("family_name_(en)", "cus_family_name"); ?>
 																<?php echo form_input('cus_family_name', (isset($_POST['cus_family_name']) ? $_POST['cus_family_name'] : $applicant->family_name), 'class="form-control tip" id="cus_family_name" data-bv-notempty="true"'); ?>
@@ -286,10 +286,10 @@
 															</div>
 														</div>														
 														<div class="col-md-6">
-															<div class="form-group">
+															<!-- <div class="form-group">
 																<?= lang("issue_date", "cus_issue_date"); ?>
 																<?php echo form_input('cus_issue_date', $applicant->issue_date?$this->erp->hrsd($applicant->issue_date):'', 'class="form-control date" id="cus_issue_date"'); ?>
-															</div>
+															</div>  -->
 															<div class="form-group">
 																<?= lang("family_name_(kh)", "cus_family_name_other"); ?>
 																<?php echo form_input('cus_family_name_other', (isset($_POST['cus_family_name_other']) ? $_POST['cus_family_name_other'] : $applicant->family_name_other), 'class="form-control" id="cus_family_name_other" data-bv-notempty="true"'); ?>
