@@ -3135,7 +3135,8 @@ class Purchases extends MY_Controller
             redirect('purchases/expenses');
         } else {
 			$this->load->model('accounts_model');
-             $this->load->model('pos_model');
+			$this->load->model('quotes_model');
+            $this->load->model('pos_model');
             $this->pos_settings = $this->pos_model->getSetting();
             $this->data['pos_settings'] = $this->pos_settings;
 			$setting = $this->purchases_model->get_setting();
@@ -3143,10 +3144,13 @@ class Purchases extends MY_Controller
             $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
             $this->data['exnumber'] = ''; //$this->site->getReference('ex');
 			$this->data['chart_accounts'] = $this->accounts_model->getAllChartAccountIn('30,50,60,80');
-			$this->data['paid_by'] = $this->accounts_model->getAllChartAccountBank();
-			$this->data['currency'] = $this->site->getCurrency();
+			$this->data['paid_by'] = $this->accounts_model->getAllChartAccountBank(); 
 			$this->data['currencies'] = $this->site->getCurrency();
 			$this->data['branchs'] = $this->purchases_model->getBranchDName();
+			$userid = $this->session->userdata('user_id');
+			$user = $this->quotes_model->getUser($userid);
+			$this->data['branch'] = $this->quotes_model->getBranchById($user->branch_id);
+			$this->data['setting'] = $this->quotes_model->getSettingCurrncies();
 			$this->data['billers'] = $this->site->getAllCompanies('biller');
             $this->data['modal_js'] = $this->site->modal_js();
             $this->load->view($this->theme . 'purchases/add_expense', $this->data);

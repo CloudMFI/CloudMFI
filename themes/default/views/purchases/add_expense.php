@@ -1,4 +1,4 @@
-
+ 
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -20,7 +20,7 @@
 							$all_branch[$branch->id] = $branch->name;
 						}
 					}
-					echo form_dropdown('branch', $all_branch, (isset($_POST['branch']) ? $_POST['branch'] : ''), 'id="branch" class="form-control input-tip select" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("branch") . '" required="required" style="width:100%;" ');
+					echo form_dropdown('branch', $all_branch, (isset($_POST['branch']) ? $_POST['branch'] : $branch->id), 'id="branch" class="form-control input-tip select" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("branch") . '" required="required" style="width:100%;" ');
 				?>
 			</div>
 			<div class="form-group">
@@ -52,7 +52,7 @@
 				foreach($paid_by as $section){
 					$acc_section[$section->accountcode] = $section->accountcode.' | '.$section->accountname;
 				}
-					echo form_dropdown('paid_by', $acc_section, '' ,'id="paid_by" class="form-control input-tip select" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("paid_by") . '" required="required" style="width:100%;" ');
+					echo form_dropdown('paid_by', $acc_section, (isset($_POST['paid_by'])? $_POST['paid_by'] : 111200 ),'id="paid_by" class="form-control input-tip select" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("paid_by") . '" required="required" style="width:100%;" ');
 				?>
 			</div>
 			<div class="form-group">
@@ -64,7 +64,7 @@
 						$crr[$currency->code .'#'.$currency->rate ] = $currency->name;
 					}
 				}
-				echo form_dropdown('currency', $crr, '', 'class="form-control currency" id="currency" placeholder="' . lang("select_currency") . '"');
+				echo form_dropdown('currency', $crr, (isset($_POST['currency'])? $_POST['currency'] : $setting->code .'#'.$setting->rate ), 'class="form-control currency" id="currency" placeholder="' . lang("select_currency") . '"');
 				?>
 			</div>
             <div class="form-group">
@@ -101,6 +101,11 @@
 <?= $modal_js ?>
 <script type="text/javascript" charset="UTF-8">
 	
+	$(window).load(function() {		 
+		$('#branch').trigger('change');
+		$('#paid_by').trigger('change');
+	});
+	
 	$(document).ready(function () {
 		$('#currency').on( "change", function() {
 				var currency = $('#currency').val();
@@ -130,7 +135,7 @@
                         $('#modal-loading').hide();
                 }
 			});
-		});
+		}).trigger('change');
 		
 		$('#amount').keyup(function(){
 			var amount = $('#amount').val()? parseFloat($('#amount').val()) : 0;

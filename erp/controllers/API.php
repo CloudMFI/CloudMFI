@@ -6,6 +6,7 @@ class API extends CI_Controller
     function __construct()
     {
         parent::__construct();
+		$this->load->model('api_model');
 		$this->load->model('reports_model');
 		$this->load->model('installment_payment_model');
 		$this->load->model('settings_model');
@@ -21,11 +22,49 @@ class API extends CI_Controller
 
     function index()
     {
-		$array = array(
-						"username" => "Mkan Ko",
-						"password" => "12345",
-					  );
-        echo json_encode($array); 
+		$this->load->model('api_model'); 
+		$setting = $this->api_model->getSettingCurrncies();
+		$quotes = $this->api_model->GetquotesLists();
+		$format = strtolower($_GET['format']) == 'json' ? 'json' : 'xml';
+		foreach($quotes as $quote){
+			$array[] = array(
+								"quote_id" 				=> $quote->id,
+								"reference_no" 			=> $quote->reference_no,
+								"group_loan" 			=> $quote->glname,
+								"customer_name_en" 		=> $quote->customer_name_en,
+								"customer_name_other" 	=> $quote->customer_name_other,
+								"product_name" 			=> $quote->product_name,
+								"quote_status" 			=> $quote->quote_status,
+								"date" 					=> $quote->date,
+								"approved_date" 		=> $quote->approved_date,
+								"co_name" 				=> $quote->coname,
+								"branch_name" 			=> $quote->branch_name,
+								"currency_name" 		=> $quote->currency_name,
+								"total" 				=> $this->erp->convertCurrency($setting->code, $quote->currency_code, $quote->total), 
+							);
+		}
+		 
+		if($format == 'json') {
+			header('Content-type: application/json');
+			echo json_encode($array);
+		}
+		else {
+			header('Content-type: text/xml');
+				echo '';
+			foreach($array as $index => $post) {
+				if(is_array($post)) {
+					foreach($post as $key => $value) {
+						echo '<',$key,'>';
+						if(is_array($value)) {
+							foreach($value as $tag => $val) {
+								echo '<',$tag,'>',htmlentities($val),'</',$tag,'>';
+							}
+						}
+					  echo '</',$key,'>';
+					}
+				}
+			}
+		}
     }
 	
 	function test(){
@@ -57,7 +96,7 @@ class API extends CI_Controller
 		  else {
 			header('Content-type: text/xml');
 			echo '';
-			foreach($posts as $index => $post) {
+			foreach($posts as $index => $post){
 			  if(is_array($post)) {
 				foreach($post as $key => $value) {
 				  echo '<',$key,'>';
@@ -76,7 +115,6 @@ class API extends CI_Controller
 		  @mysql_close($link);
 		}
 	}
-	
 	
 	function quotes()
     {

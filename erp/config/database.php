@@ -57,15 +57,15 @@
 | the query builder class.
 */
 
-$active_group = 'default';
+$active_group  = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-	'dsn'	=> '',
+	'dsn'	   => '',
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'mfi_v1.1_git',
+	'database' => 'morakot_check',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'erp_',
 	'pconnect' => FALSE,
@@ -75,7 +75,7 @@ $db['default'] = array(
 	'char_set' => 'utf8',
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
-	'encrypt' => FALSE,
+	'encrypt'  => FALSE,
 	'compress' => FALSE,
 	'stricton' => FALSE,
 	'failover' => array(),

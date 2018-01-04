@@ -18030,6 +18030,7 @@ class Reports extends MY_Controller
         $meta = array('page_title' => lang('capital'), 'bc' => $bc);
         $this->page_construct('reports/capital_reports', $meta, $this->data);
     }
+	
 	public function getCapitalReports(){
 		$this->erp->checkPermissions('index'); 
         $this->load->library('datatables');	
@@ -18053,6 +18054,7 @@ class Reports extends MY_Controller
         $meta = array('page_title' => lang('shareholder'), 'bc' => $bc);
         $this->page_construct('reports/shareholder_reports', $meta, $this->data);
     }
+	
 	public function getShareholderReports(){
 		$this->erp->checkPermissions('index'); 
         $this->load->library('datatables');	
@@ -18066,15 +18068,17 @@ class Reports extends MY_Controller
 									</div>", $this->db->dbprefix('capitals').".id");   
         echo $this->datatables->generate();
 	}
+	
 	public function getCapitalReportsByID($id=NULL){
 		$this->erp->checkPermissions('index'); 
         $this->load->library('datatables');	
         $this->datatables
-             ->select($this->db->dbprefix('capitals').".id,reference_no, tran_date ,created_name,amount")
+             ->select($this->db->dbprefix('capitals').".id,reference_no, tran_date ,created_name, amount")
             ->from("erp_capitals")
 			->where("id",$id);  
         echo $this->datatables->generate();
 	}
+	
 	public function view_details($id){
 		$this->erp->checkPermissions(false, true);
 		$g=$this->reports_model->getShareholderByID($id);

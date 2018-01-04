@@ -75,9 +75,9 @@
 					$amount = $this->erp->convertCurrency($expense->currency_code, $setting->default_currency, $expense->amount )
 				?>
 				<input name="amount" type="text" id="amount" value="<?= $this->erp->formatDecimal($amount); ?>" class="pa form-control kb-pad amount"/>
-				<input type="hidden" name="bramount" id="bramount" />
-			    <input type="hidden" name="branch_id" id="branch_id" />
-			    <input type="hidden" name="bank_code" id="bank_code" />
+				<input type="t" name="bramount" id="bramount" />
+			    <input type="t" name="branch_id" id="branch_id" />
+			    <input type="t" name="bank_code" id="bank_code" />
 			</div>
 			
 			<?php
@@ -120,7 +120,7 @@
 <?= $modal_js ?>
 <script type="text/javascript" charset="UTF-8">
 
-	$(document).ready(function () {	
+	$(document).ready(function () {
 		$('#paid_by, #branch').change(function(){
 			var branch_id = $('#branch').val();
 			var bank_code = $('#paid_by').val();
@@ -144,7 +144,7 @@
 			var bramount = $('#bramount').val()? parseFloat($('#bramount').val()) : 0;
 			if (amount > bramount){
 				$('#amount').val(formatDecimal(bramount));	
-			}					
+			}
 		});
 		
     });

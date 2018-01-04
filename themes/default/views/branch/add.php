@@ -1,3 +1,5 @@
+ 
+
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
@@ -118,6 +120,17 @@
 
 <!-- Filter Address --->
 <script type="text/javascript">
+
+	$(window).load(function() {
+		$("#country").trigger('change');
+		$("#district").trigger('change');
+		$("#village").trigger('change');  
+		$('#province').trigger('change');
+		$('#communce').trigger('change'); 
+	}); 
+	
+	
+	
 	function getOrderSelect(url, child_obj, lang, pholder) {
 		$('#modal-loading').show();
 		$.ajax({

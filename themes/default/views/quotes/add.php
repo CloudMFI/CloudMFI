@@ -144,6 +144,7 @@
 							<ul id="dbTab" class="nav nav-tabs">
 								<li class="" id="application_tap"><a href="#applicants"><?= lang('applicants') ?></a></li>								
 								<li class="" id="financial_products_tap"><a href="#financial_products"><?= lang('financial_products') ?></a></li>
+								<li class="" id="credit_assessment_tap"><a href="#credit_assessment"><?= lang('credit_assessment') ?></a></li>
 								<li class="" id="join_lease_tap"><a href="#join_lease"><?= lang('join_lease') ?></a></li>
 								<li class="" id="employee_tap"><a href="#employee"><?= lang('employee') ?></a></li>
 								<li class="" id="guarantors_tap"><a href="#guarantors"><?= lang('guarantors') ?></a></li>
@@ -1006,7 +1007,21 @@
 										</div>
 									</div>
 								</div>
-								
+
+								<div id="credit_assessment" style="display:none;" class="tab-pane fade in">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="table-responsive">
+												<div class="row">
+													<div class="col-lg-12">
+														 
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
 								<div id="join_lease" style="display:none;" class="tab-pane fade in">
 									<div class="row">
 										<div class="col-sm-12">
@@ -1100,7 +1115,7 @@
 										</div>
 									</div>
 								</div>
-					
+
 								<div id="employee" style="display: none;" class="tab-pane fade">
 									<div class="row">
 										<div class="col-sm-12">
@@ -1276,7 +1291,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<div id="guarantors" style="display: none;" class="tab-pane fade">
 									<div class="row">
 										<div class="col-sm-12">
@@ -1478,7 +1493,7 @@
 										</div>
 									</div>
 								</div>
-									
+
 									<div id="collateral" style="display: none;" class="tab-pane fade">
 										<div class="row">
 											<div class="col-sm-12">
@@ -1613,11 +1628,10 @@
 																<?= lang("issue_date", "land_issue_date"); ?>
 																<?php echo form_input('land_issue_date', (isset($_POST['land_issue_date']) ? $_POST['land_issue_date'] : ''), 'class="form-control date" id="land_issue_date"');?>
 															</div>
-															
-															
+
 														</div>
 													</div>
-													
+
 													<!--vehicles-->
 													<div class="row" id="vehicles">														
 														<div class="col-md-6">
@@ -1659,17 +1673,17 @@
 																<?= lang("plaque_number", "vcl_plaque_no"); ?>
 																<?php echo form_input('vcl_plaque_no', (isset($_POST['vcl_plaque_no']) ? $_POST['vcl_plaque_no'] : ''), 'class="form-control" id="vcl_plaque_no"');?>
 															</div>
-															
+
 														</div>
-														
+
 													</div>
-													
+
 												</div>
 											</div>
 										</div>
 									</div>
-									
-									
+
+
 									<div id="documents" style="display: none;" class="tab-pane fade">
 								        <div class="modal-body">
 								            <p><?=lang("information_below") ?></p>
@@ -1767,7 +1781,7 @@
 								            </div>
 								        </div>
 									</div>
-									
+
 									<div id="fields_check" style="display:none;" class="tab-pane fade">
 								        <div class="modal-body">
 								            
@@ -1823,7 +1837,7 @@
 												<div id="map" style="width:100%; height:300px;"></div>
 												<br/>
 											</div>
-											
+
 											<!--------fields_check----------------------------
 											<div class="row" style="display:none;">
 												<div class="col-md-12 col-lg-12">
