@@ -1622,7 +1622,7 @@ class Quotes_model extends CI_Model
         return FALSE;
 	}
 	
-	public function getNumOfApp($group_id = NULL) {
+	public function getNumOfApp($group_id = NULL){
 		$this->db->select('COALESCE(COUNT(id), 0) as app_num');
 		$q = $this->db->get_where('quotes', array('loan_group_id' => $group_id));
 		if($q->num_rows() > 0) {
