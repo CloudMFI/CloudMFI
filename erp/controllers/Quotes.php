@@ -2988,8 +2988,8 @@ class Quotes extends MY_Controller
     }
 	
 	public function add_applicant($id = NULL)
-    {	//echo ($id); die();
-        $this->erp->checkPermissions();
+    {
+        $this->erp->checkPermissions('add', NULL, 'quotes');
 		if ($this->input->get('id')) {
             $id = $this->input->get('id');
         }        

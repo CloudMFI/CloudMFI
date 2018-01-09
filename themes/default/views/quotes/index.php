@@ -89,7 +89,6 @@
 					if(aData[7] == "approved" || aData[7] == "activated" || aData[7] == "completed") {
 						action.find('.ed').remove();
 						action.find('.al').remove();
-						action.find('.app').remove();
 						action.find('.de').remove();
 					}
 					
