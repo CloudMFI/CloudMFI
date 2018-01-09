@@ -828,7 +828,6 @@ class Erp
 			$interest_rate = 0;
 			$j=0;
 			$days = 0;
-			$partail_day = 0; 
 			$count_day = $j;  
 			$saving_amt = 0; 
 			$saving_interest_amount = $saving_interest_rate * $saving_amount;
@@ -948,7 +947,7 @@ class Erp
 					}
 				}
 				 
-			}
+			} 
 			//$this->erp->print_arrays($payment_schedule);
 			return $payment_schedule;
 		} else if($rate_type == '2') {
