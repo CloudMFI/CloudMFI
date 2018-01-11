@@ -313,8 +313,8 @@
 																$cus_nationality['tha'] = "Thailand";
 																$cus_nationality['vie'] = "Vietnamese";
 																$cus_nationality['chi'] = "Chinese";
-																$cus_nationality['bm'] = "Burma";
-																echo form_dropdown('cus_nationality', $cus_nationality, isset($customer->nationality)?$customer->nationality:isset($applicant->nationality)?$applicant->nationality:'cam', 'class="form-control select" id="cus_nationality" placeholder="' . lang("select") . ' ' . lang("nationality") . '" style="width:100%"')
+																$cus_nationality['bm'] = "Burmese";
+																echo form_dropdown('cus_nationality', $cus_nationality, isset($customer->nationality)?$customer->nationality:isset($applicant->nationality)?$applicant->nationality:'bm', 'class="form-control select" id="cus_nationality" placeholder="' . lang("select") . ' ' . lang("nationality") . '" style="width:100%"')
 																?>
 															</div>
 															<div class="form-group" id="maritalstatus">
