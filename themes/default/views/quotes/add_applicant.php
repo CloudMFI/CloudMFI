@@ -158,7 +158,7 @@
 																?>
 															</div>
 															<div class="form-group">
-																<?= lang("date_of_birth", "cus_dob"); ?>
+																<?= lang("date_of_birth ", "cus_dob"); ?>
 																<?php echo form_input('cus_dob', (isset($_POST['cus_dob']) ? $_POST['cus_dob'] : ''), 'class="form-control date" id="cus_dob"'); ?>
 															</div>
 															<div class="form-group">
