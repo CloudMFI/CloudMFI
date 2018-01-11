@@ -16,9 +16,9 @@
     <![endif]-->
     <style>
 		body{
-			background-color:#3D5B99;
+			background-color:#D3D3D3;
 		}
-		.row,.full,.container{background-color:#3D5B99;}
+		.row,.full,.container{background-color:#D3D3D3;}
         .btn {
             margin-top: 10px;
         }
@@ -71,9 +71,9 @@
         </div>
     </div>
 </noscript>
-<div class="container" style="background-color:#3D5B99;">
-    <div class="row" style="background-color:#3D5B99;">
-        <div id="content" class="col-sm-12 full" style="background-color:#3D5B99;">
+<div class="container" style="background-color:#D3D3D3;">
+    <div class="row" style="background-color:#D3D3D3;">
+        <div id="content" class="col-sm-12 full" style="background-color:#D3D3D3;">
             <div class="row"><br/><br/><br/>
 					
 				<!--<center><?php if ($Settings->logo2) {
