@@ -22,6 +22,7 @@ class Db_model extends CI_Model
             return $data;
         }
     }
+	
     public function getLastestQuotes()
     {
       // CO
@@ -40,8 +41,7 @@ class Db_model extends CI_Model
         }
     }
 	
-
-    public function getLatestPurchases()
+	public function getLatestPurchases()
     {
         if ($this->Settings->restrict_user && !$this->Owner && !$this->Admin) {
             $this->db->where('created_by', $this->session->userdata('user_id'));
@@ -162,7 +162,7 @@ class Db_model extends CI_Model
         if (!$end_date) {
             $end_date = date('Y-m-d', strtotime('last day of this month')) . ' 23:59:59';
         }
-        $sp = "( SELECT si.product_id, SUM( si.quantity ) soldQty, s.date as sdate from " . $this->db->dbprefix('sales') . " s JOIN " . $this->db->dbprefix('sale_items') . " si on s.id = si.sale_id where s.date >= '{$start_date}' and s.date < '{$end_date}' group by si.product_id ) PSales";
+        $sp = "(SELECT si.product_id, SUM( si.quantity ) soldQty, s.date as sdate from " . $this->db->dbprefix('sales') . " s JOIN " . $this->db->dbprefix('sale_items') . " si on s.id = si.sale_id where s.date >= '{$start_date}' and s.date < '{$end_date}' group by si.product_id ) PSales";
         $this->db
             ->select("CONCAT(" . $this->db->dbprefix('products') . ".name, ' (', " . $this->db->dbprefix('products') . ".code, ')') as name, COALESCE( PSales.soldQty, 0 ) as SoldQty", FALSE)
             ->from('products', FALSE)
@@ -178,6 +178,7 @@ class Db_model extends CI_Model
         }
         return FALSE;
     }
+
 	public function getLastFiveQuoat($view_draft = null){
 		$settings = $this->getSettingCurrncy();
 		$this->db->select($this->db->dbprefix('quotes').".id,".

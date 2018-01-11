@@ -254,6 +254,7 @@
 							<ul id="dbTab" class="nav nav-tabs">
 								<li class=""><a href="#applicants"><?= lang('applicants') ?></a></li>								
 								<li class=""><a href="#financial_products"><?= lang('financial_products') ?></a></li>
+								<li class="" id="credit_assessment_tap"><a href="#credit_assessment"><?= lang('credit_assessment') ?></a></li>
 								<li class="" id="join_lease_tap"><a href="#join_lease"><?= lang('join_lease') ?></a></li>
 								<li class=""><a href="#employee"><?= lang('employee') ?></a></li>
 								<li class=""><a href="#guarantors"><?= lang('guarantors') ?></a></li>
@@ -551,8 +552,7 @@
 																			$cus_marital_status['Divorced'] = "Divorced";
 																			$cus_marital_status['Single'] = "Single";
 																			$cus_marital_status['Widow/Widower'] = "Widow/Widower";
-																			$cus_marital_status['Unknown'] = "Unknown";
-																			
+																			$cus_marital_status['Unknown'] = "Unknown";																			
 																			echo  lang($applicant->status);
 																			?>
 																			</b></span>
@@ -1324,6 +1324,20 @@
 									</div>
 								</div>
 								
+								<div id="credit_assessment" style="display:none;" class="tab-pane fade in">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="table-responsive">
+												<div class="row">
+													<div class="col-lg-12">
+														 
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
 								<div id="join_lease" style="display:none;" class="tab-pane fade">
 									<div class="row">
 										<div class="col-sm-12">
@@ -1499,53 +1513,53 @@
 																		<?= lang("seniorities_level"); ?><span style="margin-left:47px;">:</span>
 																		<b> <?php
 																			$seniorities_level = array('staff' => 'Staff');
-																			echo isset($quote_employee->senior_level) ?$quote_employee->senior_level  : ('');
+																			echo isset($quote_employee->senior_level) ?$quote_employee->senior_level : ('');
 																			?> </b>
 																	</div>
 																</div>																
 																<div class="col-md-6">
 																	<div class="form-group">
 																		<?= lang("work_place_name"); ?><span style="margin-left:38px;">:</span>
-																		<b> <?php echo isset($quote_employee->workplace_name) ?$quote_employee->workplace_name  : (''); ?> </b>
+																		<b> <?php echo isset($quote_employee->workplace_name) ?$quote_employee->workplace_name : (''); ?> </b>
 																	</div>
 																</div>																
 																<div class="col-md-6">
 																	<div class="form-group">
 																		<?= lang("work_phone"); ?><span style="margin-left:72px;">:</span>
-																		<b> <?php echo isset($quote_employee->work_phone) ?$quote_employee->work_phone  : (''); ?> </b>
+																		<b> <?php echo isset($quote_employee->work_phone) ?$quote_employee->work_phone : (''); ?> </b>
 																	</div>
 																</div>																
 																<div class="col-md-6">
 																	<div class="form-group">
-																		<input type="checkbox" disabled id="allow_call_to_work_place" class="form-control" name="allow_call_to_work_place" value="1" <?php echo set_checkbox('allow_call_to_work_place', '1',isset( $quote_employee->allow_call_to_work_place) ? $quote_employee->allow_call_to_work_place  : ('')==1?TRUE:FALSE); ?>>
+																		<input type="checkbox" disabled id="allow_call_to_work_place" class="form-control" name="allow_call_to_work_place" value="1" <?php echo set_checkbox('allow_call_to_work_place', '1',isset( $quote_employee->allow_call_to_work_place) ? $quote_employee->allow_call_to_work_place : ('')==1?TRUE:FALSE); ?>>
 																		<?= lang("allow_call_to_work_place"); ?>
 																	</div>
 																</div>																
 																<div class="col-md-6">
 																	<div class="form-group">
 																		<b style="padding-bottom:5px; display:block;"><?= lang("time_at_this_address"); ?></b>
-																		<b> <?php echo isset( $quote_employee->years) ? $quote_employee->years  : (''); ?> </b>
+																		<b> <?php echo isset( $quote_employee->years) ? $quote_employee->years : (''); ?> </b>
 																		<?= lang("years"); ?>
-																		<b> <?php echo isset( $quote_employee->months) ? $quote_employee->months  : (''); ?> </b>
+																		<b> <?php echo isset( $quote_employee->months) ? $quote_employee->months : (''); ?> </b>
 																		<?= lang("months"); ?>
 																	</div>
 																</div>																
 																<div class="col-md-6">
 																	<div class="form-group">
 																		<?= lang("basic_salary"); ?><span style="margin-left:75px;">:</span>
-																		<b> <?php echo isset($quote_employee->basic_salary) ?$quote_employee->basic_salary  : (''); ?> </b>
+																		<b> <?php echo isset($quote_employee->basic_salary) ?$quote_employee->basic_salary : (''); ?> </b>
 																	</div>
 																</div>																
 																<div class="col-md-6">
 																	<div class="form-group">
 																		<?= lang("allowance_etc"); ?><span style="margin-left:62px;">:</span>
-																		<b> <?php echo isset($quote_employee->allowance_etc) ?$quote_employee->allowance_etc  : (''); ?> </b>
+																		<b> <?php echo isset($quote_employee->allowance_etc) ?$quote_employee->allowance_etc : (''); ?> </b>
 																	</div>
 																</div>																
 																<div class="col-md-6">
 																	<div class="form-group">
 																		<?= lang("business_expense"); ?><span style="margin-left:37px;">:</span>
-																		<b> <?php echo isset($quote_employee->business_expense) ?$quote_employee->business_expense  : (''); ?> </b>
+																		<b> <?php echo isset($quote_employee->business_expense) ?$quote_employee->business_expense : (''); ?> </b>
 																		<?= lang("month"); ?>
 																	</div>
 																</div>
@@ -1632,19 +1646,19 @@
 																					</tr>
 																					<tr>
 																						<td><?= lang("issue_by"); ?></td>
-																						<td><b> : <?=$guarantor->issue_by ?$guarantor->issue_by  : ('')?> </b></td>
+																						<td><b> : <?=$guarantor->issue_by ?$guarantor->issue_by : ('')?> </b></td>
 																					</tr>
 																					<tr>
 																						<td><?= lang("issue_date"); ?></td>
-																						<td><b> : <?php echo $this->erp->hrsd($guarantor->issue_date) ?$this->erp->hrsd($guarantor->issue_date)  : ('')?> </b></td>
+																						<td><b> : <?php echo $this->erp->hrsd($guarantor->issue_date) ?$this->erp->hrsd($guarantor->issue_date) : ('')?> </b></td>
 																					</tr>
 																					<tr>
 																						<td><?= lang("date_of_birth"); ?></td>
-																						<td><b> : <?php echo $this->erp->hrsd(isset($guarantor->date_of_birth) ?$guarantor->date_of_birth  : ('')); ?> </b></td>
+																						<td><b> : <?php echo $this->erp->hrsd(isset($guarantor->date_of_birth) ?$guarantor->date_of_birth : ('')); ?> </b></td>
 																					</tr>
 																					<tr>
 																						<td><?= lang("phone"); ?></td>
-																						<td><b> : <?=isset($guarantor->phone1) ?$guarantor->phone1  : ('')?> </b></td>
+																						<td><b> : <?=isset($guarantor->phone1) ?$guarantor->phone1 : ('')?> </b></td>
 																					</tr>
 																					<tr>
 																						<td><?= lang("job"); ?></td>
@@ -1660,7 +1674,7 @@
 																		</div>
 																		<div class="form-group">
 																			<?= lang("issue_by"); ?><span style="margin-left:74px;">:</span>
-																			<?=isset($guarantor->issue_by) ?$guarantor->issue_by  : ('')?>
+																			<?=isset($guarantor->issue_by) ?$guarantor->issue_by : ('')?>
 																		</div>
 																		<div class="form-group">
 																			<?= lang("issue_date"); ?><span style="margin-left:74px;">:</span>
@@ -1668,11 +1682,11 @@
 																		</div>
 																		<div class="form-group">
 																			<?= lang("date_of_birth"); ?><span style="margin-left:30px;">:</span>
-																			<?php echo $this->erp->hrsd(isset($guarantor->date_of_birth) ?$guarantor->date_of_birth  : ('')); ?>
+																			<?php echo $this->erp->hrsd(isset($guarantor->date_of_birth) ?$guarantor->date_of_birth : ('')); ?>
 																		</div>
 																		<div class="form-group">
 																			<?= lang("phone"); ?><span style="margin-left:74px;">:</span>
-																			<?=isset($guarantor->phone1) ?$guarantor->phone1  : ('')?>
+																			<?=isset($guarantor->phone1) ?$guarantor->phone1 : ('')?>
 																		</div>
 																		<div class="form-group">
 																			<?= lang("job"); ?><span style="margin-left:93px;">:</span>
@@ -1685,11 +1699,11 @@
 																				<tbody>
 																					<tr>
 																						<td><?= lang("guarantor_name"); ?></td>
-																						<td><b> : <?php echo $guarantor ? ($guarantor->name)  : ''; ?> </b></td>
+																						<td><b> : <?php echo $guarantor ? ($guarantor->name) : ''; ?> </b></td>
 																					</tr>
 																					<tr>
 																						<td><?= lang("age"); ?></td>
-																						<td><b> : <?=isset($guarantor->age) ?$guarantor->age  : ('')?> </b></td>
+																						<td><b> : <?=isset($guarantor->age) ?$guarantor->age : ('')?> </b></td>
 																					</tr>
 																					<tr>
 																						<td><?= lang("gender"); ?></td>

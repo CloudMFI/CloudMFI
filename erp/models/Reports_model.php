@@ -1021,7 +1021,6 @@ ORDER BY
             //$this->db->join('sales', 'sales.id=costing.sale_id')
             $this->db->where('sales.warehouse_id', $warehouse_id);
         }
-
         $q = $this->db->get('sales');
         if ($q->num_rows() > 0) {
             return $q->row();
@@ -1094,11 +1093,9 @@ ORDER BY
             $this->db->where('date >=', $year.'-'.$month.'-01 00:00:00');
             $this->db->where('date <=', $year.'-'.$month.'-'.$last_day.' 23:59:59');
         }
-
         if ($warehouse_id) {
             $this->db->where('warehouse_id', $warehouse_id);
         }
-
         $q = $this->db->get('sales');
         if ($q->num_rows() > 0) {
             return $q->row();
@@ -1160,11 +1157,9 @@ ORDER BY
             $this->db->where('date >=', $year.'-'.$month.'-01 00:00:00');
             $this->db->where('date <=', $year.'-'.$month.'-'.$last_day.' 23:59:59');
         }
-
         if ($warehouse_id) {
             $this->db->where('warehouse_id', $warehouse_id);
         }
-
         $q = $this->db->get('sales');
         if ($q->num_rows() > 0) {
             return $q->row();
@@ -1184,6 +1179,7 @@ ORDER BY
             return $data;
         }
     }
+	
 	public function getPurchaseDetail($product_code)
     {
 		$this->db->select('*');
@@ -1257,6 +1253,7 @@ ORDER BY
         }
         return false;
     }
+	
 	public function getTotalCosts($start, $end, $biller_id = NULL)
     {
         $this->db->select('SUM( COALESCE( purchase_unit_cost, 0 ) * quantity ) AS cost', FALSE)
@@ -1267,6 +1264,7 @@ ORDER BY
         }
         return false;
     }
+	
 	public function getDailyPurchases($year, $month, $warehouse_id = NULL)
     {
         $myQuery = "SELECT DATE_FORMAT( date,  '%e' ) AS date, SUM( COALESCE( product_tax, 0 ) ) AS tax1, SUM( COALESCE( order_tax, 0 ) ) AS tax2, SUM( COALESCE( grand_total, 0 ) ) AS total, SUM( COALESCE( total_discount, 0 ) ) AS discount, SUM( COALESCE( shipping, 0 ) ) AS shipping

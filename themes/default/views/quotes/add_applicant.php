@@ -50,6 +50,7 @@
 							<ul id="dbTab" class="nav nav-tabs">
 								<li class="" id="application_tap"><a href="#applicants"><?= lang('applicants') ?></a></li>								
 								<li class="" id="financial_products_tap"><a href="#financial_products"><?= lang('financial_products') ?></a></li>
+								<li class="" id="credit_assessment_tap"><a href="#credit_assessment"><?= lang('credit_assessment') ?></a></li>
 								<li class="" id="join_lease_tap"><a href="#join_lease"><?= lang('join_lease') ?></a></li>
 								<li class="" id="employee_tap"><a href="#employee"><?= lang('employee') ?></a></li>
 								<li class="" id="guarantors_tap"><a href="#guarantors"><?= lang('guarantors') ?></a></li>
@@ -238,7 +239,7 @@
 																$cus_marital_status['divorced'] = "Divorced";
 																$cus_marital_status['single'] = "Single";
 																$cus_marital_status['widow/Widower'] = "Widow/Widower";
-																$cus_marital_status['unknown'] = "Unknown";																
+																$cus_marital_status['unknown'] = "Unknown";
 																echo form_dropdown('cus_marital_status', $cus_marital_status, isset($customer->marital_status)?$customer->marital_status:'', 'class="form-control select" id="cus_marital_status" placeholder="' . lang("select") . ' ' . lang("marital_status") . '" style="width:100%" ');
 																?>
 															</div>
@@ -973,6 +974,22 @@
 										</div>
 									</div>
 								</div>
+								
+								
+								<div id="credit_assessment" style="display:none;" class="tab-pane fade in">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="table-responsive">
+												<div class="row">
+													<div class="col-lg-12">
+														 
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
 								
 								<div id="join_lease" style="display:none;" class="tab-pane fade in">
 									<div class="row">

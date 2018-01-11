@@ -126,7 +126,46 @@ class Quotes_model extends CI_Model
             }
             return $data;
         }
-    }	
+    }
+	public function GetquotesList(){
+		$setting = $this->getSettingCurrncies();
+		$this->db->select($this->db->dbprefix('quotes').".id,".
+					$this->db->dbprefix('quotes').".reference_no,".
+					$this->db->dbprefix('loan_groups').".name AS glname,
+					CONCAT(".$this->db->dbprefix('companies').".family_name, ' ', ".$this->db->dbprefix('companies').".name) AS customer_name_en,
+					CONCAT(".$this->db->dbprefix('companies').".family_name_other, ' ', ".$this->db->dbprefix('companies').".name_other) as customer_name_kh, ".	
+					$this->db->dbprefix('quote_items').".product_name AS asset,".
+					"((SELECT erp_companies.name FROM erp_companies WHERE erp_quotes.biller_id = erp_companies.id)) AS dealer_name, ".
+					
+					$this->db->dbprefix('quotes').".quote_status as status, 
+					DATE_FORMAT(".$this->db->dbprefix('quotes').".date),
+					DATE_FORMAT(".$this->db->dbprefix('quotes').".approved_date),
+					CONCAT(".$this->db->dbprefix('users').".first_name, ' ', ".$this->db->dbprefix('users').".last_name) AS coname,
+					myBranch.name,".
+					$this->db->dbprefix('quotes').".total * (".$this->db->dbprefix('currencies').".rate / ".$setting->rate ."),".
+					$this->db->dbprefix('currencies').".name as crname ")
+			->from('quotes')
+			->join('users','quotes.by_co=users.id','INNER') 
+			->join('companies','quotes.customer_id=companies.id','INNER')
+			->join('companies as myBranch', 'quotes.branch_id = myBranch.id', 'left')
+			->join('quote_items', 'quotes.id = quote_items.quote_id', 'left')
+			->join('currencies','currencies.code = quote_items.currency_code','left')
+			->join('loan_groups','loan_groups.id = quotes.loan_group_id','left')
+			->where('erp_quotes.status', 'loans')
+			->order_by('quotes.id','DESC');
+	}
+	public function getAllQuote()
+    {
+        $this->db->from('quotes'); 
+		$q = $this->db->get();       
+		if ($q->num_rows() > 0) {
+            foreach (($q->result()) as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+    }
+	
 	public function getQuoteByID($id)
     {
         $this->db->select('quotes.*,users.first_name,users.last_name');
@@ -1583,7 +1622,7 @@ class Quotes_model extends CI_Model
         return FALSE;
 	}
 	
-	public function getNumOfApp($group_id = NULL) {
+	public function getNumOfApp($group_id = NULL){
 		$this->db->select('COALESCE(COUNT(id), 0) as app_num');
 		$q = $this->db->get_where('quotes', array('loan_group_id' => $group_id));
 		if($q->num_rows() > 0) {

@@ -4600,11 +4600,8 @@ class Installment_Payment extends MY_Controller
 			$principle = $this->erp->convertCurrency($df_currency, $loan_currency, $principles);
 			
 			$total_service_charges = str_replace(',', '', $this->input->post('total_services'));
-			$total_service_charge = $this->erp->convertCurrency($df_currency, $loan_currency, $total_service_charges);
-			
+			$total_service_charge = $this->erp->convertCurrency($df_currency, $loan_currency, $total_service_charges);			
 			$installment_amount = str_replace(',', '', $this->input->post('installment_amount'));
-			
-			
 			
 			$other_amounts = str_replace(',', '', $this->input->post('other_paid'));
 			$other_amount = $this->erp->convertCurrency($df_currency, $loan_currency, $other_amounts);

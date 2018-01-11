@@ -1023,8 +1023,6 @@ class Quotes extends MY_Controller
                 $photo = $this->upload->file_name;
                 $data['attachment'] = $photo;
             }
-			//$this->erp->print_arrays($documentsArray);
-			//$this->erp->print_arrays($join_lease, $join_guarantor, $collateral);
         }
 
         if ($this->form_validation->run() == true && $q_id=$this->quotes_model->addQuote($data, isset($products) ?$products  : (''), isset($QouteServices) ?$QouteServices  : (''), $guarantor_, $employee_, $documentsArray, $customers, $field_check, $collateral, $group_loan , $join_lease, $join_guarantor, $saving, $saving_item)) {
@@ -1041,8 +1039,7 @@ class Quotes extends MY_Controller
             $this->data['tax_rates'] = $this->site->getAllTaxRates();
             $this->data['warehouses'] = ($this->Owner || $this->Admin || !$this->session->userdata('biller_id')) ? $this->site->getAllWarehouses() : null;
             $this->data['qunumber'] = ''; //$this->site->getReference('qu');
-			$this->data['services'] = $this->site->getServicesByStatus('1');
-			//$this->erp->print_arrays($this->site->getServicesByStatus('1'));
+			$this->data['services'] = $this->site->getServicesByStatus('1'); 
 			//$this->data['group_loan'] = $this->quotes_model->getGroupLoan('1');
 			$this->data['finacal_products'] = $this->site->getAllCustomerGroup();
 			$this->data['advance_percentages'] = $this->site->getAllDownPercentage();
@@ -2991,8 +2988,8 @@ class Quotes extends MY_Controller
     }
 	
 	public function add_applicant($id = NULL)
-    {	//echo ($id); die();
-        $this->erp->checkPermissions();
+    {
+        $this->erp->checkPermissions('add', NULL, 'quotes');
 		if ($this->input->get('id')) {
             $id = $this->input->get('id');
         }        

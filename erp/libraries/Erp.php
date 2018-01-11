@@ -815,9 +815,8 @@ class Erp
 		return $dateline;
 	}
 	
-	
 	function getPaymentSchedule($sale_id = NULL, $lease_amount = NULL, $rate_type = NULL, $interest = NULL, $term_in_days = NULL, $frequency = NULL, $start_date = NULL, $app_date = NULL, $currency = NULL, $principle_fq = NULL, $saving_amount = NULL, $saving_interest_rate = NULL, $saving_type = NULL)
-	{	
+	{
 		$term = round($term_in_days/$frequency);
 		$payment_schedule = '';
 		
@@ -829,8 +828,7 @@ class Erp
 			$interest_rate = 0;
 			$j=0;
 			$days = 0;
-			
-			$count_day = $j;
+			$count_day = $j;  
 			$saving_amt = 0; 
 			$saving_interest_amount = $saving_interest_rate * $saving_amount;
 			
@@ -917,23 +915,39 @@ class Erp
 				}
 				$j += $day_of_month;
 				//////Compulsory_Saving Start
+				
 				if($i == 1) {
 					$ap_date = date('Y-m-d', strtotime($app_date));
 					$appr_date = date_create($ap_date);
 					$st_date = date_create($start_date);
 					$numdays = date_diff($appr_date, $st_date);
-					$count_day = $day_of_month + $numdays->days;
+					$count_day = $day_of_month + $numdays->days + 1;
 				}
-				else{
+				else {
 					$count_day += $day_of_month;
 				}
-				//$count_day += $day_of_month;				
-				if($count_day >= 29){
-					$saving_amt = $saving_interest_amount;
-					unset($count_day);
-					$count_day = "mountly";
-				}//////Compulsory_Saving End
-			}
+				
+				if($frequency == 7){
+					if($count_day >= 28){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				} if($frequency == 14){
+					if($count_day >= 28){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				} else{
+					if($count_day >= 29){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				}
+				 
+			} 
 			//$this->erp->print_arrays($payment_schedule);
 			return $payment_schedule;
 		} else if($rate_type == '2') {
@@ -943,7 +957,7 @@ class Erp
 			$j=0;
 			$days = 0;
 			
-			$count_day = $j;
+			$count_day = $j; 
 			$saving_amt = 0; 
 			$saving_interest_amount = $saving_interest_rate * $saving_amount;
 			
@@ -1015,7 +1029,7 @@ class Erp
 													'saving_interest' 	=> $saving_amounts,
 												);
 											
-				}else {
+				} else {
 					$lease_amt -= $principle_amt;
 					$payment_schedule [] = array(
 													'period' 	=> $i,
@@ -1043,11 +1057,25 @@ class Erp
 					$count_day += $day_of_month;
 				}
 				//$count_day += $day_of_month;				
-				if($count_day >= 29){
-					$saving_amt = $saving_interest_amount;
-					unset($count_day);
-					$count_day = "mountly";
-				}//////Compulsory_Saving End
+				if($frequency == 7){
+					if($count_day >= 28){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				} if($frequency == 14){
+					if($count_day >= 28){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				} else{
+					if($count_day >= 29){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				}
 			}
 			return $payment_schedule;
 		} else if($rate_type == '3') {
@@ -1058,8 +1086,8 @@ class Erp
 			$lease_amt = $lease_amount;
 			$j=0;
 			$days = 0;
-			
-			$count_day = $j;
+			 
+			$count_day = $j; 
 			$saving_amt = 0; 
 			$saving_interest_amount = $saving_interest_rate * $saving_amount;
 			
@@ -1157,11 +1185,25 @@ class Erp
 					$count_day += $day_of_month;
 				}
 				//$count_day += $day_of_month;				
-				if($count_day >= 29){
-					$saving_amt = $saving_interest_amount;
-					unset($count_day);
-					$count_day = "mountly";
-				}//////Compulsory_Saving End
+				if($frequency == 7){
+					if($count_day >= 28){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				} if($frequency == 14){
+					if($count_day >= 28){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				} else{
+					if($count_day >= 29){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				}
 				
 			}
 			return $payment_schedule;
@@ -1177,8 +1219,8 @@ class Erp
 			
 			$j=0;
 			$days = 0;
-
-			$count_day = $j;
+ 
+			$count_day = $j; 
 			$saving_amt = 0; 
 			$saving_interest_amount = $saving_interest_rate * $saving_amount;
 			
@@ -1266,15 +1308,29 @@ class Erp
 					$count_day += $day_of_month;
 				}
 				//$count_day += $day_of_month;				
-				if($count_day >= 29){
-					$saving_amt = $saving_interest_amount;
-					unset($count_day);
-					$count_day = "mountly";
-				}//////Compulsory_Saving End
+				if($frequency == 7){
+					if($count_day >= 28){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				} if($frequency == 14){
+					if($count_day >= 28){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				} else{
+					if($count_day >= 29){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				}
 			}
 			//$this->erp->print_arrays($payment_schedule);
 			return $payment_schedule;
-		}else if($rate_type == '5') {
+		} else if($rate_type == '5') {
 			$terms = ($frequency > 1) ? $term : round($term / 1.4);	
 			$principles = $lease_amount/$terms;
 			$principle = $this->erp->roundUpMoney($principles, $currency);
@@ -1284,8 +1340,8 @@ class Erp
 			$counter = 1;
 			$tprinciple = 0;
 			$days = 0;
-			
-			$count_day = $j;
+			 
+			$count_day = $j; 
 			$saving_amt = 0; 
 			$saving_interest_amount = $saving_interest_rate * $saving_amount;
 			
@@ -1391,11 +1447,25 @@ class Erp
 					$count_day += $day_of_month;
 				}
 				//$count_day += $day_of_month;				
-				if($count_day >= 29){
-					$saving_amt = $saving_interest_amount;
-					unset($count_day);
-					$count_day = "mountly";
-				}//////Compulsory_Saving End
+				if($frequency == 7){
+					if($count_day >= 28){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				} if($frequency == 14){
+					if($count_day >= 28){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				} else{
+					if($count_day >= 29){
+						$saving_amt = $saving_interest_amount; 
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				}
 				
 			}
 			//$this->print_arrays($payment_schedule);
@@ -1415,7 +1485,8 @@ class Erp
 			$j=0;
 			$days = 0;	
 
-			$count_day = $j;
+			//$partail_day =  0;
+			$count_day = $j; //+ $partail_day;
 			$saving_amt = 0; 
 			$saving_interest_amount = $saving_interest_rate * $saving_amount;
 			
@@ -1506,11 +1577,28 @@ class Erp
 					$count_day += $day_of_month;
 				}
 				//$count_day += $day_of_month;				
-				if($count_day >= 29){
-					$saving_amt = $saving_interest_amount;
-					unset($count_day);
-					$count_day = "mountly";
-				}//////Compulsory_Saving End
+				if($frequency == 7){
+					if($count_day >= 28){
+						$saving_amt = $saving_interest_amount;
+						//$partail_day = $count_day - 28;
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				} if($frequency == 14){
+					if($count_day >= 28){
+						$saving_amt = $saving_interest_amount;
+						//$partail_day = $count_day - 28;
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				} else{
+					if($count_day >= 29){
+						$saving_amt = $saving_interest_amount;
+						//$partail_day = $count_day - 29;
+						unset($count_day);					
+						$count_day = "mountly";
+					}
+				}
 			}
 			
 			return $payment_schedule;
@@ -1815,6 +1903,5 @@ class Erp
 			return $input;
 		}
 	}
-	
-}
 
+}

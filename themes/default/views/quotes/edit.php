@@ -241,6 +241,7 @@
 							<ul id="dbTab" class="nav nav-tabs">
 								<li class=""><a href="#applicants"><?= lang('applicants') ?></a></li>								
 								<li class=""><a href="#financial_products"><?= lang('financial_products') ?></a></li>
+								<li class="" id="credit_assessment_tap"><a href="#credit_assessment"><?= lang('credit_assessment') ?></a></li>
 								<li class="" id="join_lease_tap"><a href="#join_lease"><?= lang('join_lease') ?></a></li>
 								<li class=""><a href="#employee"><?= lang('employee') ?></a></li>
 								<li class=""><a href="#guarantors"><?= lang('guarantors') ?></a></li>
@@ -1138,6 +1139,21 @@
 										</div>
 									</div>
 								</div>
+								
+								<div id="credit_assessment" style="display:none;" class="tab-pane fade in">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="table-responsive">
+												<div class="row">
+													<div class="col-lg-12">
+														 
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
 								
 								<div id="join_lease" style="display:none;" class="tab-pane fade in">
 									<div class="row">
