@@ -158,7 +158,7 @@
 																?>
 															</div>
 															<div class="form-group">
-																<?= lang("date_of_birth", "cus_dob"); ?>
+																<?= lang("date_of_birth ", "cus_dob"); ?>
 																<?php echo form_input('cus_dob', (isset($_POST['cus_dob']) ? $_POST['cus_dob'] : ''), 'class="form-control date" id="cus_dob"'); ?>
 															</div>
 															<div class="form-group">
@@ -224,7 +224,7 @@
 																$cus_nationality[(isset($_POST['cus_nationality']) ? $_POST['cus_nationality'] : '')] = (isset($_POST['cus_nationality']) ? $_POST['cus_nationality'] : '');
 																$cus_nationality['cam'] = "Cambodian"; 
 																$cus_nationality['bm'] 	= "Burmese";
-																echo form_dropdown('cus_nationality', $cus_nationality, isset($customer->nationality)?$customer->nationality:'cam', 'class="form-control select" id="cus_nationality" placeholder="' . lang("select") . ' ' . lang("nationality") . '" style="width:100%"')
+																echo form_dropdown('cus_nationality', $cus_nationality, isset($customer->nationality)?$customer->nationality:'bm', 'class="form-control select" id="cus_nationality" placeholder="' . lang("select") . ' ' . lang("nationality") . '" style="width:100%"')
 																?>
 															</div>
 															<div class="form-group" id="maritalstatus">

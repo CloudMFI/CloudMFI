@@ -179,6 +179,7 @@
 																<?= lang("nationality", "cus_nationality"); ?>
 																<?php
 																$cus_nationality[(isset($_POST['cus_nationality']) ? $_POST['cus_nationality'] : '')] = (isset($_POST['cus_nationality']) ? $_POST['cus_nationality'] : '');
+ 
 																$cus_nationality['cam'] = "Cambodian"; 
 																$cus_nationality['bm'] = "Burmese";
 																echo form_dropdown('cus_nationality', $cus_nationality, isset($customer->nationality)?$customer->nationality:isset($applicant->nationality)?$applicant->nationality:'bm', 'class="form-control select" id="cus_nationality" placeholder="' . lang("select") . ' ' . lang("nationality") . '" style="width:100%"')

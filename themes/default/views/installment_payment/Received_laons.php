@@ -149,22 +149,17 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 					<table width="100%" border="solid" style="text-align:center;font-size:12px; ">
 						<thead>
 							<tr style="border-width: 5px;">
-								<th rowspan="2">No</th>
-								<th rowspan="2" >Name</th>
-								<th rowspan="2" >NRC</th>
-								<th rowspan="2">Loan ID</th>
-								<th rowspan="2">Disbursement <br>Amount</th>
-								<th colspan="3" >Payment Amonth</th>	
-								<th rowspan="2">Receive <br>Amount</th>
-								<th rowspan="2">Clients Signature</th>
+								<th rowspan="3">No<br>စဥ္</th>
+								<th rowspan="3" >Name<br>အမည္</th>
+								<th rowspan="3" >NRC<br>ႏိုင္ငံသားမွတ္ပံုတင္အမွတ္</th>
+								<th rowspan="3">Loan ID<br>ေခ်းေငြ အမွတ္</th>
+								<th rowspan="3">Disbursement <br>Amount<br>ေခ်းေငြပမာဏ</th>
+								<th rowspan="3">Fee 1%<br>၀န္ေဆာင္ခ ၁%</th>
+								<th rowspan="3">Beneficiary <br>Welfare Fund 1%<br>လူမႈေရးေထာက္ပ့ံေရး ရန္ပံုေငြ ၁%</th>
+								<th rowspan="3">Compulsory <br>Saving 5%<br>မျဖစ္မေန စုေဆာင္းရမည့္ေငြ ၅%</th>	
+								<th rowspan="3">Receive <br>Amount<br>လက္ခံရရွိမည့္ေငြပမာဏ</th>
+								<th rowspan="3">Clients Signature<br>လက္မွတ္</th>
 							</tr>
-
-							<tr style="border-width: 5px;">
-								<th >Fee 1%</th>
-								<th>Beneficiary <br>Welfare Fund 1%</th>
-								<th>Compulsory <br>Saving 3%</th>
-							</tr>
-
 						</thead>
 						<tbody>
 							<tr>
@@ -175,8 +170,8 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 								<td>500,000</td>
 								<td>5,000</td>
 								<td>5,000</td>
-								<td>15,000</td>
-								<td>475,000</td>
+								<td>25,000</td>
+								<td>465,000</td>
 								<td></td>
 							</tr>
 						</tbody>
@@ -185,7 +180,7 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 				<div style="width:100%;text-align:center;">
 					
 					<div style="margin-left: 80%; float:left;font-weight: bold;font-size:12px; padding-top: 20px;">
-						<p>Cashier (Payer/Receiver) :...............</p>
+						<p>Cashier (Payer/Receiver) :...............<br>ေငြကိုင္</p>
 						
 					</div>				
 				</div>
