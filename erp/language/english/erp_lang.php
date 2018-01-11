@@ -1002,5 +1002,6 @@ $lang["daily_disbursement"]						= "Daily Disbursement";
 $lang["loan_reference"]							= "Loan Reference";
 $lang["payment_terms"]							= "Payment Terms";
 $lang["disbursement_reports"]					= "Disbursement Reports";
+$lang["daily_monitor_report"]					="Daily Monitor Report";
 $lang[""]			= "";
 $lang[""]			= "";

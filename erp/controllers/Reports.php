@@ -17452,7 +17452,83 @@ class Reports extends MY_Controller
             redirect($_SERVER["HTTP_REFERER"]);
         }
     }
-
+	
+	public function daily_monitor_report(){
+		$this->erp->checkPermissions();
+		$this->erp->load->model('reports_model');
+		$this->data['users'] = $this->reports_model->getStaff();  
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error'); 
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('report')));
+        $meta = array('page_title' => lang('report'), 'bc' => $bc);
+        $this->page_construct('reports/daily_monitor_report', $meta, $this->data);
+	}
+	public function getDailyCOSections()
+    {
+		if ($this->input->get('user')) {
+            $user_query = $this->input->get('user');
+        } else {
+            $user_query = NULL;
+        }
+ 
+        if ($this->input->get('start_date')) {
+            $start_date = $this->input->get('start_date');
+        } else {
+            $start_date = NULL;
+        }
+        if ($this->input->get('end_date')) {
+            $end_date = $this->input->get('end_date');
+        } else {
+            $end_date = NULL;
+        }
+		
+        if ($start_date) {
+            $start_date = $this->erp->fld($start_date);
+            $end_date = $this->erp->fld($end_date); 
+        }
+         
+		$payment_schedule = anchor('Installment_payment/payment_schedule/0/1/$1', '<i class="fa fa-file-text-o"></i> ' . lang('payment_schedule'), 'data-toggle="modal" data-target="#myModal"');
+		$deposit = anchor('Account/add_deposit/$1', '<i class="fa fa-file-text-o"></i> ' . lang('add_deposit'), 'data-toggle="modal" data-target="#myModal"');
+	
+        $action = '<div class="text-center"><div class="btn-group text-left">'
+            . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
+            . lang('actions') . ' <span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right" role="menu">
+            <li class="ps">' . $payment_schedule . '</li>
+			<li class="de">' . $deposit . '</li>
+        </ul>
+		</div></div>';
+		$setting = $this->down_payment_model->getSettingCurrncy();
+        $this->load->library('datatables');
+		 
+            $this->datatables
+                ->select('co_id,co_name,total_disburse,total_received,total_bad_loan,total_bad_principle,total_bad_interest,total_bad_services,total_bad_penalty,total_good_loan,total_good_principle,total_good_interest,total_good_penalty')
+                ->from('co_sections') 
+				->group_by('co_sections.co_id')
+				->where('co_sections.paid_date ', date('Y-m-d'))
+				->order_by('co_sections.co_id','DESC');
+		if($this->GP && !($this->Owner || $this->Admin) && $this->session->view_right == 0) {
+			$this->datatables->where('co_sections.branch_id', $this->session->branch_id);
+		}
+		 
+        if (!$this->Customer && !$this->Supplier && !$this->Owner && !$this->Admin && !$this->session->userdata('view_right')) { 
+        }  
+		if(!$this->Owner && !$this->Admin && $this->session->userdata('view_right') == 0){
+			$this->datatables->where('co_sections.co_id', $this->session->userdata('user_id'));
+		}
+		if ($user_query) {
+			$this->datatables->where('co_sections.co_id', $user_query);
+		}
+		 
+		if ($start_date) {
+			$this->datatables->where($this->db->dbprefix('co_sections').'.paid_date BETWEEN "' . $start_date . '" and "' . $end_date . '"');
+		}
+        $this->datatables->add_column("Actions", $action,$this->db->dbprefix('sales').".id, com_id, loan_g_id, qi");
+        $this->datatables->unset_column("com_id");
+		$this->datatables->unset_column("loan_g_id");
+		$this->datatables->unset_column("qi");
+		echo $this->datatables->generate();
+    }
+	
 	public function branch_report(){
 		$this->erp->checkPermissions();
 		$this->erp->load->model('reports_model');
@@ -18153,7 +18229,7 @@ class Reports extends MY_Controller
         echo json_encode($rows);
     }
 	
-	public function daily_monitor_report($reference = NULL,$user = NULL, $branch=null){ 
+	public function daily_monitor_reportss($reference = NULL,$user = NULL, $branch=null){ 
 		$this->erp->checkPermissions();
 		 
 		if ($this->input->post('loans_term')) {

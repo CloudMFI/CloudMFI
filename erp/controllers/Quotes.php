@@ -1055,6 +1055,7 @@ class Quotes extends MY_Controller
 			//$this->data['gov_id'] = $this->quotes_model->GetGovID();
 			$this->data['customers'] = $this->quotes_model->getGovID();			
 			$this->data['products'] = $this->quotes_model->getProducts();
+			$this->data['product'] = $this->quotes_model->getProduct();
 			$this->data['categories'] = $this->quotes_model->getCategories();
 			$this->data['currencies'] = $this->site->getCurrency();
 			$this->data['tax_rate'] = $this->site->getAllTaxes();
