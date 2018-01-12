@@ -81,6 +81,7 @@ $lang["spouse_mobile_phone"]				= "Spouse Mobile Phone";
 $lang["house_no"]							= "House No";
 $lang["street"]								= "Street";
 $lang["housing"]							= "Housing";
+$lang["ward"]								="Ward";
 $lang["village"]							= "Village";
 $lang["district"]							= "District";
 $lang["communce"]							= "Communce";
