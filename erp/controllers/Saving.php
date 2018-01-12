@@ -1212,10 +1212,9 @@ class Saving extends MY_Controller
         if ($start_date) {
             $start_date = $this->erp->fld($start_date);
             $end_date = $this->erp->fld($end_date);
-        }
-         
+        } 
 		$approve_link = anchor('quotes/approvedApplicant/$1', '<i class="fa fa-file-text-o"></i> ' . lang('view_details'));
-        
+		$saving_list = anchor('saving/saving_list/0/1/$1', '<i class="fa fa-file-text-o"></i> ' . lang('saving_list'), 'data-toggle="modal" data-target="#myModal"');
 		$delete_link = "<a href='#' class='po' title='<b>" . lang("delete_contract") . "</b>' data-content=\"<p>"
             . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('sales/delete/$1') . "'>"
             . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
@@ -1224,7 +1223,7 @@ class Saving extends MY_Controller
             . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
             . lang('actions') . ' <span class="caret"></span></button>
         <ul class="dropdown-menu pull-right" role="menu">
-			 <li class="ps">' . $approve_link . '</li> 
+			 <li class="ps">' . $saving_list . '</li> 
 			 
         </ul>
 		</div></div>';
@@ -1396,6 +1395,16 @@ class Saving extends MY_Controller
             echo json_encode(false);
         }
 	}
+	
+	
+	function saving_list($sale_id)
+    {
+		  
+		$this->data['sale_id']= $sale_id;
+		$this->data['modal_js'] = $this->site->modal_js();
+		$this->load->view($this->theme.'saving/saving_list',$this->data);	 
+		 
+    }
 	
 }
 
