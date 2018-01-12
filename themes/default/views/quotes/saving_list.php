@@ -106,10 +106,10 @@
 				<table border="1" style="max-width:100%;">
 					<tr>
 						<th style="width:5%"><span>ရက္စဲြ</span><br>(Date)</th>
-						<th style="width:10%"><span>ေခ်းေငြ၏ ၅% စုေငြ</span><br>Saving Amount 5%</th>
-						<th style="width:20%"><span>စုေငြ၏အတိုးႏႈန္း</span><br>Interest rate 1.25%</th>
+						<th style="width:15%"><span>ေခ်းေငြ၏ ၅% စုေငြ</span><br>Saving Amount 5%</th>
+						<th style="width:15%"><span>စုေငြ၏အတိုးႏႈန္း</span><br>Interest rate 1.25%</th>
 						<th style="width:15%"><span>ထုတ္ေငြ</span><br>Withdrawal</th>
-						<th style="width:10%"><span>လက္က်န္</span><br>Balance</th>
+						<th style="width:15%"><span>လက္က်န္</span><br>Balance</th>
 						<th style="width:10%"><span>တာဝန္ခံ</span><br>Officer Certify</th>
 					</tr>
 					<tr>
@@ -143,7 +143,7 @@
 			</div>
 			
 			<div>
-				<p style="text-align:center; padding-top:15px;" class="small-letter"> </p>
+				<p style="padding:15px 0px 0px 10px;font-size:10px;">လူၾကီးမင္း၏ စုေဆာင္းေငြနဲ ့ ပက္သတ္ေသာ အေသးစိတ္အေၾကာင္းအရာမ်ားအတြက္ ကုမၸဏီ၏ Hot Line :               ၊ ဖုန္းနံပါတ္ :                      ၊ Email :                            သို ့ ရံုးခ်ိန္အတြင္း ဆက္သြယ္ေမးျမန္းနိုင္ပါသည္။ </p>
 			</div>
 			
 		</div>
