@@ -240,6 +240,9 @@
                 </div>
 				
 				<div class="clearfix"></div>
+				<p style="font-size:20px; text-align:center;"> 
+					<B> <?= lang("daily_monitor_report"); ?>  <?= date('d/m/Y'); ?>   </B>
+				</p>
                 <div class="table-responsive">
                     <table id="QUData" class="table table-bordered table-hover table-striped">
                         <thead>
@@ -259,7 +262,7 @@
                             <th><?php echo $this->lang->line("total_good_principle"); ?></th>
 							<th><?php echo $this->lang->line("total_good_interest"); ?></th>
 							<th><?php echo $this->lang->line("total_good_services"); ?></th>
-							<th><?php echo $this->lang->line("total_good_penalty"); ?></th> 
+							<th><?php echo $this->lang->line("total_good_penalty"); ?></th>
                         </tr>
                         </thead>
                         <tbody>
