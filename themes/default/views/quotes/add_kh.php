@@ -1,41 +1,135 @@
 <?php
- //$this->erp->print_arrays($product);
+	//$this->erp->print_arrays($branch->state);
+	// isset($customer->province)?$customer->province: isset($applicant->state)?$applicant->state:$branch->state
+	//$this->erp->print_arrays($branch->state);
 ?>
+<!--
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ8Hg1S1CjrMsi6AlupxsPEa5KVKeZF8s"></script>
 
-<script>
-	$(window).load(function() {		
-		$('#category').attr("readonly",true);
-		$('#sub_category').attr("readonly",true);
-		$('#product_id').attr("readonly",true);
-		$('#group_loans').attr("readonly",true);
-		$('.state_tax').attr("readonly",true);
+<script type="text/javascript">
+    var count = 1, an = 1, product_variant = 0, DT = <?= $Settings->default_tax_rate ?>, allow_discount = <?= ($Owner || $Admin || $this->session->userdata('allow_discount')) ? 1 : 0; ?>,
+        product_tax = 0, invoice_tax = 0, total_discount = 0, total = 0, shipping = 0,
+        tax_rates = <?php echo json_encode($tax_rates); ?>;
+    var audio_success = new Audio('<?=$assets?>sounds/sound2.mp3');
+    var audio_error = new Audio('<?=$assets?>sounds/sound3.mp3');
+    $(document).ready(function () {
+		if($('#add_item').val()!=""){
+		$('#add_item').focus();
+        }
 		
-		$('#customer_type').attr("readonly",true);
-		$('#interest_rate_cash_2').attr("readonly",true);
-		$('#term_cash').attr("readonly",true);
-		$('#frequency_cash').attr("readonly",true);
-		$('#rate_type_cash').attr("readonly",true);
-		$('#currency').attr("readonly",true);
-		$('.services').attr("readonly",true);
-		$('#principle_frequency').attr("readonly",true);
-		$('#saving_rate').attr("readonly",true);
-		$('#saving_amount').attr("readonly",true);
-		$('#saving_interest_rate').attr("readonly",true);
-		$('#saving_type').attr("readonly",true);
-	});
-</script>
+		<?php if($this->input->get('customer')) { ?>
+        if (!localStorage.getItem('quitems')) {
+            localStorage.setItem('qucustomer', <?=$this->input->get('customer');?>);	
+		}
+        <?php } ?>
+        <?php if ($Owner || $Admin) { ?>
+        if (!localStorage.getItem('qudate')) {
+            $("#qudate").datetimepicker({
+                format: site.dateFormats.js_ldate,
+                fontAwesome: true,
+                language: 'erp',
+                weekStart: 1,
+                todayBtn: 1,
+                autoclose: 1,
+                todayHighlight: 1,
+                startView: 2,
+                forceParse: 0
+            }).datetimepicker('update', new Date());
+        }
+        $(document).on('change', '#qudate', function (e) {
+            localStorage.setItem('qudate', $(this).val());
+        });
+        if (qudate = localStorage.getItem('qudate')) {
+            $('#qudate').val(qudate);
+        }
+        $(document).on('change', '#qubiller', function (e) {
+            localStorage.setItem('qubiller', $(this).val());
+        });
+        if (qubiller = localStorage.getItem('qubiller')) {
+            $('#qubiller').val(qubiller);
+        }
+        <?php } ?>
+        if (!localStorage.getItem('qutax2')) {
+            localStorage.setItem('qutax2', <?=$Settings->default_tax_rate2;?>);
+        }
+        ItemnTotals();
+        $("#add_item").autocomplete({
+            source: function (request, response) {
+                if (!$('#qucustomer').val()) {
+                    $('#add_item').val('').removeClass('ui-autocomplete-loading');
+                    bootbox.alert('<?=lang('select_above');?>');
+                    //response('');
+                    $('#add_item').focus();
+                    return false;
+                }
+                $.ajax({
+                    type: 'get',
+                    url: '<?= site_url('quotes/suggestions'); ?>',
+                    dataType: "json",
+                    data: {
+                        term: request.term,
+                        customer_id: $("#qucustomer").val()
+                    },
+                    success: function (data) {
+                        response(data);
+                    }
+                });
+            },
+            minLength: 1,
+            autoFocus: false,
+            delay: 200,
+            response: function (event, ui) {
+                if ($(this).val().length >= 16 && ui.content[0].id == 0) {
+                    //audio_error.play();
+                    bootbox.alert('<?= lang('no_match_found') ?>', function () {
+                        $('#add_item').focus();
+                    });
+                    $(this).removeClass('ui-autocomplete-loading');
+                   // $(this).val('');
+                }
+                else if (ui.content.length == 1 && ui.content[0].id != 0) {
+                    ui.item = ui.content[0];
+                    $(this).data('ui-autocomplete')._trigger('select', 'autocompleteselect', ui);
+                    $(this).autocomplete('close');
+                    $(this).removeClass('ui-autocomplete-loading');
+                }
+                else if (ui.content.length == 1 && ui.content[0].id == 0) {
+                    //audio_error.play();
+                    bootbox.alert('<?= lang('no_match_found') ?>', function () {
+                        $('#add_item').focus();
+                    });
+                    $(this).removeClass('ui-autocomplete-loading');
+                  //  $(this).val('');
 
-<script>
-	$(window).load(function() {
-		$("#customer_type").trigger('change');
-		$("#interest_rate_cash_2").trigger('change');
-		$("#term_cash").trigger('change');
-		$("#frequency_cash").trigger('change');
-		$("#rate_type_cash").trigger('change');
-		
-		//$('.services').trigger('change');
-	});
+                }
+            },
+            select: function (event, ui) {
+                event.preventDefault();
+                if (ui.item.id !== 0) {
+                    var row = add_invoice_item(ui.item);
+                    if (row)
+                        $(this).val('');
+                } else {
+                    //audio_error.play();
+                    bootbox.alert('<?= lang('no_match_found') ?>');
+                }
+            }
+        });
+        $('#add_item').bind('keypress', function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                $(this).autocomplete("search");
+            }
+        });
+    });
 </script>
+-->
+
+<!---Start show block popup for applicant same identify_id--->
+
+<!--End black popup applicant ------------>
+
+
 <div class="box">
     <div class="box-header">
         <h2 class="blue"><i class="fa-fw fa fa-plus"></i><?= lang('add_quote'); ?></h2>
@@ -61,7 +155,7 @@
 							<div class="tab-content">
 								<?php
 								$attrib = array('data-toggle' => 'validator', 'role' => 'form');
-								echo form_open_multipart("quotes/add_applicant")
+								echo form_open_multipart("quotes/add", $attrib)
 								?>
 								<div id="applicants" class="tab-pane fade in">
 									<div class="row">
@@ -71,17 +165,13 @@
 													<!---->
 													<div class="col-lg-12">
 														<div class="col-md-6">
-															<div class="form-group">
-																<?= lang("status", "qstatus"); ?>
-																<?php
-																$status_q = array('draft' => lang('draft'), 'applicant' => lang('applicant'));
-																if(isset($sale->sale_status) && $sale->sale_status == 'approved'){
-																	unset($status_q['applicant']);
-																}
-																echo form_dropdown('status', $status_q, (isset($_POST['status'])? $_POST['status'] : ''), 'id="qstatus" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("status") . '" class="form-control input-tip " style="width:100%;"');
-																?>
-															</div>
-															
+																<div class="form-group">
+																	<?= lang("status", "qstatus"); ?>
+																	<?php
+																		$status_q = array('draft' => lang('draft'), 'applicant' => lang('applicant'));
+																			echo form_dropdown('status', $status_q, (isset($_POST['status'])? $_POST['status'] : ''), 'id="qstatus" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("status") . '" class="form-control input-tip " style="width:100%;"');	
+																	?>
+																</div>
 															<div class="form-group">
 																<?= lang("identify_type", "identify_type"); ?>
 																<?php
@@ -91,28 +181,28 @@
 																			$ident_all[$ident_->id] = $ident_->name;
 																		}
 																	}
-																	echo form_dropdown('identify_id', $ident_all, '', 'class="form-control identify_type" id="identify_type" placeholder="' . lang("select_identify_to_load") . '" data-bv-notempty="true"');																		
+																	echo form_dropdown('identify_id', $ident_all, (($applicant->identify)?$applicant->identify:''), 'class="form-control identify_type" id="identify_type" placeholder="' . lang("select_identify_to_load") . '" data-bv-notempty="true"');																		
 																?>
 															</div>
 															<div class="form-group">
 																<label id="identify" for="cus_gov_id"></label>
 																<input type="hidden" name="h_identify" id="h_identify" class="h_identify"  />
-																<?php echo form_input('cus_gov_id', (isset($_POST['cus_gov_id']) ? $_POST['cus_gov_id'] : ''), 'class="form-control" id="cus_gov_id" data-bv-notempty="true"'); ?>
+																<?php echo form_input('cus_gov_id', (isset($_POST['cus_gov_id']) ? $_POST['cus_gov_id'] : $applicant->gov_id), 'class="form-control" id="cus_gov_id" data-bv-notempty="true"'); ?>
 															</div>
 														</div>
 														<div class="col-md-6"style="margin-top:15px;">
 															<div class="col-md-0"></div>
 															<div class="col-md-3">
 																<div style=" width:115px; height:135px; background-color:#ccc;">																	
-																	<?php echo '<img src="' . base_url() . 'assets/uploads/documents/male.png"  style=" width:115px; height:135px;" id="inputimg"/> '?>
+																	<?php echo '<img src="' . base_url() . 'assets/uploads/documents/' . ($qphoto->name?$qphoto->name:'male.png') .'"  style=" width:115px; height:135px;" id="inputimg"/> '?>
 																</div>
 															</div>															
 															<div class="col-md-4">
 																<div style="margin-top:60px;">
 																</div>
 																<div>
-																	<label for="document"> <?=lang("photo_applicant")?></label>
-																	<input type="file" class="form-control file" data-show-preview="false" data-show-upload="false" name="applicant_photo" id="document">
+																	<label for="document"><?=lang("photo_applicant")?></label>
+																	<input type="file" class=" file" data-show-preview="false" value="<?= $qphoto->name ?>" data-show-upload="false" name="applicant_photo" id="document">
 																</div>
 															</div>
 														</div>
@@ -120,8 +210,7 @@
 													
 												<!---->
 													<div class="col-lg-12">
-														<div class="col-md-6">
-															
+														<div class="col-md-6">															
 															<!--<div class="form-group">
 																<?= lang("civility", "cus_civility"); ?>
 																<?php
@@ -130,19 +219,18 @@
 																$cus_civility['female'] = "Mrs.";
 																echo form_dropdown('cus_civility', $cus_civility, isset($customer->civility)?$customer->civility:'', 'class="form-control select" id="cus_civility" placeholder="' . lang("select") . ' ' . lang("civility") . '" style="width:100%" data-bv-notempty="true"')
 																?>
-															</div>-->
-															
-															<div class="form-group">
+															</div>-->															
+															<!-- <div class="form-group">
 																<?= lang("issue_by", "cus_issue_by"); ?>
-																<?php echo form_input('cus_issue_by', (isset($_POST['cus_issue_by']) ? $_POST['cus_issue_by'] : ''), 'class="form-control" id="cus_issue_by"'); ?>
-															</div>
+																<?php echo form_input('cus_issue_by', (isset($_POST['cus_issue_by']) ? $_POST['cus_issue_by'] : $applicant->issue_by), 'class="form-control" id="cus_issue_by"'); ?>
+															</div> -->
 															<div class="form-group">
 																<?= lang("family_name_(en)", "cus_family_name"); ?>
-																<?php echo form_input('cus_family_name', (isset($_POST['cus_family_name']) ? $_POST['cus_family_name'] : ''), 'class="form-control tip" id="cus_family_name" data-bv-notempty="true"'); ?>
+																<?php echo form_input('cus_family_name', (isset($_POST['cus_family_name']) ? $_POST['cus_family_name'] : $applicant->family_name), 'class="form-control tip" id="cus_family_name" data-bv-notempty="true"'); ?>
 															</div>
 															<div class="form-group">
 																<?= lang("first_name_(en)", "cus_first_name"); ?>
-															   <?php echo form_input('cus_first_name', (isset($_POST['cus_first_name']) ? $_POST['cus_first_name'] : ''), 'class="form-control" id="cus_first_name" required="required"'); ?>
+															   <?php echo form_input('cus_first_name', (isset($_POST['cus_first_name']) ? $_POST['cus_first_name'] : $applicant->name), 'class="form-control" id="cus_first_name" required="required"'); ?>
 															</div>
 															<div class="form-group person" style="display:none;">
 																<?= lang("nick_name", "cus_nick_name"); ?>
@@ -154,61 +242,61 @@
 																$cus_gender[(isset($_POST['cus_gender']) ? $_POST['cus_gender'] : '')] = (isset($_POST['cus_gender']) ? $_POST['cus_gender'] : '');
 																$cus_gender['male'] = "Male";
 																$cus_gender['female'] = "Female";
-																echo form_dropdown('cus_gender', $cus_gender, isset($customer->gender)?$customer->gender:'', 'class="form-control select" id="cus_gender" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" data-bv-notempty="true"')
+																echo form_dropdown('cus_gender', $cus_gender, isset($customer->gender)?$customer->gender:$applicant->gender, 'class="form-control select" id="cus_gender" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" data-bv-notempty="true"')
 																?>
 															</div>
 															<div class="form-group">
-																<?= lang("date_of_birth ", "cus_dob"); ?>
-																<?php echo form_input('cus_dob', (isset($_POST['cus_dob']) ? $_POST['cus_dob'] : ''), 'class="form-control date" id="cus_dob"'); ?>
+																<?= lang("date_of_birth", "cus_dob"); ?>
+																<?php echo form_input('cus_dob',$applicant->date_of_birth?$this->erp->hrsd($applicant->date_of_birth):'', 'class="form-control date" id="cus_dob"'); ?>
 															</div>
 															<div class="form-group">
 																<?= lang("age", "cus_age"); ?>
-																<?php echo form_input('cus_age', (isset($_POST['cus_age']) ? $_POST['cus_age'] : ''), 'class="form-control" id="cus_age" style="pointer-events: none;"'); ?>
+																<?php echo form_input('cus_age', (isset($_POST['cus_age']) ? $_POST['cus_age'] : $applicant->age), 'class="form-control" id="cus_age" style="pointer-events: none;"'); ?>
 															</div>
 															<div class="form-group" id="spname">
 																<?= lang("spouse_full_name", "cus_sp_fname"); ?>
-																<?php echo form_input('cus_sp_fname', (isset($_POST['cus_sp_fname']) ? $_POST['cus_sp_fname'] : ''), 'class="form-control" id="cus_sp_fname"'); ?>
+																<?php echo form_input('cus_sp_fname', (isset($_POST['cus_sp_fname']) ? $_POST['cus_sp_fname'] : $applicant->spouse_name), 'class="form-control" id="cus_sp_fname"'); ?>
 															</div>
 															<div class="form-group" id="spphone">
 																<?= lang("spouse_mobile_phone", "cus_sp_phone"); ?>
-																<input type="tel" name="cus_sp_phone" maxlength="11" class="form-control number_only" id="cus_sp_phone"/>
+																<input type="tel" name="cus_sp_phone" maxlength="11" class="form-control number_only" id="cus_sp_phone" value="<?=$applicant->spouse_phone?>"/>
 															</div>
 															<div class="form-group" id="spchild">
 																<?= lang("number_of_children", "cus_num_of_child"); ?>
-																<?php echo form_input('cus_num_of_child', (isset($_POST['cus_num_of_child']) ? $_POST['cus_num_of_child'] : ''), 'class="form-control" id="cus_num_of_child"'); ?>
+																<?php echo form_input('cus_num_of_child', (isset($_POST['cus_num_of_child']) ? $_POST['cus_num_of_child'] : $applicant->num_of_child == 0? '':$applicant->num_of_child), 'class="form-control" id="cus_num_of_child"'); ?>
 															</div>
 															<div class="form-group">
 																<?= lang("phone_1", "cus_phone_1"); ?>
-																<input type="tel"  name="cus_phone_1" maxlength="11" class="form-control number_only"  id="cus_phone_1"  value="<?= (isset($_POST['cus_phone_1']) ? $_POST['cus_phone_1'] : '') ?>"/>
+																<input type="tel"  name="cus_phone_1" maxlength="11" class="form-control number_only"  id="cus_phone_1"  value="<?= (isset($_POST['cus_phone_1']) ? $_POST['cus_phone_1'] : $applicant->phone1) ?>" required="required"/>
 															</div>
 															<div class="form-group">
 																<?= lang("phone_2", "cus_phone_2"); ?>
-																<input type="tel" name="cus_phone_2" maxlength="11" class="form-control number_only"  id="cus_phone_2"  value="<?= (isset($_POST['cus_phone_2']) ? $_POST['cus_phone_2'] : '') ?>"/>
+																<input type="tel" name="cus_phone_2" maxlength="11" class="form-control number_only"  id="cus_phone_2"  value="<?= (isset($_POST['cus_phone_2']) ? $_POST['cus_phone_2'] : $applicant->phone2) ?>"/>
 															</div>
 															<div class="form-group">
-																<?= lang("by_c.o", "by_co"); ?>
+																<?= lang("by_c.o", "cus_by_co"); ?>
 																<?php
 																	$us[""] = "";
 																	if(is_array(isset($users) ?$users  : (''))){
 																	foreach ($users as $user) {
 																		$us[$user->id] = $user->first_name . " " . $user->last_name;
 																	}}
-																	echo form_dropdown('by_co', isset($us) ?$us  : (''), (isset($_POST['by_co']) ? $_POST['by_co'] : ""), 'class="form-control" id="by_co" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("C.O") . '" data-bv-notempty="true"');
+																	echo form_dropdown('cus_by_co', isset($us) ?$us  : (''), (isset($_POST['cus_by_co']) ? $_POST['cus_by_co'] : $applicant->created_by), 'class="form-control" id="cus_by_co" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("C.O") . '" data-bv-notempty="true"');
 																?>
 															</div>
 														</div>														
 														<div class="col-md-6">
-															<div class="form-group">
+															<!-- <div class="form-group">
 																<?= lang("issue_date", "cus_issue_date"); ?>
-																<?php echo form_input('cus_issue_date', (isset($_POST['cus_issue_date']) ? $_POST['cus_issue_date'] : ''), 'class="form-control date" id="cus_issue_date"'); ?>
-															</div>
+																<?php echo form_input('cus_issue_date', $applicant->issue_date?$this->erp->hrsd($applicant->issue_date):'', 'class="form-control date" id="cus_issue_date"'); ?>
+															</div>  -->
 															<div class="form-group">
 																<?= lang("family_name_(kh)", "cus_family_name_other"); ?>
-																<?php echo form_input('cus_family_name_other', (isset($_POST['cus_family_name_other']) ? $_POST['cus_family_name_other'] : ''), 'class="form-control" id="cus_family_name_other" '); ?>
+																<?php echo form_input('cus_family_name_other', (isset($_POST['cus_family_name_other']) ? $_POST['cus_family_name_other'] : $applicant->family_name_other), 'class="form-control" id="cus_family_name_other" data-bv-notempty="true"'); ?>
 															</div>
 															<div class="form-group">
 																<?= lang("first_name_(kh)", "cus_first_name_other"); ?>
-																<?php echo form_input('cus_first_name_other', (isset($_POST['cus_first_name_other']) ? $_POST['cus_first_name_other'] : ''), 'class="form-control" id="cus_first_name_other"'); ?>
+																<?php echo form_input('cus_first_name_other', (isset($_POST['cus_first_name_other']) ? $_POST['cus_first_name_other'] : $applicant->name_other), 'class="form-control" id="cus_first_name_other" data-bv-notempty="true"'); ?>
 															</div>
 															<div class="form-group">
 																<?= lang("father_name", "father_name"); ?>
@@ -216,15 +304,18 @@
 															</div>
 															<div class="form-group">
 																<?= lang("place_of_birth", "cus_pob"); ?>
-																<?php echo form_input('cus_pob', (isset($_POST['cus_pob']) ? $_POST['cus_pob'] : ''), 'class="form-control" id="cus_pob"'); ?>
+																<?php echo form_input('cus_pob', (isset($_POST['cus_pob']) ? $_POST['cus_pob'] : $applicant->address), 'class="form-control" id="cus_pob"'); ?>
 															</div>
 															<div class="form-group">
 																<?= lang("nationality", "cus_nationality"); ?>
 																<?php
 																$cus_nationality[(isset($_POST['cus_nationality']) ? $_POST['cus_nationality'] : '')] = (isset($_POST['cus_nationality']) ? $_POST['cus_nationality'] : '');
-																$cus_nationality['cam'] = "Cambodian"; 
-																$cus_nationality['bm'] 	= "Burmese";
-																echo form_dropdown('cus_nationality', $cus_nationality, isset($customer->nationality)?$customer->nationality:'bm', 'class="form-control select" id="cus_nationality" placeholder="' . lang("select") . ' ' . lang("nationality") . '" style="width:100%"')
+																$cus_nationality['cam'] = "Cambodian";
+																$cus_nationality['tha'] = "Thailand";
+																$cus_nationality['vie'] = "Vietnamese";
+																$cus_nationality['chi'] = "Chinese";
+																$cus_nationality['bm'] = "Burma";
+																echo form_dropdown('cus_nationality', $cus_nationality, isset($customer->nationality)?$customer->nationality:isset($applicant->nationality)?$applicant->nationality:'cam', 'class="form-control select" id="cus_nationality" placeholder="' . lang("select") . ' ' . lang("nationality") . '" style="width:100%"')
 																?>
 															</div>
 															<div class="form-group" id="maritalstatus">
@@ -236,8 +327,8 @@
 																$cus_marital_status['divorced'] = "Divorced";
 																$cus_marital_status['single'] = "Single";
 																$cus_marital_status['widow/Widower'] = "Widow/Widower";
-																$cus_marital_status['unknown'] = "Unknown";
-																echo form_dropdown('cus_marital_status', $cus_marital_status, isset($customer->marital_status)?$customer->marital_status:'', 'class="form-control select" id="cus_marital_status" placeholder="' . lang("select") . ' ' . lang("marital_status") . '" style="width:100%" ');
+																$cus_marital_status['unknown'] = "Unknown";																
+																echo form_dropdown('cus_marital_status', $cus_marital_status, isset($customer->marital_status)?$customer->marital_status:isset($applicant->status)?$applicant->status:'single', 'class="form-control select" id="cus_marital_status" placeholder="' . lang("select") . ' ' . lang("marital_status") . '" style="width:100%" ');
 																?>
 															</div>
 															<!--<div class="form-group">
@@ -250,7 +341,7 @@
 																$sp_gender[(isset($_POST['sp_gender']) ? $_POST['sp_gender'] : '')] = (isset($_POST['sp_gender']) ? $_POST['sp_gender'] : '');
 																$sp_gender['male'] = "Male";
 																$sp_gender['female'] = "Female";
-																echo form_dropdown('sp_gender', $sp_gender, isset($customer->spouse_gender)?$customer->spouse_gender:'', 'class="form-control select" id="sp_gender" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" ')
+																echo form_dropdown('sp_gender', $sp_gender, isset($customer->spouse_gender)?$customer->spouse_gender:$applicant->spouse_gender, 'class="form-control select" id="sp_gender" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" ')
 																?>
 															</div>
 															<div class="form-group" id="sp_status">
@@ -259,27 +350,26 @@
 																$sp_status[(isset($_POST['sp_status']) ? $_POST['sp_status'] : '')] = (isset($_POST['sp_status']) ? $_POST['sp_status'] : '');
 																$sp_status['husband'] = "Husband";
 																$sp_status['wife'] = "Wife";
-																echo form_dropdown('sp_status', $sp_status, isset($customer->spouse_status)?$customer->spouse_status:'', 'class="form-control select" id="sp_status" placeholder="' . lang("select") . ' ' . lang("status") . '" style="width:100%"')
+																echo form_dropdown('sp_status', $sp_status, isset($customer->spouse_status)?$customer->spouse_status:$applicant->spouse_status, 'class="form-control select" id="sp_status" placeholder="' . lang("select") . ' ' . lang("status") . '" style="width:100%"')
 																?>
 															</div>
 															<div class="form-group" id="sp_date">
 																<?= lang("spouse_birthdate", "sp_date_of_birth"); ?>
-																<?php echo form_input('sp_date_of_birth', (isset($_POST['sp_date_of_birth']) ? $_POST['sp_date_of_birth'] : ''), 'class="form-control date" id="sp_date_of_birth"'); ?>
+																<?php echo form_input('sp_date_of_birth', (isset($_POST['sp_date_of_birth']) ? $_POST['sp_date_of_birth'] : $this->erp->hrsd($applicant->spouse_birthdate)), 'class="form-control date" id="sp_date_of_birth"'); ?>
 															</div>
 															
 															<div class="form-group" id="whoseincome">
 																<?= lang("whose_income", "cus_whose_income"); ?>
-																<?php echo form_input('cus_whose_income', (isset($_POST['cus_whose_income']) ? $_POST['cus_whose_income'] : ''), 'class="form-control" id="cus_whose_income"'); ?>
+																<?php echo form_input('cus_whose_income', (isset($_POST['cus_whose_income']) ? $_POST['cus_whose_income'] : $applicant->whose_income), 'class="form-control" id="cus_whose_income"'); ?>
 															</div>
 															<div class="form-group" id="incomecombine">
 																<?= lang("income_combination", "cus_inc_comb"); ?>
 																<?php
 																$cus_inc_comb['0'] = "No";
 																$cus_inc_comb['1'] = "Yes";
-																echo form_dropdown('cus_inc_comb', $cus_inc_comb, isset($customer->inc_comb)?$customer->inc_comb:'', 'class="form-control select" id="cus_inc_comb" style="width:100%"');
+																echo form_dropdown('cus_inc_comb', $cus_inc_comb, isset($customer->inc_comb)?$customer->inc_comb:$applicant->income_combination, 'class="form-control select" id="cus_inc_comb" style="width:100%"');
 																?>
 															</div>
-															
 															<div class="form-group" style="display:none;">
 																<?= lang("black_list_customer", "cus_black_list"); ?>
 																<?php
@@ -302,50 +392,64 @@
 																					$cus_country[$ct->code] = $ct->name;
 																				}
 																			}
-																			echo form_dropdown('cus_country', $cus_country, isset($customer->country)?$customer->country: $branch->country , 'class="form-control select" id="cus_country" data-placeholder="' . lang("select") . ' ' . lang("country") . '" style="width:100%" required="required"');
+																			echo form_dropdown('cus_country', $cus_country, isset($customer->country)?$customer->country: isset($applicant->country)?$applicant->country:$branch->country , 'class="form-control select" id="cus_country" data-placeholder="' . lang("select") . ' ' . lang("country") . '" style="width:100%" required="required"');
 																			?>
 																		</div>
+																		<!-- Country end -->
 																		<div class="form-group">
 																			<?= lang("district", "cus_district"); ?>
-																			<?php echo form_input('cus_district', isset($customer->district)?$customer->district:'', 'class="form-control" id="cus_district"  placeholder="' . lang("select_province_to_load") . '" data-bv-notempty="true"');?>
+																			<strong>/Township</strong>
+																			<?php echo form_input('cus_district', isset($customer->district)?$customer->district:$applicant->district, 'class="form-control" id="cus_district"  placeholder="' . lang("select_province_to_load") . '" data-bv-notempty="true"');?>
 																		</div>
+																		<!-- District end -->
 																		<div class="form-group">
 																			<?= lang("village", "cus_village"); ?>
-																			<?php echo form_input('cus_village', isset($customer->village)?$customer->village:'', 'class="form-control" id="cus_village"  placeholder="' . lang("select_communce_to_load") . '" data-bv-notempty="true"');?>
+																			<?php echo form_input('cus_village', isset($customer->village)?$customer->village:$applicant->village, 'class="form-control" id="cus_village"  placeholder="' . lang("select_communce_to_load") . '" data-bv-notempty="true"');?>
 																		</div>
+																		<!-- Village end -->
 																		<div class="form-group">
 																			<?= lang("current_address", "cus_house_no"); ?>
-																			<?php echo form_input('cus_house_no', (isset($_POST['cus_house_no']) ? $_POST['cus_house_no'] : ''), 'class="form-control" id="cus_house_no" required="required"'); ?>
+																			<?php echo form_input('cus_house_no', (isset($_POST['cus_house_no']) ? $_POST['cus_house_no'] : $applicant->house_no), 'class="form-control" id="cus_house_no" required="required"'); ?>
 																		</div>
+																		<!-- Current end -->
 																	</div>
+																	
 																	<div class="col-md-6">
 																		<div class="form-group">
 																			<?= lang("province", "cus_province"); ?>
-																			<?php echo form_input('cus_province', isset($customer->province)?$customer->province: $branch->state , 'class="form-control" id="cus_province"  placeholder="' . lang("select_province") . '" required="required"');?>
+																			<strong>/State</strong>
+																			<?php echo form_input('cus_province', isset($customer->province)?$customer->province: isset($applicant->state)?$applicant->state:$branch->state, 'class="form-control" id="cus_province"  placeholder="' . lang("select_province") . '" required="required"');?>
 																		</div>
+																		<!-- Provience end -->
 																		<div class="form-group">
 																			<?= lang("communce", "cus_communce"); ?>
-																			<?php echo form_input('cus_communce', isset($customer->communce)?$customer->communce:'', 'class="form-control" id="cus_communce"  placeholder="' . lang("select_district_to_load") . '" data-bv-notempty="true"');?>
+																			<?php echo form_input('cus_communce', isset($customer->communce)?$customer->communce:($applicant ? $applicant->sangkat : ''), 'class="form-control" id="cus_communce"  placeholder="' . lang("select_district_to_load") . '" "');?>
 																		</div>
+																		<!-- Communce end //amm -->
+
+
+
+
 																		<!--<div class="form-group">
 																			<?= lang("street", "cus_street"); ?>
-																			<?php echo form_input('cus_street', (isset($_POST['cus_street']) ? $_POST['cus_street'] : ''), 'class="form-control" id="cus_street"'); ?>
+																			<?php echo form_input('cus_street', (isset($_POST['cus_street']) ? $_POST['cus_street'] : $applicant->street), 'class="form-control" id="cus_street"'); ?>
 																		</div>-->
 																		<div class="form-group">
 																			<?= lang("housing", "cus_housing"); ?>
 																			<?php
-																			$cus_housing[(isset($_POST['cus_housing']) ? $_POST['cus_housing'] : '')] = (isset($_POST['cus_housing']) ? $_POST['cus_housing'] : '');
+																			$cus_housing[(isset($_POST['cus_housing']) ? $_POST['cus_housing'] : '')] = (isset($_POST['cus_housing']) ? $_POST['cus_housing'] : $applicant->housing);
 																			$cus_housing["owner"] = "Owner";
 																			$cus_housing["living_with_parent"] = "Living with parent";
 																			$cus_housing["renting"] = "Renting";
 																			echo form_dropdown('cus_housing', $cus_housing, isset($customer->housing)?$customer->housing:'', 'class="form-control select" id="cus_housing" placeholder="' . lang("select") . ' ' . lang("housing") . '" style="width:100%" data-bv-notempty="true"');
 																			?>
 																		</div>
+																		<!-- Housing end -->
 																		<div class="form-group">
 																			<b style="padding-bottom:5px; display:block;"><?= lang("time_at_this_address"); ?></b>
-																			<?php echo form_input('cus_years', (isset($_POST['cus_years']) ? $_POST['cus_years'] : ''), 'class="form-control" id="cus_years" placeholder="' . lang("years") . '" style="display:inline !important; width:35% !important;"'); ?>
+																			<?php echo form_input('cus_years', (isset($_POST['cus_years']) ? $_POST['cus_years'] : $applicant->years), 'class="form-control" id="cus_years" placeholder="' . lang("years") . '" style="display:inline !important; width:35% !important;"'); ?>
 																			<?= lang("years", "cus_years"); ?>
-																			<?php echo form_input('cus_months', (isset($_POST['cus_months']) ? $_POST['cus_months'] : ''), 'class="form-control" id="cus_months" placeholder="' . lang("months") . '" style="display:inline !important; width:35% !important;"'); ?>
+																			<?php echo form_input('cus_months', (isset($_POST['cus_months']) ? $_POST['cus_months'] : $applicant->months), 'class="form-control" id="cus_months" placeholder="' . lang("months") . '" style="display:inline !important; width:35% !important;"'); ?>
 																			<?= lang("months", "cus_months"); ?>
 																		</div>
 																	</div>
@@ -403,56 +507,64 @@
 																	<div class="form-group">
 																		<?php echo lang('sub_category', 'sub_category') ?>
 																		<?php
-																		echo form_input('sub_category', isset($product->subcategory_id) ?$product->subcategory_id  : (''), 'class="form-control sub_category" id="sub_category"  placeholder="' . lang("select_category_to_load") . '" data-bv-notempty="true"');
+																		echo form_input('sub_category', (isset($_POST['sub_category']) ? $_POST['sub_category'] : ''), 'class="form-control sub_category" id="sub_category"  placeholder="' . lang("select_category_to_load") . '" data-bv-notempty="true"');
 																		?>
 																	</div>
-																</div>															
+																</div>
+																
 																<div class="col-md-4">
 																	<div class="form-group">
 																		<?php echo lang('product', 'product_id') ?>
 																		<?php
 																		$pr_all = array();
-																		if(is_array(isset($products) ?$products  : (''))){
-																		foreach($products as $pr_){
-																			$pr_all[$pr_->id] = $pr_->name;
-																		}}
-																		echo form_input('product_id', isset($product->product_id) ?$product->product_id  : (''), 'class="form-control product_id" id="product_id"  placeholder="' . lang("select_product_to_load") . '" data-bv-notempty="true"');
+																		if(array($products)) {
+																			foreach($products as $pr_){
+																				$pr_all[$pr_->id .'#'.$pr_->group_loan] = $pr_->name;
+																			}
+																		}
+																		echo form_input('product_id', (isset($_POST['product']) ? $_POST['product'] : ''), ' class="form-control product_id" id="product_id"  placeholder="' . lang("select_product_to_load") . '" data-bv-notempty="true"');
+																		
 																		?>
 																	</div>
-																</div>	
-																<div class="col-md-4" id="group">
+																</div>
+																
+																<div class="col-md-4" id="group" style="display:none;">
 																	<div class="form-group all">
 																		<?= lang("group_loans", "group_loans") ?>
-																		<?= form_input('group_loans', (isset($product->group_name) ? $product->group_name : ''), ' class="form-control group_loans gro_loan" id="group_loans" ') ?>
+																		<?= form_input('group_loans', (isset($_POST['group_loans']) ? $_POST['group_loans'] : ''), ' class="form-control" id="group_loans"  ') ?>
 																	</div>
-																	<input type="hidden" name="groupid" id="groupid" value="<?php echo $product->grlid ?>" />
-																</div>													
+																</div>
+																
 																<div class="col-md-4 show_cash">
 																	<div class="form-group">
 																		<?php echo lang('currency', 'currency') ?>
 																		<?php
-																		$crr[(isset($_POST['currency']) ? $_POST['currency'] : '')] = (isset($_POST['currency']) ? $_POST['currency'] : '');
+																		//$crr[(isset($_POST['currency']) ? $_POST['currency'] : '')] = (isset($_POST['currency']) ? $_POST['currency'] : '');
+																		$crr = array();
 																		if(array($currencies)) {
 																			foreach($currencies as $currency){
 																				$crr[$currency->code] = $currency->name;
 																			}
 																		}
-																		echo form_dropdown('currency', $crr,  (isset($product->currency_code) ? $product->currency_code  : ''), 'class="form-control currency" id="currency" placeholder="' . lang("select_currency") . '" data-bv-notempty="true"');
+																		echo form_dropdown('currency', $crr, (isset($crr['currency']) ? $crr['currency'] : ''), 'class="form-control currency" id="currency" placeholder="' . lang("select_currency") . '" data-bv-notempty="true"');
+																		
 																		?>
 																	</div>
 																</div>
+																
 																<div class="col-md-4">
 																	<div class="form-group all">
 																		<?= lang("amount", "total_amount") ?>
-																		<?= form_input('price', (isset($_POST['price']) ? $_POST['price'] : ''), ' class="form-control" id="total_amount" style="font-size:20px;" data-bv-notempty="true"') ?>
+																		<?= form_input('price', (isset($_POST['price']) ? $_POST['price'] : ''), ' class="form-control total_loans" id="total_amount" style="font-size:20px;" data-bv-notempty="true"') ?>
+																		<!--<input type="hidden" name="price" id="price" class="price">-->
 																	</div>
-																</div>	
+																</div>
 																<div class="col-md-4">
 																	<div class="form-group all">
 																		<?= lang("purpose", "purpose") ?>
 																		<?= form_input('purpose', (isset($_POST['purpose']) ? $_POST['purpose'] : ''), ' class="form-control" id="purpose" style="font-size:14px;" ') ?>
 																	</div>
-																</div>		
+																</div>			
 																<div class="col-md-12 show_cash">
 																	<div class="form-group all">
 																		<?= lang('description', 'ldescription'); ?>
@@ -527,9 +639,10 @@
 															</div>
 														</div>
 													</div>
-												</div>
+											</div>
+											
+												<!--compulsory_saving--->
 												
-												<!--compulsory_saving--->												
 												<?php 													
 													if( $setting->compulsory_saving =="enable" ){														
 												?>
@@ -540,19 +653,19 @@
 															<div class="col-lg-6">
 																<div class="form-group">
 																	<?= lang("saving_amount_%", "saving_rate"); ?>
-																	<?php echo form_input('saving_rate', (isset($qu_saving->saving_rate) ? $qu_saving->saving_rate * 100 .'%' : ''), 'class="form-control" id="saving_rate" '); ?>
+																	<?php echo form_input('saving_rate', (isset($_POST['saving_rate']) ? $_POST['saving_rate'] : '5%'), 'class="form-control" id="saving_rate" '); ?>
 																</div>
 															</div>
 															<div class="col-lg-6">
 																<div class="form-group">
 																	<?= lang("saving_amount", "saving_amount"); ?>
-																	<?php echo form_input('saving_amount',(isset($_POST['saving_interest_rate']) ? $_POST['saving_interest_rate'] : '0'), 'class="form-control number_only" id="saving_amount" style="pointer-events: none;" readonly'); ?>
+																	<?php echo form_input('saving_amount', (isset($_POST['saving_amount']) ? $_POST['saving_amount'] : 0), 'class="form-control number_only" id="saving_amount" style="pointer-events: none;" readonly'); ?>
 																</div>
 															</div>
 															<div class="col-lg-6">
 																<div class="form-group">
 																	<?= lang("interest_of_saving_%", "saving_interest_rate"); ?>
-																	<?php echo form_input('saving_interest_rate', (isset($qu_saving->saving_interest_rate) ? $qu_saving->saving_interest_rate * 100 .'%' : ''), 'class="form-control" id="saving_interest_rate" '); ?>
+																	<?php echo form_input('saving_interest_rate', (isset($_POST['saving_interest_rate']) ? $_POST['saving_interest_rate'] : '1.25%'), 'class="form-control" id="saving_interest_rate" '); ?>
 																</div>
 															</div>
 															<div class="col-lg-6">
@@ -561,23 +674,28 @@
 																	<?php
 																	$saving_type[""] = "";
 																	$saving_type[1] = "Normal";
-																	echo form_dropdown('saving_type', $saving_type, (isset($qu_saving->saving_type) ? $qu_saving->saving_type : 1), 'id="saving_type" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("saving_type") . '"  class="form-control input-tip select" style="width:100%;"');
+																	echo form_dropdown('saving_type', $saving_type, (isset($_POST['saving_type']) ? $_POST['saving_type'] : 1), 'id="saving_type" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("saving_type") . '"  class="form-control input-tip select" style="width:100%;"');
 																	?>
 																</div>
 															</div>
 														</div>
 													</div>
 												</div>
-												<?php } ?>												
+												<?php } ?>
+												
 												<!------>
 												
+												
+												<?php 													
+													if( $services ){
+												?>
 												<div class="col-sm-12">
 													<div class="panel panel-primary">
 														<div class="panel-heading"><?= lang('services_fee') ?></div>
 														<div class="panel-body" style="padding: 5px;">
 															<div class="col-sm-12">
 																<div class="col-md-3">
-																	<div class="form-group">																	
+																	<div class="form-group">
 																	</div>
 																</div>
 																<div class="col-md-3">
@@ -608,20 +726,23 @@
 																	</div>
 																</div>
 																<div class="col-md-3">
-																	<div class="form-group" style="pointer-events: none;">
-																		<?php echo form_input('service_'.$service->id, (($service->method == 'Percentage')? $this->erp->formatNumber($service->amount) * 100 .'%' : $this->erp->formatMoney($service->amount)), 'class="form-control input-tip services" id="services_'.$k.'" '); ?>
+																	<div class="form-group">
+																		<?php echo form_input('service_'.$service->id, (($service->method == 'Percentage')? $this->erp->formatNumber(($service->amount*100)).'%' : $this->erp->formatMoney($service->amount)), 'class="form-control input-tip services" id="services_'.$k.'" '); ?>
+																		<input type="hidden" name="h_service_<?= $service->id ?>" class="h_service" id="h_service_<?= $k ?>" value="" />
 																		<input type="hidden" name="h_type_<?= $service->id ?>" class="h_type" id="h_type<?= $k ?>" value="<?= $service->method ?>" />
 																		<input type="hidden" name="service_paid_<?= $service->id ?>" class="service_paid" id="service_paid<?= $k ?>" value="<?= $service->service_paid ?>" />
 																		<input type="hidden" name="charge_by_<?= $service->id ?>" class="charge_by" id="charge_by<?= $k ?>" value="<?= $service->charge_by ?>" />
-																	</div>
+																		
+																</div>
 																</div>
 																<div class="col-md-3">
-																	<div class="form-group" style="pointer-events: none;">
-																		<?php echo form_checkbox(['name' => 'ch_services[]', 'id' => $k, 'class' => 'ch_services', 'amount' => $service->amount, 'status' => $service->method, 'value' => $service->id, 'service_paid' => $service->service_paid, 'checked' => $service->checked , 'charge_by' => $service->charge_by,'tax_rate' => $service->tax_rate]); ?>
+																	<div class="form-group">
+																		<?php echo form_checkbox(['name' => 'ch_services[]', 'id' => $k, 'class' => 'ch_services','service_paid' => $service->service_paid, 'title' => $service->description, 'amount' => $service->amount, 'status' => $service->method, 'value' => $service->id, 'charge_by' => $service->charge_by, 'tax_rate' => $service->tax_rate]); ?>
 																	</div>
 																</div>
 																<div class="col-md-3">
 																	<div class="form-group">
+																		
 																		<?php 
 																			$tax[(isset($_POST['state_tax']) ? $_POST['state_tax'] : '')] = (isset($_POST['state_tax']) ? $_POST['state_tax'] : '');
 																			if(array($tax_rate)) {
@@ -638,16 +759,18 @@
 																<?php
 																if($k == 0) {
 																?>
-																<div class="col-md-3" style="display:none;">
+																<!--<div class="col-md-3">
 																	<div class="form-group">
 																		<?php echo form_input('total_inst', (isset($_POST['total_inst']) ? $_POST['total_inst'] :0), 'class="form-control input-tip" id="total_inst"'); ?>
 																	</div>
-																</div>
+																</div>-->
+																
 																<?php
 																} else {
 																?>
 																<div class="col-md-3">
-																	<div class="form-group">																	
+																	<div class="form-group">
+																	
 																	</div>
 																</div>
 																<?php } ?>
@@ -660,6 +783,8 @@
 														</div>
 													</div>
 												</div>
+												<?php } ?>
+												
 												<div class="col-sm-12 hide_cash">
 													<div class="panel panel-primary">
 														<div class="panel-heading"><?= lang('financial_products') ?></div>
@@ -721,19 +846,16 @@
 																	?>
 																</div>
 															</div>
-															<div class="col-lg-6">
+															<!--<div class="col-lg-6">
 																<div class="form-group">
 																	<?= lang("rate_type", "rate_type"); ?>
 																	<?php
-																	$rate_type[""] = "";
-																	$rate_type["1"] = "Normal";
-																	$rate_type["2"] = "Fixed";
-																	$rate_type["3"] = "Normal_Fixed";
-																	$rate_type["4"] = "Custom";
+																	
 																	echo form_dropdown('rate_type', $rate_type, (isset($_POST['rate_type']) ? $_POST['rate_type'] : ''), 'id="rate_type" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("rate_type") . '"  class="form-control input-tip select" style="width:100%;"');
 																	?>
 																</div>
-															</div>
+															</div>-->
+															
 															<div class="col-lg-6">
 																<div class="form-group">
 																	<?= lang("interest_rate", "interest_rate"); ?>
@@ -758,7 +880,7 @@
 																			$term[$tm->amount] = $tm->description;
 																		}
 																	}
-																	echo form_dropdown('term', $term, (isset($_POST['term']) ? $_POST['term'] : ''), 'id="term" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("term") . '" class="form-control input-tip select" style="width:100%;" ');
+																	echo form_dropdown('term', $term, (isset($_POST['term']) ? $_POST['term'] : ''), 'id="term" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("term") . '" class="form-control input-tip select" style="width:100%;"');
 																	?>
 																</div>
 															</div>
@@ -779,7 +901,7 @@
 													</div>
 												</div>
 												
-												<!--<div class="col-sm-12 hide_cash-show" style="display:none">
+												<div class="col-sm-12 hide_cash-show" style="display:none">
 													<div class="panel panel-primary">
 														<div class="panel-heading"><?= lang('loan_information') ?></div>
 														<div class="panel-body" style="padding: 5px;">
@@ -787,7 +909,8 @@
 																<div class="form-group">
 																	<?= lang("customer_type", "customer_type"); ?>
 																	<?php
-																	$customer_type[(isset($_POST['customer_type']) ? $_POST['customer_type'] : '')] = (isset($_POST['customer_type']) ? $_POST['customer_type'] : '');
+																	//$ [(isset($_POST['customer_type']) ? $_POST['customer_type'] : '')] = (isset($_POST['customer_type']) ? $_POST['customer_type'] : '');
+																	$customer_type = array();
 																	if(array($finacal_products)) {
 																		foreach ($finacal_products as $cust_type) {
 																			$customer_type[$cust_type->id] = $cust_type->name;
@@ -799,122 +922,8 @@
 															</div>
 															<div class="col-lg-6">
 																<div class="form-group">
-																	<?= lang("interest_rate", "interest_rate_cash"); ?>
-																	<?php
-																	/*$interest[""] = "";
-																	if(array($interest_rates)) {
-																		foreach ($interest_rates as $interest_rate) {
-																			$interest[$interest_rate->amount] = $interest_rate->description;
-																		}
-																	}
-																	echo form_dropdown('interest_rate_cash', $interest, (isset($_POST['interest_rate_cash']) ? $_POST['interest_rate_cash'] : ''), 'id="interest_rate_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("interest_rate") . '" class="form-control input-tip select" style="width:100%;"');
-																	*/
-																	?>
-																	<input type="hidden" name="interest_rate_cash" id="interest_rate_cash" class="interest_rate_cash"/>
-																	<?= form_input('interest_rate_cash_2', (isset($_POST['interest_rate_cash_2']) ? $_POST['interest_rate_cash_2'] : ''), ' class="form-control" id="interest_rate_cash_2" style="font-size:14px;" ') ?>
-																
-																</div>
-															</div>
-															<div class="col-lg-6">
-																<div class="form-group">
-																	<?= lang("term", "term_cash"); ?>
-																	<?php
-																	$term[""] = "";
-																	if(array($terms)) {
-																		foreach ($terms as $tm) {
-																			$term[$tm->amount] = $tm->description;
-																		}
-																	}
-																	echo form_dropdown('term_cash', $term, (isset($_POST['term_cash']) ? $_POST['term_cash'] : ''), 'id="term_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("term") . '" class="form-control input-tip select" style="width:100%;"');
-																	?>
-																</div>
-															</div>
-															<div class="col-lg-6">
-																<div class="form-group">
-																	<?= lang("payment_frequency", "frequency_cash"); ?>
-																	<?php
-																	$frequency_cash[""] = "";
-																	//$frequency_cash[1] = "Daily";
-																	$frequency_cash[7] = "Weekly";
-																	$frequency_cash[14] = "Two Week";
-																	$frequency_cash[30] = "Monthly";
-																	//$frequency_cash[90] = "Quarterly";
-																	//$frequency_cash[180] = "Haft Year";
-																	//$frequency_cash[360] = "Yearly";
-																	echo form_dropdown('frequency_cash', $frequency_cash, (isset($_POST['frequency_cash']) ? $_POST['frequency_cash'] : ''), 'id="frequency_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("frequency") . '"  class="form-control input-tip select" style="width:100%;"');
-																	?>
-																</div>
-															</div>
-															<div class="col-lg-6">
-																<div class="form-group">
-																	<?= lang("rate_type", "rate_type_cash"); ?>
-																	<?php
-																	$rate_type[""] = "";
-																	$rate_type["1"] = "Normal";
-																	$rate_type["2"] = "Fixed";
-																	$rate_type["3"] = "Normal_Fixed";
-																	$rate_type["4"] = "Custom";
-																	echo form_dropdown('rate_type_cash', $rate_type, (isset($_POST['rate_type_cash']) ? $_POST['rate_type_cash'] : ''), 'id="rate_type_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("rate_type") . '"  class="form-control input-tip select" style="width:100%;"');
-																	?>
-																</div>
-															</div>
-															<div class="col-lg-6">
-																<div class="form-group">
-																	<?= lang("total_interest_rate", "total_interest_rate"); ?>
-																	<?php echo form_input('total_interest_rate', (isset($_POST['total_interest_rate']) ? $_POST['total_interest_rate'] : 0), 'class="form-control input-tip" id="total_interest_rate" readonly'); ?>
-																</div>
-															</div>
-															<div class="col-lg-6 btn_print_payment_schedule_cash" style="vertical-align: middle; padding: 1% 0% 1% 1.3%;">
-																<input type="button" class="btn btn-primary" value="<?=lang('print_payment_schedule')?>" name="print_payment_schedule_cash" id="print_payment_schedule_cash" />
-															</div>
-														</div>
-													</div>
-												</div>-->
-												<div class="col-sm-12 hide_cash-show" style="display:none">
-													<div class="panel panel-primary">
-														<div class="panel-heading"><?= lang('loan_information') ?></div>
-														<div class="panel-body" style="padding: 5px;">
-															<div class="col-lg-6">
-																<div class="form-group">
-																	<?= lang("customer_type", "customer_type"); ?>
-																	<?php
-																	$customer_type[(isset($_POST['customer_type']) ? $_POST['customer_type'] : '')] = (isset($_POST['customer_type']) ? $_POST['customer_type'] : '');
-																	if(array($finacal_products)) {
-																		foreach ($finacal_products as $cust_type) {
-																			$customer_type[$cust_type->id] = $cust_type->name;
-																		}
-																	}
-																	echo form_dropdown('customer_type', $customer_type, (isset($inv->customer_group) ? $inv->customer_group : ''), 'id="customer_type" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("finacal_product") . '"  class="form-control input-tip select" style="width:100%;"');
-																	?>
-																</div>
-															</div>
-															<div class="col-lg-6">
-																<div class="form-group">
 																	<?= lang("start_installment_date", "st_inst_date"); ?>
-																	<?php echo form_input('st_inst_date', (isset($_POST['st_inst_date']) ? $_POST['st_inst_date'] : ''), 'class="form-control date" id="st_inst_date"'); ?>
-																</div>
-															</div>
-															<div class="col-lg-6">
-																<div class="form-group">
-																	<?= lang("interest_rate", "interest_rate_cash"); ?>
-																	<?php
-																	/*$interest[""] = "";
-																	if(array($interest_rates)) {
-																		foreach ($interest_rates as $interest_rate) {
-																			$interest[$interest_rate->amount] = $interest_rate->description;
-																		}
-																	}
-																	echo form_dropdown('interest_rate_cash', $interest, (isset($_POST['interest_rate_cash']) ? $_POST['interest_rate_cash'] : ''), 'id="interest_rate_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("interest_rate") . '" class="form-control input-tip select" style="width:100%;"');
-																	*/
-																	?>
-																	<input type="hidden" name="interest_rate_cash" id="interest_rate_cash" class="interest_rate_cash"/>
-																	<?php echo form_input('interest_rate_cash_2', (isset($inv->rate_text ) ? $inv->rate_text : ''), 'class="form-control" id="interest_rate_cash_2"  required="required"') ?>
-																</div>
-															</div>															
-															<div class="col-lg-6">
-																<div class="form-group">
-																	<?= lang("term", "term_cash"); ?>
-																	<?php echo form_input('term_cash',(isset($inv->term) ? $inv->term / $inv->frequency : ''), 'class="form-control number_only" id="term_cash" required="required"');?>
+																	<?php echo form_input('st_inst_date', (isset($_POST['st_inst_date']) ? $_POST['st_inst_date'] : ''), 'class="form-control date" id="st_inst_date" data-bv-notempty="true"'); ?>
 																</div>
 															</div>
 															<div class="col-lg-6">
@@ -926,11 +935,39 @@
 																	$frequency_cash[7] = "Weekly";
 																	$frequency_cash[14] = "Two Week";
 																	$frequency_cash[30] = "Monthly";
-																	//$frequency_cash[90] = "Quarterly";
-																	//$frequency_cash[180] = "Haft Year";
 																	$frequency_cash[360] = "Yearly";
-																	echo form_dropdown('frequency_cash', $frequency_cash, (isset($inv->frequency) ? $inv->frequency : ''), 'id="frequency_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("frequency") . '"  class="form-control input-tip select" style="width:100%;"');
+																	echo form_dropdown('frequency_cash', $frequency_cash, (isset($_POST['frequency_cash']) ? $_POST['frequency_cash'] : ''), 'id="frequency_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("frequency") . '"  class="form-control input-tip select" style="width:100%;" data-bv-notempty="true"');
 																	?>
+																</div>
+															</div>
+															
+															<!--<div class="col-lg-6" style="display:none;">
+																<div class="form-group">
+																	<?= lang("term", "term_cash"); ?>
+																	<?php
+																	$term[""] = "";
+																	if(array($terms)) {
+																		foreach ($terms as $tm) {
+																			$term[$tm->amount] = $tm->description;
+																		}
+																	}
+																	echo form_dropdown('term_cash', $term, (isset($_POST['term_cash']) ? $_POST['term_cash'] : ''), 'id="term_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("term") . '" class="form-control input-tip select" style="width:100%;" data-bv-notempty="true"');
+																	?>
+																</div>
+															</div>-->
+															
+															<div class="col-lg-6">
+																<div class="form-group">
+																	<?= lang("term", "term_cash"); ?>
+																	<?php echo form_input('term_cash', (isset($_POST['term_cash']) ? $_POST['term_cash'] :''), 'class="form-control input-tip" id="term_cash" data-bv-notempty="true"'); ?>
+																</div>
+															</div>
+															<div class="col-lg-6">
+																<div class="form-group">
+																	<?= lang("interest_rate", "interest_rate_cash_2"); ?>
+																	<input type="hidden" name="interest_rate_cash" id="interest_rate_cash" class="interest_rate_cash"/>
+																	<?= form_input('interest_rate_cash_2', (isset($inv->rate_text ) ? $inv->rate_text : ''), ' class="form-control" id="interest_rate_cash_2" style="font-size:14px;" data-bv-notempty="true"') ?>
+																
 																</div>
 															</div>
 															<div class="col-lg-6">
@@ -941,18 +978,17 @@
 																	$rate_type["1"] = "Normal";
 																	$rate_type["2"] = "Fixed";
 																	$rate_type["3"] = "Normal_Fixed";
-																	$rate_type["4"] = "All_Fixed";
+																	//$rate_type["4"] = "All_Fixed";
 																	$rate_type["5"] = "Seasons";
-																	$rate_type["6"] = "Loan Amounts";
-																	echo form_dropdown('rate_type_cash', $rate_type, (isset($inv->rate_type) ? $inv->rate_type : ''), 'id="rate_type_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("rate_type") . '"  class="form-control input-tip select" style="width:100%;"');
+																	$rate_type["6"] = "Loan Amounts";																	
+																	echo form_dropdown('rate_type_cash', $rate_type, (isset($_POST['rate_type_cash']) ? $_POST['rate_type_cash'] : 1), 'id="rate_type_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("rate_type") . '"  class="form-control input-tip select" style="width:100%;" data-bv-notempty="true"');
 																	?>
 																</div>
 															</div>
-															
 															<div class="col-lg-6" id="payment_time">
 																<div class="form-group">
 																	<?= lang("principle_frequency", "principle_frequency"); ?>
-																	<?php echo form_input('principle_frequency',(isset($inv->principle_frequency) ? $inv->principle_frequency : 1), 'class="form-control number_only" id="principle_frequency"');?>
+																	<?php echo form_input('principle_frequency', (isset($_POST['principle_frequency']) ? $_POST['principle_frequency'] : 1), 'class="form-control number_only" id="principle_frequency" data-bv-notempty="true"');?>
 																</div>	
 															</div>
 															<div class="col-lg-6" style="display:none;">
@@ -971,8 +1007,7 @@
 										</div>
 									</div>
 								</div>
-								
-								
+
 								<div id="credit_assessment" style="display:none;" class="tab-pane fade in">
 									<div class="row">
 										<div class="col-sm-12">
@@ -986,8 +1021,7 @@
 										</div>
 									</div>
 								</div>
-								
-								
+
 								<div id="join_lease" style="display:none;" class="tab-pane fade in">
 									<div class="row">
 										<div class="col-sm-12">
@@ -1023,7 +1057,7 @@
 															<div class="form-group">
 																<?= lang("date_of_birth", "jl_dob"); ?>
 																<?php echo form_input('jl_dob', (isset($_POST['jl_dob']) ? $_POST['jl_dob'] : ''), 'class="form-control date" id="jl_dob" data-bv-notempty="true"'); ?>
-															</div>															
+															</div>													
 															<div class="form-group">
 																<?= lang("children_member", "jl_children_member"); ?>
 																<?php echo form_input('jl_dependent_children', (isset($_POST['jl_dependent_children']) ? $_POST['jl_dependent_children'] : ''), 'class="form-control" id="jl_dependent_children"'); ?>
@@ -1051,7 +1085,7 @@
 																<?= lang("gender", "jl_gender"); ?>
 																<?php
 																$jl_gender[(isset($_POST['jl_gender']) ? $_POST['jl_gender'] : '')] = (isset($_POST['jl_gender']) ? $_POST['jl_gender'] : '');
-																$jl_gender['male'] = "male";
+																$jl_gender['male'] = "Male";
 																$jl_gender['female'] = "Female";
 																echo form_dropdown('jl_gender', $jl_gender, isset($_POST['jl_gender'])?$_POST['jl_gender']:'', 'class="form-control select" id="jl_gender" placeholder="' . lang("select") . ' ' . lang("gender") . '" style="width:100%" data-bv-notempty="true"')
 																?>
@@ -1081,7 +1115,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<div id="employee" style="display: none;" class="tab-pane fade">
 									<div class="row">
 										<div class="col-sm-12">
@@ -1257,7 +1291,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<div id="guarantors" style="display: none;" class="tab-pane fade">
 									<div class="row">
 										<div class="col-sm-12">
@@ -1318,7 +1352,7 @@
 																	<div class="col-md-6">
 																		<div class="form-group">
 																			<label id="gr_identify" for="gov_id"></label>
-																			<input type="hidden" name="gr_identify" id="gr_identify" class="gr_identify"  />
+																			<input type="hidden" name="gr_identify" id="gr_identify" class="gr_identify"/>
 																			<?php echo form_input('gov_id', (isset($_POST['gov_id']) ? $_POST['gov_id'] : ''), 'class="form-control" id="gov_id" data-bv-notempty="true"'); ?>
 																		</div>
 																		
@@ -1394,7 +1428,7 @@
 																		</div>
 																		<div class="form-group">
 																			<?= lang("name", "name2"); ?>
-																			<?php echo form_input('gt_name2', (isset($_POST['gt_name2']) ? $_POST['gt_name2'] : ''), 'class="form-control" id="gt_name2" data-bv-notempty="true"'); ?>
+																			<?php echo form_input('gt_name2', (isset($_POST['gt_name2']) ? $_POST['gt_name2'] : ''), 'class="form-control" id="gt_name2" data-bv-notempty="false"'); ?>
 																		</div>
 																		<div class="form-group">
 																			<?= lang("date_of_birth", "dob"); ?>
@@ -1414,7 +1448,7 @@
 																		<div class="form-group">
 																			<label id="gr_identify_2" for="gov_id2"></label>
 																			<input type="hidden" name="gr_identify_2" id="gr_identify_2" class="gr_identify_2"  />
-																			<?php echo form_input('gov_id2', (isset($_POST['gov_id2']) ? $_POST['gov_id2'] : ''), 'class="form-control" id="gov_id2" data-bv-notempty="true"'); ?>
+																			<?php echo form_input('gov_id2', (isset($_POST['gov_id2']) ? $_POST['gov_id2'] : ''), 'class="form-control" id="gov_id2" data-bv-notempty="false"'); ?>
 																		</div>
 																		
 																		<!--<div class="form-group">
@@ -1441,11 +1475,11 @@
 																		<div class="form-group">
 																			<?= lang("age", "age2"); ?>
 																			<?php echo form_input('age2', (isset($_POST['age2']) ? $_POST['age2'] : ''), 'class="form-control" id="age2" style="pointer-events:none;"');?>
-																		</div>	
+																		</div>
 																		<div class="form-group">
 																			<?= lang("status", "g_status_2"); ?>																
 																			<?php echo form_input('g_status_2', (isset($_POST['g_status_2']) ? $_POST['g_status_2'] : ''), 'class="form-control" id="g_status_2" '); ?>
-																		</div>
+																		</div>		
 																		<div class="form-group">
 																			<?= lang("address", "gl_2_address"); ?>
 																			<?php echo form_textarea('gl_2_address', (isset($_POST['gl_2_address']) ? $_POST['gl_2_address'] : ""), 'class="form-control" id="gl_2_address" style="margin-top: 10px; height: 100px;"'); ?>
@@ -1459,6 +1493,7 @@
 										</div>
 									</div>
 								</div>
+
 									<div id="collateral" style="display: none;" class="tab-pane fade">
 										<div class="row">
 											<div class="col-sm-12">
@@ -1496,7 +1531,6 @@
 																		$cl_type[$c_type->id] = $c_type->type;
 																	}
 																}
-
 																echo form_dropdown('cl_type', $cl_type, isset($customer->housing)?$customer->housing:'', 'class="form-control select" id="cl_type1" placeholder="' . lang("select") . ' ' . lang("type") . '" style="width:100%" ');
 																?>
 															</div>														
@@ -1594,11 +1628,10 @@
 																<?= lang("issue_date", "land_issue_date"); ?>
 																<?php echo form_input('land_issue_date', (isset($_POST['land_issue_date']) ? $_POST['land_issue_date'] : ''), 'class="form-control date" id="land_issue_date"');?>
 															</div>
-															
-															
+
 														</div>
 													</div>
-													
+
 													<!--vehicles-->
 													<div class="row" id="vehicles">														
 														<div class="col-md-6">
@@ -1640,17 +1673,17 @@
 																<?= lang("plaque_number", "vcl_plaque_no"); ?>
 																<?php echo form_input('vcl_plaque_no', (isset($_POST['vcl_plaque_no']) ? $_POST['vcl_plaque_no'] : ''), 'class="form-control" id="vcl_plaque_no"');?>
 															</div>
-															
+
 														</div>
-														
+
 													</div>
-													
+
 												</div>
 											</div>
 										</div>
 									</div>
-									
-									
+
+
 									<div id="documents" style="display: none;" class="tab-pane fade">
 								        <div class="modal-body">
 								            <p><?=lang("information_below") ?></p>
@@ -1701,7 +1734,7 @@
 								                	name="guarantors_photo" id="document">
 								            </div>
 											<div class="form-group">
-								                <label for="document"><?=lang("birth_registeration_letter")?></label>
+								                <label for="document"><?= lang("birth_registeration_letter") ?></label>
 								                <input type="file" class="form-control file" data-show-preview="false" data-show-upload="false" 
 								                	name="birth_registration_letter" id="document">
 								            </div>
@@ -1742,14 +1775,14 @@
 								                	name="profit_for_the_last_3_month" id="document">
 								            </div>
 											<div class="form-group">
-								                <label for="document"><?=lang("other_ducument")?> </label>
+								                <label for="document"><?=lang("other_ducument")?></label>
 								                <input type="file" class="form-control file" data-show-preview="false" data-show-upload="false" 
 								                	name="other_document" id="document">
 								            </div>
 								        </div>
 									</div>
-									
-									<div id="fields_check" style="display: none;" class="tab-pane fade">
+
+									<div id="fields_check" style="display:none;" class="tab-pane fade">
 								        <div class="modal-body">
 								            
 											<!-- Fields Check -->
@@ -1778,6 +1811,7 @@
 													<div class="col-md-7 col-sm-6">		
 														<input type="checkbox" name="fc_check_landlord" id="check_landlord"> <?= lang("chief_of_village_certify_letter") ?>
 													</div>
+													
 													<div class="col-md-5">	
 														<div class="col-md-4" style="padding-left: 0px; padding-right: 0px;">	
 														<input type="checkbox" name="fc_other" id="other"> <?= lang("other") ?>
@@ -1797,17 +1831,15 @@
 												</div>
 											</div>
 											<div class="row">
-											<br/>
-											<!--
-											<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d690.9392807942934!2d104.91320950409512!3d11.584597304753792!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xed6f304ce6b0ced0!2sCloudNET+Cambodia!5e0!3m2!1sen!2skh!4v1471332406301" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
-											-->
-											<?= lang("latitude") ?>: <span id="lat"></span><br/><input type="hidden" name="latitude_" id="latitude_" value="" />
-											<?= lang("longitude") ?>: <span id="long"></span><input type="hidden" name="longtitute_" id="longtitute_" value="" />
-											<div id="map" style="width:100%; height:300px;"></div>
-											<br/>
-											
+												<?= lang("latitude") ?>: <span id="lat"></span><br/><input type="hidden" name="latitude_" id="latitude_" value="" />
+												<?= lang("longitude") ?>: <span id="long"></span><input type="hidden" name="longtitute_" id="longtitute_" value="" />
+												<br/>
+												<div id="map" style="width:100%; height:300px;"></div>
+												<br/>
 											</div>
-											<!--<div class="row">
+
+											<!--------fields_check----------------------------
+											<div class="row" style="display:none;">
 												<div class="col-md-12 col-lg-12">
 													<p>បរិយាយកាសការងារ</p>
 														<div class="col-md-2">
@@ -1877,8 +1909,8 @@
 															<div class="col-md-9"><?= form_input('hours',(isset($_POST['hours']) ? $_POST['hours'] : ''), 'class="form-control tip" id="hours"') ?></div>
 														</div>
 													</div>
-											</div>-->
-										</div>
+												</div>
+											</div>---------->
 											
 											<div class="row">
 											<div class="col-md-12">
@@ -1921,6 +1953,7 @@
 												</div>
 											</div>
 										</div>
+									</div>
 									<div class="tab-pane">
 										<input type="submit" class="btn btn-primary" value="<?=lang('submit')?>" name="submitQoute" />
 									</div>
@@ -1939,11 +1972,20 @@
 	$(window).load(function() {
 		$(".category").trigger('change');
 		$("#category").trigger('change');
-		$(".sub_category").trigger('change');
-		$("#payment_time").trigger('change');
-		$("#cus_province").trigger('change');
-		$("#cus_district").trigger('change');
+		$(".sub_category").trigger('change');  
+		$('#cus_marital_status').trigger('change');
+		$('#identify_type').trigger('change');
+		
+		$('#cus_country').trigger('change');
+		$('#cus_province').trigger('change');
+		$('#cus_district').trigger('change');
+		$('#cus_communce').trigger('change');
+		$('#country').trigger('change');
+		$('#province').trigger('change');
+		$('#district').trigger('change');
+		$('#communce').trigger('change');
 	});
+	
 	/*========================State_tax=========================*/
 	var rate = new Array();
 	$('.state_tax').on( "change", function() {
@@ -1956,7 +1998,8 @@
 		$('#tax_id_'+ _id).val(tax_id);
 		$('#tax_'+ _id).trigger('change');
 		$('#tax_id_'+ _id).trigger('change');
-	});	
+	});
+	
 	$(document).ready(function() {
 		var count_link=0;
 		$('#print_payment_schedule').click(function() {
@@ -2003,7 +2046,8 @@
 				var other_name=$('#cus_family_name_other').val();
 				if(other_fname && other_name !=''){
 					name +='( '+other_name+' '+other_fname+' )';
-				}				
+				}
+				
 				
 				localStorage.setItem('name', name);
 				
@@ -2011,20 +2055,20 @@
 				var frequency = $('#frequency').val();
 				
 				var link= $('<a href="Installment_payment/payment_schedule_preview/'+leaseamount+'/'+rate_type+'/'+interest_rate+'/'+term+'/'+frequency+'" rel="lightbox" id="print_payment'+count_link+'" data-toggle="modal" data-target="#myModal"></a>');
-					$("body").append(link);
-					$('#print_payment'+count_link).click();
+			
+						$("body").append(link);
+						  $('#print_payment'+count_link).click();
 			count_link++;
 			
 		});
 		var count_link1=0;
 		$('#print_payment_schedule_cash').live( "click", function() {
-			
-			
 			//get_customer_name
 			var name=$('#cus_family_name').val()+' '+$('#cus_first_name').val();	
 			localStorage.setItem('name', name);
 			var latin=$('#cus_family_name_other').val()+' '+$('#cus_first_name_other').val();
 			localStorage.setItem('latin', latin);
+			//get phone...
 			var phone=$('#cus_phone_1').val();
 			var phone1=$('#cus_phone_2').val();
 			if(phone1!=''){
@@ -2038,7 +2082,7 @@
 			var cus_house_no =$('#cus_house_no').val();
 			localStorage.setItem('cus_house_no',cus_house_no);
 			//get by co
-			var co_name = $("#by_co option:selected").text();
+			var co_name = $("#cus_by_co option:selected").text();
 			localStorage.setItem('co_name', co_name);
 			//get purpose
 			var purpose = $('#purpose').val() ? $('#purpose').val() : 'N/A';
@@ -2069,13 +2113,15 @@
 			//localStorage.setItem('services', services);
 			
 			var lease_amount = $('#total_amount').val();
-			var interest_rate = $('#interest_rate_cash').val();
+			var interest_rate = $('#interest_rate_cash').val();			
 			var rate_type = $('#rate_type_cash').val();
 			var frequency_cash = $('#frequency_cash').val()? parseFloat($('#frequency_cash').val()) : 0;
 			var term = $('#term_cash').val()? parseFloat($('#term_cash').val()) : 0;
 			var term_cash = frequency_cash * term;
-			var currency = $('#currency').val();
+			
 			var principle_fq = $('#principle_frequency').val();
+			var currency = (($('#currency').val())? $('#currency').val():0);
+			
 			var cdate = ($('#st_inst_date').val()).split('/');
 			var new_date = '';
 			for(var i = 0; i < cdate.length; i++) {
@@ -2095,7 +2141,9 @@
 				var service_paid = $(this).attr('service_paid');
 				var charge_by = $(this).attr('charge_by');
 				var tax = $(this).attr('tax_rate');
-				//var title = $(this).attr('title');
+				
+				
+				
 				if(services == '') {
 					services = s_id +"__" + amount + "__" + type +"__" + service_paid +"__" + charge_by +"__"+tax;
 				}else {
@@ -2117,19 +2165,19 @@
 			var saving_interest_amount = (saving_interest_amt/100);
 			
 			var saving_type = $('#saving_type').val()? ($('#saving_type').val()) : 0;
-			 
-			//var link1= $('<a href="Quotes/cash_payment_schedule_preview/'+lease_amount+'/'+rate_type+'/'+interest_rate+'/'+term_cash+'/'+frequency_cash+'/'+currency+'" rel="lightbox" id="print_payment'+count_link1+'" data-toggle="modal" data-target="#myModal"></a>');
+			//
 			if(services == '') {
 				var link1= $('<a href="Quotes/cash_payment_schedule_preview/'+lease_amount+'/'+rate_type+'/'+interest_rate+'/'+term_cash+'/'+frequency_cash+'/'+currency+'/'+new_date+'/'+principle_fq+'/'+null+'/'+saving_amount+'/'+saving_interest_amount+'/'+saving_type+'" rel="lightbox" id="print_payment'+count_link1+'" data-toggle="modal" data-target="#myModal"></a>');
 			}else {
 				var link1= $('<a href="Quotes/cash_payment_schedule_preview/'+lease_amount+'/'+rate_type+'/'+interest_rate+'/'+term_cash+'/'+frequency_cash+'/'+currency+'/'+new_date+'/'+principle_fq+'/'+services+'/'+saving_amount+'/'+saving_interest_amount+'/'+saving_type+'" rel="lightbox" id="print_payment'+count_link1+'" data-toggle="modal" data-target="#myModal"></a>');
-			}
-			
-					$("body").append(link1);
-					$('#print_payment'+count_link1).click();
+			}	
+				$("body").append(link1);
+				$('#print_payment'+count_link1).click();
+				
 			count_link1++;
 		});
-		var count_gov=0;
+		/*======== show view details Applicant by identify_id ====================*/
+		var count_gov = 0;
 		$('#cus_gov_id').on('change', function() {
 			var cus_gov_id = $(this).val();
 			$.ajax({
@@ -2140,18 +2188,18 @@
 					gov_id : cus_gov_id
 				},
 				success: function (data) {
-					
 					if(data.id) {
-						var link = $('<a href="quotes/gov_id_report/'+data.id +'" rel="lightbox" id="link'+count_gov+'" data-toggle="modal" data-target="#myModal"></a>');
+						var link = $('<a href="quotes/gov_id_report/'+data.id +'" rel="lightbox" id="link'+count_gov+'" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"></a>');
+						//var link = $('<a href="quotes/add/'+data.id +'" rel="lightbox" id="link'+count_gov+'" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"></a>');
 						  $("body").append(link);
 						  $("#link"+count_gov).click();
 						count_gov++;
-
 					}
 				}
 			});
 		});
-		/*=======Alert Msg group_loan when same group_name====*/
+		
+		/*======= Alert Msg group_loan when same group_name====*/
 		$('#group_loans').on('change', function() {
 			var group_loans = $(this).val();
 			$.ajax({
@@ -2163,18 +2211,18 @@
 				},
 				success: function (data) {
 					if(data.id) {
-						alert('This group loan have already...');
+						alert('This group loan has already.');
 					}
 				}
 			});
-		});
+		});		
+		
 		$('#total_amount').on('change', function() {
 			$('.ch_services').trigger('ifChanged');
 			if($('#advance_percentage').val()) {
 				$('#advance_percentage').trigger('change');
 			}
 		});
-
 		
 		$('.category').on('change', function(){
 			var category = $(this).val();
@@ -2207,8 +2255,7 @@
                     }
 			});
 		});
-		//////////////
-		
+		///////////
 		/*$('#category').on('change', function(){
 			var category = $(this).val();
 			var category_val = category.split('#');
@@ -2220,8 +2267,26 @@
 			}			
 		});*/
 		
-		////////////////
-	
+		$('#product_id').on('change', function(){
+			var product_id = $(this).val();	
+			
+			$.ajax({	
+				url: site.base_url + 'quotes/ajaxGetProductBySubCategoryID2/'+product_id,
+				dataType: 'json',
+				success: function(scdata){
+					if (scdata) {
+						$('#group').show();
+					}else{
+						$('#group').hide();	
+					}
+				},
+				//error: function () {
+				//	bootbox.alert('<?= lang('ajax_error') ?>');
+				//	$('#modal-loading').hide();
+				//}
+			});
+		});
+				
 		
 		$('.sub_category').on('change', function(){
 			var sub_category_id = $(this).val();
@@ -2258,7 +2323,7 @@
 			$('.ch_services').trigger('ifChanged');
 		});
 		
-		/*$('.ch_services').on('ifChanged', function(){
+		$('.ch_services').on('ifChanged', function(){
 			var total = 0;
 			var price = $('#total_amount').val()-0;
 			$('.ch_services').each(function() {
@@ -2269,8 +2334,11 @@
 						if(price > 0) {
 							amount = $(this).attr('amount') * price;
 						}else {
-							alert('Please enter price!');
-							return false;
+							price = price.toLowerCase();
+							if(price.search('k') < 0 || price.search('m') < 0) {
+								alert('Please enter price!');
+								return false;
+							}
 						}
 					}else {
 						amount = $(this).attr('amount')-0;
@@ -2278,33 +2346,9 @@
 					$('#h_service_'+chk_id).val(amount);
 					total += amount;
 				}
-			});*/
-			$('.ch_services').on('ifChanged', function(){
-				var total = 0;
-				var price = $('#total_amount').val()-0;
-				$('.ch_services').each(function() {
-					var chk_id = $(this).attr('id');
-					var amount = 0;
-					if($(this).is(':checked')) {
-						if($(this).attr('status') === 'Percentage') {
-							if(price > 0) {
-								amount = $(this).attr('amount') * price;
-							}else {
-								price = price.toLowerCase();
-								if(price.search('k') < 0 || price.search('m') < 0) {
-									alert('Please enter price!');
-									return false;
-								}
-							}
-						}else {
-							amount = $(this).attr('amount')-0;
-						}
-						$('#h_service_'+chk_id).val(amount);
-						total += amount;
-					}
-				});
-				$('#total_inst').val(formatMoney(total));
 			});
+			$('#total_inst').val(formatMoney(total));
+		});
 		$('#advance_percentage').on('change', function() {
 			var total_amount = parseFloat($('#total_amount').val());
 			if(total_amount > 0) {
@@ -2336,15 +2380,21 @@
 				$('.btn_print_payment_schedule').hide();
 			}		
 		});
-		$('#interest_rate_cash, #term_cash, #total_amount, #rate_type_cash, #frequency_cash').on('change', function() {
+		
+		$('#interest_rate_cash, #term_cash, #total_amount, #rate_type_cash, #frequency_cash, #principle_frequency').on('change', function(){
+			
 			var interest = parseFloat($('#interest_rate_cash').val());
-			var term = Number($('#term_cash').val());
+			var frequency_cash = $('#frequency_cash').val()? parseFloat($('#frequency_cash').val()) : 0;
+			var term_cash = $('#term_cash').val()? parseFloat($('#term_cash').val()) : 0;
+			var term = frequency_cash * term_cash;
+			//var term = Number($('#term_cash').val());
 			var lease_amount = parseFloat($('#total_amount').val());
 			var rate_type = $('#rate_type_cash').val();
-			var frequency_cash = (($('#frequency_cash').val() > 0)? $('#frequency_cash').val() : '');
+			var principle_fq = $('#principle_frequency').val();
 			
+			//alert(rate_type);
 			if(lease_amount > 0 && interest > 0 && term > 0 && rate_type != '' && frequency_cash > 0) {
-				var all_total = getAllTotal(lease_amount, rate_type, interest, term, frequency_cash);
+				var all_total = getAllTotal(lease_amount, rate_type, interest, term, frequency_cash, principle_fq);
 				$('#total_interest_rate').val(formatMoney(all_total['total_interest']));
 				$('.btn_print_payment_schedule_cash').show();
 			} else {
@@ -2352,6 +2402,7 @@
 				$('.btn_print_payment_schedule_cash').hide();
 			}		
 		});
+		
 		$('#field_check').live('click', function() {
 			initMap();
 		}); 
@@ -2411,9 +2462,6 @@
 				$('#age2').val('');
 			}
 		});
-		
-		
-		
 		
 		/* --------------- Filter Provinces By Country -------------- */
 		$('#cus_country').change(function () {
@@ -2521,12 +2569,9 @@
 	});
 </script>
 
-
-
 <!-- get lat long  ---->
  <script>
 	function initMap() {
-		
 		var map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: -34.397, lng: 150.644},
 			zoom: 19
@@ -2612,7 +2657,6 @@
 				$('#sp_gender').hide();				
 			}
 		});
-		
 		//Seasons
 		$('#payment_time').hide();
 		$('#rate_type_cash').on('change', function() {		
@@ -2622,7 +2666,6 @@
 				$('#payment_time').hide();
 			}
 		});
-		
 		
 		$('#identify_type').live('change', function() {
 			var id_type = $("#identify_type option:selected").text();
@@ -2645,22 +2688,6 @@
 			$('#gr_identify_2').val(id_type);
 			$('#gr_identify_2').text(id_type);
 		});
-		function readURL(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-				
-				reader.onload = function (e) {
-					$('#inputimg').attr('src', e.target.result);
-				}
-				
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
-		
-		$("#document").change(function(){
-			readURL(this);
-		});
-		
 		/*----interest_rate----*/
 		$('#interest_rate_cash_2').live('change', function(e) {
 			var interest_rate_cash = $(this).val().toLowerCase();
@@ -2679,6 +2706,7 @@
 			$('#interest_rate_cash').val(interest_rate);
 			$('#interest_rate_cash').trigger('change');
 		});
+		
 		/*----Amount----*/
 		$('#total_amount').live('change', function(e) {
 			var price = $(this).val().toLowerCase();
@@ -2692,7 +2720,6 @@
 				new_amount = parseFloat(amount[0] * 1000000);
 			}else {
 				amt = price - 0;
-				//alert(amt);
 				if(!Number(amt)) {
 					new_amount = 0;
 				}else {
@@ -2704,8 +2731,7 @@
 			$('#interest_rate_cash').trigger('change');
 		});
 		
-		
-		$('#total_amount').live('keyup , change', function() {
+		$('#saving_rate, #total_amount').live('keyup , change', function() {
 			var saving_rate = $('#saving_rate').val();
 			var total_amount = parseFloat($('#total_amount').val()); 
 			var saving_rates = saving_rate.replace('%', '');
@@ -2717,6 +2743,40 @@
 				$('#saving_amount').val(0);
 			}
 		});
+		
+		
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					$('#inputimg').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+		
+		$("#document").change(function(){
+			readURL(this);
+		});
+		
+		///////////////////		
+		/*$(document).ready(function(){
+		
+			$('#total_amount').keyup(function(event) {
+
+				  // skip for arrow keys
+				  if(event.which >= 37 && event.which <= 40) return;
+
+				  // format number
+				  $(this).val(function(index, value) {
+					return value
+					.replace(/\D/g, "")
+					.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+					;
+				  });
+				});
+			
+		});*/
 		
 </script>
 

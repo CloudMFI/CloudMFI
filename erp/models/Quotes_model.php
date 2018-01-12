@@ -45,7 +45,14 @@ class Quotes_model extends CI_Model
             return $q->row();
         }
         return FALSE;
-    }	
+    }
+	public function getProduct(){
+		$q = $this->db->get('products');
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+	}
 	public function getProducts(){
 		$q = $this->db->get('products');
         if ($q->num_rows() > 0) {
