@@ -8736,7 +8736,7 @@ class Installment_Payment extends MY_Controller
 			$sale = $this->installment_payment_model->getMfiBySaleId($sale_id);
 			$customer_id = $sale->customer_id;
 			//$created_by = $sale->created_by;
-			$created_by = $sale->co;
+			$created_by = $sale->by_co;
 			$customer = $this->installment_payment_model->getMfiCustomer($customer_id);
 			$sale_item = $this->installment_payment_model->getSaleItemBySaleID($sale->id);
 			$loans = $this->installment_payment_model->getLoanBySaleId($sale_id);

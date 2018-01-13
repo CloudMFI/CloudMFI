@@ -78,7 +78,7 @@
 					<b>
 					 <?php
 						//echo $this->session->branchName; 
-<<<<<<< HEAD
+ 
 						 echo $setting->site_name ;
 					 ?>
 					</b>
