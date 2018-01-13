@@ -84,7 +84,7 @@
 					</table>
 					<table style="width:90%;font-size:11px;margin-top:5px;line-height:15px !important;font-weight: normal;"> 
 						<tr>
-							<td width="5%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
+							<td width="5%" style="vertical-align: top;">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
 							<td width="10%" style="vertical-align: top;">: <span style="display:none;"><?= $sale->frequency; ?></span>
 								<?php
 								$frequency[""] = "";
@@ -96,17 +96,17 @@
 								$frequency[180] = "Haft Year";
 								$frequency[360] = "Yearly";
 								echo  $frequency[$sale->frequency];?></td>
-							<td width="1%">ေခ်းေငြသက္တမ္း<br>(Loan Term)</td>
+							<td width="1%" style="vertical-align: top;">ေခ်းေငြသက္တမ္း<br>(Loan Term)</td>
 							<td width="10%"  style="vertical-align: top;">: <b><?= number_format($sale->term,0); ?>  <?= lang("days") ?> </b></td>
-							<td width="5%">ထုတ္ေခ်းသည့္ရက္စြဲ <br>(Disbursement Date)</td>
+							<td width="5%" style="vertical-align: top;">ထုတ္ေခ်းသည့္ရက္စြဲ <br>(Disbursement Date)</td>
 							<td width="5%"  style="vertical-align: top;">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
 						</tr>
 						<tr>
-							<td width="5%">အတိုးႏွဳန္း<br>(Interest Rate)</td>
+							<td width="5%" style="vertical-align: top;">အတိုးႏွဳန္း<br>(Interest Rate)</td>
 							<td width="10%"  style="vertical-align: top;">: <b><?= ($sale->rate_text ? $sale->rate_text : "")?></b></td>
-							<td width="1%">ေခ်းေငြတာ၀န္ခံအမွတ္<br>(Credit Officer ID)</td>
+							<td width="10%" style="vertical-align: top;">ေခ်းေငြတာ၀န္ခံအမွတ္<br>(Credit Officer ID)</td>
 							<td width="10%"  style="vertical-align: top;">: <b><?= $creator->first_name . ' ' . $creator->last_name ; ?></b></td>
-							<td width="5%">စတင္ေပးေခ်းရမည့္ရက္စြဲ<br>(First Repayment Date)</b></td>
+							<td width="5%" style="vertical-align: top;">စတင္ေပးေခ်းရမည့္ရက္စြဲ<br>(First Repayment Date)</b></td>
 							<?php 
 								
 								if(array($loan)) {
@@ -119,7 +119,7 @@
 							<?php }}} ?>
 						</tr>
 						<tr>
-							<td width="5%">ေငြေခ်းသူလိပ္စာ<br>(Leader/ Borrower Address)</td>
+							<td width="5%" style="vertical-align: top;">ေငြေခ်းသူလိပ္စာ<br>(Leader/ Borrower Address)</td>
 							<td colspan="5"  style="vertical-align: top;">:<b><?='#'.$customer->house_no; ?></b></td>
 							
 						</tr>

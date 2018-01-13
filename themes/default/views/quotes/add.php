@@ -313,11 +313,13 @@
 																		</div>
 																		<!-- Housing end -->
 																		<div class="form-group">
-																			<b style="padding-bottom:5px; display:block;"><?= lang("time_at_this_address"); ?></b>
-																			<?php echo form_input('cus_years', (isset($_POST['cus_years']) ? $_POST['cus_years'] : $applicant->years), 'class="form-control" id="cus_years" placeholder="' . lang("years") . '" style="display:inline !important; width:35% !important;"'); ?>
+																			<!-- <b style="padding-bottom:5px; display:block;"><?= lang("time_at_this_address"); ?></b> -->
+																			<b style="padding-bottom: 5px;display: block;"><?=lang("ward");?></b>
+																			<?php echo form_input('cus_house_no', (isset($_POST['cus_house_no']) ? $_POST['cus_house_no'] : $applicant->ward), 'class="form-control" '); ?>
+																			<?php /* echo form_input('cus_years', (isset($_POST['cus_years']) ? $_POST['cus_years'] : $applicant->years), 'class="form-control" id="cus_years" placeholder="' . lang("years") . '" style="display:inline !important; width:35% !important;"'); ?>
 																			<?= lang("years", "cus_years"); ?>
 																			<?php echo form_input('cus_months', (isset($_POST['cus_months']) ? $_POST['cus_months'] : $applicant->months), 'class="form-control" id="cus_months" placeholder="' . lang("months") . '" style="display:inline !important; width:35% !important;"'); ?>
-																			<?= lang("months", "cus_months"); ?>
+																			<?= lang("months", "cus_months");*/ ?>
 																		</div>
 																	</div>
 																</div>
