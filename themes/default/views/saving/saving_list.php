@@ -100,7 +100,7 @@
 							<tr style="background-color:#a7cce7;">
 								<th style="width:5%">No</th>
 								<th style="width:20%"><span>ရက္စဲြ</span><br>(Date)</th> 
-								<th style="width:30%"><span>စုေငြ၏အတိုးႏႈန္း</span><br>Interest rate <?= $sales->saving_interest_rate * 100 ?> %</th> 
+								<th style="width:30%"><span>စုေငြ၏အတိုးႏႈန္း</span><br>Saving Interest </th> 
 								<th style="width:30%"><span>လက္က်န္</span><br>Balance</th>
 								<th style="width:15%"><span>တာဝန္ခံ</span><br>Officer Certify</th>
 							</tr>

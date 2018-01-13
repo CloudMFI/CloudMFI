@@ -85,7 +85,6 @@
 			
 			</div>
 			<div>
-			
 				<p style="text-align:center;" class="small-letter"> <b>လိုင္စင္ရဘ႑ာေရးစက္မႈလုပ္ငန္း</b></p>
 				<p style="text-align:center;" class="small-letter"> <b>အုပ္စု ေခ်းေငြစာခ်ုပ္</b></p>
 			</div>

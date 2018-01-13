@@ -1339,7 +1339,7 @@ class Saving extends MY_Controller
 								'created_by'			=> $this->session->userdata('user_id'),
 								
 			
-			);
+							);
 			// $this->erp->print_arrays($payment);
 			
 			$saving_balance = $sale->saving_balance - $withdrawals;
