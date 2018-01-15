@@ -31,7 +31,9 @@
 			padding: 3px !important;
 			text-align: center !important;
 		}
-		
+		td{
+			height:35px;
+		}	
 		
 		#logo img{
 			width:150px;
@@ -126,13 +128,12 @@
 				</div>
 
 				<br>			
-				<div style="overflow:hidden;width:100%;min-height:100px;clear:both;padding-top:10px;font-size:9px; ">
+				<div style="overflow:hidden;width:100%;clear:both;padding:10px 0px 20px 0px;font-size:9px; ">
 					<div >
 						
 						<span style="font-size:13px;">
 							 ထုတ္ေခ်းေငြ၏ ၅,၀၀၀ က်ပ္ကိုစီမံခန္႔ခြဲရန္ ၀န္ေဆာင္ခ အေနျဖင့္လည္းေကာင္း၊ ၁% ကို လူမွဳေထာက္ပ့ံေရး ရန္ပံုေငြ အျဖစ္လည္းေကာင္း ၊ ၅% ကို မျဖစ္မေန စုေဆာင္းေငြ အျဖစ္ လည္းေကာင္း ေကာက္ခံမည္ျဖစ္ပါသည္။ စုေငြအရင္းမ်ားကို လူၾကီးမင္းကုမၸဏီမွ ဆက္လက္ထုတ္ေခ်းရန္ စိတ္ဆႏၵမရွိေတာ့သည့္ အခ်ိန္တြင္ ျပန္လည္ထုတ္ေပးသြားမည္ျဖစ္သည္။
 						</span>
-						<br>
 						<br>
 						<!-- <span style="font-size:13px;text-align: justify-all;">
 							Morakot Microfinance Myanmar Limited will charge you a one-time adminstration fee of 5,000ks of the amount of the loan initially provided to you this fee upfont from the loan disbursed to you at the time of disbursement and may safe keep 5% the disbursement amount perloan as a compulsory
@@ -143,8 +144,7 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 					</div>		
 					
 				</div>
-				<br>
-				<br>
+				
 				<div>
 					<table width="100%" border="solid" style="text-align:center;font-size:12px; ">
 						<thead>
