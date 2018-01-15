@@ -746,11 +746,11 @@ class Down_Payment extends MY_Controller
 			<!--<li class="gc">' . $guareentee_contract . '</li>-->
 			<!--<li class="cc">' . $collateral_contract . '</li>-->
 			<li class="gr">' . $mcontract . '</li>
-			<!--<li class="mc">' . $guarantor . '</li>
+			<!--<li class="mc">' . $guarantor . '</li>-->
 			<li class="group_a">' . $group_agreement . '</li>
 			<li class="mc">' . $received . '</li>
 			<!--<li class="ps">' . $add_customer_deposit . '</li>-->
-			<li class="ps">' . $list_customer_deposit . '</li>-->
+			<!--<li class="ps">' . $list_customer_deposit . '</li>-->
 			<li class="dl">' . $delete_link . '</li>
         </ul>
 		</div></div>';
@@ -965,7 +965,7 @@ class Down_Payment extends MY_Controller
 			<!--<li class="gc">' . $guareentee_contract . '</li>-->
 			<!--<li class="cc">' . $collateral_contract . '</li>-->
 			<li class="gr">' . $mcontract . '</li>
-			<!--<li class="mc">' . $guarantor . '</li>
+			<!--<li class="mc">' . $guarantor . '</li>-->
 			<li class="group_a">' . $group_agreement . '</li>
 			<li class="mc">' . $received . '</li>
 			<!--<li class="ps">' . $add_customer_deposit . '</li>-->

@@ -138,7 +138,7 @@
 				</div>
 				<div class="pha1" style="float:left;width:90%; margin-left:10px;">
 					<p class="pha2-text" style="font-size:14px;">
-						 ပုဂိၢဳလ္’ခ”လက္ခံရရွိသည္္႕ ေခ်းေငြပမာဏ (ဂဏန္းျဖင့္)<?= $this->erp->roundUpMoney($this->erp->convertCurrency($saleiterm->currency_code,$setting->default_currency, $contract->total), $saleiterm->currency_code); ?>က်ပ္ ( စာျဖင့္)<?=$saleiterm->description?>က်ပ္					
+						 ပုဂိၢဳလ္’ခ”လက္ခံရရွိသည္္႕ ေခ်းေငြပမာဏ (ဂဏန္းျဖင့္)<b><?= $this->erp->roundUpMoney($this->erp->convertCurrency($saleiterm->currency_code,$setting->default_currency, $contract->total), $saleiterm->currency_code); ?></b> က်ပ္ ( စာျဖင့္)<b><?=$saleiterm->description?></b>က်ပ္					
 					
 					</p>
 				</div>
@@ -147,7 +147,7 @@
 				</div>
 				<div class="pha1" style="float:left;width:90%; margin-left:10px;">
 					<p class="pha2-text" style="font-size:14px;">
-						 ေခ်းေငြသက္တမ္း <?= round($contract->terms) ?>ရက် (ေခ်းေငြလက္ခံရရွိသည့္ေနမွ စတင္ေရတြက္သည္)
+						 ေခ်းေငြသက္တမ္း <b><?= round($contract->terms/ 30) ?></b>လ (ေခ်းေငြလက္ခံရရွိသည့္ေနမွ စတင္ေရတြက္သည္)
 					</p>
 				</div>
 				<div class="pha1-num" style="float:left;">
@@ -182,7 +182,7 @@
 				<div class="pha1" style="float:left;width:90%; margin-left:55px;margin-bottom: 30px;">
 					<p class="pha2-text" style="font-size:14px;">
 						- ျပန္လည္ေပးဆပ္ျခင္းဇယား ေခ်းေငြကတိက၀တ္ျပဳစာခ်ဳပ္ ေခ်းေငြထုတ္ေပးမွဳ့ ေျပစာ (သိဳ႔မဟုတ္) ေခ်းေငြထုတ္ျဖတ္ပိုင္းမ်ားအား FDF ----------------------  
-  ပုံစံ ေငြလက္ခံရရွိေႀကာင္းေျပစာ (ေခ်းေငြ၀န္ေဆာင္ခ ရွိခဲ့လွ်င္) တို႔သည္ဤစာခ်ဳပ္၏ ေနာက္ဆက္တြဲမ်ားအျဖစ္ပါရွိပါသည္။
+						ပုံစံ ေငြလက္ခံရရွိေႀကာင္းေျပစာ (ေခ်းေငြ၀န္ေဆာင္ခ ရွိခဲ့လွ်င္) တို႔သည္ဤစာခ်ဳပ္၏ ေနာက္ဆက္တြဲမ်ားအျဖစ္ပါရွိပါသည္။
 
 					</p>
 				</div>
@@ -296,7 +296,7 @@
 				<div class="pha1" style="float:left;width:90%; margin-left:55px;">
 					<p class="pha2-text" style="font-size:14px;margin-bottom: 30px;">
 						- ျပန္လည္ေပးဆပ္ျခင္းဇယား ေခ်းေငြကတိက၀တ္ျပဳစာခ်ဳပ္ ေခ်းေငြထုတ္ေပးမွဳ့ ေျပစာ (သိဳ႔မဟုတ္) ေခ်းေငြထုတ္ျဖတ္ပိုင္းမ်ားအား FDF ----------------------  
-  ပုံစံ ေငြလက္ခံရရွိေႀကာင္းေျပစာ (ေခ်းေငြ၀န္ေဆာင္ခ ရွိခဲ့လွ်င္) တို႔သည္ဤစာခ်ဳပ္၏ ေနာက္ဆက္တြဲမ်ားအျဖစ္ပါရွိပါသည္။
+						ပုံစံ ေငြလက္ခံရရွိေႀကာင္းေျပစာ (ေခ်းေငြ၀န္ေဆာင္ခ ရွိခဲ့လွ်င္) တို႔သည္ဤစာခ်ဳပ္၏ ေနာက္ဆက္တြဲမ်ားအျဖစ္ပါရွိပါသည္။
 
 					</p>
 				</div>
@@ -314,8 +314,8 @@
 				</div>
 				<div>
 					<p style="float: left;line-height: 25px;padding-left: 40px;">
-						<span>ပုဂိၢဳလ္(က )…………………………………မူရင္းႏွစ္ေစာင္</span><br>
-						<span>ပုဂိၢဳလ္(ခ  )…………………………………မိတၱဴတစ္ေစာင္</span><br>
+						<span>ပုဂိၢဳလ္(က )<b> <?= $contract->approv_name?$contract->approv_name:'N/A' ?> </b> မူရင္းႏွစ္ေစာင္</span><br>
+						<span>ပုဂိၢဳလ္(ခ  )<b> <?= $contract->customer_name?$contract->customer_name:'N/A' ?> </b> မိတၱဴတစ္ေစာင္</span><br>
 					</p>
 				</div><br><br>
 				
