@@ -67,7 +67,7 @@
 						<div style="float:left;width:50%; font-family:Battambang">	
 							<center><b>
 								<span class="kh_m"><b> <?php echo $setting->site_name ?></span><br/>
-								<span>လိုင္စင္ရေငြေရးေၾကးေရးလုပ္ငန္း</span><br/>
+								<span style="font-family:Zawgyi-One">လိုင္စင္ရေငြေရးေၾကးေရးလုပ္ငန္း</span><br/>
 								<span style="font-size:18px;"> Repayment Schedule for Group Loan</span><br/>
 							</center></b>
 						</div>
