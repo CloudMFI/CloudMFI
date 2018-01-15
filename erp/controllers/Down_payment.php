@@ -741,15 +741,15 @@ class Down_Payment extends MY_Controller
 			 <li class="ps">' . $approve_link . '</li>
             <li class="ps">' . $payment_schedule . '</li>
 			<li class="de">' . $deposit . '</li>
-			<!--<li class="cci">' . $collateral_contract_identification . '</li>
-			<li class="ccl">' . $collateral_contract_land . '</li>
-			<li class="gc">' . $guareentee_contract . '</li>-->
-			<li class="cc">' . $collateral_contract . '</li>
+			<!--<li class="cci">' . $collateral_contract_identification . '</li>-->
+			<!--<li class="ccl">' . $collateral_contract_land . '</li>-->
+			<!--<li class="gc">' . $guareentee_contract . '</li>-->
+			<!--<li class="cc">' . $collateral_contract . '</li>-->
 			<li class="gr">' . $mcontract . '</li>
-			<li class="mc">' . $guarantor . '</li>
+			<!--<li class="mc">' . $guarantor . '</li>
 			<li class="group_a">' . $group_agreement . '</li>
 			<li class="mc">' . $received . '</li>
-			<!--<li class="ps">' . $add_customer_deposit . '</li>
+			<!--<li class="ps">' . $add_customer_deposit . '</li>-->
 			<li class="ps">' . $list_customer_deposit . '</li>-->
 			<li class="dl">' . $delete_link . '</li>
         </ul>
@@ -960,15 +960,15 @@ class Down_Payment extends MY_Controller
 			 <li class="ps">' . $approve_link . '</li>
             <li class="ps">' . $payment_schedule . '</li>
 			<li class="de">' . $deposit . '</li>
-			<!--<li class="cci">' . $collateral_contract_identification . '</li>
-			<li class="ccl">' . $collateral_contract_land . '</li>
-			<li class="gc">' . $guareentee_contract . '</li>-->
-			<li class="cc">' . $collateral_contract . '</li>
+			<!--<li class="cci">' . $collateral_contract_identification . '</li>-->
+			<!--<li class="ccl">' . $collateral_contract_land . '</li>-->
+			<!--<li class="gc">' . $guareentee_contract . '</li>-->
+			<!--<li class="cc">' . $collateral_contract . '</li>-->
 			<li class="gr">' . $mcontract . '</li>
-			<li class="mc">' . $guarantor . '</li>
+			<!--<li class="mc">' . $guarantor . '</li>
 			<li class="group_a">' . $group_agreement . '</li>
 			<li class="mc">' . $received . '</li>
-			<!--<li class="ps">' . $add_customer_deposit . '</li>
+			<!--<li class="ps">' . $add_customer_deposit . '</li>-->
 			<li class="ps">' . $list_customer_deposit . '</li>-->
 			<!--<li class="dl">' . $delete_link . '</li>-->
         </ul>
