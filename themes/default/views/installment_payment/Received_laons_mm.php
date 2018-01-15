@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-
-<?php
-	 //$this->erp->print_arrays($grouploans);
-?>
 <html>
 	<head>
 		<title><?php echo $contract_info->reference_no?$contract_info->reference_no:'N/A';?></title>
@@ -84,14 +80,14 @@
 								ေခ်းေငြ အမ်ိဳးအစား<br>
 								(Loan Type)
 							</td>
-							<td style="width: 25%;padding-bottom: 8px; ">: <?= $saleiterms->product_name?$saleiterms->product_name:'N/A'; ?>
+							<td style="width: 25%;padding-bottom: 8px; ">:
 							</td>
 							<td style="width: 5%;padding-bottom: 8px; "></td>
 							<td style="width: 10%;padding-bottom: 8px; " class="thb">
 								၀ိုင္းၾကီးခ်ဳပ္နံပါတ္<br>(Group No.)
 							</td>
-							<td style="width: 45%;padding-bottom: 8px; ">: <?= $group->name?$group->name:'N/A'; ?>
-
+							<td style="width: 45%;padding-bottom: 8px; ">:
+								...........
 							</td>
 						</tr>
 
@@ -100,13 +96,15 @@
 								ေခ်းေငြ အရာရွိ ID <br>
 								(Credit Officer ID)
 							</td>
-							<td style="width: 25%;padding-bottom: 8px; ">:<?= $co->first_name; ?> <?= $co->last_name; ?>
+							<td style="width: 25%;padding-bottom: 8px; ">:
+								......
 							</td>
 							<td style="width: 5%;padding-bottom: 8px; "></td>
 							<td style="width: 10%;padding-bottom: 8px; " class="thb">
 								ေခ်းေငြကာလ<br>(Loan term)
 							</td>
-							<td style="width: 45%;padding-bottom: 8px; ">: <?= round($contract_info->terms) ?>days
+							<td style="width: 45%;padding-bottom: 8px; ">:
+								......
 							</td>
 						</tr>
 						<tr>
@@ -157,28 +155,19 @@
 								<th rowspan="3">Clients Signature<br>လက္မွတ္</th>
 							</tr>
 						</thead>
-						
 						<tbody>
-							<?php 
-							$i = 1;
-								foreach($grouploans as $grouploan){
-								?>
-								<tr>
-									<td><?= $i ?></td>
-									<td><?= $grouploan->customer_name ?></td>
-									<td><?= $grouploan->gov_id ?></td>
-									<td><?= $grouploan->reference_no ?></td>
-									<td>500,000</td>
-									<td>5,000</td>
-									<td>5,000</td>
-									<td>25,000</td>
-									<td>465,000</td>
-									<td></td>
-								</tr>
-							<?php
-								$i++;
-								}
-							?>
+							<tr>
+								<td>1.</td>
+								<td>Ma Myat Noe Linn</td>
+								<td>12/bbb(N)123456</td>
+								<td>1</td>
+								<td>500,000</td>
+								<td>5,000</td>
+								<td>5,000</td>
+								<td>25,000</td>
+								<td>465,000</td>
+								<td></td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
