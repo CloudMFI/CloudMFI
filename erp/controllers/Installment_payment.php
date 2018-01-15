@@ -9283,7 +9283,7 @@ class Installment_Payment extends MY_Controller
 	public function Received_loans($sale_id) {		
 		$this->load->model('Installment_payment_model');
 		$this->data['setting'] = $this->settings_model->getSettings();
-		$this->data['saleiterms'] = $this->Installment_payment_model->getSaleItemByID($sale_id);
+		$this->data['saleiterm'] = $this->Installment_payment_model->getSaleItemByID($sale_id);
 		$sales = $this->Installment_payment_model->getSaleById($sale_id);
 		$this->data['sales'] =$sales;
 		$grouploans = $this->Installment_payment_model->getgroupLoans($sales->loan_group_id);

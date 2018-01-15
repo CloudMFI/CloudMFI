@@ -84,7 +84,7 @@
 								ေခ်းေငြ အမ်ိဳးအစား<br>
 								(Loan Type)
 							</td>
-							<td style="width: 25%;padding-bottom: 8px; ">: <?= $saleiterms->product_name?$saleiterms->product_name:'N/A'; ?>
+							<td style="width: 25%;padding-bottom: 8px; ">: <?= $saleiterm->product_name?$saleiterm->product_name:'N/A'; ?>
 							</td>
 							<td style="width: 5%;padding-bottom: 8px; "></td>
 							<td style="width: 10%;padding-bottom: 8px; " class="thb">
@@ -162,13 +162,14 @@
 							<?php 
 							$i = 1;
 								foreach($grouploans as $grouploan){
+									$total_disburse = $defualt_penalty = $this->erp->convertCurrency($saleiterm->currency_code,$setting->default_currency, $grouploan->grand_total);
 								?>
 								<tr>
 									<td><?= $i ?></td>
 									<td><?= $grouploan->customer_name ?></td>
 									<td><?= $grouploan->gov_id ?></td>
 									<td><?= $grouploan->reference_no ?></td>
-									<td>500,000</td>
+									<td> <?= $this->erp->roundUpMoney($total_disburse, $saleiterm->currency_code) ?> </td>
 									<td>5,000</td>
 									<td>5,000</td>
 									<td>25,000</td>
