@@ -89,6 +89,7 @@ $lang["country"]								= "ႏိုင္ငံ";//amm
 $lang["time_at_this_address"]					= "လက္ရွိလိပ္စာတြင္ ေနထိုင္ခ်ိန္ကာလ";//amm
 $lang["ward"]									="ရပ္ကြက္";
 $lang["years"]									= "ႏွစ္";//amm
+$lang["years"]									= " ႏွစ္";//amm
 $lang["months"]									= "လ";//amm
 $lang["government_id"]							= "N.R.C card";//amm
 $lang["financial_products"]						= " ဘ႑ာေရး ထုတ္ကုန္မ်ား";//amm
