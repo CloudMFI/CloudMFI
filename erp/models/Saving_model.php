@@ -192,6 +192,32 @@ class Saving_model extends CI_Model
 		}
 		return false;
     }
+	 
+	public function getsavingBySaleId($id = NULL) {
+		$this->db->where('loans.saving_interest >', 0);
+		$q = $this->db->get_where('loans', array('sale_id' => $id));
+		if($q->num_rows() > 0) {
+			foreach (($q->result()) as $row) {
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return FALSE;
+	}
+	public function getMfiCustomer($id = NULL) {
+		$q = $this->db->get_where('companies', array('id' => $id));
+		if($q->num_rows() > 0) {
+			return $q->row();
+		}
+		return FALSE;
+	}
+	public function getMfiCreator($id = NULL) {
+		$q = $this->db->get_where('users', array('id' => $id));
+		if($q->num_rows() > 0) {
+			return $q->row();
+		}
+		return FALSE;
+	}
 }
 
 	

@@ -450,11 +450,8 @@
 																		<td><?= lang("nationality"); ?></td>
 																		<td><b> : <?php
 																				$cus_nationality[""] = "";
-																				$cus_nationality['cam'] = "Cambodian";
-																				$cus_nationality['tha'] = "Thailand";
-																				$cus_nationality['vie'] = "Vietnamese";
-																				$cus_nationality['chi'] = "Chinese";
-																				$cus_nationality['bm'] = "Burma";
+																				$cus_nationality['cam'] = "Cambodian"; 
+																				$cus_nationality['bm'] = "Burmese";
 																				echo  isset($applicant->nationality)? $cus_nationality[$applicant->nationality] : '';
 																				?> </b>
 																		</td>

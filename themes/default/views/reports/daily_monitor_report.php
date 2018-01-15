@@ -1,7 +1,119 @@
 <?php
-  //$this->erp->print_arrays($monitor_report);
+	
+	
+	$v = "";
 	 
+	if ($this->input->post('user')) {
+		$v .= "&user=" . $this->input->post('user');
+	}
+	 
+	if ($this->input->post('start_date')) {
+		$v .= "&start_date=" . $this->input->post('start_date');
+	}
+	if ($this->input->post('end_date')) {
+		$v .= "&end_date=" . $this->input->post('end_date');
+	} 
+	if(isset($date)){
+		$v .= "&d=" . $date;
+	}
+
 ?>
+<style>
+	#QUData {
+		overflow-x: scroll;
+		max-width: 100%;
+		min-height: 300px;
+		display: block;
+		cursor: pointer;
+		white-space: nowrap;
+		width:100%;
+	}
+	#QUData td:nth-child(6) {
+    text-align: left;
+	}
+</style>
+<script>
+	function left_side(x){
+		return '<div class="text-left">'+x+'</div>';
+	}
+    $(document).ready(function () {
+        var oTable = $('#QUData').dataTable({
+            "aaSorting": [[0, "desc"]],
+            "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "<?= lang('all') ?>"]],
+            "iDisplayLength": <?= $Settings->rows_per_page ?>,
+            'bProcessing': true, 'bServerSide': true,
+            'sAjaxSource': '<?= site_url('reports/getDailyCOSections'. ($warehouse_id ? '/' . $warehouse_id : '')).'/?v=1'.$v?>',
+            'fnServerData': function (sSource, aoData, fnCallback) {
+                aoData.push({
+                    "name": "<?= $this->security->get_csrf_token_name() ?>",
+                    "value": "<?= $this->security->get_csrf_hash() ?>"
+                });
+                $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
+            },
+            "fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay) {
+                var total_disburse = 0;
+				var total_received = 0;
+				var total_bad_loan = 0;
+				var total_bad_principle = 0;
+				var total_bad_interest = 0;
+				var total_bad_services = 0;
+				var total_bad_penalty = 0;
+				var total_good_loan = 0;
+				var total_good_principle = 0;
+				var total_good_interest = 0;
+				var total_good_services = 0;
+				var total_good_penalty = 0;
+                for (var i = 0; i < aaData.length; i++) { 
+                    total_disburse += parseFloat(aaData[aiDisplay[i]][2]);
+					total_received += parseFloat(aaData[aiDisplay[i]][3]);
+					total_bad_loan += parseFloat(aaData[aiDisplay[i]][4]);
+					total_bad_principle += parseFloat(aaData[aiDisplay[i]][5]);
+					total_bad_interest += parseFloat(aaData[aiDisplay[i]][6]);
+					total_bad_services += parseFloat(aaData[aiDisplay[i]][7]);
+					total_bad_penalty += parseFloat(aaData[aiDisplay[i]][8]);
+					total_good_loan += parseFloat(aaData[aiDisplay[i]][9]);
+					total_good_principle += parseFloat(aaData[aiDisplay[i]][10]);
+					total_good_interest += parseFloat(aaData[aiDisplay[i]][11]);
+					total_good_services += parseFloat(aaData[aiDisplay[i]][12]);
+					total_good_penalty += parseFloat(aaData[aiDisplay[i]][13]);
+                }
+                var nCells = nRow.getElementsByTagName('th');
+                nCells[2].innerHTML = currencyFormat(parseFloat(total_disburse));
+				nCells[3].innerHTML = currencyFormat(parseFloat(total_received));
+				nCells[4].innerHTML = currencyFormat(parseFloat(total_bad_loan));
+				nCells[5].innerHTML = currencyFormat(parseFloat(total_bad_principle));
+				nCells[6].innerHTML = currencyFormat(parseFloat(total_bad_interest));
+				nCells[7].innerHTML = currencyFormat(parseFloat(total_bad_services));
+				nCells[8].innerHTML = currencyFormat(parseFloat(total_bad_penalty));
+				nCells[9].innerHTML = currencyFormat(parseFloat(total_good_loan));
+				nCells[10].innerHTML = currencyFormat(parseFloat(total_good_principle));
+				nCells[11].innerHTML = currencyFormat(parseFloat(total_good_interest));
+				nCells[12].innerHTML = currencyFormat(parseFloat(total_good_services));
+				nCells[13].innerHTML = currencyFormat(parseFloat(total_good_penalty));
+            },
+			'fnRowCallback': function (nRow, aData, iDisplayIndex) {
+                var oSettings = oTable.fnSettings();
+				nRow.id = aData[0];
+				nRow.className = "contract_link";
+				return nRow;
+            },
+            "aoColumns": [{
+                "bSortable": false,
+                "mRender": checkbox
+            },null, {"mRender": currencyFormat} ,  {"mRender": currencyFormat}, {"mRender": currencyFormat}, {"mRender": currencyFormat},{"mRender": currencyFormat}, {"mRender": currencyFormat}, {"mRender": currencyFormat}, {"mRender": currencyFormat}, {"mRender": currencyFormat}, {"mRender": currencyFormat}, {"mRender": currencyFormat}, {"mRender": currencyFormat}]
+        }).fnSetFilteringDelay().dtFilter([
+            {column_number: 1, filter_default_label: "[<?=lang('c.o_name');?>]", filter_type: "text", data: []},  
+        ], "footer");
+        <?php if($this->session->userdata('remove_quls')) { ?>
+         
+			if (localStorage.getItem('qucurrency')) {
+				localStorage.removeItem('qucurrency');
+			}
+         
+        <?php $this->erp->unset_data('remove_quls'); } ?>
+    });
+
+</script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#form').hide();
@@ -13,51 +125,30 @@
             $("#form").slideUp();
             return false;
         });
+        $("#product").autocomplete({
+            source: '<?= site_url('reports/suggestions'); ?>',
+            select: function (event, ui) {
+                $('#product_id').val(ui.item.id);
+                //$(this).val(ui.item.label);
+            },
+            minLength: 1,
+            autoFocus: false,
+            delay: 300,
+        });
     });
-	
 </script>
-<style>
-	#QUData {
-		overflow-x: scroll;
-		max-width: 100%;
-		min-height: 500px;
-		display: block;
-		white-space: nowrap;
-		overflow-x: scroll;
-		overflow-y: scroll;
-	}
-	@media print{
-				
-				#body{
-					width:1000px;
-					height:100%;
-					margin:0 auto;
-				}
-				#print{
-					display:none;
-				}
-				
-				#foot{
-					width:100%;
-					background:#fff !important;
-				}	
-				.fon{
-					color: rgba(0, 0, 0, 0.3) !important;
-				}
-				.left_ch{
-					 left: 80px !important;
-				}
-			}
-</style>
+
+<?php if ($Owner) {
+    echo form_open('reports/getDailySections', 'id="action-form"');
+} ?>
 <div class="box">
     <div class="box-header">
         <h2 class="blue">
-			<i class="fa-fw fa fa-heart-o"></i><?= lang('daily_monitor_reports'); ?>
+			<i class="fa-fw fa fa-heart-o"></i><?= lang('daily_monitor_report'); ?>
         </h2>
 		
 		<div class="box-icon">
             <ul class="btn-tasks">
-				
                 <li class="dropdown">
                     <a href="#" class="toggle_up tip" title="<?= lang('hide_form') ?>">
                         <i class="icon fa fa-toggle-up"></i>
@@ -68,163 +159,139 @@
                         <i class="icon fa fa-toggle-down"></i>
                     </a>
                 </li>
-				<li><a href="#" id="xls" class="tip" title="<?= lang('download_xls') ?>"><i class="icon fa fa-file-excel-o"></i></a></li>
             </ul>
         </div>
-    </div> 
+
+        <div class="box-icon">
+            <ul class="btn-tasks">
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon fa fa-tasks tip" data-placement="left" title="<?= lang("actions") ?>"></i></a>
+                    <ul class="dropdown-menu pull-right" class="tasks-menus" role="menu" aria-labelledby="dLabel">
+                         
+						<?php if ($Owner || $Admin) {?>
+							<li>
+								<a href="#" id="excel" data-action="export_excel"><i class="fa fa-file-excel-o"></i> <?= lang('export_to_excel') ?>
+								</a>
+							</li>
+							<li>
+								<a href="#" id="pdf" data-action="export_pdf"><i class="fa fa-file-pdf-o"></i> <?= lang('export_to_pdf') ?>
+								</a>
+							</li>
+						<?php }else{ ?>
+							<?php if($GP['quotes-export']) { ?>
+								<li>
+									<a href="#" id="excel" data-action="export_excel"><i class="fa fa-file-excel-o"></i> <?= lang('export_to_excel') ?>
+									</a>
+								</li>
+								<li>
+									<a href="#" id="pdf" data-action="export_pdf"><i class="fa fa-file-pdf-o"></i> <?= lang('export_to_pdf') ?>
+									</a>
+								</li>
+							<?php }?>
+						<?php }?>	
+						
+                         
+                        <li class="divider"></li>
+                         
+                    </ul>
+                </li>
+                 
+            </ul>
+        </div>
+    </div>
+	<?php if ($Owner) {?>
+		<div style="display: none;">
+			<input type="hidden" name="form_action" value="" id="form_action"/>
+			<?=form_submit('performAction', 'performAction', 'id="action-form-submit"')?>
+		</div>
+		<?= form_close()?>
+	<?php }
+	?> 
     <div class="box-content">
         <div class="row">
             <div class="col-lg-12">
-				<button id="print" onclick="window.print()" style="margin-bottom:15px;"><i class="fa fa-print" style="font-size:20px;"></i></button>
+
+                <p class="introtext"><?= lang('list_results'); ?></p>
 				
-				<!---Start Search------->
 				<div id="form">
-					<?php echo form_open('Reports/daily_monitor_report/', 'id="action-form"'); ?>
-					<div class="row" style="padding:10px;">
-						 
-						<div class="col-sm-4">
-							<div class="form-group">
-								<?= lang("loans_term", "loans_term"); ?>
-								<?php
-								$loans_term[""] = "";
-								$loans_term[1] = "Daily";
-								$loans_term[7] = "Weekly";
-								$loans_term[14] = "Two Week";
-								$loans_term[30] = "Monthly";
-								echo form_dropdown('loans_term', $loans_term, (isset($_POST['loans_term']) ? $_POST['loans_term'] : ''), 'id="loans_term" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("loans_term") . '"  class="form-control input-tip select"  ');
-								?>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="form-group">
-								<?= lang("late_days", "late_days"); ?>
-								<?php
-								$late_days[""] = ""; 
-								$late_days[7] = "A Week";
-								$late_days[14] = "Two Weeks";
-								$late_days[21] = "Three Weeks";
-								$late_days[30] = "A Month";
-								echo form_dropdown('late_days', $late_days, (isset($_POST['late_days']) ? $_POST['late_days'] : ''), 'id="late_days" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("late_days") . '"  class="form-control input-tip select"  ');
-								?>
-							</div>
-						</div>
-						<!--<div class="col-sm-6">
-							<div class="form-group">
-								<label class="control-label" for="user"><?= lang("c.o_name"); ?></label>
-								<?php
-									$us[""] = "";
-									if(is_array(isset($co) ?$co  : (''))){
-									foreach ($co as $co_name) {
-										$us[$co_name->id] = $co_name->first_name . " " . $co_name->last_name;
-									}}
-									echo form_dropdown('user', isset($us) ?$us  : (''), (isset($_POST['user']) ? $_POST['user'] : ""), 'class="form-control" id="user" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("co_name") . '"');
-								?>
-							</div>
-						</div>-->
-						
-						<div class="col-sm-4">
-							<div class="form-group">
-								<label class="control-label" for="customer"><?= lang("by_branch"); ?></label>
-								<?php
-								$bn[""] = "";
-								if(is_array(isset($branches) ?$branches  : (''))){
-									foreach ($branches as $branch) {
-										$bn[$branch->id] = $branch->name;
-									}
-								}
-								echo form_dropdown('branch', isset($bn) ?$bn  : (''), (isset($_POST['branch']) ? $_POST['branch'] : ""), 'class="form-control" id="branch_name" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("branch") . '"');
-								?>
-							</div>
-						</div>
-						
-						<div class="col-sm-4">
-							<div class="form-group" style="margin-top:30px;">
-								<?php echo form_submit('submit_report', $this->lang->line("search"), 'class="btn btn-primary"'); ?>	
-							</div>
-						</div>
-					</div>
-					<?php echo form_close(); ?>
-				</div>
-				<!---End Search------->
+                    <?php echo form_open("reports/getDailySections"); ?>
+                    <div class="row">
+						  
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label" for="user"><?= lang("created_by"); ?></label>
+                                <?php
+                                $us[""] = "";
+								if(is_array(isset($users) ?$users  : (''))){
+                                foreach ($users as $user) {
+                                    $us[$user->id] = $user->first_name . " " . $user->last_name;
+                                }}
+                                echo form_dropdown('user', isset($us) ?$us  : (''), (isset($_POST['user']) ? $_POST['user'] : ""), 'class="form-control" id="user" data-placeholder="' . $this->lang->line("select") . " " . $this->lang->line("user") . '"');
+                                ?>
+                            </div>
+                        </div>
+                         
+                    </div>
+                    <div class="form-group">
+                        <div class="controls"> <?php echo form_submit('submit_report', $this->lang->line("submit"), 'class="btn btn-primary"'); ?> </div>
+                    </div>
+                    <?php echo form_close(); ?>
+
+                </div>
 				
 				<div class="clearfix"></div>
-                <div>
-					<p style="font-size:20px; text-align:center;"> 
-						<?= lang("daily_monitor_reports_(o_d_r)"); ?>  
-					</p>
+				<p style="font-size:20px; text-align:center;"> 
+					<B> <?= lang("daily_monitor_report"); ?>  <?= date('d/m/Y'); ?>   </B>
+				</p>
+                <div class="table-responsive">
                     <table id="QUData" class="table table-bordered table-hover table-striped">
                         <thead>
-							<tr class="active">
-								<th colspan="2">  </th>
-								 
-								<th colspan="3"><?= lang("outstanding"); ?> </th>
-								<th>  </th> 
-								
-								<th colspan="2"> <?= lang("disbursement"); ?> </th>
-								<th>  </th>
-								
-								<th colspan="5"> <?= lang("re_payment_bad_loan"); ?> </th>
-								 
-								<th colspan="5"> <?= lang("re_payment_good_loan"); ?>  </th> 
-							</tr>
+                        <tr class="active">
+                            <th style="min-width:30px; width: 30px; text-align: center;">
+                                <input class="checkbox checkft" type="checkbox" name="check"/>
+                            </th> 
+                            <th><?php echo $this->lang->line("c.o_name"); ?></th>
+                            <th><?php echo $this->lang->line("total_disburse"); ?></th>
+                            <th><?php echo $this->lang->line("total_received"); ?></th>
+                            <th><?php echo $this->lang->line("total_bad_loan"); ?></th>
+                            <th><?php echo $this->lang->line("total_bad_principle"); ?></th>
+                            <th><?php echo $this->lang->line("total_bad_interest"); ?></th>
+                            <th><?php echo $this->lang->line("total_bad_services"); ?></th>
+							<th><?php echo $this->lang->line("total_bad_penalty"); ?></th>
+							<th><?php echo $this->lang->line("total_good_loan"); ?></th>
+                            <th><?php echo $this->lang->line("total_good_principle"); ?></th>
+							<th><?php echo $this->lang->line("total_good_interest"); ?></th>
+							<th><?php echo $this->lang->line("total_good_services"); ?></th>
+							<th><?php echo $this->lang->line("total_good_penalty"); ?></th>
+                        </tr>
                         </thead>
-						
-						<tbody>
-							<th><?= lang("no"); ?></th>
-							<th> <?= lang("name"); ?> </th>
-							<th> <?= lang("total_principle"); ?> </th>
-							<th> <?= lang("good_loan_prin"); ?> </th>
-							<th> <?= lang("bad_loan_prin"); ?> </th>
-							<th> <?= lang("percent_(%)"); ?> </th>
-							<th> <?= lang("disburse_old"); ?> </th>
-							<th> <?= lang("disburse_new"); ?> </th>
-							<th> <?= lang("total_received"); ?> </th>
-							<th> <?= lang("total_bad_loan"); ?> </th>
-							<th> <?= lang("priciple"); ?></th>
-							<th> <?= lang("interest"); ?> </th>
-							<th> <?= lang("saving"); ?> </th>
-							<th> <?= lang("penalty"); ?> </th>
-							<th> <?= lang("total_good_loan"); ?> </th>
-							<th> <?= lang("priciple"); ?></th>
-							<th> <?= lang("interest"); ?> </th>
-							<th> <?= lang("saving"); ?> </th>
-							<th> <?= lang("penalty"); ?> </th> 
-						</tbody>
-						
-						<tbody>
-							<?php 
-							$i = 1; 
-								foreach($monitor_report as $co){ 
-							?>
-									<tr>
-										<td><?=$i?></td>
-										<td><?= $co->first_name; ?> <?= $co->last_name; ?></td>
-										<td><?= $this->erp->formatMoney($co->total_outstanding); ?> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-										<td> </td>
-									</tr>
-									<?php
-									$i++;
-									 
-								} 
-							?>
-							 
-						</tbody>
-						  
+                        <tbody>
+                        <tr>
+                            <td colspan="17"
+                                class="dataTables_empty"><?php echo $this->lang->line("loading_data"); ?>
+							</td>
+                        </tr>
+                        </tbody>
+                        <tfoot class="dtFilter">
+                        <tr class="active">
+                            <th style="min-width:30px; width: 30px; text-align: center;">
+                                <input class="checkbox checkft" type="checkbox" name="check"/>
+                            </th> 
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th> 
+                        </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -238,23 +305,3 @@
     </div>
     <?= form_close() ?>
 <?php } ?>
-
-
-
-<script type="text/javascript" src="<?= $assets ?>js/html2canvas.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        
-		/*$('#pdf').click(function (event) {
-            event.preventDefault();
-            window.location.href = "<?=site_url('reports/ledger/pdf/0/'.$biller_id . '?v=1'.$v)?>";
-            return false;
-        });*/
-        $('#xls').click(function (event) {
-            event.preventDefault();
-            window.location.href = "<?=site_url('reports/ledger/0/xls/')?>";
-            return false;
-        });
-        
-    });
-</script>

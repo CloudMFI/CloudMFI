@@ -678,12 +678,7 @@
 																	<span class="text"> <?= lang('outstanding_reports'); ?></span>
 																</a>
 															</li>
-															<!--<li id="reports_daily_monitor_report" class="sub_navigation">
-																<a class="submenu" href="<?= site_url('reports/daily_monitor_report'); ?>">
-																	<i class="fa fa-barcode"></i>
-																	<span class="text"> <?= lang('daily_monitor_reports'); ?></span>
-																</a>
-															</li>-->
+															 
 														</ul>
 
 													</li> <!--- end loan Report-->									
@@ -741,6 +736,11 @@
 															<span class="chevron closed"></span>
 														</a>
 														<ul>
+															<li id="reports_daily_monitor_report">
+																<a href="<?= site_url('reports/daily_monitor_report') ?>">
+																	<i class="fa fa-money"></i><span class="text"> <?= lang('daily_monitor_report'); ?></span>
+																</a>
+															</li>
 															<li id="reports_daily_disbursement" class="sub_navigation">
 																<a class="submenu" href="<?= site_url('reports/daily_disbursement'); ?>">
 																	<i class="fa fa-barcode"></i>

@@ -158,7 +158,7 @@
 																?>
 															</div>
 															<div class="form-group">
-																<?= lang("date_of_birth", "cus_dob"); ?>
+																<?= lang("date_of_birth ", "cus_dob"); ?>
 																<?php echo form_input('cus_dob', (isset($_POST['cus_dob']) ? $_POST['cus_dob'] : ''), 'class="form-control date" id="cus_dob"'); ?>
 															</div>
 															<div class="form-group">
@@ -222,12 +222,9 @@
 																<?= lang("nationality", "cus_nationality"); ?>
 																<?php
 																$cus_nationality[(isset($_POST['cus_nationality']) ? $_POST['cus_nationality'] : '')] = (isset($_POST['cus_nationality']) ? $_POST['cus_nationality'] : '');
-																$cus_nationality['cam'] = "Cambodian";
-																$cus_nationality['tha'] = "Thailand";
-																$cus_nationality['vie'] = "Vietnamese";
-																$cus_nationality['chi'] = "Chinese";
-																$cus_nationality['bm'] 	= "Burma";
-																echo form_dropdown('cus_nationality', $cus_nationality, isset($customer->nationality)?$customer->nationality:'cam', 'class="form-control select" id="cus_nationality" placeholder="' . lang("select") . ' ' . lang("nationality") . '" style="width:100%"')
+																$cus_nationality['cam'] = "Cambodian"; 
+																$cus_nationality['bm'] 	= "Burmese";
+																echo form_dropdown('cus_nationality', $cus_nationality, isset($customer->nationality)?$customer->nationality:'bm', 'class="form-control select" id="cus_nationality" placeholder="' . lang("select") . ' ' . lang("nationality") . '" style="width:100%"')
 																?>
 															</div>
 															<div class="form-group" id="maritalstatus">
@@ -345,11 +342,13 @@
 																			?>
 																		</div>
 																		<div class="form-group">
-																			<b style="padding-bottom:5px; display:block;"><?= lang("time_at_this_address"); ?></b>
-																			<?php echo form_input('cus_years', (isset($_POST['cus_years']) ? $_POST['cus_years'] : ''), 'class="form-control" id="cus_years" placeholder="' . lang("years") . '" style="display:inline !important; width:35% !important;"'); ?>
+																			<!-- <b style="padding-bottom:5px; display:block;"><?= lang("time_at_this_address"); ?></b> -->
+																			<?php /*echo form_input('cus_years', (isset($_POST['cus_years']) ? $_POST['cus_years'] : ''), 'class="form-control" id="cus_years" placeholder="' . lang("years") . '" style="display:inline !important; width:35% !important;"'); ?>
 																			<?= lang("years", "cus_years"); ?>
 																			<?php echo form_input('cus_months', (isset($_POST['cus_months']) ? $_POST['cus_months'] : ''), 'class="form-control" id="cus_months" placeholder="' . lang("months") . '" style="display:inline !important; width:35% !important;"'); ?>
-																			<?= lang("months", "cus_months"); ?>
+																			<?= lang("months", "cus_months"); */?>
+																			<b style="padding-bottom: 5px;display: block;"><?=lang("ward");?></b>
+																			<?php echo form_input('cus_house_no', (isset($_POST['cus_house_no']) ? $_POST['cus_house_no'] : $applicant->ward), 'class="form-control" '); ?>
 																		</div>
 																	</div>
 																</div>

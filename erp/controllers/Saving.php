@@ -22,6 +22,7 @@ class Saving extends MY_Controller
 		$this->load->model('saving_model');
 		$this->load->model('down_payment_model');
 		$this->load->model('accounts_model');
+		$this->load->model('installment_payment_model');
         $this->digital_upload_path = 'assets/uploads/documents/';
         $this->digital_file_types = 'zip|psd|ai|rar|pdf|doc|docx|xls|xlsx|ppt|pptx|gif|jpg|jpeg|png|tif|txt';
         $this->allowed_file_size = '1024';
@@ -1212,10 +1213,9 @@ class Saving extends MY_Controller
         if ($start_date) {
             $start_date = $this->erp->fld($start_date);
             $end_date = $this->erp->fld($end_date);
-        }
-         
+        } 
 		$approve_link = anchor('quotes/approvedApplicant/$1', '<i class="fa fa-file-text-o"></i> ' . lang('view_details'));
-        
+		$saving_list = anchor('saving/saving_list/$1', '<i class="fa fa-file-text-o"></i> ' . lang('saving_list'), 'data-toggle="modal" data-target="#myModal"');
 		$delete_link = "<a href='#' class='po' title='<b>" . lang("delete_contract") . "</b>' data-content=\"<p>"
             . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('sales/delete/$1') . "'>"
             . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
@@ -1224,7 +1224,7 @@ class Saving extends MY_Controller
             . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
             . lang('actions') . ' <span class="caret"></span></button>
         <ul class="dropdown-menu pull-right" role="menu">
-			 <li class="ps">' . $approve_link . '</li> 
+			 <li class="ps">' . $saving_list . '</li> 
 			 
         </ul>
 		</div></div>';
@@ -1339,7 +1339,7 @@ class Saving extends MY_Controller
 								'created_by'			=> $this->session->userdata('user_id'),
 								
 			
-			);
+							);
 			// $this->erp->print_arrays($payment);
 			
 			$saving_balance = $sale->saving_balance - $withdrawals;
@@ -1376,7 +1376,7 @@ class Saving extends MY_Controller
 		}
 	}
 	
-	public function ajaxGetSavingBysaleID($sale_id = NULL){ 
+	public function ajaxGetSavingBysaleID($sale_id = NULL){
 		$setting = $this->saving_model->getSettingCurrncy();
 		$def_currency = $setting->code;		
 		$def_rate = $setting->rate;
@@ -1396,6 +1396,25 @@ class Saving extends MY_Controller
             echo json_encode(false);
         }
 	}
+	
+	
+	function saving_list($sale_id)
+    {
+		$this->load->model('saving_model');  
+		$this->data['settings'] = $this->saving_model->get_setting();
+		$sales  = $this->saving_model->getSaleById($sale_id);		
+		$customer_id = $sales->customer_id;
+		$created_by = $sales->by_co;
+		$this->data['sales'] = $sales;
+		$this->data['sale_iterm'] =$this->saving_model->getSaleItemBysaleID($sales->sales_id);
+		$this->data['saving_iterm'] =$this->saving_model->getSaleItemBysaleID($sale_id);
+		$this->data['customer'] = $this->saving_model->getMfiCustomer($customer_id);
+		$this->data['by_co'] = $this->saving_model->getMfiCreator($created_by);
+		$this->data['savings'] = $this->saving_model->getsavingBySaleId($sales->sales_id); 
+		$this->data['modal_js'] = $this->site->modal_js();
+		$this->load->view($this->theme.'saving/saving_list',$this->data);	 
+		 
+    }
 	
 }
 

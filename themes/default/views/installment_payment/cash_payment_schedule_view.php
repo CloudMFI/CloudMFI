@@ -5,14 +5,14 @@
 	
 ?>
  <style type="text/css">
-    .container {
-        width: 800px;
-        margin-left: auto;
-        margin-right: auto;
+	.container {
+	    width: 800px;
+	    margin-left: auto;
+	    margin-right: auto;
 	}	
 	.t_c{text-align:center;}
 	.t_r{text-align:center;}
-    @media print
+	@media print
 	{    
 		.no-print, .no-print *
 		{
@@ -67,139 +67,75 @@
 						<div style="float:left;width:50%; font-family:Battambang">	
 							<center><b>
 								<span class="kh_m"><b> <?php echo $setting->site_name ?></span><br/>
-								<span> <?= lang("branch_company_name") ?> : <?= $this->session->branchName; ?></span><br/>
-								<span style="font-size:18px;"> <?= lang("installments") ?> </span><br/>
+								<span style="font-family:Zawgyi-One">လိုင္စင္ရေငြေရးေၾကးေရးလုပ္ငန္း</span><br/>
+								<span style="font-size:18px;"> Repayment Schedule for Group Loan</span><br/>
 							</center></b>
 						</div>
-						<div style="float:left;width:25%;">
-								<center><span style="line-height:140%; font-size:12px; font-weight:normal;"><?=lang("agree_to_pay_by_schedule")?> <br/><?=lang("date") ?>: <?= $this->erp->hrsd(date('Y-m-d')); ?><br/><?= lang("right_thumbprints") ?></span></center>
-						</div>
+						<!-- <div style="float:left;width:25%;">
+								<center><span style="line-height:140%; font-size:12px; font-weight:normal;"><?=lang("agree_to_pay_by_schedule")?> <br/><?=lang("date") ?>: <?= $this->erp->hrsd(date('Y-m-d')); ?></span></center>
+						</div> -->
 					</div>
-					
-					<div>
-						<table class="top_info" style="font-size:11px;border-collapse:collapse;width:100%;font-weight:normal">
-							<tr>
-								<td><?= lang("customer_name") ?></td>
-								<td class="color_blue">: <b><?php echo $customer->family_name_other.' '.$customer->name_other; ?></b></td>
-								<td><?= lang("customer_latin_name") ?></td><td class="color_blue">: <?=$customer->family_name.' '.$customer->name;?></td>
-								<td class="b_top b_left b_right"></td>
-								<td class="b_top b_right"></td>
-							</tr>
-							<tr>
-								<td><?=lang("loan_account_number")?> </td>
-								<td class="color_blue">: <?=$sale->reference_no;?> </td>
-								<td><?= lang("c_o_name") ?></td>
-								<td class="color_blue">: <?= $creator->first_name . ' ' . $creator->last_name ; ?></td>
-								<td class="b_left b_right" style="width:90px;"></td>
-								<td class="b_right" style="width:90px;"></td>
-							</tr>
-							<tr>
-								<td><?= lang("phone1") ?></td><td class="color_blue">: <b> <?= $customer->phone1; ?> </b></td>
-								<td><?= lang("c_o_phone") ?></td>
-								<td class="color_blue">: <?= $creator->phone; ?> </td>
-								<td class="b_left b_right"></td>
-								<td class="b_right"></td>
-							</tr>
-							<!--<tr>
-								<td>លេខទូស័ព្ទទី2</td><td class="color_blue">: <?= $customer->phone2; ?></td><td>ថ្ងៃសងចុងក្រោយ</td><td class="color_blue">: <?= $this->erp->hrsd($this->erp->getLastPaymentDate($sale->term, $sale->frequency, $sale->due_date)); ?></td>
-								<td class="b_left b_right"></td><td class="b_right"></td>
-							</tr>-->
-							<tr>
-								<td><?= lang("disburse_date") ?></td><td class="color_blue">: <?= $this->erp->hrsd($sale->approved_date); ?></td>
-								<td><?= lang("term_loan") ?></td>
-								<td class="color_blue">: <?= number_format($sale->term,0); ?>  <?= lang("days") ?> </td>
-								
-								<td class="b_left b_right t_c"><b>  </b></td>
-								<td class="b_right"></td>
-							</tr>
-							<tr>
-								<td><?= lang("payments_times") ?></td><td class="color_blue">: <?= number_format(($sale->term / $sale->frequency),0); ?>  <?= lang("times") ?></td>
-								<td><?= lang("payment_frequency") ?></td>
-								<td class="color_blue">: <?= number_format($sale->frequency,0); ?>  <?= lang("days_times") ?> </td>
-								
-								<td class="b_left b_right t_c"><b>  </b></td>
-								<td class="b_right"></td>
-							</tr>
-							<tr>
-								<td><?= lang("total_balance_schedule") ?></td>
-								<td class="color_blue">: <?= $this->erp->formatMoney($sale->total) .' '. $currency->name_other; ?></td>
-								<td><?= lang("part") ?></td>
-								<td class="color_blue">: 1</td>
-								<td class="b_left b_right b_bottom t_c"><b>  </b></td>
-								<td class="b_right b_bottom"></td>
-							</tr>
-							<tr>
-								<td><?= lang("interest_rate_") ?></td>
-								<td class="color_blue">: <?= ($sale->rate_text ? $sale->rate_text : "")?></td>
-								<td><?= lang("penalty") ?></td><td colspan="3" class="color_blue">: <?=(($setting->penalty_types == 'Percentage')? ($setting->penalty_amount*100).'%' : $this->erp->formatMoney($setting->penalty_amount)) ?>​​​​​​​​ <?= $stcurrency->name ?></td>
-							</tr>
-							<tr>
-								<td><?= lang("purpose_loan") ?></td>
-								<td class="color_blue">: <?= ($sale->note ? $sale->note : "N/A")?>
-								<td><?= lang("collateral_schedule") ?></td>
-								<td class="color_blue">: <?php  echo $collateraltype->type ?></td>
-							</tr>
-							
-							<!--
-							<tr>
-								<td>កំរៃសេវាឥណទាន(២)</td><td class="color_blue">: 100.00 ដុល្លារ</td><td>មំរៃសេវាឆៃក CBC(៣)</td><td colspan="3" class="color_blue">: 2.86 ដុល្លារ</td>
-							</tr><td width="215px"> សរុបតម្លៃសេវា </td><td class="color_blue">: <?= $this->erp->formatMoney($total_service->service_amount) .' '. $currency->name_other; ?></td>
-							-->							
-							
-							<?php
-								foreach ($services as $service){	
-									if ($service->service_paid==1){
-										$one = 0;
-										if($service->method =="Percentage"){
-											$one = $service->amount * $sale->total ;												
-										}else{
-											$one = $this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $service->amount);
-										}	
-										$one_ = $one + ($one * $service->tax_rate);
-										echo'<tr>																																	
-												<td> '.  $service->description .' </td> <td class="color_blue">: '.$this->erp->roundUpMoney($one_, $sale_item->currency_code).' '. $currency->name_other .' </td> 																		
-											</tr>';
-									}
-								}
-							?>
-							<tr>
-								<td><?= lang("address_approved") ?></td><td colspan="4" class="color_blue"> : <?='#'.$customer->house_no; ?> </td>
-							</tr>
-							<!--<tr>
-								<td>គោលបំណងកម្ចី</td><td colspan="5" class="color_blue">: <?= strip_tags($sale_item->description) ?></td>
-							<tr><td>អាស័យដ្ឋាន</td><td colspan="5" class="color_blue">: <?='#'.$customer->house_no.','.$customer->street.','.$address;?></td></tr>
-							</tr>-->
-							
-						</table>
-					</div>
-					<div class="border">	
-						<table style="font-size:11px;width:100%;" class="schedule">
-							<tr class="p_l_r" style="background-color:#009900;color:white;width:100%; height:30px;">
-								<td  class="t_c"><?= lang("no") ?></td>
-								<td  class="t_c"><?= lang("intallment_date") ?></td>
-								
-								<td  class="t_c"><?= lang("principle_paid") ?></td>
-								<td  class="t_c"><?= lang("interest_paid") ?></td>	
+					<table style="width:100%;border-top: 1px solid black;border-bottom: 1px solid black;margin-top:5px;font-size:11px;font-weight: normal;"> <!-- MSM add 1/12/2017-->
+						<tr>
+							<td width="32%">Group ID : </td>
+							<td width="32%">Account ID :<b> <?=$sale->reference_no;?> </b></td>
+							<td width="32%">Name : <b><?php echo $customer->family_name_other.' '.$customer->name_other; ?></b></td>
+						</tr>
+					</table>
+					<table style="width:90%;font-size:11px;margin-top:5px;line-height:15px !important;font-weight: normal;"> 
+						<tr>
+							<td width="5%" style="vertical-align: top;">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
+							<td width="10%" style="vertical-align: top;">: <span style="display:none;"><?= $sale->frequency; ?></span>
 								<?php
-									foreach ($services as $service){
-										if($service->service_paid==2) { 
-											echo '<td class="t_c" style="padding-top:10px;width: 92px;"> '. $service->description.' </td>';
-										}
-										if($service->service_paid==3) { 
-											echo '<td class="t_c" style="padding-top:10px;width: 92px;">'.  $service->description .'</td>';
-										}
-										 
-										if($service->service_paid==4) {
-											echo '<td class="t_c" style="padding-top:10px;width: 92px;"> '. $service->description .'</td>';
-										} 
-									}
-								?>
-								<td  class="t_c"><?= lang("principle_balance") ?></td>
-								<td  class="t_c"><?= lang("total_intallment") ?></td>
-								<?php if($saving){?>
-								<td  class="t_c"><?= lang("saving_interest") ?></td>
-								<?php }?>
+								$frequency[""] = "";
+								$frequency[1] = "Daily";
+								$frequency[7] = "Weekly";
+								$frequency[14] = "Two Week";
+								$frequency[30] = "Monthly";
+								$frequency[90] = "Quarterly";
+								$frequency[180] = "Haft Year";
+								$frequency[360] = "Yearly";
+								echo  $frequency[$sale->frequency];?></td>
+							<td width="1%" style="vertical-align: top;">ေခ်းေငြသက္တမ္း<br>(Loan Term)</td>
+							<td width="10%"  style="vertical-align: top;">: <b><?= number_format($sale->term,0); ?>  <?= lang("days") ?> </b></td>
+							<td width="5%" style="vertical-align: top;">ထုတ္ေခ်းသည့္ရက္စြဲ <br>(Disbursement Date)</td>
+							<td width="5%"  style="vertical-align: top;">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
+						</tr>
+						<tr>
+							<td width="5%" style="vertical-align: top;">အတိုးႏွဳန္း<br>(Interest Rate)</td>
+							<td width="10%"  style="vertical-align: top;">: <b><?= ($sale->rate_text ? $sale->rate_text : "")?></b></td>
+							<td width="10%" style="vertical-align: top;">ေခ်းေငြတာ၀န္ခံအမွတ္<br>(Credit Officer ID)</td>
+							<td width="10%"  style="vertical-align: top;">: <b><?= $creator->first_name . ' ' . $creator->last_name ; ?></b></td>
+							<td width="5%" style="vertical-align: top;">စတင္ေပးေခ်းရမည့္ရက္စြဲ<br>(First Repayment Date)</b></td>
+							<?php 
 								
+								if(array($loan)) {
+									$i = 0;
+									$len = count($loan);
+									foreach($loan as $pt){	
+										if ($pt === reset($loan)){
+							?>			
+							<td width="5%"  style="vertical-align: top;">:<b><?= $this->erp->hrsd($pt->dateline); ?></b></td>
+							<?php }}} ?>
+						</tr>
+						<tr>
+							<td width="5%" style="vertical-align: top;">ေငြေခ်းသူလိပ္စာ<br>(Leader/ Borrower Address)</td>
+							<td colspan="5"  style="vertical-align: top;">:<b><?='#'.$customer->house_no; ?></b></td>
+							
+						</tr>
+						
+					</table>
+
+					<div>	
+						<table style="font-size:11px;width:100%;margin-top: 10px;"  border="1">
+							<tr class="p_l_r" style="background-color:#009900;color:white;width:100%; height:30px;">
+								<td style="text-align: center;" colspan="2">ေပးေခ်ရမည့္ေန႔<br>(Due Date)</td>
+								
+								<td style="text-align: center;">အရင္းေငြ<br>(Principle)</td>
+								<td style="text-align: center;">အတိုးႏႈန္း<br>(Interest)</td>
+								<td style="text-align: center;">လက္က်န္ အရင္းေငြ<br>(Balance)</td>
+								<td style="text-align: center;">လစဥ္သြင္းရန္အရစ္က်ေငြ<br>(Total Due)</td>
+								<td style="text-align: center;">လက္မွတ္<br>(Signature)</td>
 							</tr>
 							<?php
 								$total_principle = 0;
@@ -229,7 +165,6 @@
 										
 										$Principles = $this->erp->roundUpMoney($pt->principle, $sale_item->currency_code);
 										$interests = $this->erp->roundUpMoney($pt->interest, $sale_item->currency_code);
-										$saving_interest = $this->erp->roundUpMoney($pt->saving_interest, $sale_item->currency_code);
 										
 											echo '<tr class="row-data" '.(($pt->paid_amount > 0)? 'style="background-color:#B4D8E8;font-weight:normal;"':'').'>
 												<td class="t_c" style="padding-left: 5px; padding-right: 5px; height: 25px;font-weight:normal;">'. $pt->period .'</td>
@@ -297,12 +232,9 @@
 											$balance = (($pt->balance > 0)? $pt->balance : 0);
 											
 											echo '<td class="t_c" style="padding-left:5px;padding-right:5px;font-weight:normal">'. $this->erp->roundUpMoney($balance, $sale_item->currency_code) .'</td>
-												  <td class="t_c" style="padding-left:5px;padding-right:5px;font-weight:normal">'. $this->erp->roundUpMoney($payment, $sale_item->currency_code) .'</td>';
-												
-											if($saving){
-												echo 
-												 '<td class="t_r" style="padding-left:5px;padding-right:25px;font-weight:normal; text-align:right">'. $saving_interest  .'</td>';}
-											echo'</tr>';
+												<td class="t_c" style="padding-left:5px;padding-right:5px;font-weight:normal">'. $this->erp->roundUpMoney($payment, $sale_item->currency_code) .'</td>
+												<td class="t_c" style="padding-left:5px;padding-right:5px;font-weight:normal"></td>
+												</tr>';
 												
 										$total_principle += str_replace(',', '', $Principles);
 										$total_interest += str_replace(',', '', $interests);
@@ -310,14 +242,13 @@
 										$total_alls += str_replace(',', '', $all_service_paid);
 										$total_haft += str_replace(',', '', $haft_service_paid)/2 ;
 										$total_insurence += str_replace(',', '', $insurence_paid) /2 ;
-										$total_saving += str_replace(',', '', $saving_interest);
 										$total_pay = ($total_payment);
 									}
 								}
 							?>
-						
+
 							<tr class=" text-bold" id="hidden-total">
-								<td class="t_c" style="padding-left: 5px; padding-right: 5px; height: 25px;" colspan="2"><?= lang("total_schedule") ?></td>
+								<td class="t_c" style="padding-left: 5px; padding-right: 5px; height: 25px;" colspan="2">Total</td>
 								
 								<td class="t_c" style="padding-left:5px;padding-right:5px;"><?= $this->erp->roundUpMoney($total_principle, $sale_item->currency_code); ?></td>
 								<td class="t_c" style="padding-left:5px;padding-right:5px;"><?= $this->erp->roundUpMoney($total_interest, $sale_item->currency_code); ?></td>
@@ -340,16 +271,24 @@
 								?>
 								<td></td>
 								<td class="t_c" style="padding-left:5px;padding-right:5px;"><?= $this->erp->roundUpMoney($total_pay, $sale_item->currency_code); ?></td>
-								<?php if ($saving){?>
-								<td class="t_r" style="padding-left:5px;padding-right:25px; text-align:right"><?= $this->erp->roundUpMoney($total_saving,$sale_item->currency_code); ?></td>
-								<?php } ?>
 								<td id="hide_action3"></td>
 							</tr>
-							
 						</table>
 					</div>
-					<div style="margin-top: 10px; margin-bottom: 10px; font-weight:normal">
-						<table style="font-size:11px;">
+
+					<div style="margin-top: 10px; margin-bottom: 10px; font-weight:normal;font-size:11px;">
+						<p>ေခ်းေငြအတိုးအရင္း အားလံုးျပီးဆံုးသည့္တိုင္ေအာင္ တာ၀န္ယူေပးဆပ္မည္ ျဖစ္ေၾကာင္းကို အသိသက္ေသေရွ႕ေမွာက္တြင္ ကၽြန္ေတာ္/ ကၽြန္မ ေငြေခ်းသူႏွင့္ ပူးတြဲေငြေခ်းသူတို႔က လက္၀ဲလက္မကို ႏွိပ္ပါသည္</p><br>
+						<table style="font-size:11px;margin-top: 50px;width:100%;">
+							<tr>
+								<td width="20%"><td>
+								<td width="40%">.......................................................<td>
+								<td width="40%">.......................................................<td>
+							</tr>
+						</table>
+						<!-- MSM end-->	
+
+
+						<!-- <table style="font-size:11px;">
 							<tr valign="top">
 								<td style="width:110px;"> <b> <?= lang("note") ?> :</b> <td>
 								<td height="30%"><?= lang("payment_note")?><td>
@@ -358,7 +297,7 @@
 								<td><td>
 								<td>- <?=lang("the_contract_does_not_comply")?> <b><?php echo $setting->site_name ?> </b> &nbsp <?= lang("company_will_take_legal_action") ?><td>
 							</tr>
-						</table>
+						</table> -->
 					</div>
 
 				</div>
@@ -372,10 +311,10 @@
 				</div>
 			</a>
 			<button type="button" class="btn btn-xs btn-default no-print pull-right" style="margin-right:15px;" onclick="window.print();">
-                <i class="fa fa-print"></i> <?= lang('print'); ?>
-            </button>
+                			<i class="fa fa-print"></i> <?= lang('print'); ?>
+           		 </button>
 			
-        </div>
+       		 </div>
 		<!--<div class="buttons">
 		 
 			<div class="btn-group btn-group-justified no-print">

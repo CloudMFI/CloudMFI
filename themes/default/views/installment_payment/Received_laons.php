@@ -31,7 +31,9 @@
 			padding: 3px !important;
 			text-align: center !important;
 		}
-		
+		td{
+			height:35px;
+		}	
 		
 		#logo img{
 			width:150px;
@@ -126,13 +128,12 @@
 				</div>
 
 				<br>			
-				<div style="overflow:hidden;width:100%;min-height:100px;clear:both;padding-top:10px;font-size:9px; ">
+				<div style="overflow:hidden;width:100%;clear:both;padding:10px 0px 20px 0px;font-size:9px; ">
 					<div >
 						
 						<span style="font-size:13px;">
 							 ထုတ္ေခ်းေငြ၏ ၅,၀၀၀ က်ပ္ကိုစီမံခန္႔ခြဲရန္ ၀န္ေဆာင္ခ အေနျဖင့္လည္းေကာင္း၊ ၁% ကို လူမွဳေထာက္ပ့ံေရး ရန္ပံုေငြ အျဖစ္လည္းေကာင္း ၊ ၅% ကို မျဖစ္မေန စုေဆာင္းေငြ အျဖစ္ လည္းေကာင္း ေကာက္ခံမည္ျဖစ္ပါသည္။ စုေငြအရင္းမ်ားကို လူၾကီးမင္းကုမၸဏီမွ ဆက္လက္ထုတ္ေခ်းရန္ စိတ္ဆႏၵမရွိေတာ့သည့္ အခ်ိန္တြင္ ျပန္လည္ထုတ္ေပးသြားမည္ျဖစ္သည္။
 						</span>
-						<br>
 						<br>
 						<!-- <span style="font-size:13px;text-align: justify-all;">
 							Morakot Microfinance Myanmar Limited will charge you a one-time adminstration fee of 5,000ks of the amount of the loan initially provided to you this fee upfont from the loan disbursed to you at the time of disbursement and may safe keep 5% the disbursement amount perloan as a compulsory
@@ -143,28 +144,22 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 					</div>		
 					
 				</div>
-				<br>
-				<br>
+				
 				<div>
 					<table width="100%" border="solid" style="text-align:center;font-size:12px; ">
 						<thead>
 							<tr style="border-width: 5px;">
-								<th rowspan="2">No</th>
-								<th rowspan="2" >Name</th>
-								<th rowspan="2" >NRC</th>
-								<th rowspan="2">Loan ID</th>
-								<th rowspan="2">Disbursement <br>Amount</th>
-								<th colspan="3" >Payment Amonth</th>	
-								<th rowspan="2">Receive <br>Amount</th>
-								<th rowspan="2">Clients Signature</th>
+								<th rowspan="3">No<br>စဥ္</th>
+								<th rowspan="3" >Name<br>အမည္</th>
+								<th rowspan="3" >NRC<br>ႏိုင္ငံသားမွတ္ပံုတင္အမွတ္</th>
+								<th rowspan="3">Loan ID<br>ေခ်းေငြ အမွတ္</th>
+								<th rowspan="3">Disbursement <br>Amount<br>ေခ်းေငြပမာဏ</th>
+								<th rowspan="3">Fee 1%<br>၀န္ေဆာင္ခ ၁%</th>
+								<th rowspan="3">Beneficiary <br>Welfare Fund 1%<br>လူမႈေရးေထာက္ပ့ံေရး ရန္ပံုေငြ ၁%</th>
+								<th rowspan="3">Compulsory <br>Saving 5%<br>မျဖစ္မေန စုေဆာင္းရမည့္ေငြ ၅%</th>	
+								<th rowspan="3">Receive <br>Amount<br>လက္ခံရရွိမည့္ေငြပမာဏ</th>
+								<th rowspan="3">Clients Signature<br>လက္မွတ္</th>
 							</tr>
-
-							<tr style="border-width: 5px;">
-								<th >Fee 1%</th>
-								<th>Beneficiary <br>Welfare Fund 1%</th>
-								<th>Compulsory <br>Saving 3%</th>
-							</tr>
-
 						</thead>
 						<tbody>
 							<tr>
@@ -175,8 +170,8 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 								<td>500,000</td>
 								<td>5,000</td>
 								<td>5,000</td>
-								<td>15,000</td>
-								<td>475,000</td>
+								<td>25,000</td>
+								<td>465,000</td>
 								<td></td>
 							</tr>
 						</tbody>
@@ -185,7 +180,7 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 				<div style="width:100%;text-align:center;">
 					
 					<div style="margin-left: 80%; float:left;font-weight: bold;font-size:12px; padding-top: 20px;">
-						<p>Cashier (Payer/Receiver) :...............</p>
+						<p>Cashier (Payer/Receiver) :...............<br>ေငြကိုင္</p>
 						
 					</div>				
 				</div>

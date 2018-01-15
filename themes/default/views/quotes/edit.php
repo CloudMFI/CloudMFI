@@ -477,11 +477,8 @@
 																<?= lang("nationality", "cus_nationality"); ?>
 																<?php
 																$cus_nationality[""] = "";
-																$cus_nationality['cam'] = "Cambodian";
-																$cus_nationality['tha'] = "Thailand";
-																$cus_nationality['vie'] = "Vietnamese";
-																$cus_nationality['chi'] = "Chinese";
-																$cus_nationality['bm'] = "Burma";
+																$cus_nationality['cam'] = "Cambodian"; 
+																$cus_nationality['bm'] = "Burmese";
 																echo form_dropdown('cus_nationality', $cus_nationality, isset($applicant->nationality)?$applicant->nationality:'', 'class="form-control select" id="cus_nationality" placeholder="' . lang("select") . ' ' . lang("nationality") . '" style="width:100%" data-bv-notempty="true"')
 																?>
 															</div>
@@ -600,11 +597,13 @@
 																			?>
 																		</div>
 																		<div class="form-group">
-																			<b style="padding-bottom:5px; display:block;"><?= lang("time_at_this_address"); ?></b>
-																			<?php echo form_input('cus_years', $applicant->years, 'class="form-control" id="cus_years" placeholder="' . lang("years") . '" style="display:inline !important; width:35% !important;"'); ?>
+																			<!-- <b style="padding-bottom:5px; display:block;"><?= lang("time_at_this_address"); ?></b> -->
+																			<?php /*echo form_input('cus_years', $applicant->years, 'class="form-control" id="cus_years" placeholder="' . lang("years") . '" style="display:inline !important; width:35% !important;"'); ?>
 																			<?= lang("years", "cus_years"); ?>
 																			<?php echo form_input('cus_months', $applicant->months, 'class="form-control" id="cus_months" placeholder="' . lang("months") . '" style="display:inline !important; width:35% !important;"'); ?>
-																			<?= lang("months", "cus_months"); ?>
+																			<?= lang("months", "cus_months"); */?>
+																			<b style="padding-bottom: 5px;display: block;"><?=lang("ward");?></b>
+																			<?php echo form_input('cus_house_no', (isset($_POST['cus_house_no']) ? $_POST['cus_house_no'] : $applicant->ward), 'class="form-control" '); ?>
 																		</div>
 																	</div>
 																</div>
