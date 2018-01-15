@@ -544,6 +544,7 @@ class Db_model extends CI_Model
 	function getSaleTotal(){
 		$this->db->select('SUM(erp_sales.total) as s_total');
 		$this->db->where('status','loans');
+		$this->db->where('sale_status','activated');
 		$q=$this->db->get('sales',1);
 		if($q->num_rows()>0){
 			return $q->row();
