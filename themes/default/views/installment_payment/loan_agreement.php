@@ -363,7 +363,6 @@
 			<div style=" width:100%;min-height:100px; padding-top:15px; padding-left:10px;">				 
 				1. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 2. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 3. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 4. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 5. ........................... &nbsp;&nbsp;&nbsp;&nbsp; 6. ...........................
 			</div>
->>>>>>> 5b73fb88c43ecd31e2c89d6253ce5b66aaefd12d
 			
 		</div>
 	</body>
