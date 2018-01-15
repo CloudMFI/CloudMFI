@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments. 
 |
 */
-/*$config['base_url'] = 'http://192.168.1.14/CloudNET/mfi_v1.1/';*/
+//$config['base_url'] = 'http://192.168.1.77:8181/CloudNET/mfi_v1.1/';
 $config['base_url']  =  "http://".$_SERVER['HTTP_HOST'];
 $config['base_url'] .= preg_replace('@/+$@', '', dirname($_SERVER['SCRIPT_NAME'])).'/';
 
