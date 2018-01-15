@@ -211,7 +211,7 @@
 			
 			<div style=" width:100%;min-height:100px; padding-top:15px; padding-left:10px;">				 
 				1. ..................... &nbsp;&nbsp;&nbsp; 2. ...................... &nbsp;&nbsp;&nbsp; 3. ...................... &nbsp;&nbsp;&nbsp; 4. ...................... &nbsp;&nbsp;&nbsp; 5. ...................... &nbsp;&nbsp;&nbsp; 6. ......................
-			</div>			
+			</div>		 
 			
 <!--<?php echo($contract_info->gender=male?'checked="checked"':''); ?>
 	 <?php echo $contract_info->gender($gender=='female')?'checked':'' ?>
