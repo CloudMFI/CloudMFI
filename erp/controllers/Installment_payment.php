@@ -9242,12 +9242,16 @@ class Installment_Payment extends MY_Controller
 	}
 	//group_agreement
 	public function group_agreement($sale_id, $group) {
+		
 		$this->load->model('Installment_payment_model');
+		$sales = $this->Installment_payment_model->getSaleById($sale_id);
 		$this->data['setting'] = $this->settings_model->getSettings();
-		$this->data['contract_info'] = $this->Installment_payment_model->group_agreement_ByID($group);
-		$this->data['loan_amount'] = $this->Installment_payment_model->LoanGroupAmount($group);		
+		$this->data['contract_info'] = $this->Installment_payment_model->group_agreement_ByID($sales->loan_group_id);
+		$this->data['contract'] = $this->Installment_payment_model->loan_agreement_ByID($sale_id);
+		$this->data['loan_amount'] = $this->Installment_payment_model->LoanGroupAmount($sales->loan_group_id);		
 		$this->data['currency'] = $this->Installment_payment_model->currency_ByID($sale_id);
-		$this->data['group'] = $this->Installment_payment_model->group_applicant($group);
+		$this->data['group'] = $this->Installment_payment_model->group_applicant($sales->loan_group_id);
+		$this->data['group_name'] = $this->Installment_payment_model->getGroupLoanByID($sales->loan_group_id);
 		$this->data['contract_gr_info'] = $this->Installment_payment_model->guarantor_loan_agreement_ByID($sale_id);
 		$this->data['contract_join_gr_info'] = $this->Installment_payment_model->join_guarantor_loan_agreement_ByID($sale_id);
 		$this->data['village'] = $this->Installment_payment_model->loan_agreemen_Cus_village($sale_id);
@@ -9260,6 +9264,8 @@ class Installment_Payment extends MY_Controller
 		$this->data['br_state'] = $this->Installment_payment_model->branch_state($sale_id);			
 		$this->data['collateral'] = $this->Installment_payment_model->loan_agreement_collateral($sale_id);
 		$this->data['join_lease'] = $this->Installment_payment_model->join_lease_loan_agreement($sale_id);
+		$this->data['setting'] = $this->settings_model->getSettings();
+		$this->data['saleiterm'] = $this->Installment_payment_model->getSaleItemByID($sale_id);
 		$this->load->view($this->theme.'installment_payment/group_agreement',$this->data);
 	}
 	
@@ -9290,7 +9296,10 @@ class Installment_Payment extends MY_Controller
 		foreach($grouploans as $grouploan){
 			$grouploan->service = $this->Installment_payment_model->getServicesBySaleID($grouploan->sale_id);
 			$saving = $this->Installment_payment_model->getSaleSavingSaleID($grouploan->sale_id);
+<<<<<<< HEAD
 			//$this->erp->print_arrays($saving);
+=======
+>>>>>>> f62f02e142367ad006f01ef1956d1ef63f79f857
 			$grouploan->saving = $saving->saving_amount;
 		}
 		$this->data['grouploans'] = $grouploans;

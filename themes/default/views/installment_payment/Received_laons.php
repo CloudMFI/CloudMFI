@@ -161,7 +161,11 @@
 						
 						<tbody>
 							<?php 
+<<<<<<< HEAD
 							$i = 1;
+=======
+							$i = 1; 
+>>>>>>> f62f02e142367ad006f01ef1956d1ef63f79f857
 								foreach($grouploans as $grouploan){
 									$total_disburse = $this->erp->convertCurrency($saleiterm->currency_code,$setting->default_currency, $grouploan->grand_total);
 									$saving = $this->erp->convertCurrency($saleiterm->currency_code,$setting->default_currency, $grouploan->saving);
@@ -172,6 +176,7 @@
 									<td><?= $grouploan->gov_id ?></td>
 									<td><?= $grouploan->reference_no ?></td>
 									<td> <?= $this->erp->roundUpMoney($total_disburse, $saleiterm->currency_code) ?> </td>
+<<<<<<< HEAD
 									<?php foreach($grouploan->service as $service){ ?>
 									<td><?= $service->amount?></td>
 									<?php } ?>
@@ -183,6 +188,46 @@
 							<?php
 								$i++;
 								}
+=======
+									
+									<?php 
+										$tatalservice = 0;
+										$total_service_charge = 0;
+										$service->amount = 0;
+										foreach($grouploan->service as $service){ 
+											if($service->service_paid == 1) {
+												$loan_amt = $this->erp->convertCurrency($saleiterm->currency_code, $setting->default_currency, $grouploan->total);
+												if($service->type == 'Percentage'){
+													$amount = $service->amount * $loan_amt;
+													$service->amount = $amount + ( $amount * $service->tax_rate);
+												}
+												else{
+													$amount = $this->erp->convertCurrency($saleiterm->currency_code, $setting->default_currency, $service->amount);
+													$service->amount = $amount + ( $amount * $service->tax_rate);
+												}
+												$total_service_charge += $service->amount;
+												
+											}
+											$tatalservice = $total_service_charge;
+										
+									?>								 
+									<td><?= $service->amount?></td>
+									<?php 
+											$disburse_amount = $total_disburse - $tatalservice - $saving;
+										}										 
+									?>
+									
+									<td><?= $saving ?></td>
+									<td> <?= $this->erp->roundUpMoney($disburse_amount, $saleiterm->currency_code) ?>  </td>
+									<td>   </td>
+									<td></td>
+								</tr>
+							<?php
+								
+								$i++;
+								}
+								 
+>>>>>>> f62f02e142367ad006f01ef1956d1ef63f79f857
 							?>
 						</tbody>
 					</table>

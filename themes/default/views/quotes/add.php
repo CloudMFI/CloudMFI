@@ -264,9 +264,10 @@
 																		</div>
 																		<!-- Country end -->
 																		<div class="form-group">
-																			<?= lang("district", "cus_district"); ?>
+																			<strong><?= lang("district", ""); ?></strong>
 																			<strong>/Township</strong>
-																			<?php echo form_input('cus_district', isset($customer->district)?$customer->district:$applicant->district, 'class="form-control" id="cus_district"  placeholder="' . lang("select_province_to_load") . '" data-bv-notempty="true"');?>
+																			<?= lang("", "cus_district"); ?>
+																			<?php echo form_input('cus_district', isset($customer->district)?$customer->district:$applicant->district, 'class="form-control" id="cus_district"  placeholder="' . lang("select_province_to_load") . '" data-bv-notempty="true" required="required"');?>
 																		</div>
 																		<!-- District end -->
 																		<div class="form-group">
@@ -283,8 +284,9 @@
 																	
 																	<div class="col-md-6">
 																		<div class="form-group">
-																			<?= lang("province", "cus_province"); ?>
+																			<strong><?= lang("province", ""); ?></strong>
 																			<strong>/State</strong>
+																			<?= lang("","cus_province"); ?>
 																			<?php echo form_input('cus_province', isset($customer->province)?$customer->province: isset($applicant->state)?$applicant->state:$branch->state, 'class="form-control" id="cus_province"  placeholder="' . lang("select_province") . '" required="required"');?>
 																		</div>
 																		<!-- Provience end -->
@@ -509,7 +511,7 @@
 															<div class="col-lg-6">
 																<div class="form-group">
 																	<?= lang("saving_amount_%", "saving_rate"); ?>
-																	<?php echo form_input('saving_rate', (isset($_POST['saving_rate']) ? $_POST['saving_rate'] : '5%'), 'class="form-control" id="saving_rate" '); ?>
+																	<?php echo form_input('saving_rate', (isset($_POST['saving_rate']) ? $_POST['saving_rate'] : '10%'), 'class="form-control" id="saving_rate" '); ?>
 																</div>
 															</div>
 															<div class="col-lg-6">
@@ -521,7 +523,7 @@
 															<div class="col-lg-6">
 																<div class="form-group">
 																	<?= lang("interest_of_saving_%", "saving_interest_rate"); ?>
-																	<?php echo form_input('saving_interest_rate', (isset($_POST['saving_interest_rate']) ? $_POST['saving_interest_rate'] : '1.25%'), 'class="form-control" id="saving_interest_rate" '); ?>
+																	<?php echo form_input('saving_interest_rate', (isset($_POST['saving_interest_rate']) ? $_POST['saving_interest_rate'] : '1%'), 'class="form-control" id="saving_interest_rate" '); ?>
 																</div>
 															</div>
 															<div class="col-lg-6">

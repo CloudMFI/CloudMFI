@@ -3385,14 +3385,14 @@ class Installment_Payment_model extends CI_Model
 		if($sale_id){
 		$this->db->select('SUM(erp_sales.total) as total,sales.approved_date as app_date,companies.issue_date,companies.issue_by,
 		CONCAT(TRUNCATE((erp_sales.interest_rate*100), 2), "", "%") as interest,sales.frequency,		
-		CONCAT(TRUNCATE((erp_sales.term/365), 0), "") as term,
+		CONCAT(TRUNCATE((erp_sales.term/365), 0), "") as term,sales.term as terms,
 		CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) AS customer_name,
 		sales.reference_no,companies.gov_id,companies.gender,companies.name as companies_name,
 		companies.spouse_name,companies.spouse_gender as sp_gender, companies.spouse_birthdate as sp_date, companies.spouse_status as sp_status,
 		companies.date_of_birth,companies.phone1 as phone,
 		CONCAT(erp_users.first_name," ",erp_users.last_name) AS approv_name,identify_types.name as identname, companies.gov_id,
 		quotes.approved_date,collateral_types.type,quote_items.description,
-		companies.village,companies.sangkat, companies.district,companies.state'); 		
+		companies.village,companies.sangkat, companies.district,companies.state, companies.house_no'); 		
 		$this->db->join('collateral','collateral.sale_id=sales.id','LEFT');
 		$this->db->join('collateral_types','collateral_types.id=collateral.cl_type','left');
 		$this->db->join('companies','sales.customer_id = companies.id');
