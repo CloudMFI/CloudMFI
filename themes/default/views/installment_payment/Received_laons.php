@@ -69,12 +69,7 @@
 							</p>					
 						</div>
 				</div>
-				
-
-
-
-
-
+			
 				<div>
 					<table width="100%" style="font-size:12px; ">
 						<tr>
@@ -157,7 +152,7 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 								<th rowspan="3">Fee 1%<br>၀န္ေဆာင္ခ ၁%</th>
 								<th rowspan="3">Beneficiary <br>Welfare Fund 1%<br>လူမႈေရးေထာက္ပ့ံေရး ရန္ပံုေငြ ၁%</th>
 								<th rowspan="3">Compulsory <br>Saving 5%<br>မျဖစ္မေန စုေဆာင္းရမည့္ေငြ ၅%</th>	
-								<th rowspan="3">Receive <br>Amount<br>လက္ခံရရွိမည့္ေငြပမာဏ</th>
+								<th rowspan="3">Received<br>Amount<br>လက္ခံရရွိမည့္ေငြပမာဏ</th>
 								<th rowspan="3">Clients Signature<br>လက္မွတ္</th>
 							</tr>
 						</thead>
@@ -180,7 +175,7 @@ the interest based on a 30 day month.Interest is paid at the end of year and at 
 				<div style="width:100%;text-align:center;">
 					
 					<div style="margin-left: 80%; float:left;font-weight: bold;font-size:12px; padding-top: 20px;">
-						<p>Cashier (Payer/Receiver) :...............<br>ေငြကိုင္</p>
+						<p>Teller :...............<br>ေငြကိုင္</p>
 						
 					</div>				
 				</div>

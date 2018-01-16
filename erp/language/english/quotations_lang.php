@@ -307,7 +307,6 @@ $lang["information_below"]						= "Please fill in the information below. The fie
 $lang["guarantors_4x6_photo"]					= "Guarantors 4x6 Photo";
 $lang["spouse_4x6_photo"]						= "Spouse 4x6 Photo";
 $lang["birth_registeration_letter"]			    = "Birth Registration Letter";//
-//////////
 $lang["branch_company_name"]					="ការិយាល័យសាខា";//"Branch Name";
 $lang["installments"]							="កាលវិភាគសងប្រាក់";//="Installment Schedule";
 $lang["agree_to_pay_by_schedule"]				="ឯភាពបង់ប្រាក់តាមតារាង<br/>សងប្រាក់នេះ "; //= "Agree to pay by schedule";
