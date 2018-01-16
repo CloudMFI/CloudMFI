@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <?php
-	 //$this->erp->print_arrays($grouploans);
+	  //$this->erp->print_arrays($grouploans);
 ?>
 <html>
 	<head>
@@ -150,8 +150,9 @@
 								<th rowspan="3" >NRC<br>ႏိုင္ငံသားမွတ္ပံုတင္အမွတ္</th>
 								<th rowspan="3">Loan ID<br>ေခ်းေငြ အမွတ္</th>
 								<th rowspan="3">Disbursement <br>Amount<br>ေခ်းေငြပမာဏ</th>
-								<th rowspan="3">Fee 1%<br>၀န္ေဆာင္ခ ၁%</th>
-								<th rowspan="3">Beneficiary <br>Welfare Fund 1%<br>လူမႈေရးေထာက္ပ့ံေရး ရန္ပံုေငြ ၁%</th>
+								<?php foreach($services as $service){ ?>
+								<th rowspan="3"><?= $service->description?></th> 
+								<?php } ?>
 								<th rowspan="3">Compulsory <br>Saving 5%<br>မျဖစ္မေန စုေဆာင္းရမည့္ေငြ ၅%</th>	
 								<th rowspan="3">Receive <br>Amount<br>လက္ခံရရွိမည့္ေငြပမာဏ</th>
 								<th rowspan="3">Clients Signature<br>လက္မွတ္</th>
@@ -162,7 +163,8 @@
 							<?php 
 							$i = 1;
 								foreach($grouploans as $grouploan){
-									$total_disburse = $defualt_penalty = $this->erp->convertCurrency($saleiterm->currency_code,$setting->default_currency, $grouploan->grand_total);
+									$total_disburse = $this->erp->convertCurrency($saleiterm->currency_code,$setting->default_currency, $grouploan->grand_total);
+									$saving = $this->erp->convertCurrency($saleiterm->currency_code,$setting->default_currency, $grouploan->saving);
 								?>
 								<tr>
 									<td><?= $i ?></td>
@@ -170,10 +172,12 @@
 									<td><?= $grouploan->gov_id ?></td>
 									<td><?= $grouploan->reference_no ?></td>
 									<td> <?= $this->erp->roundUpMoney($total_disburse, $saleiterm->currency_code) ?> </td>
-									<td>5,000</td>
-									<td>5,000</td>
-									<td>25,000</td>
-									<td>465,000</td>
+									<?php foreach($grouploan->service as $service){ ?>
+									<td><?= $service->amount?></td>
+									<?php } ?>
+									<td><?= $saving ?></td>
+									<td> <?= $this->erp->roundUpMoney($total_disburse, $saleiterm->currency_code) ?>  </td>
+									<td> </td>
 									<td></td>
 								</tr>
 							<?php

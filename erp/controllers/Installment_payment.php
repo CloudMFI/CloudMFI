@@ -9286,10 +9286,12 @@ class Installment_Payment extends MY_Controller
 		$this->data['saleiterm'] = $this->Installment_payment_model->getSaleItemByID($sale_id);
 		$sales = $this->Installment_payment_model->getSaleById($sale_id);
 		$this->data['sales'] =$sales;
-		$grouploans = $this->Installment_payment_model->getgroupLoans($sales->loan_group_id);
+		$grouploans = $this->Installment_payment_model->getgroupLoans($sales->loan_group_id);		 
 		foreach($grouploans as $grouploan){
 			$grouploan->service = $this->Installment_payment_model->getServicesBySaleID($grouploan->sale_id);
-			$grouploan->saving = $this->Installment_payment_model->getSaleSavingSaleID($grouploan->sales_id);
+			$saving = $this->Installment_payment_model->getSaleSavingSaleID($grouploan->sale_id);
+			//$this->erp->print_arrays($saving);
+			$grouploan->saving = $saving->saving_amount;
 		}
 		$this->data['grouploans'] = $grouploans;
 		$this->data['saving'] = $this->Installment_payment_model->getSaleSavingSaleID($sales->sales_id);
