@@ -97,7 +97,7 @@
 								$frequency[360] = "Yearly";
 								echo  $frequency[$sale->frequency];?></td>
 							<td width="1%" style="vertical-align: top;">ေခ်းေငြသက္တမ္း<br>(Loan Term)</td>
-							<td width="10%"  style="vertical-align: top;">: <b><?= number_format($sale->term,0); ?>  <?= lang("days") ?> </b></td>
+							<td width="10%"  style="vertical-align: top;">: <b><?= round($sale->term / 30) ?>လ</b></td>
 							<td width="5%" style="vertical-align: top;">ထုတ္ေခ်းသည့္ရက္စြဲ <br>(Disbursement Date)</td>
 							<td width="5%"  style="vertical-align: top;">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
 						</tr>

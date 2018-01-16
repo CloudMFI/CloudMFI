@@ -6,7 +6,7 @@
 ?>
 <html>
 	<head>
-		<title><?php echo $contract_info->reference_no?$contract_info->reference_no:'N/A';?></title>
+		<title><?php echo $contract->reference_no?$contract->reference_no:'N/A';?></title>
 		<meta charset="utf-8"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -80,7 +80,7 @@
 				<div style="width:20%; float:left;margin-top:70px;">
 				</div>
 				<div style="width:20%; float:left;margin-top:10px;">
-					<span style="font-size:12px;">ေျပစာအမွတ္ &nbsp; <b> <?php echo $contract_info->reference_no?$contract_info->reference_no:'N/A';?></b></span><br>
+					<span style="font-size:12px;">ေျပစာအမွတ္ &nbsp; <b> <?php echo $contract->reference_no?$contract->reference_no:'N/A';?></b></span><br>
 
 					<span style="font-size:12px;">ေခ်းေငြစာရင္း &nbsp; <b> </b></span><br>
 
@@ -94,7 +94,7 @@
 				</div>
 				<div class="pha1" style="float:left;width:97%;">
 					<p class="pha2-text" style="font-size:14px;">
-						ေငြေခ်းငွားသူ (ျမီးရွင္) တရား၀င္ကိုယ္စားျပဳေဆာင္ရြက္သူအမည္ - ေဒၚ…………………………………. ၊ရံုးခြဲမန္ေနဂ်ာ၊ ပဲခူးရံုးခ်ဳပ္ မိုရာေကာ့မိုက္ခရို ဖိုင္းနန့္ (စ္) ျမန္မာ ကုမၸဏီ(ဤမွစ၍ပုဂိၢဳ လ္’က”ဟုေခၚသည္။)
+						ေငြေခ်းငွားသူ (ျမီးရွင္) တရား၀င္ကိုယ္စားျပဳေဆာင္ရြက္သူအမည္ - ေဒၚ <b> <?= $contract->approv_name?$contract->approv_name:'N/A' ?> </b> ၊ရံုးခြဲမန္ေနဂ်ာ၊ ပဲခူးရံုးခ်ဳပ္ မိုရာေကာ့မိုက္ခရို ဖိုင္းနန့္ (စ္) ျမန္မာ ကုမၸဏီ(ဤမွစ၍ပုဂိၢဳ လ္’က”ဟုေခၚသည္။)
 					</p>
 					<p style="font-size:14px;text-align: center">ႏွင္႔</p>
 				</div>
@@ -104,11 +104,12 @@
 				</div>
 				<div class="pha2" style="float:left;width:97%;">
 					<p class="pha2-text" style="font-size:14px;">
-						ေငြေခ်းယူသူ(ျမီးစား)                   ကိုယ္စားလွယ္အမည္                - …………………………………………………………..
-လိပ္စာ-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+						ေငြေခ်းယူသူ(ျမီးစား) ိုယ္စားလွယ္အမည္ <b> <?= $contract->customer_name?$contract->customer_name:'N/A' ?> </b>
+						<br>
+						လိပ္စာ  <?= $village->village ?> / <?= $sangkat->sangkat?> / <?= $sangkat->sangkat?> / <?=$district->district?> / <?=$state->state?> / <?= $contract->house_no?>
 
 					</p>
-					<P style="font-size:14px;text-align: center">အဖြဲ႕၀င္အေရအတြက္----------------------ဦး</P>
+					<P style="font-size:14px;text-align: center">အဖြဲ႕၀င္အေရအတြက္ <b> <?= $group_name->name ?> </b> ဦး</P>
 					<p style="font-size:14px;float:left;width:97%;">ေငြေခ်းယူသူမ်ား၏ အမည္မ်ားႏွင့္ လက္၀ဲလက္မပံုစံမ်ားကိုေအာက္္တြင္စာရင္းျပဳစုထားသည္။</p>
 				</div>
 				<div>
@@ -137,7 +138,7 @@
 				</div>
 				<div class="pha1" style="float:left;width:90%; margin-left:10px;">
 					<p class="pha2-text" style="font-size:14px;">
-						 ပုဂိၢဳလ္’ခ”လက္ခံရရွိသည္္႕ ေခ်းေငြပမာဏ (ဂဏန္းျဖင့္)-------------------------က်ပ္ ( စာျဖင့္)-------------------------က်ပ္					
+						 ပုဂိၢဳလ္’ခ”လက္ခံရရွိသည္္႕ ေခ်းေငြပမာဏ (ဂဏန္းျဖင့္)<b><?= $this->erp->roundUpMoney($this->erp->convertCurrency($saleiterm->currency_code,$setting->default_currency, $contract->total), $saleiterm->currency_code); ?></b> က်ပ္ ( စာျဖင့္)<b><?=$saleiterm->description?></b>က်ပ္					
 					
 					</p>
 				</div>
@@ -146,7 +147,7 @@
 				</div>
 				<div class="pha1" style="float:left;width:90%; margin-left:10px;">
 					<p class="pha2-text" style="font-size:14px;">
-						 ေခ်းေငြသက္တမ္း--------------လ (ေခ်းေငြလက္ခံရရွိသည့္ေနမွ စတင္ေရတြက္သည္)
+						 ေခ်းေငြသက္တမ္း <b><?= round($contract->terms/ 30) ?></b>လ (ေခ်းေငြလက္ခံရရွိသည့္ေနမွ စတင္ေရတြက္သည္)
 					</p>
 				</div>
 				<div class="pha1-num" style="float:left;">
@@ -181,7 +182,7 @@
 				<div class="pha1" style="float:left;width:90%; margin-left:55px;margin-bottom: 30px;">
 					<p class="pha2-text" style="font-size:14px;">
 						- ျပန္လည္ေပးဆပ္ျခင္းဇယား ေခ်းေငြကတိက၀တ္ျပဳစာခ်ဳပ္ ေခ်းေငြထုတ္ေပးမွဳ့ ေျပစာ (သိဳ႔မဟုတ္) ေခ်းေငြထုတ္ျဖတ္ပိုင္းမ်ားအား FDF ----------------------  
-  ပုံစံ ေငြလက္ခံရရွိေႀကာင္းေျပစာ (ေခ်းေငြ၀န္ေဆာင္ခ ရွိခဲ့လွ်င္) တို႔သည္ဤစာခ်ဳပ္၏ ေနာက္ဆက္တြဲမ်ားအျဖစ္ပါရွိပါသည္။
+						ပုံစံ ေငြလက္ခံရရွိေႀကာင္းေျပစာ (ေခ်းေငြ၀န္ေဆာင္ခ ရွိခဲ့လွ်င္) တို႔သည္ဤစာခ်ဳပ္၏ ေနာက္ဆက္တြဲမ်ားအျဖစ္ပါရွိပါသည္။
 
 					</p>
 				</div>
@@ -295,7 +296,7 @@
 				<div class="pha1" style="float:left;width:90%; margin-left:55px;">
 					<p class="pha2-text" style="font-size:14px;margin-bottom: 30px;">
 						- ျပန္လည္ေပးဆပ္ျခင္းဇယား ေခ်းေငြကတိက၀တ္ျပဳစာခ်ဳပ္ ေခ်းေငြထုတ္ေပးမွဳ့ ေျပစာ (သိဳ႔မဟုတ္) ေခ်းေငြထုတ္ျဖတ္ပိုင္းမ်ားအား FDF ----------------------  
-  ပုံစံ ေငြလက္ခံရရွိေႀကာင္းေျပစာ (ေခ်းေငြ၀န္ေဆာင္ခ ရွိခဲ့လွ်င္) တို႔သည္ဤစာခ်ဳပ္၏ ေနာက္ဆက္တြဲမ်ားအျဖစ္ပါရွိပါသည္။
+						ပုံစံ ေငြလက္ခံရရွိေႀကာင္းေျပစာ (ေခ်းေငြ၀န္ေဆာင္ခ ရွိခဲ့လွ်င္) တို႔သည္ဤစာခ်ဳပ္၏ ေနာက္ဆက္တြဲမ်ားအျဖစ္ပါရွိပါသည္။
 
 					</p>
 				</div>
@@ -313,8 +314,8 @@
 				</div>
 				<div>
 					<p style="float: left;line-height: 25px;padding-left: 40px;">
-						<span>ပုဂိၢဳလ္(က )…………………………………မူရင္းႏွစ္ေစာင္</span><br>
-						<span>ပုဂိၢဳလ္(ခ  )…………………………………မိတၱဴတစ္ေစာင္</span><br>
+						<span>ပုဂိၢဳလ္(က )<b> <?= $contract->approv_name?$contract->approv_name:'N/A' ?> </b> မူရင္းႏွစ္ေစာင္</span><br>
+						<span>ပုဂိၢဳလ္(ခ  )<b> <?= $contract->customer_name?$contract->customer_name:'N/A' ?> </b> မိတၱဴတစ္ေစာင္</span><br>
 					</p>
 				</div><br><br>
 				
@@ -338,8 +339,8 @@
 		</div>
 	</body>
 </html>
-<!--<?php echo($contract_info->gender=male?'checked="checked"':''); ?>
-	 <?php echo $contract_info->gender($gender=='female')?'checked':'' ?>
+<!--<?php echo($contract->gender=male?'checked="checked"':''); ?>
+	 <?php echo $contract->gender($gender=='female')?'checked':'' ?>
 -->
 
 
@@ -351,7 +352,7 @@
 ?>
 <html>
 	<head>
-		<title><?php echo $contract_info->reference_no?$contract_info->reference_no:'N/A';?></title>
+		<title><?php echo $contract->reference_no?$contract->reference_no:'N/A';?></title>
 		<meta charset="utf-8"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -420,7 +421,7 @@
 				<div style="width:20%; float:left;margin-top:70px;">
 				</div>
 				<div style="width:20%; float:left;margin-top:10px;">
-					<span style="font-size:10px;"> លេខគណនីបញ្ជី: &nbsp; <b> <?php echo $contract_info->reference_no?$contract_info->reference_no:'N/A';?></b></span>
+					<span style="font-size:10px;"> លេខគណនីបញ្ជី: &nbsp; <b> <?php echo $contract->reference_no?$contract->reference_no:'N/A';?></b></span>
 				</div>				
 			</div>
 			<div class="phara" style="overflow:hidden;width:100%;min-height:100px;clear:both;padding-top:15px;">
@@ -429,7 +430,7 @@
 				</div>
 				<div class="pha1" style="float:left;width:97%;">
 					<p class="pha2-text" style="font-size:14px;">
-						ភាគីឲ្យខ្ចី៖  <b> <?php echo $setting->site_name ?> </b>​  មានអាសយដ្ឋាននៅ ​ភូមិ<b><?php echo $br_village->village?$br_village->village:'NA';?> </b> ឃុំ <b><?php echo $br_sangkat->sangkat?$br_sangkat->sangkat:'NA';?> </b> ស្រុក <b><?php echo $br_district->district?$br_district->district:'NA';?> </b> <b><?php echo $br_state->state?$br_state->state:'NA';?> </b> <br> ដែលតំណាងដោយ​​ លោក/លោកស្រី<b> <?php echo $contract_info->approv_name?$contract_info->approv_name:'NA'; ?> </b> មានតួនាទីជា  <b> ប្រធានសាខា </b> តទៅនេះហៅភាគីថា  <span class="small-letter">(ក) </span>
+						ភាគីឲ្យខ្ចី៖  <b> <?php echo $setting->site_name ?> </b>​  មានអាសយដ្ឋាននៅ ​ភូមិ<b><?php echo $br_village->village?$br_village->village:'NA';?> </b> ឃុំ <b><?php echo $br_sangkat->sangkat?$br_sangkat->sangkat:'NA';?> </b> ស្រុក <b><?php echo $br_district->district?$br_district->district:'NA';?> </b> <b><?php echo $br_state->state?$br_state->state:'NA';?> </b> <br> ដែលតំណាងដោយ​​ លោក/លោកស្រី<b> <?php echo $contract->approv_name?$contract->approv_name:'NA'; ?> </b> មានតួនាទីជា  <b> ប្រធានសាខា </b> តទៅនេះហៅភាគីថា  <span class="small-letter">(ក) </span>
 					</p>
 				</div>		
 				<div class="pha2-num" style="float:left;">
@@ -459,7 +460,7 @@
 					<p class="pha2-text" style="font-size:14px;">
 						ភាគី<span class="small-letter">(ក) </span>​ យល់ព្រមទទួលនូវការធានាអះអាងរបស់  ភាគី​<span class="small-letter">(ខ)</span>
 						ក្នុងការធានាគ្នាទៅវិញទៅមកចំពោះសមាជិកនៅក្នុងក្រុម របស់ខ្លួនដើម្បីជួយចេញសងនៅពេលដែលសមាជិក ណាម្នាក់ខកខាន ក្នុងការសងរំលោះទុនដែលបានខ្ចីពី ភាគី<span class="small-letter">(ក)</span>។ 
-						ទឹកប្រាក់ ដែលសមាជិកទាំងអស់ខ្ចីមានចំនួន <b><?php echo $this->erp->convertCurrency($currency->currency_code,$setting->default_currency, $loan_amount->loan_amount)?> <?= $currency->cname ?></b>​ គត់ នៅ <b>ថ្ងៃទី  <?php echo $this->erp->hrsd($contract_info->app_date)?></b> ដើម្បីយកទៅចែកចាយ សមាជិកក្នុង ក្រុមធានា (ចំនួនទឹកប្រាក់សំរាប់សមាជិកម្នាក់ៗ ដូចបាន បញ្ជាក់នៅក្នុង កិច្ចសន្យាខ្ចីប្រាក់ម្នាក់ៗ ) ។
+						ទឹកប្រាក់ ដែលសមាជិកទាំងអស់ខ្ចីមានចំនួន <b><?php echo $this->erp->convertCurrency($currency->currency_code,$setting->default_currency, $loan_amount->loan_amount)?> <?= $currency->cname ?></b>​ គត់ នៅ <b>ថ្ងៃទី  <?php echo $this->erp->hrsd($contract->app_date)?></b> ដើម្បីយកទៅចែកចាយ សមាជិកក្នុង ក្រុមធានា (ចំនួនទឹកប្រាក់សំរាប់សមាជិកម្នាក់ៗ ដូចបាន បញ្ជាក់នៅក្នុង កិច្ចសន្យាខ្ចីប្រាក់ម្នាក់ៗ ) ។
 					</p>
 				</div>
 				<div class="pha1-num" style="float:left;">
@@ -502,14 +503,14 @@
 				<div class="letter-footer" style="with:100%; height:200px; font-size:12px;">
 					<div class="left-footer" style="width: 35%; float:left;padding:10px 10px 10px; 0px;">
 						<p class="left-footer" style="text-align:center;" >
-							ធ្វើនៅថ្ងៃទី <?php echo $this->erp->hrsd($contract_info->app_date)?>
+							ធ្វើនៅថ្ងៃទី <?php echo $this->erp->hrsd($contract->app_date)?>
 						</p>
 						<p class="left-footer" style="text-align:center; font-family:Khmer OS Muol;" >
 							តំណាងម្ចាស់កម្ចី
 						</p>
 						</p><br/><br/><br/>
 						<p style="text-align:center;font-weight:bold;">
-							 <?php echo $contract_info->approv_name?$contract_info->approv_name:'N/A'; ?>
+							 <?php echo $contract->approv_name?$contract->approv_name:'N/A'; ?>
 						</p>
 					</div>
 					
@@ -524,7 +525,7 @@
 					</div>
 					<div class="left-footer" style="width: 55%; float:left;padding:10px;">
 						<p class="left-footer" style="text-align:center;" >
-							ធ្វើនៅថ្ងៃទី <?php echo $this->erp->hrsd($contract_info->app_date)?>
+							ធ្វើនៅថ្ងៃទី <?php echo $this->erp->hrsd($contract->app_date)?>
 						</p>
 						<p style="text-align:center;">
 							ស្នាមមេដៃស្តាំសមាជិកក្រុមធានាគ្នា ភាគី<span class="small-letter">(ខ)</span>
@@ -545,6 +546,6 @@
 		</div>
 	</body>
 </html> -->
-<!--<?php echo($contract_info->gender=male?'checked="checked"':''); ?>
-	 <?php echo $contract_info->gender($gender=='female')?'checked':'' ?>
+<!--<?php echo($contract->gender=male?'checked="checked"':''); ?>
+	 <?php echo $contract->gender($gender=='female')?'checked':'' ?>
 -->

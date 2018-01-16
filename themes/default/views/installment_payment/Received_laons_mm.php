@@ -71,7 +71,12 @@
 							</p>					
 						</div>
 				</div>
-			
+				
+
+
+
+
+
 				<div>
 					<table width="100%" style="font-size:12px; ">
 						<tr>
@@ -149,7 +154,7 @@
 								<th rowspan="3"><?= $service->description?></th> 
 								<?php } ?>
 								<th rowspan="3">Compulsory <br>Saving 5%<br>မျဖစ္မေန စုေဆာင္းရမည့္ေငြ ၅%</th>	
-								<th rowspan="3">Received<br>Amount<br>လက္ခံရရွိမည့္ေငြပမာဏ</th>
+								<th rowspan="3">Receive <br>Amount<br>လက္ခံရရွိမည့္ေငြပမာဏ</th>
 								<th rowspan="3">Clients Signature<br>လက္မွတ္</th>
 							</tr>
 						</thead>
@@ -212,7 +217,7 @@
 				<div style="width:100%;text-align:center;">
 					
 					<div style="margin-left: 80%; float:left;font-weight: bold;font-size:12px; padding-top: 20px;">
-						<p>Teller :...............<br>ေငြကိုင္</p>
+						<p>Cashier (Payer/Receiver) :...............<br>ေငြကိုင္</p>
 						
 					</div>				
 				</div>
