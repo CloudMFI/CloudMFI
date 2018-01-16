@@ -161,11 +161,7 @@
 						
 						<tbody>
 							<?php 
-<<<<<<< HEAD
-							$i = 1;
-=======
 							$i = 1; 
->>>>>>> f62f02e142367ad006f01ef1956d1ef63f79f857
 								foreach($grouploans as $grouploan){
 									$total_disburse = $this->erp->convertCurrency($saleiterm->currency_code,$setting->default_currency, $grouploan->grand_total);
 									$saving = $this->erp->convertCurrency($saleiterm->currency_code,$setting->default_currency, $grouploan->saving);
@@ -176,19 +172,6 @@
 									<td><?= $grouploan->gov_id ?></td>
 									<td><?= $grouploan->reference_no ?></td>
 									<td> <?= $this->erp->roundUpMoney($total_disburse, $saleiterm->currency_code) ?> </td>
-<<<<<<< HEAD
-									<?php foreach($grouploan->service as $service){ ?>
-									<td><?= $service->amount?></td>
-									<?php } ?>
-									<td><?= $saving ?></td>
-									<td> <?= $this->erp->roundUpMoney($total_disburse, $saleiterm->currency_code) ?>  </td>
-									<td> </td>
-									<td></td>
-								</tr>
-							<?php
-								$i++;
-								}
-=======
 									
 									<?php 
 										$tatalservice = 0;
@@ -227,7 +210,6 @@
 								$i++;
 								}
 								 
->>>>>>> f62f02e142367ad006f01ef1956d1ef63f79f857
 							?>
 						</tbody>
 					</table>

@@ -9296,10 +9296,6 @@ class Installment_Payment extends MY_Controller
 		foreach($grouploans as $grouploan){
 			$grouploan->service = $this->Installment_payment_model->getServicesBySaleID($grouploan->sale_id);
 			$saving = $this->Installment_payment_model->getSaleSavingSaleID($grouploan->sale_id);
-<<<<<<< HEAD
-			//$this->erp->print_arrays($saving);
-=======
->>>>>>> f62f02e142367ad006f01ef1956d1ef63f79f857
 			$grouploan->saving = $saving->saving_amount;
 		}
 		$this->data['grouploans'] = $grouploans;

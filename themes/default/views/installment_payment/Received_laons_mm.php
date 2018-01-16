@@ -1,11 +1,8 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
-=======
 
 <?php
 	  //$this->erp->print_arrays($grouploans);
 ?>
->>>>>>> f62f02e142367ad006f01ef1956d1ef63f79f857
 <html>
 	<head>
 		<title><?php echo $contract_info->reference_no?$contract_info->reference_no:'N/A';?></title>
@@ -87,23 +84,14 @@
 								ေခ်းေငြ အမ်ိဳးအစား<br>
 								(Loan Type)
 							</td>
-<<<<<<< HEAD
-							<td style="width: 25%;padding-bottom: 8px; ">:
-=======
 							<td style="width: 25%;padding-bottom: 8px; ">: <?= $saleiterm->product_name?$saleiterm->product_name:'N/A'; ?>
->>>>>>> f62f02e142367ad006f01ef1956d1ef63f79f857
 							</td>
 							<td style="width: 5%;padding-bottom: 8px; "></td>
 							<td style="width: 10%;padding-bottom: 8px; " class="thb">
 								၀ိုင္းၾကီးခ်ဳပ္နံပါတ္<br>(Group No.)
 							</td>
-<<<<<<< HEAD
-							<td style="width: 45%;padding-bottom: 8px; ">:
-								...........
-=======
 							<td style="width: 45%;padding-bottom: 8px; ">: <?= $group->name?$group->name:'N/A'; ?>
 
->>>>>>> f62f02e142367ad006f01ef1956d1ef63f79f857
 							</td>
 						</tr>
 
@@ -112,23 +100,13 @@
 								ေခ်းေငြ အရာရွိ ID <br>
 								(Credit Officer ID)
 							</td>
-<<<<<<< HEAD
-							<td style="width: 25%;padding-bottom: 8px; ">:
-								......
-=======
 							<td style="width: 25%;padding-bottom: 8px; ">:<?= $co->first_name; ?> <?= $co->last_name; ?>
->>>>>>> f62f02e142367ad006f01ef1956d1ef63f79f857
 							</td>
 							<td style="width: 5%;padding-bottom: 8px; "></td>
 							<td style="width: 10%;padding-bottom: 8px; " class="thb">
 								ေခ်းေငြကာလ<br>(Loan term)
 							</td>
-<<<<<<< HEAD
-							<td style="width: 45%;padding-bottom: 8px; ">:
-								......
-=======
 							<td style="width: 45%;padding-bottom: 8px; ">: <?= round($contract_info->terms) ?>days
->>>>>>> f62f02e142367ad006f01ef1956d1ef63f79f857
 							</td>
 						</tr>
 						<tr>
@@ -172,34 +150,14 @@
 								<th rowspan="3" >NRC<br>ႏိုင္ငံသားမွတ္ပံုတင္အမွတ္</th>
 								<th rowspan="3">Loan ID<br>ေခ်းေငြ အမွတ္</th>
 								<th rowspan="3">Disbursement <br>Amount<br>ေခ်းေငြပမာဏ</th>
-<<<<<<< HEAD
-								<th rowspan="3">Fee 1%<br>၀န္ေဆာင္ခ ၁%</th>
-								<th rowspan="3">Beneficiary <br>Welfare Fund 1%<br>လူမႈေရးေထာက္ပ့ံေရး ရန္ပံုေငြ ၁%</th>
-=======
 								<?php foreach($services as $service){ ?>
 								<th rowspan="3"><?= $service->description?></th> 
 								<?php } ?>
->>>>>>> f62f02e142367ad006f01ef1956d1ef63f79f857
 								<th rowspan="3">Compulsory <br>Saving 5%<br>မျဖစ္မေန စုေဆာင္းရမည့္ေငြ ၅%</th>	
 								<th rowspan="3">Receive <br>Amount<br>လက္ခံရရွိမည့္ေငြပမာဏ</th>
 								<th rowspan="3">Clients Signature<br>လက္မွတ္</th>
 							</tr>
 						</thead>
-<<<<<<< HEAD
-						<tbody>
-							<tr>
-								<td>1.</td>
-								<td>Ma Myat Noe Linn</td>
-								<td>12/bbb(N)123456</td>
-								<td>1</td>
-								<td>500,000</td>
-								<td>5,000</td>
-								<td>5,000</td>
-								<td>25,000</td>
-								<td>465,000</td>
-								<td></td>
-							</tr>
-=======
 						
 						<tbody>
 							<?php 
@@ -253,7 +211,6 @@
 								}
 								 
 							?>
->>>>>>> f62f02e142367ad006f01ef1956d1ef63f79f857
 						</tbody>
 					</table>
 				</div>
