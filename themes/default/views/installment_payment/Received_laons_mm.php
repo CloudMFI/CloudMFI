@@ -128,7 +128,7 @@
 				</div>
 
 				<br>			
-				<div style="overflow:hidden;width:100%;clear:both;padding:10px 0px 10px 0px;font-size:9px; ">
+				<div style="overflow:hidden;width:100%;min-height:100px;clear:both;padding-top:10px;font-size:9px; ">
 					<div >
 						
 						<span style="font-size:13px;">
