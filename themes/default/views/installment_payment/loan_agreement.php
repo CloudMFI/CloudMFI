@@ -208,7 +208,12 @@
 					<p>ေငြေခ်းသူႏွင့္ ပူးတြဲ ေငြေခ်းသူ၏ ဘယ္လက္မလက္ေဗြ <br> ေငြေခ်းသူ	</p>
 				</div>				
 			</div>
+
 			
+<<<<<<< HEAD
+=======
+			
+>>>>>>> 6c089397ac75e48d896006cbc5364be4e7f22a28
 				<?php 
 					$i = 1;
 					foreach($group_loan as $group){?>
@@ -220,8 +225,36 @@
 						</div><br>
 						<div class="row" style="margin-left:20px;"><label>Amount:</label><?= $this->erp->formatMoney($this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $group->total)) ; ?>
 						</div>
+<<<<<<< HEAD
 					</div>
 				<?php $i+=1;} ?>	 
+=======
+				</div>
+				<?php $i+=1;} ?>
+
+					
+						
+						
+				
+			
+			<!-- <div style=" width:100%;min-height:100px; padding-top:15px; padding-left:10px;">				 
+				1. ..................... &nbsp;&nbsp;&nbsp; 2. ...................... &nbsp;&nbsp;&nbsp; 3. ...................... &nbsp;&nbsp;&nbsp; 4. ...................... &nbsp;&nbsp;&nbsp; 5. ...................... &nbsp;&nbsp;&nbsp; 6. ......................
+			</div>
+			<div style=" width:100%;min-height:150px; padding-left:10px;">				 
+				<div style="width: 100px;height: 110px;border:2px solid black;float: left;margin-right: 28px;">
+				</div> 
+				<div style="width: 100px;height: 110px;border:2px solid black;float: left;margin-right: 28px;">
+				</div>
+				<div style="width: 100px;height: 110px;border:2px solid black;float: left;margin-right: 30px;">
+				</div>
+				<div style="width: 100px;height: 110px;border:2px solid black;float: left;margin-right: 32px;">
+				</div>  
+				<div style="width: 100px;height: 110px;border:2px solid black;float: left;margin-right: 33px;">
+				</div>
+				<div style="width: 100px;height: 110px;border:2px solid black;float: left;margin-right: 30px;">
+				</div>
+			</div> -->		 
+>>>>>>> 6c089397ac75e48d896006cbc5364be4e7f22a28
 			
 <!--<?php echo($contract_info->gender=male?'checked="checked"':''); ?>
 	 <?php echo $contract_info->gender($gender=='female')?'checked':'' ?>
