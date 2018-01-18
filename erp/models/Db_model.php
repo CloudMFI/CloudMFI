@@ -511,6 +511,7 @@ class Db_model extends CI_Model
 	function CountID_Quotes(){
 		$this->db->select('COUNT(erp_quotes.id) as id');
 		$this->db->where('erp_quotes.quote_status','applicant');
+		$this->db->where('erp_quotes.status','loans');
 		$q = $this->db->get('quotes');
 		if($q->num_rows() > 0) {
 			return $q->row();
@@ -520,6 +521,7 @@ class Db_model extends CI_Model
 	function CountGroupLoan_Quotes(){
 		$this->db->select('COUNT(erp_quotes.loan_group_id) as id');
 		$this->db->where('erp_quotes.quote_status','applicant');
+		$this->db->where('erp_quotes.status','loans');
 		$q = $this->db->get('quotes');
 		
 		if($q->num_rows() > 0) {

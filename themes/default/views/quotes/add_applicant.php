@@ -22,6 +22,7 @@
 		$('#saving_amount').attr("readonly",true);
 		$('#saving_interest_rate').attr("readonly",true);
 		$('#saving_type').attr("readonly",true);
+		$('#st_inst_date').attr("readonly",true);
 	});
 </script>
 
@@ -158,7 +159,7 @@
 																?>
 															</div>
 															<div class="form-group">
-																<?= lang("date_of_birth ", "cus_dob"); ?>
+																<?= lang("date_of_birth", "cus_dob"); ?>
 																<?php echo form_input('cus_dob', (isset($_POST['cus_dob']) ? $_POST['cus_dob'] : ''), 'class="form-control date" id="cus_dob"'); ?>
 															</div>
 															<div class="form-group">
@@ -781,97 +782,7 @@
 													</div>
 												</div>
 												
-												<!--<div class="col-sm-12 hide_cash-show" style="display:none">
-													<div class="panel panel-primary">
-														<div class="panel-heading"><?= lang('loan_information') ?></div>
-														<div class="panel-body" style="padding: 5px;">
-															<div class="col-lg-6">
-																<div class="form-group">
-																	<?= lang("customer_type", "customer_type"); ?>
-																	<?php
-																	$customer_type[(isset($_POST['customer_type']) ? $_POST['customer_type'] : '')] = (isset($_POST['customer_type']) ? $_POST['customer_type'] : '');
-																	if(array($finacal_products)) {
-																		foreach ($finacal_products as $cust_type) {
-																			$customer_type[$cust_type->id] = $cust_type->name;
-																		}
-																	}
-																	echo form_dropdown('customer_type', $customer_type, (isset($_POST['customer_type']) ? $_POST['customer_type'] : ''), 'id="customer_type" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("finacal_product") . '"  class="form-control input-tip select" style="width:100%;"');
-																	?>
-																</div>
-															</div>
-															<div class="col-lg-6">
-																<div class="form-group">
-																	<?= lang("interest_rate", "interest_rate_cash"); ?>
-																	<?php
-																	/*$interest[""] = "";
-																	if(array($interest_rates)) {
-																		foreach ($interest_rates as $interest_rate) {
-																			$interest[$interest_rate->amount] = $interest_rate->description;
-																		}
-																	}
-																	echo form_dropdown('interest_rate_cash', $interest, (isset($_POST['interest_rate_cash']) ? $_POST['interest_rate_cash'] : ''), 'id="interest_rate_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("interest_rate") . '" class="form-control input-tip select" style="width:100%;"');
-																	*/
-																	?>
-																	<input type="hidden" name="interest_rate_cash" id="interest_rate_cash" class="interest_rate_cash"/>
-																	<?= form_input('interest_rate_cash_2', (isset($_POST['interest_rate_cash_2']) ? $_POST['interest_rate_cash_2'] : ''), ' class="form-control" id="interest_rate_cash_2" style="font-size:14px;" ') ?>
-																
-																</div>
-															</div>
-															<div class="col-lg-6">
-																<div class="form-group">
-																	<?= lang("term", "term_cash"); ?>
-																	<?php
-																	$term[""] = "";
-																	if(array($terms)) {
-																		foreach ($terms as $tm) {
-																			$term[$tm->amount] = $tm->description;
-																		}
-																	}
-																	echo form_dropdown('term_cash', $term, (isset($_POST['term_cash']) ? $_POST['term_cash'] : ''), 'id="term_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("term") . '" class="form-control input-tip select" style="width:100%;"');
-																	?>
-																</div>
-															</div>
-															<div class="col-lg-6">
-																<div class="form-group">
-																	<?= lang("payment_frequency", "frequency_cash"); ?>
-																	<?php
-																	$frequency_cash[""] = "";
-																	//$frequency_cash[1] = "Daily";
-																	$frequency_cash[7] = "Weekly";
-																	$frequency_cash[14] = "Two Week";
-																	$frequency_cash[30] = "Monthly";
-																	//$frequency_cash[90] = "Quarterly";
-																	//$frequency_cash[180] = "Haft Year";
-																	//$frequency_cash[360] = "Yearly";
-																	echo form_dropdown('frequency_cash', $frequency_cash, (isset($_POST['frequency_cash']) ? $_POST['frequency_cash'] : ''), 'id="frequency_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("frequency") . '"  class="form-control input-tip select" style="width:100%;"');
-																	?>
-																</div>
-															</div>
-															<div class="col-lg-6">
-																<div class="form-group">
-																	<?= lang("rate_type", "rate_type_cash"); ?>
-																	<?php
-																	$rate_type[""] = "";
-																	$rate_type["1"] = "Normal";
-																	$rate_type["2"] = "Fixed";
-																	$rate_type["3"] = "Normal_Fixed";
-																	$rate_type["4"] = "Custom";
-																	echo form_dropdown('rate_type_cash', $rate_type, (isset($_POST['rate_type_cash']) ? $_POST['rate_type_cash'] : ''), 'id="rate_type_cash" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("rate_type") . '"  class="form-control input-tip select" style="width:100%;"');
-																	?>
-																</div>
-															</div>
-															<div class="col-lg-6">
-																<div class="form-group">
-																	<?= lang("total_interest_rate", "total_interest_rate"); ?>
-																	<?php echo form_input('total_interest_rate', (isset($_POST['total_interest_rate']) ? $_POST['total_interest_rate'] : 0), 'class="form-control input-tip" id="total_interest_rate" readonly'); ?>
-																</div>
-															</div>
-															<div class="col-lg-6 btn_print_payment_schedule_cash" style="vertical-align: middle; padding: 1% 0% 1% 1.3%;">
-																<input type="button" class="btn btn-primary" value="<?=lang('print_payment_schedule')?>" name="print_payment_schedule_cash" id="print_payment_schedule_cash" />
-															</div>
-														</div>
-													</div>
-												</div>-->
+												 
 												<div class="col-sm-12 hide_cash-show" style="display:none">
 													<div class="panel panel-primary">
 														<div class="panel-heading"><?= lang('loan_information') ?></div>
@@ -893,7 +804,7 @@
 															<div class="col-lg-6">
 																<div class="form-group">
 																	<?= lang("start_installment_date", "st_inst_date"); ?>
-																	<?php echo form_input('st_inst_date', (isset($_POST['st_inst_date']) ? $_POST['st_inst_date'] : ''), 'class="form-control date" id="st_inst_date"'); ?>
+																	<?php echo form_input('st_inst_date', (isset($inv->installment_date) ? $this->erp->hrsd($inv->installment_date)  : ''), 'class="form-control date" id="st_inst_date"'); ?>
 																</div>
 															</div>
 															<div class="col-lg-6">

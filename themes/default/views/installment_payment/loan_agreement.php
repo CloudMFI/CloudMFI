@@ -209,9 +209,19 @@
 				</div>				
 			</div>
 			
-			<div style=" width:100%;min-height:100px; padding-top:15px; padding-left:10px;">				 
-				1. ..................... &nbsp;&nbsp;&nbsp; 2. ...................... &nbsp;&nbsp;&nbsp; 3. ...................... &nbsp;&nbsp;&nbsp; 4. ...................... &nbsp;&nbsp;&nbsp; 5. ...................... &nbsp;&nbsp;&nbsp; 6. ......................
-			</div>		 
+				<?php 
+					$i = 1;
+					foreach($group_loan as $group){?>
+					<div>
+						<div style=" width:100%;min-height:50px; padding-top:15px; margin-left:20px;">
+							<?php echo $i?> <?= $group->customer_name?>
+						</div>
+						<div style="width: 100px;height: 110px;border:2px solid black;margin-left:20px; ">
+						</div><br>
+						<div class="row" style="margin-left:20px;"><label>Amount:</label><?= $this->erp->formatMoney($this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $group->total)) ; ?>
+						</div>
+					</div>
+				<?php $i+=1;} ?>	 
 			
 <!--<?php echo($contract_info->gender=male?'checked="checked"':''); ?>
 	 <?php echo $contract_info->gender($gender=='female')?'checked':'' ?>

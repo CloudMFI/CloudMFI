@@ -489,7 +489,7 @@ function row_status($x)
 														<td>' . $applicant_groups->approved_date . '</td>	
 														<td>' . $applicant_groups->co_name . '</td>
 														<td>' . $applicant_groups->branchName . '</td>
-														<td>' . $this->erp->formatMoney($applicant_groups->grand_total) . '</td>
+														<td>' . $this->erp->formatMoney($applicant_groups->total) . '</td>
 														<td>' . $applicant_groups->crname . '</td>
 														<td>' . $action . '</td>
                                                            </tr>';
