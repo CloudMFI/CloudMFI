@@ -115,7 +115,7 @@ class Installment_Payment_model extends CI_Model
 		companies.date_of_birth,companies.phone1 as phone,companies.house_no,
 		CONCAT(erp_users.first_name," ",erp_users.last_name) AS approv_name,identify_types.name as identname, companies.gov_id,
 		quotes.approved_date,collateral_types.type,quote_items.description,
-		companies.village,companies.sangkat, companies.district,companies.state, quotes.installment_date, 
+		companies.village,companies.sangkat, companies.district,companies.state, quotes.installment_date, sales.date,
 		COUNT(period) as cperiod, MAX(dateline) as enddate, MIN(dateline) as startdate'); 		
 		$this->db->join('collateral','collateral.sale_id=sales.id');
 		$this->db->join('collateral_types','collateral_types.id=collateral.cl_type','left');

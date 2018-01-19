@@ -615,6 +615,11 @@
 													<span class="chevron closed"></span>
 												</a>
 												<ul>
+													<li id="reports_cash_approval">
+														<a href="<?= site_url('reports/cash_approval') ?>">
+															<i class="fa fa-money"></i><span class="text"> <?= lang('cash_approval'); ?></span>
+														</a>
+													</li>
 													<li id="reports_summary_report"><!--- summery Report-->
 														<a href="<?= site_url('reports/summary_report') ?>">
 															<i class="fa fa-building"></i><span class="text"><?= lang('summary_report_chart'); ?></span>
@@ -633,6 +638,7 @@
 																	<i class="fa fa-money"></i><span class="text"> <?= lang('loan_report'); ?></span>
 																</a>
 															</li>-->
+															
 															<li id="reports_customer_reports">
 																<a href="<?= site_url('reports/customer_reports') ?>">
 																	<i class="fa fa-money"></i><span class="text"> <?= lang('customer_reports'); ?></span>

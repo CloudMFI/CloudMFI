@@ -87,7 +87,7 @@
 						<tr>
 							<td width="32%">Group ID : </td>
 							<td width="32%">Account ID :<b> <?=$sale->reference_no;?> </b></td>
-							<td width="32%">Name : <b><?php echo $customer->family_name_other.' '.$customer->name_other; ?></b></td>
+							<td width="32%">Name : <b><?= $applicant->family_name.' '.$applicant->name;?></b></td>
 						</tr>
 					</table>
 					<table style="width:90%;font-size:11px;margin-top:5px;line-height:15px !important;font-weight: normal;"> 

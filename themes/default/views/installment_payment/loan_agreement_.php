@@ -93,15 +93,9 @@
 				<table width="100%">
 					<tr>
 						<td style="width:18%;">ရက္စဲြ<br>(Date)</td>
-						<td style="width:15%;vertical-align: top;">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
+						<td style="width:15%;vertical-align: top;">:<b><?= $this->erp->hrsd($contract_info->date); ?></b></td>
 						<td style="width:13%">ေခ်းေငြကာလ<br>(Loan term)</td>
-                        <?php
-                        $term_month =  floor($contract_info->terms/30);
-                        $term_day = ($contract_info->terms) - ($term_month * 30);
-                        ?>
-						<td style="width:15%;vertical-align: top;">:<b><?= ($term_month > 0 ? $term_month.' '. lang("month") : '') ?>
-                                            <?= ($term_day > 0 ? $term_day.' '. lang("day") : '') ?>
-                                </b></td>
+						<td style="width:15%;vertical-align: top;">:<b><?= round($contract_info->terms); ?> <?= lang("day") ?></b></td>
 						<td style="width:18%">စတင္ေပးေခ်ရမည္ေန႕ရက္<br>(First Repayment Date)</td>
 						<td style="width:15%;vertical-align: top;">: <b><?= $this->erp->hrsd($contract_info->installment_date); ?></b> </td>
 					</tr>
@@ -129,19 +123,18 @@
 						<td style="width:13%">အတိုးနႈန္း<br>(Interest Rate)</td>
 						<td style="width:15%;vertical-align: top;">:<b><?php echo $contract_info->interest ?></b></td>
 						<td style="width:18%">ေခ်းေငြအရာရွိ ID<br>(Credit Officer ID)</td>
-						<td style="width:15%;vertical-align: top;">: <b><?= $co_info->first_name .' '. $co_info->last_name; ?></b></td>
+						<td style="width:15%;vertical-align: top;">:<b><?= $contract_info->approv_name; ?></b></td>
 					</tr>
-                                       
 					<tr>
 						<td style="width:18%">လိပ္စာ<br>(Leader/Borrower Address )</td>
 						<td style="vertical-align: top;" colspan="5">:
-                                                 <b><?='#'.$contract_info->house_no; ?>&nbsp;
-                                                 <?=$village->village; ?>&nbsp;
-                                                 <?=$sangkat->sangkat; ?>&nbsp;
-                                                 <?=$district->district; ?>&nbsp;
-                                                 <?=$state->state; ?>&nbsp;</b>
-                                                 
-                                        </td>
+								 <b><?='#'.$contract_info->house_no; ?>&nbsp;
+								 <?=$village->village; ?>&nbsp;
+								 <?=$sangkat->sangkat; ?>&nbsp;
+								 <?=$district->district; ?>&nbsp;
+								 <?=$state->state; ?>&nbsp;</b>
+								 
+						</td>
 					</tr>
 				</table>				 
 			</div>
@@ -152,7 +145,7 @@
 				</p>
 				
 				<p>
-					ေခ်းေငြ မေပးသြင္းနိုင္ပါက ၀ိုင္းၾကီးခ်ဳပ္စနစ္ျဖင့္  အဖြဲ႕ အမွတ္ <?= $group_name->name ?> ၏ အဖြဲ႕၀င္မ်ားႏွင့္ပူးတဲြ ေငြေခ်းသူတို႔က အညီအမွ် တာ၀န္ယူေျဖရွင္းေပးမည္ ျဖစ္ေၾကာင္းလက္မွတ္ေရးထိုး ပါသည္။
+					ေခ်းေငြ မေပးသြင္းနိုင္ပါက ၀ိုင္းၾကီးခ်ဳပ္စနစ္ျဖင့္  အဖြဲ႕ အမွတ္ ………………… ၏ အဖြဲ႕၀င္မ်ားႏွင့္ပူးတဲြ ေငြေခ်းသူတို႔က အညီအမွ် တာ၀န္ယူေျဖရွင္းေပးမည္ ျဖစ္ေၾကာင္းလက္မွတ္ေရးထိုး ပါသည္။
 				</p>	
 			</div>
 			
@@ -174,7 +167,7 @@
 						<td style="padding:5px"> <?= $i; ?> </td>
 						<td style="padding:5px"> <?= $group->reference_no; ?></td>
 						<td style="padding:5px"> <?= $group->customer_name; ?> </td>
-						<td style="padding:5px"> <?= $group->gov_id; ?></td>
+						<td style="padding:5px"> <?= $group->gov_id; ?> </td>
 						<td style="padding:5px"> <?= $this->erp->formatMoney($this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $group->total)) ; ?> </td>
 						<td style="padding:5px"> </td>
 						
@@ -200,7 +193,7 @@
 							ေခ်းေငြ အတိုးႏွဳန္းမွာတစ္လလွ်င္ ၂.၅% အတိုးႏႈန္း ျဖစ္ပီးေခ်းေငြလက္က်န္စာရင္းအေပၚတြင္ ရက္ေပါင္း ၃၀ ႏႈန္းျဖင့္အတိုးကိုတြက္ခ်က္ပါသည္။ေစာလ်င္စြာ (သို႔) ေနာက္က်စြာ (သို႔) ပိုမ်ားေသာပမာဏမ်ား (သို႔) ပိုနည္းေသာပမာဏမ်ားကိုကၽြႏု္ပ္ တို႔၏ ခြင့္ျပဳခ်က္ မပါရွိပဲ ျပန္လည္ေပးေခ်ျခင္းမျပဳလုပ္ရပါ။ 
 						</li>
 						<li style="word-wrap: break-word;padding: 15px;">							
-							ထုတ္ေခ်းေငြ၏  ၁%  ကိုစီမံခန႔္ခြဲရန္ အခေၾကးေငြ ၀န္ေဆာင္ခ  အေနျဖင့္လည္းေကာင္း  ၊၁%  ကို လူမႈေထာက္ပံ့ေရးရန္ပံုေငြ အျဖစ္လည္းေကာင္း  ၊  ေခ်းေငြ၏  ၅%ကို မျဖစ္မေနစုေဆာင္းေငြ အျဖစ္လည္ေကာင္း  ေခ်းေငြထုတ္သည့္ေန႔တြင္ တစ္ၾကိမ္ေကာက္ခံမည္ျဖစ္သည္။  လူမႈေထာက္ပံ့ေရးရန္ပံုေငြ ေပးသြင္းျခင္းျဖင့္<?php echo $setting->site_name ?> ႏွင့္ အဖြဲ႕၀င္ျဖစ္ေနစဥ္အတြင္း  ေငြေခ်းသူေသဆံုးပါက  ေခ်းေငြမ်ားကိုပယ္ဖ်က္ေပးရန္ အေထာက္အကူျပဳပါသည္။<?php echo $setting->site_name ?>တြင္ ေခ်းထားေသာေခ်းေငြမ်ား မရွိေတာ့ေသာအခါ ႏွင့္<?php echo $setting->site_name ?>၏ အဖြဲ႕၀င္အျဖစ္မွ ႏွဳတ္ထြက္ေသာအခါတြင္္ မျဖစ္မေနစုေဆာင္းေငြအားလံုးကို ထုတ္ယူႏုိင္မည္ ျဖစ္သည္။ စုေငြအတိုးႏွဳန္းမွာ ၁.၂၅%ျဖစ္ျပီး တစ္လ ရက္ (၃၀ )ထားျပီး အတိုးတြက္ခ်က္ပါသည္။
+							ထုတ္ေခ်းေငြ၏  ၁%  ကိုစီမံခန႔္ခြဲရန္ အခေၾကးေငြ ၀န္ေဆာင္ခ  အေနျဖင့္လည္းေကာင္း  ၊၁%  ကို လူမႈေထာက္ပံ့ေရးရန္ပံုေငြ အျဖစ္လည္းေကာင္း  ၊  ေခ်းေငြ၏  ၃%ကို မျဖစ္မေနစုေဆာင္းေငြ အျဖစ္လည္ေကာင္း  ေခ်းေငြထုတ္သည့္ေန႔တြင္ တစ္ၾကိမ္ေကာက္ခံမည္ျဖစ္သည္။  လူမႈေထာက္ပံ့ေရးရန္ပံုေငြ ေပးသြင္းျခင္းျဖင့္<?php echo $setting->site_name ?> ႏွင့္ အဖြဲ႕၀င္ျဖစ္ေနစဥ္အတြင္း  ေငြေခ်းသူေသဆံုးပါက  ေခ်းေငြမ်ားကိုပယ္ဖ်က္ေပးရန္ အေထာက္အကူျပဳပါသည္။<?php echo $setting->site_name ?>တြင္ ေခ်းထားေသာေခ်းေငြမ်ား မရွိေတာ့ေသာအခါ ႏွင့္<?php echo $setting->site_name ?>၏ အဖြဲ႕၀င္အျဖစ္မွ ႏွဳတ္ထြက္ေသာအခါတြင္္ မျဖစ္မေနစုေဆာင္းေငြအားလံုးကို ထုတ္ယူႏုိင္မည္ ျဖစ္သည္။ စုေငြအတိုးႏွဳန္းမွာ ၁.၂၅%ျဖစ္ျပီး တစ္လ ရက္ (၃၀ )ထားျပီး အတိုးတြက္ခ်က္ပါသည္။
 						</li>
 						<li style="word-wrap: break-word;padding: 15px;">
 							ျပန္လည္ေပးဆပ္ရမည့္ ေငြအားလံုးကို ေပးဆပ္ရမည့္ေန႔တြင္  ညေန(၂)နာရီထက္ ေနာက္မက်ဘဲ ေပးသြင္းရပါမည္။ ထိုေန႔တြင္ ညေန(၂)နာရီထက္ေနာက္က်၍ ေပးသြင္းပါက ေနာက္က်   ေပးသြင္းသည္ဟု သတ္မွတ္ျပီး   ေနာက္က်ေၾကးေပးသြင္းရမည္ ျဖစ္သည္။၁ ရက္ထက္  ေနာက္က်ပါက ေနာက္က်ေၾကး ေပးသြင္းရမည္ျဖစ္ျပီး ထိုေနာက္က်ေၾကးသည္ တစ္ၾကိမ္ျပန္ဆပ္ေငြပမာဏ၏   ၁%  ျဖစ္ျပီး  ၄င္းကိုေနာက္က်သည့္အခါတိုင္း ေနာက္က်ေၾကးအျဖစ္ ေပးသြင္းရပါမည္။ ေငြျပန္ဆပ္ရန္ ပ်က္ကြက္ခဲ့လွ်င္ ေနာက္က်ေၾကးအျပင္  အျခားအေရးယူမႈမ်ားကို ျပဳလုပ္မည္ကို ထုတ္ေခ်းသူဘက္က  သိရွိရန္လိုအပ္ပါသည္။
@@ -223,9 +216,19 @@
 				</div>				
 			</div>
 			
-			<div style=" width:100%;min-height:100px; padding-top:15px; padding-left:10px;">				 
-				1. ..................... &nbsp;&nbsp;&nbsp; 2. ...................... &nbsp;&nbsp;&nbsp; 3. ...................... &nbsp;&nbsp;&nbsp; 4. ...................... &nbsp;&nbsp;&nbsp; 5. ...................... &nbsp;&nbsp;&nbsp; 6. ......................
-			</div>		 
+				<?php 
+					$i = 1;
+					foreach($group_loan as $group){?>
+					<div>
+						<div style=" width:100%;min-height:50px; padding-top:15px; margin-left:20px;">
+							<?php echo $i?> <?= $group->customer_name?>
+						</div>
+						<div style="width: 100px;height: 110px;border:2px solid black;margin-left:20px; ">
+						</div><br>
+						<div class="row" style="margin-left:20px;"><label>Amount:</label><?= $this->erp->formatMoney($this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $group->total)) ; ?>
+						</div>
+					</div>
+				<?php $i+=1;} ?>	 
 			
 <!--<?php echo($contract_info->gender=male?'checked="checked"':''); ?>
 	 <?php echo $contract_info->gender($gender=='female')?'checked':'' ?>

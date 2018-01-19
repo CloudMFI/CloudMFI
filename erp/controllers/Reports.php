@@ -18473,5 +18473,17 @@ class Reports extends MY_Controller
 	 
 	}
 	
+	function cash_approval()
+    {
+         
+        $data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->data['monthly_sales'] = $this->reports_model->getChartData();
+        $this->data['stock'] = $this->reports_model->getStockValue();
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('reports')));
+        $meta = array('page_title' => lang('reports'), 'bc' => $bc);
+        $this->page_construct('reports/cash_approval', $meta, $this->data);
+
+    }
+	
 }
     
