@@ -11,26 +11,8 @@ class Site extends CI_Model
         $this->db->where('quantity <= alert_quantity', NULL, FALSE)->where('track_quantity', 1);
         return $this->db->count_all_results('products');
     }
-
-    function dateDiff($f_date,$t_date){
-        $sql = "SELECT DATEDIFF('{$t_date}', '{$f_date}') as d";
-
-        //$query = $this->db->query($sql);
-
-        $query = $this->db->query($sql);
-        $row = $query->row();
-
-        return $row->d + 1;
-//    $d = DB::select($sql);
-//    if(count($d)>0){
-//        return $d[0]->d;
-//    }else{
-//        return null;
-//    }
-    }
-
-
-    public function getNewApplicant() {
+	
+	public function getNewApplicant() {
         $this->db->where('status', 'applicant', 1);
         return $this->db->count_all_results('quotes');
     }

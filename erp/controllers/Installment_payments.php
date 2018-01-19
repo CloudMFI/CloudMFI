@@ -8743,7 +8743,6 @@ class Installment_Payment extends MY_Controller
 			$dollar = $this->installment_payment_model->getDollarRate();
 			$countloans = $this->installment_payment_model->getLoanBySaleId($sale_id);
 			$recipt_voucher = $this->installment_payment_model->getPaymentsByID($sale_id);
-            $this->data['group_loan'] = $this->installment_payment_model->getGroupLoanByID($sale->loan_group_id);
 			$this->data['sale'] = $sale;
 			$this->data['creator'] = $this->installment_payment_model->getMfiCreator($created_by);
 			$this->data['last_payment'] = $this->installment_payment_model->getLastPayment($sale_id);
@@ -8960,7 +8959,7 @@ class Installment_Payment extends MY_Controller
 				"D4"=>"ឥណទាន លើកស្ទួយ សមត្ថភាព គ្រួសារ",
 				"D5"=>"ការិយាល័យសាខា : ". $this->session->branchName,
 				"D6"=>"កាលវិភាគសងប្រាក់",
-				"H3"=>"ឯកភាពបង់ប្រាក់តាមតារាង",
+				"H3"=>"ឯភាពបង់ប្រាក់តាមតារាង",
 				"H4"=>"សងប្រាក់នេះ ",
 				"H5"=>"ថ្ងៃទី: ".$this->erp->hrsd(date('Y-m-d')),
 				"H6"=>"ស្នាមមេដៃស្តាំ",
@@ -9220,7 +9219,6 @@ class Installment_Payment extends MY_Controller
 		$this->data['setting'] = $this->settings_model->getSettings();
 		$this->data['sale_item'] = $this->Installment_payment_model->getSaleItemSaleByID($sale_id);
 		$this->data['contract_info'] = $this->Installment_payment_model->loan_agreement_ByID($sale_id);
-		$this->data['co_info'] = $this->site->getUser($sale->by_co);
 		$this->data['group_loan'] = $this->Installment_payment_model->group_applicant($sale->loan_group_id);
 		$this->data['count_group'] = $this->Installment_payment_model->CountGroupLoanByID($sale->loan_group_id);
 		$this->data['group_info'] = $this->Installment_payment_model->group_agreement_ByID($sale->loan_group_id);
