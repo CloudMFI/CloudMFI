@@ -829,7 +829,8 @@ class Erp
 			$j=0;
 			$days = 0;
 			$count_day = $j;  
-			$saving_amt = 0; 
+			$saving_amt = 0;
+			$old_deadline = 0;
 			$saving_interest_amount = $saving_interest_rate * $saving_amount;
 			
 			for($i=1;$i<=$terms;$i++) {
@@ -868,7 +869,11 @@ class Erp
 					$numdays = date_diff($appr_date, $st_date);
 					$interest_rate = (($lease_amt * $interest) / $frequency) * $numdays->days;
 				} else {
-					$interest_rate = (($lease_amt * $interest) / $frequency) * ($days);
+					$ap_date = date('Y-m-d', strtotime($old_deadline));
+					$appr_date = date_create($ap_date);
+					$st_date = date_create($deadline);
+					$numdays = date_diff($appr_date, $st_date);
+					$interest_rate = (($lease_amt * $interest) / $frequency) * ($numdays->days);
 				}				
 				$principle_amt = str_replace(',', '', $principle);
 				$payment_amt = $principle_amt + $interest_rate;
@@ -914,8 +919,10 @@ class Erp
 												);
 				}
 				$j += $day_of_month;
-				//////Compulsory_Saving Start
 				
+				$old_deadline = $deadline;
+				
+				//////Compulsory_Saving Start
 				if($i == 1) {
 					$ap_date = date('Y-m-d', strtotime($app_date));
 					$appr_date = date_create($ap_date);

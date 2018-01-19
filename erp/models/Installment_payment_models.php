@@ -103,7 +103,6 @@ class Installment_Payment_model extends CI_Model
 			return false;
 		}	
 	}	
-
 	////loan_agreemen_model==========
 	public function loan_agreement_ByID($sale_id=null) {
 		if($sale_id){
@@ -113,7 +112,7 @@ class Installment_Payment_model extends CI_Model
 		CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) AS customer_name,
 		sales.reference_no,companies.gov_id,companies.gender,companies.name as companies_name,sales.note,
 		companies.spouse_name,companies.spouse_gender as sp_gender, companies.spouse_birthdate as sp_date, companies.spouse_status as sp_status,
-		companies.date_of_birth,companies.phone1 as phone,companies.house_no,companies.address,
+		companies.date_of_birth,companies.phone1 as phone,companies.house_no,
 		CONCAT(erp_users.first_name," ",erp_users.last_name) AS approv_name,identify_types.name as identname, companies.gov_id,
 		quotes.approved_date,collateral_types.type,quote_items.description,
 		companies.village,companies.sangkat, companies.district,companies.state, quotes.installment_date, sales.date,
@@ -3776,18 +3775,15 @@ class Installment_Payment_model extends CI_Model
         }
         return FALSE;
     }
-
-   public function getGLtranBy($reference_no = NULL){
+	public function getGLtranBy($reference_no = NULL){
          $result = $this->db->where("reference_no",$reference_no)->get("gl_trans")->row();
          return $result;
    }
-
-    function getDisbursementInfo($sale_id){
+	function getDisbursementInfo($sale_id){
         $q = $this->db->get_where('payments', array('sale_id' => $sale_id, 'type' => 'disburse'), 1);
         if ($q->num_rows() > 0) {
             return $q->row();
         }
         return FALSE;
     }
-	
 }

@@ -77,7 +77,7 @@
 					</div>
 					<table style="width:100%;border-top: 1px solid black;border-bottom: 1px solid black;margin-top:5px;font-size:11px;font-weight: normal;"> <!-- MSM add 1/12/2017-->
 						<tr>
-							<td width="32%">Group ID : </td>
+							<td width="32%">Group ID : <b> <?=$group_loan->name;?> </b></td>
 							<td width="32%">Account ID :<b> <?=$sale->reference_no;?> </b></td>
 							<td width="32%">Name : <b><?php echo $customer->family_name_other.' '.$customer->name_other; ?></b></td>
 						</tr>
@@ -120,7 +120,7 @@
 						</tr>
 						<tr>
 							<td width="5%" style="vertical-align: top;">ေငြေခ်းသူလိပ္စာ<br>(Leader/ Borrower Address)</td>
-							<td colspan="5"  style="vertical-align: top;">:<b><?='#'.$customer->house_no; ?></b></td>
+							<td colspan="5"  style="vertical-align: top;">:<b><?= $address ?></b></td>
 							
 						</tr>
 						

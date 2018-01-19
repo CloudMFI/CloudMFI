@@ -83,37 +83,45 @@
 				?>
 			</b>
 			
+
 		</div>
 		<div>
 			<p style="text-align:center;" class="small-letter"> <b>လိုင္စင္ရ အေသးစား ေငြေရးေၾကးေရး လုပ္ငန္း</b></p>
 			<p style="text-align:center;" class="small-letter"> <b>အုပ္စု ေခ်းေငြစာခ်ုပ္</b></p>
 		</div>
 		
-		<div style=" height:100px; padding-left:15px;font-size:10px;line-height: 18px;">
-			<table width="100%">
-				<tr>
-					<td style="width:18%;">ရက္စဲြ<br>(Date)</td>
-					<td style="width:15%;vertical-align: top;">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
-					<td style="width:13%">ေခ်းေငြကာလ<br>(Loan term)</td>
-					<td style="width:15%;vertical-align: top;">:<b><?= round($contract_info->terms); ?> <?= lang("day") ?></b></td>
-					<td style="width:18%">စတင္ေပးေခ်ရမည္ေန႕ရက္<br>(First Repayment Date)</td>
-					<td style="width:15%;vertical-align: top;">: <b><?= $this->erp->hrsd($contract_info->installment_date); ?></b> </td>
-				</tr>
-				<tr>
-					<td style="width:18%">အဖြဲ႕၀င္အေရအတြက္<br>(Number of member)</td>
-					<td style="width:15%;vertical-align: top;">: <b> <?= $count_group->gr_id; ?></b></td>
-					<td style="width:13%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
-					<td style="width:15%;vertical-align: top;">:<b>
-						<?php
-						$frequency[""] = "";
-						$frequency[1] = "Daily";
-						$frequency[7] = "Weekly";
-						$frequency[14] = "Two Week";
-						$frequency[30] = "Monthly";
-						$frequency[90] = "Quarterly";
-						$frequency[180] = "Haft Year";
-						$frequency[360] = "Yearly";
-						echo  $frequency[$contract_info->frequency];?></b></td>
+		
+			<div style=" height:100px; padding-left:15px;font-size:10px;line-height: 18px;">
+				<table width="100%">
+					<tr>
+						<td style="width:18%;">ရက္စဲြ<br>(Date)</td>
+						<td style="width:15%;vertical-align: top;">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
+						<td style="width:13%">ေခ်းေငြကာလ<br>(Loan term)</td>
+                        <?php
+                        $term_month =  floor($contract_info->terms/30);
+                        $term_day = ($contract_info->terms) - ($term_month * 30);
+                        ?>
+						<td style="width:15%;vertical-align: top;">:<b><?= ($term_month > 0 ? $term_month.' '. lang("month") : '') ?>
+                                            <?= ($term_day > 0 ? $term_day.' '. lang("day") : '') ?>
+                                </b></td>
+						<td style="width:18%">စတင္ေပးေခ်ရမည္ေန႕ရက္<br>(First Repayment Date)</td>
+						<td style="width:15%;vertical-align: top;">: <b><?= $this->erp->hrsd($contract_info->installment_date); ?></b> </td>
+					</tr>
+					<tr>
+						<td style="width:18%">အဖြဲ႕၀င္အေရအတြက္<br>(Number of member)</td>
+						<td style="width:15%;vertical-align: top;">: <b> <?= $count_group->gr_id; ?></b></td>
+						<td style="width:13%">ေပးေခ်သည့္ပံုစံ<br>(Repayment Interval)</td>
+						<td style="width:15%;vertical-align: top;">:<b>
+								<?php
+								$frequency[""] = "";
+								$frequency[1] = "Daily";
+								$frequency[7] = "Weekly";
+								$frequency[14] = "Two Week";
+								$frequency[30] = "Monthly";
+								$frequency[90] = "Quarterly";
+								$frequency[180] = "Haft Year";
+								$frequency[360] = "Yearly";
+								echo  $frequency[$contract_info->frequency];?></b></td>
 						<td style="width:18%">စာခ်ဳပ္အမ်ိဳးအစား<br>(Contract Type)</td>
 						<td style="width:15%;vertical-align: top;">: <b> <?= $sale_item->product_name; ?> </b></td>
 					</tr>
@@ -123,10 +131,12 @@
 						<td style="width:13%">အတိုးနႈန္း<br>(Interest Rate)</td>
 						<td style="width:15%;vertical-align: top;">:<b><?php echo $contract_info->interest ?></b></td>
 						<td style="width:18%">ေခ်းေငြအရာရွိ ID<br>(Credit Officer ID)</td>
-						<td style="width:15%;vertical-align: top;">:<b><?= $contract_info->approv_name; ?></b></td>
+						<td style="width:15%;vertical-align: top;">: <b><?= $co_info->first_name .' '. $co_info->last_name; ?></b></td>
 					</tr>
+                                       
 					<tr>
 						<td style="width:18%">လိပ္စာ<br>(Leader/Borrower Address )</td>
+
 						<td style="vertical-align: top;" colspan="5">:<b><?='#'.$contract_info->house_no; ?></td>
 						</tr>
 					</table>				 
@@ -183,10 +193,10 @@
 								လူၾကီးမင္း၏ ေခ်းေငြေလွ်ာက္လႊာအတြက္ ေက်းဇူးတင္ရွိျပီး <?php echo $setting->site_name ?> ထံမွ ေခ်းေငြထုတ္ယူေသာ အခ်ိန္မွစ၍ ေခ်းေငြျပန္ဆပ္သည့္အခ်ိန္ထိ ၄င္းစည္းမ်ဥ္း စည္းကမ္းမ်ားကိုနားလည္ရန္ ႏွင့္ ၄င္းစည္းမ်ဥ္းစည္းကမ္းတြင္ ပါရွိသည့္အတိုင္း ေပးထားေသာ ကတိမ်ားကို ေစာင့္ထိန္းရန္ အေရးၾကီးပါသည္။ ကိုယ္ေရးအခ်က္အလက္မ်ား ႏွင့္ပတ္သက္ေသာ သတင္းမ်ားကို အခ်ိန္ႏွင့္တေျပးညီအသိေပးရန္ ကတိျပဳျပီး အကယ္၍ အေျပာင္းအလဲရွိပါက ခ်က္ခ်င္း <?php echo $setting->site_name ?> ထံသို႕အေၾကာင္းၾကားရန္ လိုအပ္ပါသည္။
 							</li>
 							<li style="word-wrap: break-word;padding: 15px;">
-								ေခ်းေငြ အတိုးႏွဳန္းမွာတစ္လလွ်င္ ၂.၅% အတိုးႏႈန္း ျဖစ္ပီးေခ်းေငြလက္က်န္စာရင္းအေပၚတြင္ ရက္ေပါင္း ၃၀ ႏႈန္းျဖင့္အတိုးကိုတြက္ခ်က္ပါသည္။ေစာလ်င္စြာ (သို႔) ေနာက္က်စြာ (သို႔) ပိုမ်ားေသာပမာဏမ်ား (သို႔) ပိုနည္းေသာပမာဏမ်ားကိုကၽြႏု္ပ္ တို႔၏ ခြင့္ျပဳခ်က္ မပါရွိပဲ ျပန္လည္ေပးေခ်ျခင္းမျပဳလုပ္ရပါ။ 
+								ေခ်းေငြ အတိုးႏွဳန္းမွာတစ္လလွ်င္ ၂.၅% အတိုးႏႈန္း ျဖစ္ပီးေခ်းေငြလက္က်န္စာရင္းအေပၚတြင္ လတစ္လ၏ ရက္ေပါင္း ေပၚမူတည္ျပီး အတိုးတြက္ခ်က္ပါမည္။ေစာလ်င္စြာ (သို႔) ေနာက္က်စြာ (သို႔) ပိုမ်ားေသာပမာဏမ်ား (သို႔) ပိုနည္းေသာပမာဏမ်ားကိုကၽြႏု္ပ္ တို႔၏ ခြင့္ျပဳခ်က္ မပါရွိပဲ ျပန္လည္ေပးေခ်ျခင္းမျပဳလုပ္ရပါ။ 
 							</li>
 							<li style="word-wrap: break-word;padding: 15px;">							
-								ထုတ္ေခ်းေငြ၏  ၁%  ကိုစီမံခန႔္ခြဲရန္ အခေၾကးေငြ ၀န္ေဆာင္ခ  အေနျဖင့္လည္းေကာင္း  ၊၁%  ကို လူမႈေထာက္ပံ့ေရးရန္ပံုေငြ အျဖစ္လည္းေကာင္း  ၊  ေခ်းေငြ၏  ၅%ကို မျဖစ္မေနစုေဆာင္းေငြ အျဖစ္လည္ေကာင္း  ေခ်းေငြထုတ္သည့္ေန႔တြင္ တစ္ၾကိမ္ေကာက္ခံမည္ျဖစ္သည္။  လူမႈေထာက္ပံ့ေရးရန္ပံုေငြ ေပးသြင္းျခင္းျဖင့္<?php echo $setting->site_name ?> ႏွင့္ အဖြဲ႕၀င္ျဖစ္ေနစဥ္အတြင္း  ေငြေခ်းသူေသဆံုးပါက  ေခ်းေငြမ်ားကိုပယ္ဖ်က္ေပးရန္ အေထာက္အကူျပဳပါသည္။<?php echo $setting->site_name ?>တြင္ ေခ်းထားေသာေခ်းေငြမ်ား မရွိေတာ့ေသာအခါ ႏွင့္<?php echo $setting->site_name ?>၏ အဖြဲ႕၀င္အျဖစ္မွ ႏွဳတ္ထြက္ေသာအခါတြင္္ မျဖစ္မေနစုေဆာင္းေငြအားလံုးကို ထုတ္ယူႏုိင္မည္ ျဖစ္သည္။ စုေငြအတိုးႏွဳန္းမွာ ၁.၂၅%ျဖစ္ျပီး တစ္လ၏ ရက္ေပါင္း ေပၚမူတည္ျပီး အတိုးတြက္ခ်က္ပါမည္။
+								ထုတ္ေခ်းေငြ၏  ၁%  ကိုစီမံခန႔္ခြဲရန္ အခေၾကးေငြ ၀န္ေဆာင္ခ  အေနျဖင့္လည္းေကာင္း  ၊၁%  ကို လူမႈေထာက္ပံ့ေရးရန္ပံုေငြ အျဖစ္လည္းေကာင္း  ၊  ေခ်းေငြ၏  ၅%ကို မျဖစ္မေနစုေဆာင္းေငြ အျဖစ္လည္ေကာင္း  ေခ်းေငြထုတ္သည့္ေန႔တြင္ တစ္ၾကိမ္ေကာက္ခံမည္ျဖစ္သည္။  လူမႈေထာက္ပံ့ေရးရန္ပံုေငြ ေပးသြင္းျခင္းျဖင့္<?php echo $setting->site_name ?> ႏွင့္ အဖြဲ႕၀င္ျဖစ္ေနစဥ္အတြင္း  ေငြေခ်းသူေသဆံုးပါက  ေခ်းေငြမ်ားကိုပယ္ဖ်က္ေပးရန္ အေထာက္အကူျပဳပါသည္။<?php echo $setting->site_name ?>တြင္ ေခ်းထားေသာေခ်းေငြမ်ား မရွိေတာ့ေသာအခါ ႏွင့္<?php echo $setting->site_name ?>၏ အဖြဲ႕၀င္အျဖစ္မွ ႏွဳတ္ထြက္ေသာအခါတြင္္ မျဖစ္မေနစုေဆာင္းေငြအားလံုးကို ထုတ္ယူႏုိင္မည္ ျဖစ္သည္။ စုေငြအတိုးႏွဳန္းမွာ ၁.၂၅%ျဖစ္ပါသည္။
 							</li>
 							<li style="word-wrap: break-word;padding: 15px;">
 								ျပန္လည္ေပးဆပ္ရမည့္ ေငြအားလံုးကို ေပးဆပ္ရမည့္ေန႔တြင္  ညေန(၂)နာရီထက္ ေနာက္မက်ဘဲ ေပးသြင္းရပါမည္။ ထိုေန႔တြင္ ညေန(၂)နာရီထက္ေနာက္က်၍ ေပးသြင္းပါက ေနာက္က်   ေပးသြင္းသည္ဟု သတ္မွတ္ျပီး   ေနာက္က်ေၾကးေပးသြင္းရမည္ ျဖစ္သည္။၁ ရက္ထက္  ေနာက္က်ပါက ေနာက္က်ေၾကး ေပးသြင္းရမည္ျဖစ္ျပီး ထိုေနာက္က်ေၾကးသည္ တစ္ၾကိမ္ျပန္ဆပ္ေငြပမာဏ၏   ၁%  ျဖစ္ျပီး  ၄င္းကိုေနာက္က်သည့္အခါတိုင္း ေနာက္က်ေၾကးအျဖစ္ ေပးသြင္းရပါမည္။ ေငြျပန္ဆပ္ရန္ ပ်က္ကြက္ခဲ့လွ်င္ ေနာက္က်ေၾကးအျပင္  အျခားအေရးယူမႈမ်ားကို ျပဳလုပ္မည္ကို ထုတ္ေခ်းသူဘက္က  သိရွိရန္လိုအပ္ပါသည္။
@@ -223,6 +233,7 @@
 				</div>
 				<?php $i+=1;} ?>	 
 				
+
 <!--<?php echo($contract_info->gender=male?'checked="checked"':''); ?>
 	 <?php echo $contract_info->gender($gender=='female')?'checked':'' ?>
 -->

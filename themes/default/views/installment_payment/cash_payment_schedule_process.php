@@ -81,7 +81,7 @@
 								<div>
 									<table style="width:100%;border-top: 1px solid black;border-bottom: 1px solid black;margin-top:5px;font-size:11px;font-weight: normal;"> <!-- MSM add 1/12/2017-->
 										<tr>
-											<td width="32%">Group ID : </td>
+											<td width="32%">Group ID :<b> <?=$group_loan->name;?> </b></td>
 											<td width="32%">Account ID :<b> <?=$sale->reference_no;?> </b></td>
 											<td width="32%">Name : <b><?php echo $customer->family_name_other.' '.$customer->name_other; ?></b></td>
 										</tr>
@@ -104,7 +104,7 @@
 											<td width="1%" style="vertical-align: top;">ေခ်းေငြသက္တမ္း<br>(Loan Term)</td>
 											<td width="10%"  style="vertical-align: top;">: <b><?= round($sale->term / 30) ?>လ</b></td>
 											<td width="5%" style="vertical-align: top;">ထုတ္ေခ်းသည့္ရက္စြဲ <br>(Disbursement Date)</td>
-											<td width="5%"  style="vertical-align: top;">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
+											<td width="5%"  style="vertical-align: top;">:<b><?= $this->erp->hrsd($disbursement_info->date); ?></b></td>
 										</tr>
 										<tr>
 											<td width="5%" style="vertical-align: top;">အတိုးႏွဳန္း<br>(Interest Rate)</td>
@@ -125,7 +125,7 @@
 										</tr>
 										<tr>
 											<td width="5%" style="vertical-align: top;">ေငြေခ်းသူလိပ္စာ<br>(Leader/ Borrower Address)</td>
-											<td colspan="5"  style="vertical-align: top;">:<b><?='#'.$customer->house_no; ?></b></td>
+											<td colspan="5"  style="vertical-align: top;">:<b><?= $address ?></b></td>
 											
 										</tr>
 										
@@ -144,6 +144,7 @@
 										?>							
 										<td  class="t_c" style="width: 5%;">No</td>
 										<td  class="t_c" style="width: 10%;">ေပးေခ်ရမည့္ေန႔<br>(Due Date)</td>
+                                        <td  class="t_c" style="width: 10%;">နေ့ရက်များ<br>(Days)</td>
 										<td  class="t_c" style="width:  10%;">အရင္းေငြ<br>(Principle)</td>
 										<td  class="t_c" style="width:  10%;">အတိုးႏႈန္း<br>(Interest)</td>
 										<?php
@@ -177,24 +178,67 @@
 										$countrows = count($countloans);
 										$countrow  = count($countloans) /2;
 										$counter = 1;
-										
+
+
+                                    //==============================
+                                    //==============================
+                                    $pre_day = $disbursement_info->date;
+                                    $ii = 0;
+                                    $balance_due = $sale->grand_total;
+
+                                    $frequency = $sale->frequency;
+
+                                    //echo($interest);
+                                    //                                                die();
+                                    //==============================
+                                    //==============================
+
 										if(array($loan)) {
 											foreach($loan as $pt){
+
+											    $num_day = $ii == 0?$this->site->dateDiff($pre_day, $pt->dateline):$this->site->dateDiff($pre_day, $pt->dateline)-1;
+
+                                                $ii++;
+
+                                                $in_rate = $sale->interest_rate;
+
+
+
 												$princ=$this->erp->formatMoney($pt->principle);
-												$interest=$this->erp->formatMoney($pt->interest);									
+
+//												$interest=$this->erp->formatMoney($pt->interest); lion
+												$interest=$balance_due*$in_rate*$num_day/$frequency;
+												$interest2=$balance_due*$in_rate*$num_day/$frequency;
+
+//                                                echo($interest);
+//                                                die();
+//                                                exit;
+
+
 												$overdue_amt = (($pt->paid_amount > 0)? $pt->overdue_amount : 0);
 												$payment = $pt->payment + $overdue_amt;
 												$paid = $pt->paid_amount? $pt->paid_amount : 0;
 												$other_paid = $pt->other_amount? $pt->other_amount : 0;
 												$services_charge = $pt->total_service_charge? $pt->total_service_charge : 0;
 												$paid_amount = $paid + $other_paid + $services_charge + (($pt->paid_amount > 0)? $overdue_amt : 0);
+
 												$balance = $payment - $paid_amount;
-												$balance_moeny = $this->erp->formatMoney($pt->balance);
-												
+
+                                                //==lion
+                                                $balance_due = $balance_due - $pt->principle;
+
+												$balance_moeny = $this->erp->formatMoney($balance_due);
+//												$balance_moeny = $this->erp->formatMoney($pt->balance);
+
 												$Principles = $this->erp->roundUpMoney($pt->principle, $sale_item->currency_code);
-												$interests = $this->erp->roundUpMoney($pt->interest, $sale_item->currency_code);
+//												$interests = $this->erp->roundUpMoney($pt->interest, $sale_item->currency_code);lion
+												$interests = $this->erp->roundUpMoney($interest, $sale_item->currency_code);
 												$saving_interest = $this->erp->roundUpMoney($pt->saving_interest, $sale_item->currency_code);
-												
+
+
+
+
+
 											echo '<tr class="row-data" '.(($pt->paid_amount > 0)? 'style="background-color:#B4D8E8;"':'').' style="width:100%;">';
 											//<!--<td class="t_c" ><input type="checkbox" name="ch_check[]" class="ch_check" value="'.(( $pt->paid_amount == 0 || $pt->owed > 0)? $pt->id:'').'" '.(($pt->paid_amount > 0)? 'checked':'') .'></td> -->
 											//<td class="t_c" style="width: 5%;"> <input type="checkbox" name="ch_check[]" style"margin-left:30px;" class="ch_check" value="'.(($pt->paid_amount == 0)? $pt->id:'').'" '.(($pt->paid_amount > 0)? 'checked':'') .'></td>';
@@ -203,9 +247,13 @@
 											}else if($pt->paid_amount > 0){
 												echo '<td class="t_c" style="width: 5%; pointer-events: none;"> <input type="checkbox" name="chekedbox" style"margin-left:30px;" class="chekedbox" value="'.$pt->id.'" '.'checked'.' readonly></td>';
 											}
+
+
+
 											echo'
 												<td class="t_c" style="padding-left:5px; padding-right: 5px; height: 25px; width:5%" >'. $pt->period .'</td>
 												<td class="t_c" style="padding-left:5px; padding-right:5px; width:10%">'. $this->erp->hrsd($pt->dateline) .'</td>
+												<td class="t_c" style="padding-left:5px; padding-right:5px; width:10%">'. $num_day  .'</td>
 												<td class="t_c" style="padding-left:5px; padding-right:5px; width:10%">'. $Principles .'</td>
 												<td class="t_c" style="padding-left:5px; padding-right:5px; width:10%">'. $interests .'</td>';
 												$balances = (($pt->balance > 0)? $pt->balance : 0);
@@ -295,11 +343,19 @@
 											$total_haft += str_replace(',', '', $haft_service_paid)/2 ;
 											$total_insurence += str_replace(',', '', $insurence_paid) /2 ; 
 											$total_pay = ($total_payment);
+
+
+                                                $pre_day = $pt->dateline;
+
+
+                                                $this->db->update('loans', array('interest' => $interest, 'payment' => ($Principles + $interest)), array('id' => $pt->id));
+
 											}
+											 
 										}
 									?>	
 									<tr class=" text-bold">
-										<td class="t_c" style="padding-left: 5px; padding-right: 5px; height: 25px;" colspan="3"> Total </td>
+										<td class="t_c" style="padding-left: 5px; padding-right: 5px; height: 25px;" colspan="4"> Total </td>
 										<td class="t_c" style="padding-left:5px;padding-right:5px;"><?= $this->erp->roundUpMoney($total_principle, $sale_item->currency_code); ?></td>
 										<td class="t_c" style="padding-left:5px;padding-right:5px;"><?= $this->erp->roundUpMoney($total_interest, $sale_item->currency_code); ?></td>
 										<?php
@@ -442,7 +498,7 @@
 	$(document).ready(function() {
 	$('#all_check').on('ifChanged', function(){
 		if($(this).is(':checked')) {
-			var days = <?= $stdays->days; ?>;
+			var days = '<?= $stdays->days; ?>';
 			var DiffDate = <?= $diffday->DiffDate ? $diffday->DiffDate:'0'; ?>;
 			if(DiffDate > days){
 				$('.ch_check').each(function() {

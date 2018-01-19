@@ -1329,6 +1329,12 @@ $(document).ready(function() {
 		window.location.href = site.base_url + 'Installment_payment/cash_payment_schedule_preview_by_id/' + $(this).parent('.installment_link').attr('id');		
     });
 	
+	$('body').on('click', '.group_approval td:not(:first-child :last-child)', function() {
+		$('#myModal').modal({remote: site.base_url + 'Reports/group_approval/' + $(this).parent('.group_approval').attr('id')});
+		$('#myModal').modal('show');
+		
+    });
+	
 	$('body').on('click', '.contract_link td:not(:first-child :last-child)', function() {
 		$('#myModal').modal({remote: site.base_url + 'Account/add_deposit/' + $(this).parent('.contract_link').attr('id')});
 		$('#myModal').modal('show');

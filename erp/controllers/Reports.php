@@ -18473,5 +18473,36 @@ class Reports extends MY_Controller
 	 
 	}
 	
+	function group_loan_approval()
+    {
+         
+        $data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->data['monthly_sales'] = $this->reports_model->getChartData();
+        $this->data['stock'] = $this->reports_model->getStockValue();
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('reports')));
+        $meta = array('page_title' => lang('reports'), 'bc' => $bc);
+        $this->page_construct('reports/list_group_approval', $meta, $this->data);
+
+    }
+	public function getGroupApproval(){ 
+        $this->load->library('datatables');	
+        $this->datatables
+             ->select("loan_groups.id,sales.date, loan_groups.name")
+			 ->where('sales.sale_status','approved')
+			 ->join('sales','loan_groups.id = sales.loan_group_id','left')
+			 ->group_by('loan_groups.id')
+            ->from("loan_groups");
+             
+        echo $this->datatables->generate();
+	}
+	
+	function group_approval()
+    {
+        $data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->data['monthly_sales'] = $this->reports_model->getChartData();
+        $this->data['stock'] = $this->reports_model->getStockValue(); 
+		$this->data['modal_js'] = $this->site->modal_js();
+		$this->load->view($this->theme . 'reports/group_approval', $this->data);
+    }
 }
     
