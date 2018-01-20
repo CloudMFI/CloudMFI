@@ -8755,6 +8755,7 @@ class Installment_Payment extends MY_Controller
 			$this->data['countloans'] = $countloans;
 			$this->data['sale_id'] = $sale_id;
 			$this->data['sale_item'] = $sale_item;
+			$this->data['disbursement_info'] = $this->installment_payment_model->getDisbursementInfo($sale->id);
 			$this->data['saving'] = $this->installment_payment_model->getSaleSavingSaleID($sale_id);
 			$this->data['collateraltype'] = $this->installment_payment_model->getCollateralBySale($sale_id);
 			$this->data['total_service'] = $this->installment_payment_model->getservicefee($sale_id);

@@ -95,11 +95,12 @@
 								$frequency[90] = "Quarterly";
 								$frequency[180] = "Haft Year";
 								$frequency[360] = "Yearly";
-								echo  $frequency[$sale->frequency];?></td>
+								echo  $frequency[$sale->frequency];?>
+							</td>
 							<td width="1%" style="vertical-align: top;">ေခ်းေငြသက္တမ္း<br>(Loan Term)</td>
 							<td width="10%"  style="vertical-align: top;">: <b><?= round($sale->term / 30) ?>လ</b></td>
 							<td width="5%" style="vertical-align: top;">ထုတ္ေခ်းသည့္ရက္စြဲ <br>(Disbursement Date)</td>
-							<td width="5%"  style="vertical-align: top;">:<b><?= $this->erp->hrsd(date('Y-m-d')); ?></b></td>
+							<td width="5%"  style="vertical-align: top;">:<b><?= $this->erp->hrsd($disbursement_info->date); ?></b></td>
 						</tr>
 						<tr>
 							<td width="5%" style="vertical-align: top;">အတိုးႏွဳန္း<br>(Interest Rate)</td>
