@@ -1004,5 +1004,5 @@ $lang["payment_terms"]							= "Payment Terms";
 $lang["disbursement_reports"]					= "Disbursement Reports";
 $lang["daily_monitor_report"]					="Daily Monitor Report";
 $lang["cash_approval"]							= "Cash Approval";
-$lang[""]			= "";
+$lang["group_loan_approval"]					= "Group Loan Approval";
 $lang[""]			= "";

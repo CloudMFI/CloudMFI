@@ -3031,4 +3031,36 @@ ORDER BY
         }
         return FALSE;
     }
+	
+	
+	public function getGruopMember($group_id){		
+		$this->db->select('sales.reference_no,CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) as cus_name,companies.gov_id,sales.total, sale_items.currency_code');
+		$this->db->where('sales.loan_group_id',$group_id );
+		$this->db->join('sale_items','sale_items.sale_id = sales.id','left');
+		$this->db->join('companies','sales.customer_id=companies.id','LEFT');		
+		$q = $this->db->get('sales');
+		if ($q->num_rows() > 0){
+			foreach ($q->result() as $row){
+				$data[] = $row;
+			}
+			return $data;
+		}
+		return FALSE;
+		
+	}
+	public function getGruopLoan($id){
+        $q = $this->db->get_where('loan_groups', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+	
+	public function get_setting() {
+        $q = $this->db->get('settings');
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
 }

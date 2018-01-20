@@ -18496,10 +18496,12 @@ class Reports extends MY_Controller
         echo $this->datatables->generate();
 	}
 	
-	function group_approval()
+	function group_approval($group_id)
     {
-        $data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
-        $this->data['monthly_sales'] = $this->reports_model->getChartData();
+		$this->load->model('reports_model'); 
+        $this->data['group_members'] = $this->reports_model->getGruopMember($group_id);  
+		$this->data['loan_groups'] = $this->reports_model->getGruopLoan($group_id); 
+		$this->data['setting'] = $this->reports_model->get_setting(); 
         $this->data['stock'] = $this->reports_model->getStockValue(); 
 		$this->data['modal_js'] = $this->site->modal_js();
 		$this->load->view($this->theme . 'reports/group_approval', $this->data);

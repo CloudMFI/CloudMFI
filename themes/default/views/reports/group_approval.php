@@ -1,3 +1,4 @@
+ 
  <style type="text/css">
     
     @media print{ 
@@ -15,7 +16,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-2x">&times;</i></button>
-            <h4 class="modal-title" id="myModalLabel"><?php echo lang('customer_payments_history'); ?></h4>
+            <h4 class="modal-title" id="myModalLabel"><?php echo lang('list_group_approval'); ?></h4>
         </div>
         <div class="modal-body"> 
 			<div class="box-content">
@@ -35,7 +36,7 @@
 									<div class="row"> 
 										<div class="col-sm-4">
 											<center>
-												<p style="font-size: 15px; margin-top: 10px !important;">Group No.&nbsp;&nbsp;................................</p>
+												<p style="font-size: 15px; margin-top: 10px !important;">Group No.&nbsp;&nbsp; <?=  $loan_groups->name; ?></p>
 											</center>
 										</div>
 										<div class="col-sm-4">
@@ -61,24 +62,27 @@
 												</tr>	 
 												</thead>
 											<tbody>
+											
+												<?php
+													$i = 1;
+													foreach($group_members as $group_member){
+													$amount = $this->erp->convertCurrency($group_member->currency_code, $setting->default_currency,$group_member->total);
+												?>
 												<tr>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													</tr>
-													<tr>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													<td style="text-align:center; vertical-align:middle;"></td>
-													</tr>
+													<td style="text-align:center; vertical-align:middle;"><?= $i ?> </td>
+													<td style="text-align:center; vertical-align:middle;"><?= $group_member->reference_no; ?> </td>
+													<td style="text-align:center; vertical-align:middle;"><?= $group_member->cus_name; ?> </td>
+													<td style="text-align:center; vertical-align:middle;"><?= $group_member->gov_id; ?> </td>
+													<td style="text-align:center; vertical-align:middle;"><?= $this->erp->formatMoney($amount); ?> </td>
+													<td style="text-align:center; vertical-align:middle;"> </td>
+													<td style="text-align:center; vertical-align:middle;"> </td>
+												</tr> 
+												<?php
+													$i++;
+													}
+												?>
+													
+													
 												</tbody>
 											</table>
 										</div>
