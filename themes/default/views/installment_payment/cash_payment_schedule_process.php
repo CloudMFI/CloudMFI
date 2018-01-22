@@ -348,7 +348,7 @@
                                                 $pre_day = $pt->dateline;
 
 
-                                                $this->db->update('loans', array('interest' => $interest, 'payment' => ($Principles + $interest)), array('id' => $pt->id));
+                                                //$this->db->update('loans', array('interest' => $interest, 'payment' => ($Principles + $interest)), array('id' => $pt->id));
 
 											}
 											 
