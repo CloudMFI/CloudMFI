@@ -9305,6 +9305,7 @@ class Installment_Payment extends MY_Controller
 			$grouploan->saving = $saving->saving_amount;
 		}
 		$this->data['grouploans'] = $grouploans;
+		$this->data['disbursement_info'] = $this->installment_payment_model->getDisbursementInfo($sale_id);
 		$this->data['saving'] = $this->Installment_payment_model->getSaleSavingSaleID($sales->sales_id);
 		$this->data['services'] = $this->Installment_payment_model->getServicesBySaleID($sale_id);
 		$this->data['co'] = $this->Installment_payment_model->getMfiCreator($sales->by_co);

@@ -67,9 +67,14 @@
 							<span style=" font-size:12px;font-family:Zawgyi-One;">ေငြေပး/ ေငြရေျပစာ</span>							 					
 					</div>
 					<div style="text-align:right">							 
-							<span style="float: right;">ရက္စဲြ(Date):								
+							<!--<span style="float: right;">ရက္စဲြ(Date):								
 								<?php echo $this->erp->hrsd($contract_info->approved_date)?>
-							</span>						 					
+							</span>	<br>-->
+						 
+							<span style="float: right;">ရက္စဲြ(Disbursement Date):
+							<?= $this->erp->hrsd($disbursement_info->date); ?>
+							</span>
+						 
 					</div>
 				</div>
 				
