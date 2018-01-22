@@ -3056,6 +3056,17 @@ ORDER BY
         return FALSE;
     }
 	
+	public function getSaleByGroupID($group_id)
+    {   $this->db->select('sales.approved_date,CONCAT(erp_users.first_name," ",erp_users.last_name) as co_name ');
+		$this->db->where('sales.loan_group_id',$group_id );
+		$this->db->join('users','sales.by_co = users.id','left');
+		$q = $this->db->get('sales');
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+	
 	public function get_setting() {
         $q = $this->db->get('settings');
         if ($q->num_rows() > 0) {

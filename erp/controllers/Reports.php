@@ -18500,9 +18500,11 @@ class Reports extends MY_Controller
     {
 		$this->load->model('reports_model'); 
         $this->data['group_members'] = $this->reports_model->getGruopMember($group_id);  
-		$this->data['loan_groups'] = $this->reports_model->getGruopLoan($group_id); 
-		$this->data['setting'] = $this->reports_model->get_setting(); 
-        $this->data['stock'] = $this->reports_model->getStockValue(); 
+		$this->data['loan_groups'] = $this->reports_model->getGruopLoan($group_id);
+		$this->data['sales'] = $this->reports_model->getSaleByGroupID($group_id);
+		//$this->erp->print_arrays($sales);
+		$this->data['setting'] = $this->reports_model->get_setting();
+        $this->data['stock'] = $this->reports_model->getStockValue();
 		$this->data['modal_js'] = $this->site->modal_js();
 		$this->load->view($this->theme . 'reports/group_approval', $this->data);
     }

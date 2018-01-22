@@ -29,7 +29,7 @@
 										<div style="padding:0 auto; font-family:Battambang">	
 											<center><b>
 												<span style="font-family:Zawgyi-One"></span><br/>
-												<span style="font-size:20px;"> (Cash Approal Form)</span><br/>
+												<span style="font-size:20px;"> (Cash Approval Form)</span><br/>
 											</center></b>
 										</div>		
 									</div>					
@@ -43,7 +43,7 @@
 										</div>
 										<div class="col-sm-4">					
 											<center>
-												<p style="font-size: 15px; margin-top: 10px !important;">Date:&nbsp;&nbsp;................................<br></p>
+												<p style="font-size: 15px; margin-top: 10px !important;">Date:&nbsp;&nbsp;<?= $this->erp->hrsd($sales->approved_date) ?><br></p>
 											</center>
 										</div> 
 									</div>
@@ -90,7 +90,7 @@
 									<div class="row"> 
 											<div class="col-sm-4">
 												<center>
-													<p style="font-size: 15px; margin-top: 10px !important;">  (Approal of)<br></p>
+													<p style="font-size: 15px; margin-top: 10px !important;">  (Approval of)<br></p>
 											<form style="font-size: 15px; margin-top: 10px !important;">		
 													<input type="checkbox" name="vehicle" value="Operation Manager">(Operation Manager)
 													<input type="checkbox" name="vehicle" value="Brach Manager">(Brach Manager)
@@ -100,8 +100,8 @@
 											<div class="col-sm-4">
 												
 											<form style="font-size: 15px;text-align:center; margin-top: 10px !important;">
-													<input type="checkbox" name="vehicle" value="Approal"> Approal&nbsp;&nbsp;&nbsp;
-													<input type="checkbox" name="vehicle" value="Not pproal"> Not Approal<br>
+													<input type="checkbox" name="vehicle" value="Approal"> Approval&nbsp;&nbsp;&nbsp;
+													<input type="checkbox" name="vehicle" value="Not pproal"> Not Approval<br>
 											</form>
 											</div>
 											<div class="col-sm-4">
@@ -114,7 +114,7 @@
 											<div class="col-sm-4">
 												<center>
 													<p style="font-size: 15px; margin-top: 25px !important;"><b>Credit Officer</b><br><br><br>Sign & seal:&nbsp;&nbsp;................................<br><br>
-													Name:&nbsp;&nbsp;..........................................</p>
+													Name:&nbsp;&nbsp;<?= $sales->co_name?></p>
 												</center>
 											</div>
 											<div class="col-sm-4">
