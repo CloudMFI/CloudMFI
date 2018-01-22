@@ -55,10 +55,20 @@
 </style>
 
 <div class="modal-dialog modal-lg">
+
     <div class="modal-content">
         <div class="modal-header">
             <div>
-				<h2 style="text-align:center;padding-top:10px;"  class="small-letter"> <b>စုေဆာင္းေငြစာရင္း</b></h2>
+            	
+            			<div style=" margin-left: 350px" id="logo">
+					<span> 
+						<?php if ($Settings->logo2) {
+							echo '<img src="' . site_url() . 'assets/uploads/logos/' . $Settings->logo2 . '" style="margin-bottom:1px;" />';
+						} ?> 
+					</span> 
+				</div>
+		
+				<h2 style="text-align:center;padding-top:0px;line-height: 0px"  class="small-letter"> <b>စုေဆာင္းေငြစာရင္း</b></h2>
 				<h2 style="text-align:center;" class="small-letter"> <b>Saving List</b></h2>
 			</div>
         </div>
@@ -70,7 +80,7 @@
 							<tr>
 								<td style="width:28%;">အေကာင့္နံပါတ္ (Account Number)</td>
 								<td>: <?= $sales->reference_no ?></td>
-								<td style="width:28%;">ရက္စဲြ (Date)</td>
+								<td style="width:28%;">ရက္စဲြ (Disbursement Date)</td>
 								<td>:<?= $this->erp->hrsd($sales->date) ?></td>
 							</tr>
 							<tr>

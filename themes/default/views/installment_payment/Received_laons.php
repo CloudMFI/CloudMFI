@@ -61,15 +61,16 @@
 									
 				</div>
 				<div class="header" style="width:100%;float:left;margin-top:20px;">								
-					<div>
-							<p style="padding-left: 48%;font-size:12px;font-family:Zawgyi-One;">လိုင္စင္ရေငြေရးေၾကးေရးလုပ္ငန္း
-								<span style="float: right;">ရက္စဲြ(Date):
+					<div style="text-align:center">							 
+							<span style=" font-size:12px;font-family:Zawgyi-One;">လိုင္စင္ရေငြေရးေၾကးေရးလုပ္ငန္း</span> 
+							<br>
+							<span style=" font-size:12px;font-family:Zawgyi-One;">ေငြေပး/ ေငြရေျပစာ</span>							 					
+					</div>
+					<div style="text-align:right">							 
+							<span style="float: right;">ရက္စဲြ(Date):								
 								<?php echo $this->erp->hrsd($contract_info->approved_date)?>
-								</span>
-								<br>
-								<span style="text-align:center;font-size:12px;font-family:Zawgyi-One;">ေငြေပး/ ေငြရေျပစာ</span>
-							</p>					
-						</div>
+							</span>						 					
+					</div>
 				</div>
 				
 
@@ -143,23 +144,21 @@
 				<br>
 				<div>
 					<table width="100%" border="solid" style="text-align:center;font-size:12px; ">
-						<thead>
+						 
 							<tr style="border-width: 5px;">
-								<th rowspan="3">No<br>စဥ္</th>
-								<th rowspan="3" >Name<br>အမည္</th>
-								<th rowspan="3" >NRC<br>ႏိုင္ငံသားမွတ္ပံုတင္အမွတ္</th>
-								<th rowspan="3">Loan ID<br>ေခ်းေငြ အမွတ္</th>
-								<th rowspan="3">Disbursement <br>Amount<br>ေခ်းေငြပမာဏ</th>
+								<th>No<br>စဥ္</th>
+								<th >Name<br>အမည္</th>
+								<th >NRC<br>ႏိုင္ငံသားမွတ္ပံုတင္အမွတ္</th>
+								<th>Loan ID<br>ေခ်းေငြ အမွတ္</th>
+								<th>Disbursement <br>Amount<br>ေခ်းေငြပမာဏ</th>
 								<?php foreach($services as $service){ ?>
-								<th rowspan="3"><?= $service->description?></th> 
+								<th><?= $service->description?></th> 
 								<?php } ?>
-								<th rowspan="3">Compulsory <br>Saving 5%<br>မျဖစ္မေန စုေဆာင္းရမည့္ေငြ ၅%</th>	
-								<th rowspan="3">Received <br>Amount<br>လက္ခံရရွိမည့္ေငြပမာဏ</th>
-								<th rowspan="3">Clients Signature<br>လက္မွတ္</th>
+								<th>Compulsory <br>Saving 5%<br>မျဖစ္မေန စုေဆာင္းရမည့္ေငြ ၅%</th>	
+								<th>Received <br>Amount<br>လက္ခံရရွိမည့္ေငြပမာဏ</th>
+								<th>Clients Signature<br>လက္မွတ္</th>
 							</tr>
-						</thead>
-						
-						<tbody>
+						 
 							<?php 
 							$i = 1; 
 								foreach($grouploans as $grouploan){
@@ -203,7 +202,7 @@
 									<td><?= $saving ?></td>
 									<td> <?= $this->erp->roundUpMoney($disburse_amount, $saleiterm->currency_code) ?>  </td>
 									<td>   </td>
-									<td></td>
+									 
 								</tr>
 							<?php
 								
@@ -211,7 +210,7 @@
 								}
 								 
 							?>
-						</tbody>
+						 
 					</table>
 				</div>
 				<div style="width:100%;text-align:center;">
