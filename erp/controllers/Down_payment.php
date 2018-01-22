@@ -934,17 +934,9 @@ class Down_Payment extends MY_Controller
 		$guarantor = anchor('Installment_payment/guarantor_contract/$1', '<i class="fa fa-file-text-o"></i> ' . lang('guarantor_contract'),'target="_blank"');
 		$group_agreement = anchor('Installment_payment/group_agreement/$1/$3', '<i class="fa fa-file-text-o"></i> ' . lang('group_agreement'),'target="_blank"');
 		$received = anchor('Installment_payment/Received_loans/$1', '<i class="fa fa-file-text-o"></i> ' . lang('received_loan_form'),'target="_blank"');
-		//$payment_schedule_loan = anchor('Installment_Payment/export_loan/0/1/$1', '<i class="fa fa-file-pdf-o"></i> ' . lang('loan_payment_schedule'));
 		$add_payment_link = anchor('sales/add_payment/$1', '<i class="fa fa-money"></i> ' . lang('add_payment'), 'data-toggle="modal" data-target="#myModal"');
         $add_delivery_link = anchor('sales/add_delivery/$1', '<i class="fa fa-truck"></i> ' . lang('add_delivery'), 'data-toggle="modal" data-target="#myModal"');
-        //$email_link = anchor('sales/email/$1', '<i class="fa fa-envelope"></i> ' . lang('email_sale'), 'data-toggle="modal" data-target="#myModal"');
         $edit_link = anchor('sales/edit/$1', '<i class="fa fa-edit"></i> ' . lang('edit_sale'), 'class="sledit"');
-        //$pdf_link = anchor('sales/pdf/$1', '<i class="fa fa-file-pdf-o"></i> ' . lang('download_pdf'));
-        //$guarantor_annex = anchor('down_payment/guarantor_annex/$1', '<i class="fa fa-file-pdf-o"></i> ' . lang('guarantor_annex'),'target="_blank"');
-        //$guarantor_form = anchor('down_payment/guarantor_form/$1', '<i class="fa fa-file-pdf-o"></i> ' . lang('guarantor_form'),'target="_blank"');
-        //$leasing_contract = anchor('down_payment/leasing_contract/$1', '<i class="fa fa-file-pdf-o"></i> ' . lang('leasing_contract'),'target="_blank"');
-        //$pdf_link = anchor('sales/certify_latter/$1', '<i class="fa fa-file-pdf-o"></i> ' . lang('Certify_Letter'),'target="_blank"');
-        //$email_link = anchor('sales/anex_contract/$1', '<i class="fa fa-file-pdf-o"></i> ' . lang('Anex_contract'),'target="_blank"');
         $return_link = anchor('sales/return_sale/$1', '<i class="fa fa-angle-double-left"></i> ' . lang('return_sale'));
         $add_customer_deposit = anchor('down_payment/add_deposit/$2', '<i class="fa fa-file-text-o"></i> ' . lang('add_customer_deposit'), 'data-toggle="modal" data-target="#myModal"');
 		$list_customer_deposit = anchor('customers/deposits/$2', '<i class="fa fa-file-text-o"></i> ' . lang('list_customer_deposit'), 'data-toggle="modal" data-target="#myModal"');
@@ -969,7 +961,7 @@ class Down_Payment extends MY_Controller
 			<li class="group_a">' . $group_agreement . '</li>
 			<li class="mc">' . $received . '</li>
 			<!--<li class="ps">' . $add_customer_deposit . '</li>-->
-			<li class="ps">' . $list_customer_deposit . '</li>-->
+			<!--<li class="ps">' . $list_customer_deposit . '</li>-->
 			<!--<li class="dl">' . $delete_link . '</li>-->
         </ul>
 		</div></div>';

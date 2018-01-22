@@ -65,7 +65,7 @@
         <div class="modal-body">
 			<div class="row">
 				<div class="container">
-					 <div style=" height:80px; padding-left:15px;font-size:12px;line-height:18px;">
+					 <div style=" height:100px; padding-left:15px;font-size:12px;line-height:18px;">
 						<table width="100%">
 							<tr>
 								<td style="width:28%;">အေကာင့္နံပါတ္ (Account Number)</td>
@@ -126,7 +126,7 @@
 					</div>
 					
 					<div>
-						<p style="padding:15px 0px 0px 10px;font-size:15px;">လူၾကီးမင္း၏ စုေဆာင္းေငြနဲ ့ ပက္သတ္ေသာ အေသးစိတ္အေၾကာင္းအရာမ်ားအတြက္ ကုမၸဏီ၏ Hot Line :               ၊ ဖုန္းနံပါတ္ :                      ၊ Phone : 09402050440                            သို ့ ရံုးခ်ိန္အတြင္း ဆက္သြယ္ေမးျမန္းနိုင္ပါသည္။ </p>
+						<p style="padding:15px 0px 0px 10px;font-size:15px;">လူၾကီးမင္း၏ စုေဆာင္းေငြနဲ ့ ပက္သတ္ေသာ အေသးစိတ္အေၾကာင္းအရာမ်ားအတြက္ ကုမၸဏီ၏ Hot Line :               ၊ ဖုန္းနံပါတ္ :                      09402050440                            သို ့ ရံုးခ်ိန္အတြင္း ဆက္သြယ္ေမးျမန္းနိုင္ပါသည္။ </p>
 					</div>
 				</div>
 			</div>

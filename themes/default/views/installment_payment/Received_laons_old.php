@@ -106,7 +106,7 @@
 							<td style="width: 10%;padding-bottom: 8px; " class="thb">
 								ေခ်းေငြကာလ<br>(Loan term)
 							</td>
-							<td style="width: 45%;padding-bottom: 8px; ">: <?= round($contract_info->terms) / 30 ?> လ
+							<td style="width: 45%;padding-bottom: 8px; ">: <?= round($contract_info->terms) ?>days
 							</td>
 						</tr>
 						<tr>
@@ -132,7 +132,7 @@
 					<div >
 						
 						<span style="font-size:13px;">
-							 ထုတ္ေခ်းေငြ၏ ၁% ကိုစီမံခန္႔ခြဲရန္ ၀န္ေဆာင္ခ အေနျဖင့္လည္းေကာင္း၊ ၁% ကို လူမွဳေထာက္ပ့ံေရး ရန္ပံုေငြ အျဖစ္လည္းေကာင္း ၊ ၅% ကို မျဖစ္မေန စုေဆာင္းေငြ အျဖစ္ လည္းေကာင္း ေကာက္ခံမည္ျဖစ္ပါသည္။ စုေငြအရင္းမ်ားကို လူၾကီးမင္းကုမၸဏီမွ ဆက္လက္ထုတ္ေခ်းရန္ စိတ္ဆႏၵမရွိေတာ့သည့္ အခ်ိန္တြင္ ျပန္လည္ထုတ္ေပးသြားမည္ျဖစ္သည္။
+							 ထုတ္ေခ်းေငြ၏ ၅,၀၀၀ က်ပ္ကိုစီမံခန္႔ခြဲရန္ ၀န္ေဆာင္ခ အေနျဖင့္လည္းေကာင္း၊ ၁% ကို လူမွဳေထာက္ပ့ံေရး ရန္ပံုေငြ အျဖစ္လည္းေကာင္း ၊ ၅% ကို မျဖစ္မေန စုေဆာင္းေငြ အျဖစ္ လည္းေကာင္း ေကာက္ခံမည္ျဖစ္ပါသည္။ စုေငြအရင္းမ်ားကို လူၾကီးမင္းကုမၸဏီမွ ဆက္လက္ထုတ္ေခ်းရန္ စိတ္ဆႏၵမရွိေတာ့သည့္ အခ်ိန္တြင္ ျပန္လည္ထုတ္ေပးသြားမည္ျဖစ္သည္။
 						</span>
 						<br>
 						<br> 
@@ -154,7 +154,7 @@
 								<th rowspan="3"><?= $service->description?></th> 
 								<?php } ?>
 								<th rowspan="3">Compulsory <br>Saving 5%<br>မျဖစ္မေန စုေဆာင္းရမည့္ေငြ ၅%</th>	
-								<th rowspan="3">Received <br>Amount<br>လက္ခံရရွိမည့္ေငြပမာဏ</th>
+								<th rowspan="3">Receive <br>Amount<br>လက္ခံရရွိမည့္ေငြပမာဏ</th>
 								<th rowspan="3">Clients Signature<br>လက္မွတ္</th>
 							</tr>
 						</thead>
@@ -217,7 +217,7 @@
 				<div style="width:100%;text-align:center;">
 					
 					<div style="margin-left: 80%; float:left;font-weight: bold;font-size:12px; padding-top: 20px;">
-						<p>Teller(Payer/Receiver) :...............<br>ေငြကိုင္</p>
+						<p>Cashier (Payer/Receiver) :...............<br>ေငြကိုင္</p>
 						
 					</div>				
 				</div>

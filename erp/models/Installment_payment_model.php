@@ -3465,8 +3465,7 @@ class Installment_Payment_model extends CI_Model
 	public function getgroupLoans($group_id = NULL) {
 		$this->db->select('sales.id as sale_id, CONCAT(erp_companies.family_name_other," ",erp_companies.name_other) AS customer_name,sales.reference_no, sales.total, sales.grand_total,companies.gov_id, sales.sales_id');
 		$this->db->join('companies','companies.id=sales.customer_id','LEFT');
-		$this->db->where('sales.loan_group_id',$group_id);
-		$this->db->where('sales.sale_status','activated');
+		$this->db->where('sales.loan_group_id',$group_id); 
 		$q = $this->db->get('sales');		
 		if($q->num_rows() > 0) {
 			foreach (($q->result()) as $row) {
