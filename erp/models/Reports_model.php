@@ -3048,6 +3048,7 @@ ORDER BY
 		return FALSE;
 		
 	}
+	
 	public function getGruopLoan($id){
         $q = $this->db->get_where('loan_groups', array('id' => $id), 1);
         if ($q->num_rows() > 0) {
