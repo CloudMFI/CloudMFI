@@ -81,7 +81,7 @@
 								<td style="width:28%;">အေကာင့္နံပါတ္ (Account Number)</td>
 								<td>: <?= $sales->reference_no ?></td>
 								<td style="width:28%;">ေငြထုတ္ေပးသည့္ ရက္စြဲဲြ (Disbursement Date)</td>
-								<td>:<?= $this->erp->hrsd($sales->date) ?></td>
+								<td>:<?= $this->erp->hrsd($disbursement_info->date) ?></td>
 							</tr>
 							<tr>
 								<td style="width:28%;">အမည္ (Name)</td>

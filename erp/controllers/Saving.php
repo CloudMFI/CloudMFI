@@ -1400,17 +1400,20 @@ class Saving extends MY_Controller
 	
 	function saving_list($sale_id)
     {
-		$this->load->model('saving_model');  
+		$this->load->model('saving_model');
+		$this->load->model('installment_payment_model');  		
 		$this->data['settings'] = $this->saving_model->get_setting();
 		$sales  = $this->saving_model->getSaleById($sale_id);		
 		$customer_id = $sales->customer_id;
 		$created_by = $sales->by_co;
+		//$this->erp->print_arrays($sales);
 		$this->data['sales'] = $sales;
 		$this->data['sale_iterm'] =$this->saving_model->getSaleItemBysaleID($sales->sales_id);
 		$this->data['saving_iterm'] =$this->saving_model->getSaleItemBysaleID($sale_id);
 		$this->data['customer'] = $this->saving_model->getMfiCustomer($customer_id);
 		$this->data['by_co'] = $this->saving_model->getMfiCreator($created_by);
-		$this->data['savings'] = $this->saving_model->getsavingBySaleId($sales->sales_id); 
+		$this->data['savings'] = $this->saving_model->getsavingBySaleId($sales->sales_id);
+		$this->data['disbursement_info'] = $this->installment_payment_model->getDisbursementInfo($sales->sales_id);
 		$this->data['modal_js'] = $this->site->modal_js();
 		$this->load->view($this->theme.'saving/saving_list',$this->data);	 
 		 
