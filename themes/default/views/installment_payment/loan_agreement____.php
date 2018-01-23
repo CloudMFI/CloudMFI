@@ -93,7 +93,7 @@
 			<table width="100%">
 				<tr>
 					<td style="width:18%;">ေငြထုတ္ေပးသည့္ ရက္စြဲ<br>(Disbursement Date)</td>
-					<td style="width:15%;vertical-align: top;">:<b><?= $this->erp->hrsd($disbursement_info->date); ?></b></td>
+					<td style="width:15%;vertical-align: top;">:<b><?= $this->erp->hrsd($contract_info->date); ?></b></td>
 					<td style="width:13%">ေခ်းေငြကာလ<br>(Loan term)</td>
 					<?php
 					$term_month =  floor($contract_info->terms/30);
@@ -224,11 +224,11 @@
 					<?php 
 					$i = 1;
 					foreach($group_loan as $group){?>
-					<div class="col-md-3 col-sm-3 col-xs-3" style="display: inline;padding-left:50px;">
+					<div class="col-md-3" style="display: inline;padding-left:50px;">
 						
 						<div style="width: 100px;height: 110px;border:2px solid black;">
 						</div><br>
-						<div style="line-height: 0px;">
+						<div style="">
 							<?php echo $i?> <?= $group->customer_name?>
 						</div><br>
 						<div class="row" style=""><label>Amount:</label><?= $this->erp->formatMoney($this->erp->convertCurrency($sale_item->currency_code, $setting->default_currency, $group->total)) ; ?>
